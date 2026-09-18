@@ -15,6 +15,8 @@
 #
 # Tests are not scoped that way: the whole suite runs, and all of it must pass.
 # It needs no API key and no services -- a clone can run it as-is.
+# Initial commits are compared with Git's empty tree: all Python files are
+# checked without requiring a nonexistent parent commit.
 
 name: CI
 
@@ -42,9 +44,16 @@ jobs:
 
       - name: Collect changed Python files
         id: changed
+        shell: bash
         run: |
           base="${{ github.event.pull_request.base.sha || 'HEAD~1' }}"
-          files="$(git diff --name-only --diff-filter=ACMR "$base"...HEAD -- '*.py' | tr '\n' ' ')"
+          if [[ "$base" == "HEAD~1" ]] && ! git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+            base="$(git hash-object -t tree -w --stdin </dev/null)"
+          else
+            base="$(git merge-base "$base" HEAD)"
+          fi
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          files="$(git diff --name-only --diff-filter=ACMR "$base" HEAD -- '*.py' | tr '\n' ' ')"
           echo "files=$files" >> "$GITHUB_OUTPUT"
           echo "changed: ${files:-<none>}"
 
@@ -71,9 +80,16 @@ jobs:
 
       - name: Collect changed Python files under src/
         id: changed
+        shell: bash
         run: |
           base="${{ github.event.pull_request.base.sha || 'HEAD~1' }}"
-          files="$(git diff --name-only --diff-filter=ACMR "$base"...HEAD -- 'src/**/*.py' | tr '\n' ' ')"
+          if [[ "$base" == "HEAD~1" ]] && ! git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+            base="$(git hash-object -t tree -w --stdin </dev/null)"
+          else
+            base="$(git merge-base "$base" HEAD)"
+          fi
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          files="$(git diff --name-only --diff-filter=ACMR "$base" HEAD -- 'src/**/*.py' | tr '\n' ' ')"
           echo "files=$files" >> "$GITHUB_OUTPUT"
           echo "changed: ${files:-<none>}"
 
@@ -88,7 +104,7 @@ jobs:
       - name: pyright, on the merge base
         if: steps.changed.outputs.files != ''
         run: |
-          base="${{ github.event.pull_request.base.sha || 'HEAD~1' }}"
+          base="${{ steps.changed.outputs.base }}"
           # Added files have no baseline. Do not check their head contents in
           # both reports, which would incorrectly cancel out every new error.
           base_files=()

@@ -12,19 +12,22 @@ import yaml
 ROOT = Path(__file__).resolve().parents[2]
 
 
-@pytest.mark.parametrize("has_existing_file", [False, True])
-def test_added_file_errors_are_never_subtracted_as_baseline(tmp_path, has_existing_file):
+@pytest.mark.parametrize(("has_parent", "has_existing_file"), [(False, False), (True, False), (True, True)])
+def test_added_file_errors_are_never_subtracted_as_baseline(tmp_path, has_parent, has_existing_file):
     def run(*args, **kwargs):
         return subprocess.run(args, cwd=tmp_path, text=True, capture_output=True, check=True, **kwargs)
 
     run("git", "init", "-q")
-    (tmp_path / "README").write_text("baseline")
-    if has_existing_file:
-        (tmp_path / "existing.py").write_text("OLD_ERROR")
-    run("git", "add", ".")
     identity = ("git", "-c", "user.name=Test", "-c", "user.email=test@example.invalid")
-    run(*identity, "commit", "-qm", "baseline")
-    base = run("git", "rev-parse", "HEAD").stdout.strip()
+    if has_parent:
+        (tmp_path / "README").write_text("baseline")
+        if has_existing_file:
+            (tmp_path / "existing.py").write_text("OLD_ERROR")
+        run("git", "add", ".")
+        run(*identity, "commit", "-qm", "baseline")
+        base = run("git", "rev-parse", "HEAD").stdout.strip()
+    else:
+        base = run("git", "hash-object", "-t", "tree", "-w", "--stdin", input="").stdout.strip()
     (tmp_path / "added.py").write_text("NEW_ERROR")
     run("git", "add", ".")
     run(*identity, "commit", "-qm", "head")
@@ -49,7 +52,7 @@ def test_added_file_errors_are_never_subtracted_as_baseline(tmp_path, has_existi
 
     workflow = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
     step = next(s for s in workflow["jobs"]["types"]["steps"] if s.get("name") == "pyright, on the merge base")
-    script = step["run"].replace("${{ github.event.pull_request.base.sha || 'HEAD~1' }}", base)
+    script = step["run"].replace("${{ steps.changed.outputs.base }}", base)
     script = script.replace("${{ steps.changed.outputs.files }}", " ".join(files))
     run("bash", "-eu", "-c", script, env={**os.environ, "PATH": f"{bin_dir}:{os.environ['PATH']}"})
 
