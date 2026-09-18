@@ -1,0 +1,6 @@
+# Contents are intentionally not tracked — only this .gitignore and README.md
+# are committed. The directory is empty unless skills are copied in; sync_skills
+# then returns an empty `files` list, which is a no-op rather than an error.
+*
+!.gitignore
+!README.md

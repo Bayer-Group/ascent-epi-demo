@@ -1,0 +1,194 @@
+version: 1.3.12
+cache: true
+
+# LibreChat blocks MCP targets that resolve to private IPs unless an allowlist
+# is set -- an SSRF guard. Every service here is on the compose network, so
+# without this both servers fail to initialise and the agent gets 0 tools.
+mcpSettings:
+  allowedDomains:
+    - "http://backend:8000"
+
+mcpServers:
+  # Both servers are mounted by the `backend` container in this stack, so they
+  # are reached over the compose network -- no bearer token, because the demo
+  # leaves API_AUTH_TOKEN unset.
+  #
+  # The name is kept short deliberately. Tool names are capped at 64 chars and
+  # LibreChat namespaces them as {tool}_mcp_{serverName}; the longest tool here
+  # is generate_epidemiological_sql_with_entities_omop at 47, plus "_mcp_",
+  # which leaves 12 characters. "ascent-mcp" is 10, for 62 of 64.
+  #
+  # This label is what a user sees on the MCP badge and in tool-call lines.
+  ascent-mcp:
+    type: http
+    url: http://backend:8000/mcp/ascent-mcp-v1/
+    # Empty locally (the backend leaves API_AUTH_TOKEN unset, so it accepts
+    # anything); required once deployed, where the same token also gates
+    # external MCP clients. Sending it always keeps the two paths identical.
+    headers:
+      Authorization: "Bearer ${ASCENT_MCP_TOKEN}"
+    # The backend advertises OAuth discovery endpoints, which would push
+    # LibreChat into per-user OAuth mode against a server that is not asking for
+    # credentials. Forcing this off keeps the demo a single-operator stack.
+    requiresOAuth: false
+    timeout: 600000          # cohort SQL + attrition are genuinely slow
+    initTimeout: 60000
+    sseReadTimeout: 600000
+endpoints:
+  agents:
+    # This list REPLACES LibreChat's defaults rather than adding to them, so it
+    # has to restate everything wanted. It is defaultAgentCapabilities minus
+    # two: `file_search` needs the RAG API and pgvector, `execute_code` needs a
+    # paid Code Interpreter key -- both render buttons that fail when clicked.
+    # Dropping `skills` here is what hides the skills UI entirely.
+    capabilities:
+      - artifacts
+      - tools
+      - actions
+      - skills
+      - context
+      - chain
+      - ocr
+      - web_search
+      - subagents
+      - deferred_tools
+    recursionLimit: 50
+
+memory:
+  personalize: true
+
+# Pin both badges to the prompt bar. Without this the skills badge is not
+# rendered at all -- LibreChat only draws a tool badge when it is pinned, and
+# `mcp` is pinned by default while `skills` is not. Enabling skills in the
+# spec is not enough on its own: it takes effect server-side, so the demo runs
+# with skills active and shows the user nothing that says so.
+interface:
+  defaultPinnedTools:
+    - mcp
+    - skills
+
+  # Consent notice, shown before the chat is usable. `modalAcceptance` is a
+  # stock LibreChat feature. The wording is specific to this demo: the data is
+  # synthetic, and nothing said in this chat is clinical evidence.
+  #
+  # Shown on every page load rather than once per account, which needs
+  # terms-notice.patch: upstream records acceptance against the user and never
+  # asks again.
+  termsOfService:
+    modalAcceptance: true
+    modalTitle: "Before you start"
+    modalContent: |
+      ## This is a demonstration over synthetic data
+
+      Every patient, diagnosis and prescription in this environment is
+      **generated**. No real person is represented. The vocabularies are not
+      real coding systems -- the codes do not correspond to ICD-10, SNOMED or
+      RxNorm, and results cannot be compared with published figures drawn from
+      real populations.
+
+      **Nothing produced here is a clinical, scientific or regulatory finding**,
+      and it must not be used to support a decision about real patients,
+      studies or products.
+
+      ## What you should not enter
+
+      Do not paste patient data, personal data, or anything confidential or
+      licensed into this chat. Conversations are stored in this environment and
+      are visible to the people running the demo.
+
+      ## Literature results
+
+      The literature tools search the public web. Those results describe real
+      published evidence and are not synthetic -- keep them clearly apart from
+      the figures the tools query out of the demo warehouse.
+
+      ## Check the answers
+
+      Language model output always looks convincing and can easily be wrong or
+      incomplete. Treat what you get here as a starting point, and check the
+      SQL and the sources behind any figure before you rely on it.
+
+      If you reuse anything from this demo elsewhere, say that it was generated
+      by an AI tool and that the underlying patient data is synthetic.
+
+# A system prompt for the plain-model chat.
+#
+# Selecting the model directly rather than the ASCENT agent gives a chat with
+# the tools attached but no instructions -- nothing telling it to use them, and
+# nothing stopping it answering a medical question from memory. On a demo over
+# synthetic patient data that is the failure that matters: a confident answer
+# that never touched the warehouse.
+#
+# A modelSpec is the only way to attach a system prompt to a non-agent chat.
+# `mcpServers` and `skills` are set here too because a spec takes over from the
+# badge defaults -- with a spec active the client applies the spec's values
+# instead, and `skills` is honoured server-side in agents/load.ts.
+modelSpecs:
+  enforce: false
+  prioritize: true
+  list:
+    - name: ascent-epi
+      label: ASCENT
+      default: true
+      description: Epidemiological questions over synthetic real-world health data.
+      mcpServers: ["ascent-mcp"]
+      skills: true
+      preset:
+        endpoint: google
+        model: gemini-3.7-flash
+        promptPrefix: |
+          You are an epidemiology and medical-research assistant. You answer by
+          calling the ASCENT tools — never from your own memory.
+
+          You have two kinds of source, and both are legitimate:
+
+          1. The synthetic patient data in this deployment, queried with SQL:
+             - SYNTHETIC_EHR_OMOP / CDM — OMOP CDM 5.4, standardised concepts.
+             - SYNTHETIC_CLAIMS / DATA_202601 — the same patients as a raw
+               claims feed: string codes, several date formats, no concept ids.
+          2. Published evidence, via get_contextual_literature and
+             compare_rwd_with_literature, which search the web. Questions about
+             real-world prevalence, published figures and how this cohort
+             compares to them are in scope — answer them with those tools.
+
+          Rules:
+
+          - Use a tool, then answer from what it returned. The limit is on
+            answering from memory, not on the subject matter.
+          - For a figure from the data, show the SQL you ran and the row count.
+            A number without its query is not an answer.
+          - For a published figure, cite the source the tool returned.
+          - If a query returns zero rows, say so and investigate. Do not present
+            it as a finding of zero prevalence.
+          - Decline only what is genuinely outside epidemiology and medical
+            research — and say plainly that it is out of scope rather than
+            answering from general knowledge. Individual medical advice is out
+            of scope.
+          - The patient data is synthetic and its vocabularies are not real
+            coding systems, so never present a result from it as a real
+            clinical finding. Published figures are real; keep the two clearly
+            apart, which is the point of comparing them.
+
+# Per-user spend cap, the same for everyone.
+#
+# The message rate limits in docker-compose.yml bound how *often* someone asks;
+# they say nothing about what an answer costs, and one cohort-generation run
+# outspends forty short questions. This is the only per-user allowance
+# LibreChat has -- its message limiters are global, with no role or tier
+# dimension.
+#
+# 1000 tokenCredits = $0.001, so 2,000,000 is a ceiling of $2 per user per
+# week. Refilled weekly, sized for an audience that visits occasionally rather
+# than someone working in the tool all day. Refill matters: without it the
+# first person to exhaust their credits is locked out for the life of the demo
+# and has to be topped up by hand.
+#
+# Set here rather than via CHECK_BALANCE / START_BALANCE, which LibreChat now
+# logs as deprecated on startup and which cannot express refill at all.
+balance:
+  enabled: true
+  startBalance: 2000000
+  autoRefillEnabled: true
+  refillIntervalValue: 1
+  refillIntervalUnit: weeks
+  refillAmount: 2000000

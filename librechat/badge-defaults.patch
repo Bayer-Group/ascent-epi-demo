@@ -1,0 +1,71 @@
+diff --git a/client/src/Providers/BadgeRowContext.tsx b/client/src/Providers/BadgeRowContext.tsx
+index 17e8f3b..321caa7 100644
+--- a/client/src/Providers/BadgeRowContext.tsx
++++ b/client/src/Providers/BadgeRowContext.tsx
+@@ -272,6 +272,66 @@ export default function BadgeRowProvider({
+ 
+   const mcpServerManager = useMCPServerManager({ conversationId, storageContextKey });
+ 
++  /**
++   * ASCENT demo default: start with the skills capability on and every
++   * configured MCP server selected.
++   *
++   * Upstream opens with both off, so a first-time user gets an agent with no
++   * tools and nothing to suggest that two badges stand between them and the
++   * point of the demo. This runs after `useMCPServerManager` because the value
++   * being defaulted is a list of server names -- `startupConfig` carries no
++   * MCP entries at all, so reading it here would enable nothing.
++   *
++   * Gated on the server query having resolved: until then `selectableServers`
++   * is legitimately empty, and defaulting to an empty selection would burn the
++   * one-shot and leave the toggle off for good.
++   *
++   * "Nothing stored" counts an empty array as nothing, matching how the
++   * initialization effect above reads the same key. The trade-off is that
++   * deselecting every server does not survive a reload -- deliberate for a
++   * demo, where arriving with no tools is the worse failure.
++   */
++  const ascentDefaultsAppliedRef = useRef<string | null>(null);
++  useEffect(() => {
++    if (mcpServerManager.isLoading) {
++      return;
++    }
++    const servers = mcpServerManager.selectableServers;
++    if (servers.length === 0) {
++      return;
++    }
++    if (ascentDefaultsAppliedRef.current === storageSuffix) {
++      return;
++    }
++    ascentDefaultsAppliedRef.current = storageSuffix;
++
++    /** Skills is defaulted even under a model spec. A spec can carry
++     *  `skills: true`, but that is applied server-side only -- the badge still
++     *  renders off, so the demo runs with skills active while telling the user
++     *  they are not. The MCP half below stays spec-gated, because a spec does
++     *  supply its own server list to the client. */
++    const skillsKey = `${LocalStorageKeys.LAST_SKILLS_TOGGLE_}${storageSuffix}`;
++    if (getTimestampedValue(skillsKey) === null) {
++      skills.setToggleState(true);
++    }
++
++    if (specName) {
++      return;
++    }
++
++    const mcpKey = `${LocalStorageKeys.LAST_MCP_}${storageSuffix}`;
++    let stored: unknown = null;
++    try {
++      const raw = localStorage.getItem(mcpKey);
++      stored = raw === null ? null : JSON.parse(raw);
++    } catch {
++      stored = null;
++    }
++    if (!Array.isArray(stored) || stored.length === 0) {
++      mcpServerManager.setMCPValues(servers.map((server) => server.serverName));
++    }
++  }, [specName, storageSuffix, skills, mcpServerManager]);
++
+   const value: BadgeRowContextType = {
+     skills,
+     memory,

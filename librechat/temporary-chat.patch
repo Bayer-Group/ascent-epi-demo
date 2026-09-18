@@ -1,0 +1,95 @@
+diff --git a/client/src/components/Nav/Settings/registry.tsx b/client/src/components/Nav/Settings/registry.tsx
+index 2c08d8f..c8f6ad3 100644
+--- a/client/src/components/Nav/Settings/registry.tsx
++++ b/client/src/components/Nav/Settings/registry.tsx
+@@ -369,18 +369,6 @@ export const registry: SettingEntry[] = [
+       switchId: 'modularChat',
+     }),
+   },
+-  {
+-    id: 'defaultTemporaryChat',
+-    tab: CHAT,
+-    section: 'conversations',
+-    labelKey: 'com_nav_default_temporary_chat',
+-    Component: toggleControl({
+-      stateAtom: store.defaultTemporaryChat,
+-      localizationKey: 'com_nav_default_temporary_chat',
+-      switchId: 'defaultTemporaryChat',
+-      hoverCardText: 'com_nav_info_default_temporary_chat',
+-    }),
+-  },
+   {
+     id: 'forkSettings',
+     tab: CHAT,
+diff --git a/client/src/hooks/Chat/useTemporaryChat.ts b/client/src/hooks/Chat/useTemporaryChat.ts
+index b5ff73a..822db83 100644
+--- a/client/src/hooks/Chat/useTemporaryChat.ts
++++ b/client/src/hooks/Chat/useTemporaryChat.ts
+@@ -1,6 +1,5 @@
+ import { useCallback } from 'react';
+-import { Constants } from 'librechat-data-provider';
+-import { useRecoilState, useRecoilValue } from 'recoil';
++import { useRecoilState } from 'recoil';
+ 
+ import store from '~/store';
+ 
+@@ -13,19 +12,18 @@ export type UseTemporaryChatResult = {
+ 
+ export default function useTemporaryChat(): UseTemporaryChatResult {
+   const [isTemporary, setIsTemporary] = useRecoilState(store.isTemporary);
+-  const conversation = useRecoilValue(store.conversationByIndex(0));
+-  const isSubmitting = useRecoilValue(store.isSubmittingFamily(0));
+ 
++  /** ASCENT: inert. Temporary chat is forced on for this deployment, so there
++   *  is nothing to toggle -- see store/temporary. Kept rather than removed so
++   *  the hook's shape still matches its consumers. */
+   const toggle = useCallback(() => {
+-    setIsTemporary((previous) => !previous);
++    setIsTemporary(true);
+   }, [setIsTemporary]);
+ 
+-  const conversationId = conversation?.conversationId;
+-  const hasStarted = conversationId != null && conversationId !== Constants.NEW_CONVO;
+-  const hasMessages = Array.isArray(conversation?.messages) && conversation.messages.length >= 1;
+-
+   return {
+-    show: !hasStarted && !hasMessages && !isSubmitting,
++    /** ASCENT: never offered. Every chat is temporary and the control would
++     *  only suggest otherwise. */
++    show: false,
+     isTemporary,
+     toggle,
+   };
+diff --git a/client/src/store/temporary.ts b/client/src/store/temporary.ts
+index 60f5626..4cee9e7 100644
+--- a/client/src/store/temporary.ts
++++ b/client/src/store/temporary.ts
+@@ -1,7 +1,25 @@
+-import { atomWithLocalStorage } from '~/store/utils';
++import { atom } from 'recoil';
+ 
+-const isTemporary = atomWithLocalStorage('isTemporary', false);
+-const defaultTemporaryChat = atomWithLocalStorage('defaultTemporaryChat', false);
++
++/**
++ * ASCENT: every conversation is temporary, and it cannot be turned off.
++ *
++ * A plain atom rather than atomWithLocalStorage on purpose. The stored value
++ * would win over the default, so anyone who had switched temporary chat off
++ * before this change would keep normal, persisted chats -- the one case the
++ * setting exists to prevent. With no persistence there is nothing to inherit
++ * and it is true on every load.
++ *
++ * The toggle that used to write here is hidden in hooks/Chat/useTemporaryChat.
++ */
++const isTemporary = atom<boolean>({ key: 'isTemporary', default: true });
++/**
++ * Forced true for the same reason, and it is not optional: ChatRoute copies
++ * this into `isTemporary` on entering a conversation, so leaving it false
++ * silently undid the atom above -- the toggle was gone, the default was true,
++ * and every chat was still saved.
++ */
++const defaultTemporaryChat = atom<boolean>({ key: 'defaultTemporaryChat', default: true });
+ 
+ export default {
+   isTemporary,

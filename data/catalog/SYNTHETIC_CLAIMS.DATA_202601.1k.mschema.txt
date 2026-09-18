@@ -1,0 +1,108 @@
+【DB_ID】 SYNTHETIC_CLAIMS
+【Schema】
+# Table: coverage
+[
+(member_id:VARCHAR, person-level key; joins PATIENT_MASTER.MEMBER_ID, Examples: [M100000497, M100001141, M100001435, M100002408, M100002877, M100004186]),
+(mrn:VARCHAR, site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people, Examples: [LSR0000071, LSR0000163, LSR0000205, LSR0000411, LSR0000598, RBM0000854]),
+(payer_cd:VARCHAR, payer code, Examples: [commercial, medicare, medicaid, self_pay]),
+(plan_cd:VARCHAR, benefit plan code, Examples: [COMM-PPO, MCR-AB, MCD-MC, SELF]),
+(eff_dt:DATE, date coverage became effective, Examples: [MIN: 2010-01-01, MAX: 2026-01-01]),
+(term_dt:DATE, date coverage terminated; populated on every row here, so it does not mark coverage as closed, Examples: [MIN: 2010-01-21, MAX: 2026-01-31]),
+]
+# Table: dx
+[
+(enc_id:VARCHAR, encounter this record belongs to; joins ENCOUNTER.ENC_ID),
+(mrn:VARCHAR, site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people, Examples: [LSR0000875, LSR0000476, LSR0000405, LSR0000209, LSR0000219, LSR0000664]),
+(dx_cd:VARCHAR, diagnosis code, written WITH the decimal point throughout this table, such as I10.9, Examples: [Q40.0, R01.0, Q30.0, R78.0, Q31.0, R72.0]),
+(dx_cd_type:VARCHAR, code system of DX_CD: DX10 and D10 are BOTH ICD-10 and DX9 is ICD-9, all three at every facility -- match all of them or you silently drop patients, Examples: [DX10, DX9, D10]),
+(dx_desc:VARCHAR, diagnosis description as free text, Examples: [Essential (primary) hypertension, Obesity, unspecified, Pure hypercholesterolemia, Prediabetes, Hypertensive heart disease without heart failure, Hypertension, unspecified]),
+(dx_dt:DATE, date the diagnosis was recorded, Examples: [MIN: 2001-01-04, MAX: 2091-10-26]),
+(primary_fl:VARCHAR, flag marking the primary diagnosis of the encounter, Examples: [N, Y]),
+(dx_seq:BIGINT, position of the diagnosis within the encounter, Examples: [1, 2, 3, 4]),
+(fac_cd:VARCHAR, facility that produced the record; joins FACILITY.FAC_CD, Examples: [LSR, NGH, RBM, SVO, PAC]),
+]
+# Table: encounter
+[
+(enc_id:VARCHAR, encounter key; DX, PROCEDURES, LAB_RESULTS, MED_ORDERS and SOCIAL_HX reference it),
+(mrn:VARCHAR, site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people, Examples: [LSR0000875, LSR0000476, LSR0000405, LSR0000209, LSR0000219, LSR0000664]),
+(enc_type_txt:VARCHAR, encounter type as free text, such as Inpatient or Emergency, Examples: [Office Visit, Outpatient Visit, Emergency Room Visit, Telehealth Visit, Inpatient Hospital Stay, Observation Stay]),
+(enc_type_cd:VARCHAR, encounter type code, Examples: [HOSP-102, HOSP-101, HOSP-104, HOSP-103, HOSP-105, HOSP-107]),
+(admit_dt:DATE, admission date; a handful of rows carry implausible future dates, seeded so the demo has dirty data to handle, Examples: [MIN: 2001-12-31, MAX: 2091-10-11]),
+(disch_dt:DATE, discharge date, Examples: [MIN: 2002-10-02, MAX: 2071-07-28]),
+(los_days:BIGINT, length of stay in days, Examples: [0, 1, 2, 3, 4, 5]),
+(dept_nm:VARCHAR, department name, Examples: [Lakeside Endocrinology Associates, Northgate Cardiology Clinic, Riverbend Family Practice, Summit Valley Oncology Institute, Pinehurst Ambulatory Care, Lakeside Regional Health]),
+(attending_id:VARCHAR, attending clinician identifier, Examples: [PRV0131, PRV0141, PRV0115, PRV0123, PRV0128, PRV0111]),
+(fac_cd:VARCHAR, facility that produced the record; joins FACILITY.FAC_CD, Examples: [LSR, NGH, RBM, SVO, PAC]),
+(total_charge_amt:VARCHAR, total amount charged for the encounter),
+]
+# Table: facility
+[
+(fac_cd:VARCHAR, facility key referenced by every clinical table, Examples: [LSR, NGH, PAC, RBM, SVO]),
+(fac_nm:VARCHAR, facility name, Examples: [Lakeside Regional Network, Northgate Health System, Pinehurst Ambulatory Partners, Riverbend Medical Group, Summit Valley Oncology]),
+(ehr_vendor:VARCHAR, EHR vendor the facility runs, Examples: [Meridian EHR, CareStack, ClinicOne, OncoTrack]),
+(date_fmt:VARCHAR, date format of the vendor extract this facility supplied; the loaded date columns are already typed DATE, so do not parse them with it, Examples: [%Y-%m-%d, %d-%b-%Y, %m/%d/%Y, epoch]),
+(specialty:VARCHAR, primary specialty of the facility, Examples: [ambulatory_general, endocrine_renal, oncology, primary_care, tertiary_cardiac]),
+]
+# Table: lab_results
+[
+(enc_id:VARCHAR, encounter this record belongs to; joins ENCOUNTER.ENC_ID),
+(mrn:VARCHAR, site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people, Examples: [LSR0000875, LSR0000476, LSR0000771, LSR0000664, LSR0000082, LSR0000219]),
+(test_nm:VARCHAR, lab test name as free text, Examples: [Systolic blood pressure, Diastolic blood pressure, Body mass index (BMI), Creatinine, Cholesterol in LDL, Cholesterol in HDL]),
+(local_cd:VARCHAR, facility-local test code, Examples: [LC100706, LC100714, LC100722, LC100037, LC100110, LC100128]),
+(std_lab_cd:VARCHAR, standardised lab code, but NULL on about a quarter of rows and more at some facilities, so filtering on it alone drops results; fall back to LOCAL_CD or TEST_NM, Examples: [LX07108, LX07105, LX07111, LX07006, LX07027, LX07030]),
+(result_val:VARCHAR, result value; stored as text, cast before aggregating, Examples: [140, 139, 141, 138, 142, 137]),
+(result_unit:VARCHAR, unit of RESULT_VAL, Examples: [MG/DL, mg/dl, mg/dL, mm[hg], MM[HG], mm[Hg]]),
+(ref_range_txt:VARCHAR, reference range as free text, Examples: [90-120, 60-80, 18.5-24.9, 0.6-1.3, 0-100, 40-90]),
+(abnormal_fl:VARCHAR, flag marking an out-of-range result, Examples: [N, H, L]),
+(collect_dt:DATE, date the specimen was collected, Examples: [MIN: 2001-01-14, MAX: 2091-12-27]),
+(result_status:VARCHAR, status of the result, such as final or preliminary, Examples: [FINAL, ORDERED]),
+(fac_cd:VARCHAR, facility that produced the record; joins FACILITY.FAC_CD, Examples: [LSR, NGH, RBM, SVO, PAC]),
+]
+# Table: med_orders
+[
+(order_id:VARCHAR, medication order key),
+(enc_id:VARCHAR, encounter this record belongs to; joins ENCOUNTER.ENC_ID),
+(mrn:VARCHAR, site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people, Examples: [LSR0000771, NGH0000727, LSR0000875, NGH0000019, RBM0000178, LSR0000126]),
+(med_nm:VARCHAR, medication name as free text, Examples: [Lisinopril 10 MG Oral Tablet, Atorvastatin 40 MG Oral Tablet, Ibuprofen 600 MG Oral Tablet, Metoprolol Succinate 50 MG Extended Release Oral Tablet, Amlodipine 5 MG Oral Tablet, Hydrochlorothiazide 25 MG Oral Tablet]),
+(pkg_cd:VARCHAR, package code identifying the dispensed product, Examples: [99999-1001-30, 99999-1010-30, 99999-1060-30, 99999-1005-30, 99999-1002-30, 99999-1003-30]),
+(dose_txt:VARCHAR, dose as free text, Examples: [10 mg, 40 mg, 50 mg, 20 mg, 500 mg, 5 mg]),
+(route:VARCHAR, route of administration, Examples: [oral, inhalation, subcutaneous, intramuscular, intravenous]),
+(order_dt:DATE, date the medication was ordered, Examples: [MIN: 2001-02-25, MAX: 2081-02-02]),
+(end_dt:DATE, date the medication was stopped, Examples: [MIN: 2001-04-16, MAX: 2091-09-11]),
+(days_supply:BIGINT, days the order is expected to last, Examples: [30, 90, 10, 5, 7, 14]),
+(refills:BIGINT, number of refills authorised, Examples: [3, 2, 1, 0]),
+(fac_cd:VARCHAR, facility that produced the record; joins FACILITY.FAC_CD, Examples: [LSR, NGH, RBM, SVO, PAC]),
+]
+# Table: patient_master
+[
+(mrn:VARCHAR, site-local registration id; one person may be registered at several facilities, Examples: [LSR0000001, LSR0000003, LSR0000005, LSR0000008, LSR0000009, LSR0000010]),
+(member_id:VARCHAR, person-level key -- COUNT(DISTINCT MEMBER_ID) counts patients; carried only by PATIENT_MASTER and COVERAGE, every other table keys on MRN and must join here, Examples: [M100000070, M100000112, M100000119, M100000140, M100000245, M100000539]),
+(pat_nm:VARCHAR, patient name, Examples: [Ashley Hernandez, Joshua Thompson, Steven Gonzalez, Susan Smith, Anthony Clark, Elizabeth Miller]),
+(birth_dt:DATE, date of birth; use with a query date to derive age, Examples: [MIN: 1922-11-22, MAX: 2025-12-20]),
+(sex_cd:VARCHAR, sex code as recorded by the facility, Examples: [M, F]),
+(race_txt:VARCHAR, race as free text, Examples: [WHITE, UNK, BLACK, ASIAN, WHITE  , AI/AN]),
+(ethnicity_txt:VARCHAR, ethnicity as free text, Examples: [NOT HISPANIC, HISPANIC]),
+(deceased_fl:VARCHAR, flag marking the patient as deceased, Examples: [N, Y]),
+(death_dt:DATE, date of death; NULL when the patient is alive, Examples: [MIN: 2010-04-09, MAX: 2026-12-10]),
+(fac_cd:VARCHAR, facility that produced the record; joins FACILITY.FAC_CD, Examples: [NGH, RBM, LSR, PAC, SVO]),
+]
+# Table: procedures
+[
+(enc_id:VARCHAR, encounter this record belongs to; joins ENCOUNTER.ENC_ID, Examples: [E000024446, E000011704, E000012848, E000018363, E000018374, E000003445]),
+(mrn:VARCHAR, site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people, Examples: [LSR0000476, LSR0000875, LSR0000082, LSR0000771, LSR0000664, LSR0000209]),
+(proc_cd:VARCHAR, procedure code, written WITHOUT a decimal point, unlike DX.DX_CD, Examples: [END3001, IMG2001, IMG2007, MSK7001, REN5001, LAB8003]),
+(proc_desc:VARCHAR, procedure description as free text, Examples: [Esophagogastroduodenoscopy, Radiography of chest, Radiography of knee, Total knee replacement, Hemodialysis, Dilated retinal examination]),
+(proc_dt:DATE, date the procedure was performed, Examples: [MIN: 2001-05-15, MAX: 2091-10-28]),
+(fac_cd:VARCHAR, facility that produced the record; joins FACILITY.FAC_CD, Examples: [LSR, NGH, RBM, SVO, PAC]),
+]
+# Table: social_hx
+[
+(enc_id:VARCHAR, encounter this record belongs to; joins ENCOUNTER.ENC_ID, Examples: [E000002119, E000008390, E000000258, E000008823, E000009687, E000015219]),
+(mrn:VARCHAR, site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people, Examples: [LSR0000875, LSR0000545, LSR0000400, LSR0000219, LSR0000405, LSR0000652]),
+(obs_cd:VARCHAR, social-history observation code, Examples: [OBS-SMK, OBS-ETH, OBS-EMP, OBS-FHX, OBS-EDU, OBS-GA]),
+(obs_nm:VARCHAR, observation name, such as smoking status, Examples: [Tobacco smoking status, Alcohol intake, Employment status, Family history of clinical finding, Highest level of education, Gestational age at delivery]),
+(obs_val:VARCHAR, observation value as free text, Examples: [Occasional drinker, Never smoker, Employed, Never drinker, Former smoker, Current every day smoker]),
+(obs_num:VARCHAR, numeric form of the observation, populated on only a handful of rows -- read OBS_VAL instead, Examples: [38.6, 41, 29.7, 30.9, 31.7, 33.1]),
+(obs_dt:DATE, date the observation was recorded, Examples: [MIN: 2002-10-05, MAX: 2042-09-30]),
+(fac_cd:VARCHAR, facility that produced the record; joins FACILITY.FAC_CD, Examples: [LSR, NGH, RBM, PAC, SVO]),
+]

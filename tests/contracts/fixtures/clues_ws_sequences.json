@@ -1,0 +1,680 @@
+{
+  "disambiguate": [
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "answerability",
+      "status": "running",
+      "step": 1
+    },
+    {
+      "data_keys": [
+        "answerable"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "answerability",
+      "status": "done",
+      "step": 1
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "disambiguation",
+      "status": "running",
+      "step": 2
+    },
+    {
+      "data_keys": [
+        "primary_interpretation"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "disambiguation",
+      "status": "done",
+      "step": 2
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "interpretations",
+      "status": "running",
+      "step": 3
+    },
+    {
+      "data_keys": [
+        "num_interpretations"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "interpretations",
+      "status": "done",
+      "step": 3
+    },
+    {
+      "keys": [
+        "all_interpretations",
+        "alt_interpretations",
+        "answerable",
+        "primary_interpretation",
+        "rationale",
+        "type"
+      ]
+    }
+  ],
+  "disambiguate_invalid_start": [
+    {
+      "keys": [
+        "detail",
+        "message",
+        "step",
+        "type"
+      ],
+      "step": null
+    }
+  ],
+  "disambiguate_unanswerable": [
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "answerability",
+      "status": "running",
+      "step": 1
+    },
+    {
+      "data_keys": [
+        "answerable"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "answerability",
+      "status": "done",
+      "step": 1
+    },
+    {
+      "keys": [
+        "all_interpretations",
+        "alt_interpretations",
+        "answerable",
+        "primary_interpretation",
+        "rationale",
+        "type"
+      ]
+    }
+  ],
+  "execute": [
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "fill_templates",
+      "status": "running",
+      "step": 1
+    },
+    {
+      "data_keys": [
+        "num_filled"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "fill_templates",
+      "status": "done",
+      "step": 1
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "execute",
+      "status": "running",
+      "step": 2
+    },
+    {
+      "data_keys": [
+        "num_executed"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "execute",
+      "status": "done",
+      "step": 2
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "answers",
+      "status": "running",
+      "step": 3
+    },
+    {
+      "data_keys": [
+        "num_answers"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "answers",
+      "status": "done",
+      "step": 3
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "store_results",
+      "status": "running",
+      "step": 4
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "store_results",
+      "status": "done",
+      "step": 4
+    },
+    {
+      "keys": [
+        "all_answers",
+        "all_queries_filled",
+        "all_queries_template",
+        "primary_answer",
+        "search_descriptor_id",
+        "search_results",
+        "type"
+      ]
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "clues_metrics",
+      "status": "running",
+      "step": 5
+    },
+    {
+      "data_keys": [
+        "entropy"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "clues_metrics",
+      "status": "done",
+      "step": 5
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "combined_answer",
+      "status": "running",
+      "step": 6
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "combined_answer",
+      "status": "done",
+      "step": 6
+    },
+    {
+      "keys": [
+        "all_answers",
+        "all_queries_filled",
+        "all_queries_template",
+        "clues_metrics",
+        "combined_answer",
+        "primary_answer",
+        "search_descriptor_id",
+        "search_results",
+        "type"
+      ]
+    }
+  ],
+  "execute_no_token": [
+    {
+      "keys": [
+        "detail",
+        "message",
+        "step",
+        "type"
+      ],
+      "step": null
+    }
+  ],
+  "literature_invalid_start": [
+    {
+      "keys": [
+        "detail",
+        "message",
+        "step",
+        "type"
+      ],
+      "step": null
+    }
+  ],
+  "literature_two_phase": [
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "init_agent",
+      "status": "running",
+      "step": 1
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "init_agent",
+      "status": "done",
+      "step": 1
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "literature_search",
+      "status": "running",
+      "step": 2
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "literature_search",
+      "status": "done",
+      "step": 2
+    },
+    {
+      "keys": [
+        "google_search_answers",
+        "sources",
+        "type",
+        "verified_literature_results"
+      ]
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "waiting_for_main_answer",
+      "status": "running",
+      "step": 3
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "combined_analysis",
+      "status": "running",
+      "step": 3
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "combined_analysis",
+      "status": "done",
+      "step": 3
+    },
+    {
+      "keys": [
+        "final_answer",
+        "google_search_answers",
+        "sources",
+        "status",
+        "type",
+        "verified_literature_results"
+      ],
+      "status": "completed"
+    }
+  ],
+  "preview": [
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "explore_meanings",
+      "status": "running",
+      "step": 1
+    },
+    {
+      "data_keys": [
+        "num_silent_interpretations"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "explore_meanings",
+      "status": "done",
+      "step": 1
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "templates",
+      "status": "running",
+      "step": 2
+    },
+    {
+      "data_keys": [
+        "num_templates"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "templates",
+      "status": "done",
+      "step": 2
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "entities",
+      "status": "running",
+      "step": 3
+    },
+    {
+      "data_keys": [
+        "num_entities"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "entities",
+      "status": "done",
+      "step": 3
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "coding",
+      "status": "running",
+      "step": 4
+    },
+    {
+      "data_keys": [
+        "num_coded"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "coding",
+      "status": "done",
+      "step": 4
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "explanation",
+      "status": "running",
+      "step": 5
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "explanation",
+      "status": "done",
+      "step": 5
+    },
+    {
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "prepare_queries",
+      "status": "running",
+      "step": 6
+    },
+    {
+      "data_keys": [
+        "num_databases"
+      ],
+      "keys": [
+        "data",
+        "message",
+        "name",
+        "status",
+        "step",
+        "type"
+      ],
+      "name": "prepare_queries",
+      "status": "done",
+      "step": 6
+    },
+    {
+      "keys": [
+        "all_interpretations_for_clues",
+        "code_mappings",
+        "entities",
+        "explanation",
+        "flow_session_id",
+        "queries",
+        "query_filled",
+        "query_template",
+        "silent_interpretations",
+        "template_results_serialized",
+        "type"
+      ]
+    }
+  ],
+  "preview_no_token": [
+    {
+      "keys": [
+        "detail",
+        "message",
+        "step",
+        "type"
+      ],
+      "step": null
+    }
+  ]
+}

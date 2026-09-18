@@ -1,0 +1,142 @@
+{
+  "_comment": "Everything that makes the data a function of calendar time rather than a stationary process. Without this file the generator draws visit dates uniformly over the observation window, which produces flat monthly counts, a constant telehealth share and codes that appear before they were issued. Real longitudinal data has none of those properties, and the absence of them is what makes a synthetic extract unusable for testing time-series or seasonality logic.",
+
+  "seasonality_profiles": {
+    "_comment": "Monthly multipliers on event intensity, January first. Each profile is normalised to mean 1.0 by the loader, so a profile only changes *when* events happen, never how many.",
+
+    "none": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+
+    "winter_respiratory": [1.85, 1.70, 1.30, 0.90, 0.60, 0.45, 0.40, 0.45, 0.65, 1.00, 1.40, 1.75],
+
+    "asthma_exacerbation": [1.30, 1.15, 1.05, 1.10, 1.20, 0.80, 0.70, 0.85, 1.55, 1.45, 1.10, 1.05],
+
+    "cardiovascular_winter": [1.28, 1.20, 1.08, 0.95, 0.88, 0.82, 0.85, 0.85, 0.92, 1.02, 1.10, 1.25],
+
+    "summer_injury": [0.70, 0.72, 0.88, 1.05, 1.20, 1.35, 1.42, 1.38, 1.15, 0.95, 0.80, 0.72],
+
+    "allergy_spring": [0.55, 0.70, 1.35, 1.75, 1.80, 1.25, 0.85, 0.80, 1.10, 1.05, 0.60, 0.50],
+
+    "depression_winter": [1.22, 1.18, 1.05, 0.95, 0.88, 0.82, 0.80, 0.85, 0.98, 1.08, 1.10, 1.18],
+
+    "elective_year_end": [0.82, 0.85, 0.95, 0.98, 1.00, 1.02, 0.95, 1.02, 1.08, 1.12, 1.15, 1.30]
+  },
+
+  "visit_seasonality": {
+    "_comment": "Applied to routine/surveillance visits that are not driven by a specific condition. The December bump is deductible exhaustion: US patients who have met their out-of-pocket maximum schedule elective care before the plan year resets. The January trough is the mirror image.",
+    "outpatient": [0.88, 0.92, 1.02, 1.02, 1.03, 1.02, 0.94, 1.00, 1.05, 1.08, 1.02, 1.02],
+    "office": [0.88, 0.92, 1.02, 1.02, 1.03, 1.02, 0.94, 1.00, 1.05, 1.08, 1.02, 1.02],
+    "emergency": [1.14, 1.06, 1.00, 0.97, 0.99, 1.00, 1.02, 1.00, 0.96, 0.95, 0.95, 0.96],
+    "inpatient": [1.15, 1.10, 1.03, 0.96, 0.93, 0.90, 0.92, 0.92, 0.96, 1.00, 1.04, 1.09],
+    "telehealth": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
+    "icu": [1.15, 1.10, 1.03, 0.96, 0.93, 0.90, 0.92, 0.92, 0.96, 1.00, 1.04, 1.09],
+    "observation_stay": [1.10, 1.06, 1.02, 0.98, 0.96, 0.95, 0.96, 0.96, 0.98, 1.00, 1.01, 1.02],
+    "home_health": [1.05, 1.03, 1.00, 0.99, 0.98, 0.97, 0.98, 0.99, 1.00, 1.00, 1.00, 1.01]
+  },
+
+  "volume": {
+    "_comment": "Multiplier on overall encounter intensity by calendar year, interpolated linearly between anchor points. Captures three real forces: (a) a health system's EHR coverage grows as sites are onboarded, so early years are thinner; (b) COVID suppressed non-urgent care in 2020 then rebounded through deferred-care catch-up in 2021-22; (c) the final months of any extract are right-censored because claims and results have not finished settling. The trailing shelf is applied separately.",
+    "anchors": [
+      {"date": "2010-01-01", "multiplier": 0.55},
+      {"date": "2013-01-01", "multiplier": 0.72},
+      {"date": "2016-01-01", "multiplier": 0.88},
+      {"date": "2019-01-01", "multiplier": 1.00},
+      {"date": "2020-03-01", "multiplier": 1.00},
+      {"date": "2020-04-15", "multiplier": 0.52},
+      {"date": "2020-08-01", "multiplier": 0.83},
+      {"date": "2021-01-01", "multiplier": 0.95},
+      {"date": "2021-09-01", "multiplier": 1.09},
+      {"date": "2023-01-01", "multiplier": 1.12},
+      {"date": "2026-01-01", "multiplier": 1.18}
+    ],
+    "censoring": {
+      "_comment": "Records in the last N days before the extract date are progressively less likely to have landed: labs resulted late, claims still adjudicating, discharge summaries unsigned. A flat cliff at the end of an extract is one of the clearest tells that data is synthetic.",
+      "lag_days": 120,
+      "floor": 0.35
+    }
+  },
+
+  "visit_mix": {
+    "_comment": "Share of encounters by visit type at each anchor date, interpolated linearly. Shares are renormalised after interpolation, so they need not sum to exactly 1. Telehealth is the important one: essentially nonexistent before March 2020, a near-vertical spike when CMS relaxed originating-site rules, then a partial retreat to a new plateau far above baseline. Any tool tested on data with a constant telehealth share will silently fail on real post-2020 data.",
+    "anchors": [
+      {
+        "date": "2010-01-01",
+        "shares": {"office": 0.44, "outpatient": 0.33, "telehealth": 0.001, "emergency": 0.13, "inpatient": 0.055, "observation_stay": 0.025, "icu": 0.009, "home_health": 0.010}
+      },
+      {
+        "date": "2019-12-01",
+        "shares": {"office": 0.42, "outpatient": 0.33, "telehealth": 0.004, "emergency": 0.135, "inpatient": 0.052, "observation_stay": 0.030, "icu": 0.009, "home_health": 0.020}
+      },
+      {
+        "date": "2020-03-01",
+        "shares": {"office": 0.41, "outpatient": 0.32, "telehealth": 0.02, "emergency": 0.135, "inpatient": 0.052, "observation_stay": 0.030, "icu": 0.010, "home_health": 0.023}
+      },
+      {
+        "date": "2020-05-15",
+        "shares": {"office": 0.25, "outpatient": 0.22, "telehealth": 0.32, "emergency": 0.10, "inpatient": 0.048, "observation_stay": 0.022, "icu": 0.013, "home_health": 0.027}
+      },
+      {
+        "date": "2020-12-01",
+        "shares": {"office": 0.33, "outpatient": 0.28, "telehealth": 0.19, "emergency": 0.115, "inpatient": 0.050, "observation_stay": 0.024, "icu": 0.012, "home_health": 0.029}
+      },
+      {
+        "date": "2021-12-01",
+        "shares": {"office": 0.365, "outpatient": 0.305, "telehealth": 0.145, "emergency": 0.125, "inpatient": 0.050, "observation_stay": 0.026, "icu": 0.010, "home_health": 0.029}
+      },
+      {
+        "date": "2023-06-01",
+        "shares": {"office": 0.375, "outpatient": 0.315, "telehealth": 0.125, "emergency": 0.128, "inpatient": 0.049, "observation_stay": 0.027, "icu": 0.010, "home_health": 0.031}
+      },
+      {
+        "date": "2026-12-31",
+        "shares": {"office": 0.375, "outpatient": 0.315, "telehealth": 0.125, "emergency": 0.128, "inpatient": 0.049, "observation_stay": 0.027, "icu": 0.010, "home_health": 0.031}
+      }
+    ]
+  },
+
+  "vocabulary_windows": {
+    "_comment": "When each fictitious code family was issued and retired. A code emitted outside its window is an anachronism, and anachronisms are the single easiest way for a reviewer to prove a dataset is fabricated. DXCODE9 is the legacy classification retired at the 2015-10-01 cutover; DXCODE replaces it. Note the retirement is not a hard stop - see cutover_tail.",
+    "MEDLEX": {"valid_from": "2000-01-01", "valid_to": "2099-12-31"},
+    "PHARMLEX": {"valid_from": "2000-01-01", "valid_to": "2099-12-31"},
+    "LABLEX": {"valid_from": "2000-01-01", "valid_to": "2099-12-31"},
+    "DXCODE9": {"valid_from": "2000-01-01", "valid_to": "2015-09-30"},
+    "DXCODE": {"valid_from": "2015-10-01", "valid_to": "2099-12-31"},
+    "PXCODE": {"valid_from": "2000-01-01", "valid_to": "2099-12-31"},
+    "DRUGPKG": {"valid_from": "2000-01-01", "valid_to": "2099-12-31"},
+    "LABLOCAL": {"valid_from": "2000-01-01", "valid_to": "2099-12-31"},
+    "ENCTYPE": {"valid_from": "2000-01-01", "valid_to": "2099-12-31"}
+  },
+
+  "cutover": {
+    "_comment": "The DXCODE9 -> DXCODE transition. Real transitions are not instantaneous: a minority of sites keep submitting legacy codes for months afterwards through unconverted interfaces and back-dated encounters. tail_days is how long stragglers persist and tail_rate is the share of diagnoses still coded legacy immediately after cutover, decaying linearly to zero. This is a *deliberate* quirk, documented in KNOWN_QUIRKS.md.",
+    "date": "2015-10-01",
+    "tail_days": 240,
+    "tail_rate": 0.06
+  },
+
+  "pandemic": {
+    "_comment": "COVID-19 cannot exist before it existed. The generator hard-clamps every covid19 onset, test, vaccine and related code to this window - the clamp is applied *after* all date perturbation, not before, because an earlier version applied it first and a later 'surface censored onset during follow-up' step then re-drew the date uniformly from the coverage window and put COVID cases back into 2010.",
+    "emergence_date": "2020-03-01",
+    "waves": [
+      {"date": "2020-04-01", "intensity": 1.0},
+      {"date": "2020-07-15", "intensity": 0.75},
+      {"date": "2020-12-15", "intensity": 2.1},
+      {"date": "2021-04-01", "intensity": 0.55},
+      {"date": "2021-09-01", "intensity": 1.35},
+      {"date": "2022-01-15", "intensity": 3.2},
+      {"date": "2022-07-15", "intensity": 0.85},
+      {"date": "2023-01-01", "intensity": 0.60},
+      {"date": "2023-09-01", "intensity": 0.45},
+      {"date": "2026-12-31", "intensity": 0.35}
+    ]
+  },
+
+  "error_budget": {
+    "_comment": "Deliberately injected defects, at rates the consuming tool is expected to survive. Every one of these is counted exactly during generation and written to ground_truth.json under 'injected_errors', which turns them from noise into known-answer tests: a data-quality checker that reports 0.5% out-of-period records is correct, and one that reports 0% has a bug. Set every rate to 0 with --messiness clean.",
+    "records_outside_observation_period": 0.005,
+    "orphan_visit_reference": 0.001,
+    "duplicate_encounter": 0.004,
+    "off_label_prescribing": 0.015,
+    "implausible_but_real_lab": 0.0008,
+    "transposed_date_digits": 0.0006
+  }
+}

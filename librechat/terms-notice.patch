@@ -1,0 +1,123 @@
+diff --git a/client/src/components/Chat/Footer.tsx b/client/src/components/Chat/Footer.tsx
+index 90d7873..4f17e98 100644
+--- a/client/src/components/Chat/Footer.tsx
++++ b/client/src/components/Chat/Footer.tsx
+@@ -30,11 +30,29 @@ function Footer({ className, startupConfig }: FooterProps) {
+     </a>
+   );
+ 
+-  const termsOfServiceRender = termsOfService?.externalUrl != null && (
+-    <a className="text-text-secondary underline" href={termsOfService.externalUrl} rel="noreferrer">
+-      {localize('com_ui_terms_of_service')}
+-    </a>
+-  );
++  /** ASCENT: with `modalAcceptance` on, the footer link reopens the notice
++   *  instead of navigating away. Upstream only renders this when an
++   *  `externalUrl` is configured, so a deployment whose terms live in
++   *  `modalContent` -- as this one's do -- has no way back to them once the
++   *  modal is dismissed. Signalled by a window event rather than context or a
++   *  prop: the modal lives in Root, several providers above this component,
++   *  and threading state down for one link is not worth the coupling. */
++  const termsOfServiceRender =
++    termsOfService?.externalUrl != null ? (
++      <a className="text-text-secondary underline" href={termsOfService.externalUrl} rel="noreferrer">
++        {localize('com_ui_terms_of_service')}
++      </a>
++    ) : (
++      termsOfService?.modalAcceptance === true && (
++        <button
++          type="button"
++          className="text-text-secondary underline"
++          onClick={() => window.dispatchEvent(new Event('ascent:show-terms'))}
++        >
++          {localize('com_ui_terms_of_service')}
++        </button>
++      )
++    );
+ 
+   const mainContentParts = (
+     typeof config?.customFooter === 'string'
+diff --git a/client/src/routes/Root.tsx b/client/src/routes/Root.tsx
+index 236c88f..7bc631e 100644
+--- a/client/src/routes/Root.tsx
++++ b/client/src/routes/Root.tsx
+@@ -17,7 +17,7 @@ import {
+ import { UnifiedSidebar, SIDEBAR_TRANSITION } from '~/components/UnifiedSidebar';
+ import KeyboardShortcutsDialog from '~/components/Nav/KeyboardShortcutsDialog';
+ import KeyboardDeleteDialog from '~/components/Nav/KeyboardDeleteDialog';
+-import { useUserTermsQuery, useGetStartupConfig } from '~/data-provider';
++import { useGetStartupConfig } from '~/data-provider';
+ import useKeyboardShortcuts from '~/hooks/useKeyboardShortcuts';
+ import useSidebarState from '~/hooks/Nav/useSidebarState';
+ import { TermsAndConditionsModal } from '~/components/ui';
+@@ -37,7 +37,24 @@ function KeyboardShortcutsProvider() {
+ }
+ 
+ export default function Root() {
+-  const [showTerms, setShowTerms] = useState(false);
++  /** ASCENT: the terms are shown on every page load, not once per account.
++   *
++   *  Upstream keeps `showTerms` in state and fills it from an effect watching
++   *  the terms query. Two things make that unusable here. The query records
++   *  acceptance against the user, so the notice appears once ever; and on a
++   *  reload it is served from the persisted cache without issuing a request,
++   *  so an effect watching it never fires again and the modal silently stops
++   *  appearing.
++   *
++   *  Derived from the config instead of stored, so there is no effect and no
++   *  cache to go stale: `termsDismissed` starts false on every page load, and
++   *  the notice is up until this session's user closes it.
++   *
++   *  This demo is handed to people who did not set it up, over synthetic data
++   *  that must not be taken for real clinical evidence -- which is why the
++   *  notice belongs in front of them each time rather than behind an account
++   *  flag they cleared weeks ago. */
++  const [termsDismissed, setTermsDismissed] = useState(false);
+   const [bannerHeight, setBannerHeight] = useState(0);
+   /** Shared with the drawer so the two agree on the breakpoint-transition frame. */
+   const {
+@@ -76,24 +93,26 @@ export default function Root() {
+   const fileMap = useFileMap({ isAuthenticated });
+ 
+   const { data: config } = useGetStartupConfig();
+-  const { data: termsData } = useUserTermsQuery({
+-    enabled: isAuthenticated && config?.interface?.termsOfService?.modalAcceptance === true,
+-  });
+ 
+   useSearchEnabled(isAuthenticated);
+ 
++  const showTerms =
++    config?.interface?.termsOfService?.modalAcceptance === true && !termsDismissed;
++
++  /** Reopen when the footer link asks. Paired with the button in
++   *  components/Chat/Footer.tsx. */
+   useEffect(() => {
+-    if (termsData) {
+-      setShowTerms(!termsData.termsAccepted);
+-    }
+-  }, [termsData]);
++    const reopen = () => setTermsDismissed(false);
++    window.addEventListener('ascent:show-terms', reopen);
++    return () => window.removeEventListener('ascent:show-terms', reopen);
++  }, []);
+ 
+   const handleAcceptTerms = () => {
+-    setShowTerms(false);
++    setTermsDismissed(true);
+   };
+ 
+   const handleDeclineTerms = () => {
+-    setShowTerms(false);
++    setTermsDismissed(true);
+     logout('/login?redirect=false');
+   };
+ 
+@@ -131,7 +150,7 @@ export default function Root() {
+           {config?.interface?.termsOfService?.modalAcceptance === true && (
+             <TermsAndConditionsModal
+               open={showTerms}
+-              onOpenChange={setShowTerms}
++              onOpenChange={(isOpen) => setTermsDismissed(!isOpen)}
+               onAccept={handleAcceptTerms}
+               onDecline={handleDeclineTerms}
+               title={config.interface.termsOfService.modalTitle}

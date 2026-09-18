@@ -1,0 +1,279 @@
+{
+  "_comment": "Fictitious procedure catalog. PXCODE source codes are 7-character alphanumerics whose 3-character prefix encodes a body system / modality family (CAR cardiac, IMG imaging, END endoscopy, ONC oncology, REN renal, PUL pulmonary, MSK musculoskeletal, OBS obstetric, LAB bedside/diagnostic), so prefix-based neighbour expansion returns genuine siblings. valid_from marks a procedure that did not exist for the whole observation window; the generator will not emit it earlier, because a code that predates its own issuance is the clearest possible tell that a dataset was fabricated.",
+  "procedures": [
+    {
+      "key": "ecg",
+      "name": "Electrocardiogram",
+      "std_code": "3500101",
+      "source_code": "CAR1001",
+      "age_min": 0
+    },
+    {
+      "key": "echocardiogram",
+      "name": "Transthoracic echocardiography",
+      "std_code": "3500102",
+      "source_code": "CAR1002",
+      "age_min": 0
+    },
+    {
+      "key": "stress_test",
+      "name": "Cardiac stress test",
+      "std_code": "3500103",
+      "source_code": "CAR1003",
+      "age_min": 18
+    },
+    {
+      "key": "coronary_angiography",
+      "name": "Coronary angiography",
+      "std_code": "3500104",
+      "source_code": "CAR1004",
+      "age_min": 18
+    },
+    {
+      "key": "pci",
+      "name": "Percutaneous coronary intervention",
+      "std_code": "3500105",
+      "source_code": "CAR1005",
+      "age_min": 18
+    },
+    {
+      "key": "central_line",
+      "name": "Insertion of central venous catheter",
+      "std_code": "3500106",
+      "source_code": "CAR1006",
+      "age_min": 0
+    },
+    {
+      "key": "chest_xray",
+      "name": "Radiography of chest",
+      "std_code": "3500201",
+      "source_code": "IMG2001",
+      "age_min": 0
+    },
+    {
+      "key": "ct_chest",
+      "name": "Computed tomography of chest",
+      "std_code": "3500202",
+      "source_code": "IMG2002",
+      "age_min": 0
+    },
+    {
+      "key": "ct_head",
+      "name": "Computed tomography of head",
+      "std_code": "3500203",
+      "source_code": "IMG2003",
+      "age_min": 0
+    },
+    {
+      "key": "mri_brain",
+      "name": "Magnetic resonance imaging of brain",
+      "std_code": "3500204",
+      "source_code": "IMG2004",
+      "age_min": 0
+    },
+    {
+      "key": "abdominal_ultrasound",
+      "name": "Ultrasonography of abdomen",
+      "std_code": "3500205",
+      "source_code": "IMG2005",
+      "age_min": 0
+    },
+    {
+      "key": "carotid_ultrasound",
+      "name": "Duplex ultrasonography of carotid arteries",
+      "std_code": "3500206",
+      "source_code": "IMG2006",
+      "age_min": 18
+    },
+    {
+      "key": "knee_xray",
+      "name": "Radiography of knee",
+      "std_code": "3500207",
+      "source_code": "IMG2007",
+      "age_min": 0
+    },
+    {
+      "key": "mammography",
+      "name": "Mammography",
+      "std_code": "3500208",
+      "source_code": "IMG2008",
+      "sex": "female",
+      "age_min": 35
+    },
+    {
+      "key": "dexa_scan",
+      "name": "Dual energy X-ray absorptiometry bone density scan",
+      "std_code": "3500209",
+      "source_code": "IMG2009",
+      "age_min": 40
+    },
+    {
+      "key": "upper_endoscopy",
+      "name": "Esophagogastroduodenoscopy",
+      "std_code": "3500301",
+      "source_code": "END3001",
+      "age_min": 12
+    },
+    {
+      "key": "colonoscopy",
+      "name": "Colonoscopy",
+      "std_code": "3500302",
+      "source_code": "END3002",
+      "age_min": 18
+    },
+    {
+      "key": "lung_biopsy",
+      "name": "Biopsy of lung",
+      "std_code": "3500401",
+      "source_code": "ONC4001",
+      "age_min": 18
+    },
+    {
+      "key": "breast_biopsy",
+      "name": "Biopsy of breast",
+      "std_code": "3500402",
+      "source_code": "ONC4002",
+      "sex": "female",
+      "age_min": 25
+    },
+    {
+      "key": "prostate_biopsy",
+      "name": "Biopsy of prostate",
+      "std_code": "3500403",
+      "source_code": "ONC4003",
+      "sex": "male",
+      "age_min": 40
+    },
+    {
+      "key": "colon_biopsy",
+      "name": "Biopsy of colon",
+      "std_code": "3500404",
+      "source_code": "ONC4004",
+      "age_min": 18
+    },
+    {
+      "key": "mastectomy",
+      "name": "Mastectomy",
+      "std_code": "3500405",
+      "source_code": "ONC4005",
+      "sex": "female",
+      "age_min": 25
+    },
+    {
+      "key": "prostatectomy",
+      "name": "Prostatectomy",
+      "std_code": "3500406",
+      "source_code": "ONC4006",
+      "sex": "male",
+      "age_min": 40
+    },
+    {
+      "key": "colectomy",
+      "name": "Partial colectomy",
+      "std_code": "3500407",
+      "source_code": "ONC4007",
+      "age_min": 18
+    },
+    {
+      "key": "dialysis",
+      "name": "Hemodialysis",
+      "std_code": "3500501",
+      "source_code": "REN5001",
+      "age_min": 12
+    },
+    {
+      "key": "spirometry",
+      "name": "Spirometry",
+      "std_code": "3500601",
+      "source_code": "PUL6001",
+      "age_min": 5
+    },
+    {
+      "key": "joint_replacement",
+      "name": "Total knee replacement",
+      "std_code": "3500701",
+      "source_code": "MSK7001",
+      "age_min": 40
+    },
+    {
+      "key": "obstetric_ultrasound",
+      "name": "Ultrasonography in pregnancy",
+      "std_code": "3500901",
+      "source_code": "OBS9001",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55
+    },
+    {
+      "key": "vaginal_delivery",
+      "name": "Spontaneous vaginal delivery",
+      "std_code": "3500902",
+      "source_code": "OBS9002",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55
+    },
+    {
+      "key": "cesarean_delivery",
+      "name": "Cesarean section",
+      "std_code": "3500903",
+      "source_code": "OBS9003",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55
+    },
+    {
+      "key": "blood_culture",
+      "name": "Blood culture",
+      "std_code": "3500801",
+      "source_code": "LAB8001",
+      "age_min": 0
+    },
+    {
+      "key": "covid_pcr",
+      "name": "SARS-CoV-2 RNA detection by NAA",
+      "std_code": "3500802",
+      "source_code": "LAB8002",
+      "age_min": 0,
+      "valid_from": "2020-03-01"
+    },
+    {
+      "key": "retinal_exam",
+      "name": "Dilated retinal examination",
+      "std_code": "3500803",
+      "source_code": "LAB8003",
+      "age_min": 5
+    },
+    {
+      "key": "foot_exam",
+      "name": "Diabetic foot examination",
+      "std_code": "3500804",
+      "source_code": "LAB8004",
+      "age_min": 12
+    },
+    {
+      "key": "cardioversion",
+      "name": "Electrical cardioversion",
+      "std_code": "3500904",
+      "source_code": "CAR1010",
+      "age_min": 18,
+      "p_index": 0.18
+    },
+    {
+      "key": "cabg",
+      "name": "Coronary artery bypass grafting",
+      "std_code": "3500905",
+      "source_code": "CAR1011",
+      "age_min": 30,
+      "p_index": 0.03
+    },
+    {
+      "key": "gastric_bypass",
+      "name": "Gastric bypass surgery",
+      "std_code": "3500906",
+      "source_code": "END1010",
+      "age_min": 18,
+      "p_index": 0.006
+    }
+  ]
+}

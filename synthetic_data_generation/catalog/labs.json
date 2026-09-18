@@ -1,0 +1,1410 @@
+{
+  "_comment": "Fictitious measurement catalog. Analyte names, units and reference ranges follow ordinary clinical usage so queries like 'HbA1c > 8' behave correctly, but the naming grammar, LABLEX standard codes and LABLOCAL source codes are all invented and follow no real laboratory terminology. 'distribution' maps clinical state -> [mean, sd]; a bare condition key applies when the patient has that condition untreated, '<key>_treated' once therapy has started. patient_intercept_sd adds between-patient variation so repeated measures on one person correlate.",
+  "labs": [
+    {
+      "key": "hba1c",
+      "name": "Hemoglobin A1c",
+      "std_code": "LX07000",
+      "source_code": "LC100011",
+      "unit": "%",
+      "range_low": 4.0,
+      "range_high": 5.6,
+      "decimals": 1,
+      "patient_intercept_sd": 0.35,
+      "distribution": {
+        "default": [
+          5.2,
+          0.34
+        ],
+        "prediabetes": [
+          5.85,
+          0.24
+        ],
+        "t2dm": [
+          8.4,
+          1.5
+        ],
+        "t2dm_treated": [
+          7.1,
+          1.0
+        ],
+        "t1dm": [
+          8.7,
+          1.6
+        ],
+        "t1dm_treated": [
+          7.6,
+          1.2
+        ]
+      },
+      "plausible_min": 3.5,
+      "plausible_max": 20.0,
+      "specimens": [
+        "whole blood"
+      ],
+      "methods": [
+        "automated",
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "glucose",
+      "name": "Glucose",
+      "std_code": "LX07003",
+      "source_code": "LC100029",
+      "unit": "mg/dL",
+      "range_low": 70,
+      "range_high": 99,
+      "decimals": 0,
+      "patient_intercept_sd": 6.0,
+      "distribution": {
+        "default": [
+          92,
+          10
+        ],
+        "prediabetes": [
+          110,
+          9
+        ],
+        "t2dm": [
+          168,
+          52
+        ],
+        "t2dm_treated": [
+          136,
+          38
+        ],
+        "t1dm": [
+          186,
+          68
+        ],
+        "t1dm_treated": [
+          152,
+          54
+        ]
+      },
+      "plausible_min": 15,
+      "plausible_max": 1200,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "creatinine",
+      "name": "Creatinine",
+      "std_code": "LX07006",
+      "source_code": "LC100037",
+      "unit": "mg/dL",
+      "range_low": 0.6,
+      "range_high": 1.3,
+      "decimals": 2,
+      "patient_intercept_sd": 0.1,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          0.95,
+          0.2
+        ],
+        "ckd": [
+          2.1,
+          0.95
+        ],
+        "ckd_treated": [
+          1.95,
+          0.85
+        ],
+        "aki": [
+          2.6,
+          1.2
+        ]
+      },
+      "plausible_min": 0.15,
+      "plausible_max": 25.0,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "egfr",
+      "name": "Glomerular filtration rate estimated",
+      "std_code": "LX07009",
+      "source_code": "LC100045",
+      "unit": "mL/min/1.73m2",
+      "range_low": 60,
+      "range_high": 120,
+      "decimals": 0,
+      "patient_intercept_sd": 0.0,
+      "distribution": {
+        "default": [
+          95,
+          15
+        ],
+        "ckd": [
+          38,
+          18
+        ],
+        "aki": [
+          30,
+          15
+        ]
+      },
+      "plausible_min": 2,
+      "plausible_max": 150,
+      "specimens": [],
+      "methods": [
+        "calculated"
+      ]
+    },
+    {
+      "key": "urea_nitrogen",
+      "name": "Urea nitrogen",
+      "std_code": "LX07012",
+      "source_code": "LC100052",
+      "unit": "mg/dL",
+      "range_low": 7,
+      "range_high": 20,
+      "decimals": 0,
+      "patient_intercept_sd": 2.0,
+      "distribution": {
+        "default": [
+          14,
+          4
+        ],
+        "ckd": [
+          34,
+          15
+        ],
+        "aki": [
+          42,
+          18
+        ]
+      },
+      "plausible_min": 2,
+      "plausible_max": 200,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "potassium",
+      "name": "Potassium",
+      "std_code": "LX07015",
+      "source_code": "LC100060",
+      "unit": "mmol/L",
+      "range_low": 3.5,
+      "range_high": 5.1,
+      "decimals": 1,
+      "patient_intercept_sd": 0.15,
+      "distribution": {
+        "default": [
+          4.2,
+          0.35
+        ],
+        "ckd": [
+          4.8,
+          0.6
+        ],
+        "aki": [
+          5.0,
+          0.7
+        ]
+      },
+      "plausible_min": 1.5,
+      "plausible_max": 9.5,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "sodium",
+      "name": "Sodium",
+      "std_code": "LX07018",
+      "source_code": "LC100078",
+      "unit": "mmol/L",
+      "range_low": 136,
+      "range_high": 145,
+      "decimals": 0,
+      "patient_intercept_sd": 1.5,
+      "distribution": {
+        "default": [
+          140,
+          2.5
+        ],
+        "heart_failure": [
+          137,
+          4.0
+        ],
+        "cirrhosis": [
+          134,
+          4.5
+        ]
+      },
+      "plausible_min": 100,
+      "plausible_max": 190,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "calcium",
+      "name": "Calcium",
+      "std_code": "LX07021",
+      "source_code": "LC100086",
+      "unit": "mg/dL",
+      "range_low": 8.6,
+      "range_high": 10.2,
+      "decimals": 1,
+      "patient_intercept_sd": 0.25,
+      "distribution": {
+        "default": [
+          9.4,
+          0.4
+        ],
+        "ckd": [
+          8.9,
+          0.6
+        ]
+      },
+      "plausible_min": 4.0,
+      "plausible_max": 18.0,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "total_cholesterol",
+      "name": "Cholesterol",
+      "std_code": "LX07024",
+      "source_code": "LC100102",
+      "unit": "mg/dL",
+      "range_low": 0,
+      "range_high": 200,
+      "decimals": 0,
+      "patient_intercept_sd": 14.0,
+      "distribution": {
+        "default": [
+          178,
+          28
+        ],
+        "hyperlipidemia": [
+          238,
+          32
+        ],
+        "hyperlipidemia_treated": [
+          186,
+          28
+        ]
+      },
+      "plausible_min": 50,
+      "plausible_max": 700,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "ldl",
+      "name": "Cholesterol in LDL",
+      "std_code": "LX07027",
+      "source_code": "LC100110",
+      "unit": "mg/dL",
+      "range_low": 0,
+      "range_high": 100,
+      "decimals": 0,
+      "patient_intercept_sd": 11.0,
+      "distribution": {
+        "default": [
+          113,
+          26
+        ],
+        "hyperlipidemia": [
+          162,
+          30
+        ],
+        "hyperlipidemia_treated": [
+          97,
+          25
+        ],
+        "cad": [
+          128,
+          31
+        ],
+        "cad_treated": [
+          84,
+          22
+        ]
+      },
+      "plausible_min": 10,
+      "plausible_max": 500,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated",
+        "calculated"
+      ]
+    },
+    {
+      "key": "hdl",
+      "name": "Cholesterol in HDL",
+      "std_code": "LX07030",
+      "source_code": "LC100128",
+      "unit": "mg/dL",
+      "range_low": 40,
+      "range_high": 90,
+      "decimals": 0,
+      "patient_intercept_sd": 6.0,
+      "distribution": {
+        "default": [
+          55,
+          13
+        ],
+        "hyperlipidemia": [
+          43,
+          11
+        ],
+        "obesity": [
+          45,
+          11
+        ],
+        "t2dm": [
+          42,
+          10
+        ]
+      },
+      "plausible_min": 5,
+      "plausible_max": 150,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "triglycerides",
+      "name": "Triglyceride",
+      "std_code": "LX07033",
+      "source_code": "LC100136",
+      "unit": "mg/dL",
+      "range_low": 0,
+      "range_high": 150,
+      "decimals": 0,
+      "patient_intercept_sd": 0.18,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          118,
+          55
+        ],
+        "hyperlipidemia": [
+          212,
+          105
+        ],
+        "hyperlipidemia_treated": [
+          158,
+          78
+        ],
+        "obesity": [
+          168,
+          82
+        ],
+        "t2dm": [
+          192,
+          96
+        ]
+      },
+      "plausible_min": 20,
+      "plausible_max": 5000,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "alt",
+      "name": "Alanine aminotransferase",
+      "std_code": "LX07036",
+      "source_code": "LC100201",
+      "unit": "U/L",
+      "range_low": 7,
+      "range_high": 56,
+      "decimals": 0,
+      "patient_intercept_sd": 0.15,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          26,
+          12
+        ],
+        "cirrhosis": [
+          72,
+          40
+        ],
+        "obesity": [
+          36,
+          18
+        ]
+      },
+      "plausible_min": 3,
+      "plausible_max": 6000,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "ast",
+      "name": "Aspartate aminotransferase",
+      "std_code": "LX07039",
+      "source_code": "LC100219",
+      "unit": "U/L",
+      "range_low": 10,
+      "range_high": 40,
+      "decimals": 0,
+      "patient_intercept_sd": 0.15,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          24,
+          10
+        ],
+        "cirrhosis": [
+          86,
+          45
+        ]
+      },
+      "plausible_min": 5,
+      "plausible_max": 8000,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "albumin",
+      "name": "Albumin",
+      "std_code": "LX07042",
+      "source_code": "LC100227",
+      "unit": "g/dL",
+      "range_low": 3.5,
+      "range_high": 5.0,
+      "decimals": 1,
+      "patient_intercept_sd": 0.2,
+      "distribution": {
+        "default": [
+          4.3,
+          0.35
+        ],
+        "cirrhosis": [
+          2.9,
+          0.5
+        ],
+        "ckd": [
+          3.7,
+          0.45
+        ],
+        "lung_cancer": [
+          3.5,
+          0.5
+        ],
+        "colorectal_cancer": [
+          3.6,
+          0.5
+        ]
+      },
+      "plausible_min": 0.8,
+      "plausible_max": 6.5,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "bilirubin",
+      "name": "Bilirubin total",
+      "std_code": "LX07045",
+      "source_code": "LC100235",
+      "unit": "mg/dL",
+      "range_low": 0.2,
+      "range_high": 1.2,
+      "decimals": 1,
+      "patient_intercept_sd": 0.15,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          0.7,
+          0.3
+        ],
+        "cirrhosis": [
+          2.6,
+          1.6
+        ],
+        "sepsis": [
+          1.6,
+          0.9
+        ]
+      },
+      "plausible_min": 0.1,
+      "plausible_max": 45.0,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "alkaline_phosphatase",
+      "name": "Alkaline phosphatase",
+      "std_code": "LX07048",
+      "source_code": "LC100243",
+      "unit": "U/L",
+      "range_low": 44,
+      "range_high": 147,
+      "decimals": 0,
+      "patient_intercept_sd": 0.14,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          82,
+          24
+        ],
+        "cirrhosis": [
+          148,
+          65
+        ],
+        "prostate_cancer": [
+          126,
+          58
+        ]
+      },
+      "plausible_min": 10,
+      "plausible_max": 3000,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "hemoglobin",
+      "name": "Hemoglobin",
+      "std_code": "LX07051",
+      "source_code": "LC100300",
+      "unit": "g/dL",
+      "range_low": 12.0,
+      "range_high": 17.0,
+      "decimals": 1,
+      "patient_intercept_sd": 0.55,
+      "distribution": {
+        "default": [
+          14.1,
+          1.2
+        ],
+        "anemia": [
+          10.3,
+          1.2
+        ],
+        "anemia_treated": [
+          11.6,
+          1.2
+        ],
+        "ckd": [
+          11.7,
+          1.5
+        ],
+        "colorectal_cancer": [
+          11.2,
+          1.7
+        ],
+        "lung_cancer": [
+          11.9,
+          1.6
+        ]
+      },
+      "plausible_min": 2.0,
+      "plausible_max": 24.0,
+      "specimens": [
+        "whole blood"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "hematocrit",
+      "name": "Hematocrit of Blood",
+      "std_code": "LX07054",
+      "source_code": "LC100318",
+      "unit": "%",
+      "range_low": 36,
+      "range_high": 50,
+      "decimals": 0,
+      "patient_intercept_sd": 1.6,
+      "distribution": {
+        "default": [
+          42,
+          3.5
+        ],
+        "anemia": [
+          31,
+          3.5
+        ],
+        "ckd": [
+          35,
+          4.0
+        ]
+      },
+      "plausible_min": 8,
+      "plausible_max": 70,
+      "specimens": [
+        "whole blood"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "wbc",
+      "name": "Leukocytes",
+      "std_code": "LX07057",
+      "source_code": "LC100326",
+      "unit": "10*3/uL",
+      "range_low": 4.5,
+      "range_high": 11.0,
+      "decimals": 1,
+      "patient_intercept_sd": 0.6,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          7.1,
+          1.8
+        ],
+        "pneumonia": [
+          13.8,
+          4.5
+        ],
+        "sepsis": [
+          16.5,
+          6.5
+        ],
+        "covid19": [
+          6.2,
+          2.4
+        ]
+      },
+      "plausible_min": 0.1,
+      "plausible_max": 300,
+      "specimens": [
+        "whole blood"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "platelets",
+      "name": "Platelets",
+      "std_code": "LX07060",
+      "source_code": "LC100334",
+      "unit": "10*3/uL",
+      "range_low": 150,
+      "range_high": 400,
+      "decimals": 0,
+      "patient_intercept_sd": 28.0,
+      "distribution": {
+        "default": [
+          248,
+          55
+        ],
+        "cirrhosis": [
+          112,
+          48
+        ],
+        "sepsis": [
+          168,
+          78
+        ],
+        "lung_cancer": [
+          268,
+          85
+        ]
+      },
+      "plausible_min": 2,
+      "plausible_max": 2000,
+      "specimens": [
+        "whole blood"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "ferritin",
+      "name": "Ferritin",
+      "std_code": "LX07063",
+      "source_code": "LC100342",
+      "unit": "ng/mL",
+      "range_low": 24,
+      "range_high": 336,
+      "decimals": 0,
+      "patient_intercept_sd": 0.25,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          128,
+          70
+        ],
+        "anemia": [
+          22,
+          16
+        ],
+        "anemia_treated": [
+          62,
+          38
+        ]
+      },
+      "plausible_min": 1,
+      "plausible_max": 20000,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "vitamin_b12",
+      "name": "Cobalamin",
+      "std_code": "LX07066",
+      "source_code": "LC100359",
+      "unit": "pg/mL",
+      "range_low": 232,
+      "range_high": 1245,
+      "decimals": 0,
+      "patient_intercept_sd": 0.2,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          485,
+          190
+        ],
+        "anemia": [
+          268,
+          145
+        ],
+        "dementia": [
+          392,
+          175
+        ]
+      },
+      "plausible_min": 30,
+      "plausible_max": 3000,
+      "specimens": [
+        "serum"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "inr",
+      "name": "INR",
+      "std_code": "LX07069",
+      "source_code": "LC100367",
+      "unit": "{INR}",
+      "range_low": 0.8,
+      "range_high": 1.2,
+      "decimals": 1,
+      "patient_intercept_sd": 0.12,
+      "distribution": {
+        "default": [
+          1.05,
+          0.12
+        ],
+        "afib_treated": [
+          2.35,
+          0.55
+        ],
+        "cirrhosis": [
+          1.55,
+          0.4
+        ]
+      },
+      "plausible_min": 0.5,
+      "plausible_max": 12.0,
+      "specimens": [
+        "plasma"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "tsh",
+      "name": "Thyrotropin",
+      "std_code": "LX07072",
+      "source_code": "LC100409",
+      "unit": "mIU/L",
+      "range_low": 0.4,
+      "range_high": 4.5,
+      "decimals": 2,
+      "patient_intercept_sd": 0.3,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          2.1,
+          1.0
+        ],
+        "hypothyroidism": [
+          11.5,
+          7.0
+        ],
+        "hypothyroidism_treated": [
+          3.1,
+          1.6
+        ]
+      },
+      "plausible_min": 0.005,
+      "plausible_max": 150,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "free_t4",
+      "name": "Thyroxine free",
+      "std_code": "LX07075",
+      "source_code": "LC100417",
+      "unit": "ng/dL",
+      "range_low": 0.8,
+      "range_high": 1.8,
+      "decimals": 2,
+      "patient_intercept_sd": 0.1,
+      "distribution": {
+        "default": [
+          1.25,
+          0.2
+        ],
+        "hypothyroidism": [
+          0.72,
+          0.22
+        ],
+        "hypothyroidism_treated": [
+          1.18,
+          0.22
+        ]
+      },
+      "plausible_min": 0.05,
+      "plausible_max": 12.0,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "vitamin_d",
+      "name": "25-hydroxyvitamin D3",
+      "std_code": "LX07078",
+      "source_code": "LC100425",
+      "unit": "ng/mL",
+      "range_low": 30,
+      "range_high": 100,
+      "decimals": 0,
+      "patient_intercept_sd": 5.0,
+      "distribution": {
+        "default": [
+          34,
+          12
+        ],
+        "osteoporosis": [
+          23,
+          10
+        ],
+        "osteoporosis_treated": [
+          37,
+          12
+        ]
+      },
+      "plausible_min": 3,
+      "plausible_max": 200,
+      "specimens": [
+        "serum"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "troponin",
+      "name": "Troponin I cardiac",
+      "std_code": "LX07081",
+      "source_code": "LC100508",
+      "unit": "ng/mL",
+      "range_low": 0.0,
+      "range_high": 0.04,
+      "decimals": 2,
+      "patient_intercept_sd": 0.0,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          0.02,
+          0.01
+        ],
+        "mi": [
+          8.4,
+          9.5
+        ],
+        "heart_failure": [
+          0.06,
+          0.04
+        ]
+      },
+      "plausible_min": 0.01,
+      "plausible_max": 100,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "bnp",
+      "name": "Natriuretic peptide B",
+      "std_code": "LX07084",
+      "source_code": "LC100516",
+      "unit": "pg/mL",
+      "range_low": 0,
+      "range_high": 100,
+      "decimals": 0,
+      "patient_intercept_sd": 0.3,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          48,
+          30
+        ],
+        "heart_failure": [
+          780,
+          620
+        ],
+        "heart_failure_treated": [
+          485,
+          400
+        ]
+      },
+      "plausible_min": 5,
+      "plausible_max": 35000,
+      "specimens": [
+        "plasma"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "crp",
+      "name": "C reactive protein",
+      "std_code": "LX07087",
+      "source_code": "LC100524",
+      "unit": "mg/L",
+      "range_low": 0,
+      "range_high": 5,
+      "decimals": 1,
+      "patient_intercept_sd": 0.3,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          2.6,
+          1.8
+        ],
+        "pneumonia": [
+          86,
+          55
+        ],
+        "sepsis": [
+          172,
+          95
+        ],
+        "covid19": [
+          42,
+          32
+        ],
+        "osteoarthritis": [
+          5.2,
+          3.0
+        ]
+      },
+      "plausible_min": 0.1,
+      "plausible_max": 500,
+      "specimens": [
+        "serum",
+        "plasma"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "esr",
+      "name": "Erythrocyte sedimentation rate",
+      "std_code": "LX07090",
+      "source_code": "LC100532",
+      "unit": "mm/h",
+      "range_low": 0,
+      "range_high": 20,
+      "decimals": 0,
+      "patient_intercept_sd": 0.25,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          13,
+          8
+        ],
+        "osteoarthritis": [
+          24,
+          13
+        ],
+        "sepsis": [
+          62,
+          30
+        ]
+      },
+      "plausible_min": 1,
+      "plausible_max": 150,
+      "specimens": [
+        "whole blood"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "lactate",
+      "name": "Lactate",
+      "std_code": "LX07093",
+      "source_code": "LC100540",
+      "unit": "mmol/L",
+      "range_low": 0.5,
+      "range_high": 2.2,
+      "decimals": 1,
+      "patient_intercept_sd": 0.0,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          1.3,
+          0.5
+        ],
+        "sepsis": [
+          4.2,
+          2.2
+        ],
+        "covid19": [
+          1.8,
+          0.8
+        ]
+      },
+      "plausible_min": 0.2,
+      "plausible_max": 30.0,
+      "specimens": [
+        "plasma",
+        "whole blood"
+      ],
+      "methods": [
+        "automated"
+      ]
+    },
+    {
+      "key": "psa",
+      "name": "Prostate specific Ag",
+      "std_code": "LX07096",
+      "source_code": "LC100607",
+      "unit": "ng/mL",
+      "range_low": 0.0,
+      "range_high": 4.0,
+      "decimals": 1,
+      "patient_intercept_sd": 0.3,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          1.4,
+          0.9
+        ],
+        "prostate_cancer": [
+          24.0,
+          26.0
+        ],
+        "prostate_cancer_treated": [
+          3.8,
+          4.5
+        ]
+      },
+      "plausible_min": 0.05,
+      "plausible_max": 5000,
+      "specimens": [
+        "serum"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "cea",
+      "name": "Carcinoembryonic Ag",
+      "std_code": "LX07099",
+      "source_code": "LC100615",
+      "unit": "ng/mL",
+      "range_low": 0.0,
+      "range_high": 3.0,
+      "decimals": 1,
+      "patient_intercept_sd": 0.25,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          1.6,
+          0.9
+        ],
+        "colorectal_cancer": [
+          18.5,
+          22.0
+        ],
+        "colorectal_cancer_treated": [
+          4.6,
+          5.5
+        ]
+      },
+      "plausible_min": 0.2,
+      "plausible_max": 10000,
+      "specimens": [
+        "serum"
+      ],
+      "methods": [
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "urine_acr",
+      "name": "Albumin/Creatinine",
+      "std_code": "LX07102",
+      "source_code": "LC100623",
+      "unit": "mg/g",
+      "range_low": 0,
+      "range_high": 30,
+      "decimals": 0,
+      "patient_intercept_sd": 0.35,
+      "lognormal": true,
+      "distribution": {
+        "default": [
+          12,
+          8
+        ],
+        "t2dm": [
+          78,
+          90
+        ],
+        "t2dm_treated": [
+          48,
+          60
+        ],
+        "ckd": [
+          285,
+          320
+        ]
+      },
+      "plausible_min": 1,
+      "plausible_max": 25000,
+      "specimens": [
+        "urine"
+      ],
+      "methods": [
+        "automated",
+        "immunoassay"
+      ]
+    },
+    {
+      "key": "sbp",
+      "name": "Systolic blood pressure",
+      "std_code": "LX07105",
+      "source_code": "LC100706",
+      "unit": "mm[Hg]",
+      "range_low": 90,
+      "range_high": 120,
+      "decimals": 0,
+      "patient_intercept_sd": 6.0,
+      "distribution": {
+        "default": [
+          119,
+          10
+        ],
+        "hypertension": [
+          148,
+          14
+        ],
+        "hypertension_treated": [
+          132,
+          12
+        ],
+        "ckd": [
+          141,
+          15
+        ]
+      },
+      "plausible_min": 50,
+      "plausible_max": 260,
+      "specimens": [],
+      "methods": []
+    },
+    {
+      "key": "dbp",
+      "name": "Diastolic blood pressure",
+      "std_code": "LX07108",
+      "source_code": "LC100714",
+      "unit": "mm[Hg]",
+      "range_low": 60,
+      "range_high": 80,
+      "decimals": 0,
+      "patient_intercept_sd": 4.0,
+      "distribution": {
+        "default": [
+          74,
+          7
+        ],
+        "hypertension": [
+          89,
+          9
+        ],
+        "hypertension_treated": [
+          80,
+          8
+        ]
+      },
+      "plausible_min": 25,
+      "plausible_max": 160,
+      "specimens": [],
+      "methods": []
+    },
+    {
+      "key": "bmi",
+      "name": "Body mass index (BMI)",
+      "std_code": "LX07111",
+      "source_code": "LC100722",
+      "unit": "kg/m2",
+      "range_low": 18.5,
+      "range_high": 24.9,
+      "decimals": 1,
+      "patient_intercept_sd": 1.8,
+      "distribution": {
+        "default": [
+          26.4,
+          3.8
+        ],
+        "obesity": [
+          35.2,
+          5.2
+        ],
+        "t2dm": [
+          32.6,
+          5.5
+        ],
+        "prediabetes": [
+          30.1,
+          4.8
+        ]
+      },
+      "plausible_min": 10.0,
+      "plausible_max": 90.0,
+      "specimens": [],
+      "methods": []
+    },
+    {
+      "key": "lvef",
+      "name": "Left ventricular ejection fraction",
+      "std_code": "LX07300",
+      "source_code": "LC100900",
+      "unit": "%",
+      "range_low": 55,
+      "range_high": 70,
+      "decimals": 0,
+      "patient_intercept_sd": 4.0,
+      "distribution": {
+        "default": [
+          62,
+          6
+        ],
+        "heart_failure": [
+          38,
+          11
+        ],
+        "cardiomyopathy": [
+          34,
+          10
+        ],
+        "mi": [
+          45,
+          9
+        ]
+      },
+      "plausible_min": 10,
+      "plausible_max": 80,
+      "specimens": [],
+      "methods": []
+    }
+  ],
+  "_range_comment": "range_low/range_high are the REFERENCE range - what a normal result looks like, used for flagging. plausible_min/plausible_max are the PHYSIOLOGIC range - the limits outside which a value is not a result but an artifact. The two are unrelated and must not be conflated: total cholesterol has a reference range of 0-200 because the clinical convention is '<200', yet a serum cholesterol of 0 is impossible. An earlier version of the generator clamped drawn values at 0.0, which manufactured a spike of exactly-zero troponins, CRPs and cholesterols - values a real analyser reports as 'below detection limit' (a NULL), never as a number. Draws are now clamped into the plausible range, and genuinely-unresulted tests are NULL.",
+  "_specimen_comment": "specimens/methods constrain the sibling-code expansion in expansion.py, which previously took the naive cross-product of every analyte with every specimen and every method and so emitted 'Systolic blood pressure, cerebrospinal fluid, immunoassay'. An empty list means the analyte takes no variant on that axis - vitals are not drawn from a specimen at all."
+}

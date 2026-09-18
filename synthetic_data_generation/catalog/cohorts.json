@@ -1,0 +1,123 @@
+{
+  "_comment": "Demo cohorts for the RWE tool. Each entry is a natural-language question plus a machine-executable attrition ladder. ground_truth.py runs each step against the FINISHED database and records the surviving patient count, so a demo can diff the tool's answer step by step rather than only checking the final number. Step types: any_condition_dx, repeat_condition_dx, prior_observation, drug_exposure, lab_threshold, age_range, sex, no_condition_dx, condition_after_condition.",
+
+  "cohorts": [
+    {
+      "id": "t2dm_metformin_uncontrolled",
+      "question": "How many adults with type 2 diabetes are on metformin and still have an HbA1c above 8%?",
+      "attrition": [
+        {"step": "Any type 2 diabetes diagnosis", "type": "any_condition_dx", "condition": "t2dm"},
+        {"step": "At least 2 diagnoses >=30 days apart", "type": "repeat_condition_dx", "condition": "t2dm", "min_count": 2, "min_gap_days": 30},
+        {"step": "Age 18 or older at index", "type": "age_range", "min_age": 18},
+        {"step": "At least 365 days of prior observation", "type": "prior_observation", "days": 365},
+        {"step": "Metformin exposure after index", "type": "drug_exposure", "ingredient": "Metformin"},
+        {"step": "HbA1c > 8% within 90 days of exposure", "type": "lab_threshold", "lab": "hba1c", "operator": ">", "value": 8.0, "window_days": 90}
+      ]
+    },
+    {
+      "id": "hf_reduced_ef_on_beta_blocker",
+      "question": "How many heart failure patients are receiving a beta blocker?",
+      "attrition": [
+        {"step": "Any heart failure diagnosis", "type": "any_condition_dx", "condition": "heart_failure"},
+        {"step": "At least 2 diagnoses >=30 days apart", "type": "repeat_condition_dx", "condition": "heart_failure", "min_count": 2, "min_gap_days": 30},
+        {"step": "At least 180 days of prior observation", "type": "prior_observation", "days": 180},
+        {"step": "Metoprolol exposure", "type": "drug_exposure", "ingredient": "Metoprolol"}
+      ]
+    },
+    {
+      "id": "afib_anticoagulated_elderly",
+      "question": "Among patients 65 and older with atrial fibrillation, how many are on a direct oral anticoagulant?",
+      "attrition": [
+        {"step": "Any atrial fibrillation diagnosis", "type": "any_condition_dx", "condition": "afib"},
+        {"step": "Age 65 or older at index", "type": "age_range", "min_age": 65},
+        {"step": "At least 365 days of prior observation", "type": "prior_observation", "days": 365},
+        {"step": "Apixaban or rivaroxaban exposure", "type": "drug_exposure", "ingredient": ["Apixaban", "Rivaroxaban"]}
+      ]
+    },
+    {
+      "id": "ckd_stage3plus_with_diabetes",
+      "question": "How many patients have both chronic kidney disease and type 2 diabetes with an eGFR below 60?",
+      "attrition": [
+        {"step": "Any chronic kidney disease diagnosis", "type": "any_condition_dx", "condition": "ckd"},
+        {"step": "Any type 2 diabetes diagnosis", "type": "any_condition_dx", "condition": "t2dm"},
+        {"step": "At least 365 days of prior observation", "type": "prior_observation", "days": 365},
+        {"step": "eGFR < 60 mL/min/1.73m2", "type": "lab_threshold", "lab": "egfr", "operator": "<", "value": 60.0}
+      ]
+    },
+    {
+      "id": "statin_use_after_mi",
+      "question": "What proportion of patients who had a myocardial infarction were started on a statin?",
+      "attrition": [
+        {"step": "Any myocardial infarction diagnosis", "type": "any_condition_dx", "condition": "mi"},
+        {"step": "At least 90 days of prior observation", "type": "prior_observation", "days": 90},
+        {"step": "Statin exposure after the MI", "type": "drug_exposure", "ingredient": ["Atorvastatin", "Rosuvastatin", "Simvastatin"]}
+      ]
+    },
+    {
+      "id": "copd_smokers_on_inhaler",
+      "question": "How many COPD patients with a tobacco use history are on an inhaled bronchodilator?",
+      "attrition": [
+        {"step": "Any COPD diagnosis", "type": "any_condition_dx", "condition": "copd"},
+        {"step": "Any tobacco use disorder diagnosis", "type": "any_condition_dx", "condition": "smoking"},
+        {"step": "At least 180 days of prior observation", "type": "prior_observation", "days": 180},
+        {"step": "Albuterol or tiotropium exposure", "type": "drug_exposure", "ingredient": ["Albuterol", "Tiotropium"]}
+      ]
+    },
+    {
+      "id": "untreated_hypertension",
+      "question": "How many hypertensive patients have no record of antihypertensive therapy?",
+      "attrition": [
+        {"step": "Any hypertension diagnosis", "type": "any_condition_dx", "condition": "hypertension"},
+        {"step": "At least 2 diagnoses >=30 days apart", "type": "repeat_condition_dx", "condition": "hypertension", "min_count": 2, "min_gap_days": 30},
+        {"step": "At least 365 days of prior observation", "type": "prior_observation", "days": 365},
+        {"step": "No lisinopril, amlodipine, losartan, HCTZ or metoprolol", "type": "no_drug_exposure", "ingredient": ["Lisinopril", "Amlodipine", "Losartan", "Hydrochlorothiazide", "Metoprolol"]}
+      ]
+    },
+    {
+      "id": "breast_cancer_endocrine_therapy",
+      "question": "How many women with breast cancer received endocrine therapy?",
+      "attrition": [
+        {"step": "Any breast cancer diagnosis", "type": "any_condition_dx", "condition": "breast_cancer"},
+        {"step": "Female", "type": "sex", "sex": "female"},
+        {"step": "At least 180 days of prior observation", "type": "prior_observation", "days": 180},
+        {"step": "Tamoxifen or anastrozole exposure", "type": "drug_exposure", "ingredient": ["Tamoxifen", "Anastrozole"]}
+      ]
+    },
+    {
+      "id": "aki_following_sepsis",
+      "question": "How many patients developed acute kidney injury after an episode of sepsis?",
+      "attrition": [
+        {"step": "Any sepsis diagnosis", "type": "any_condition_dx", "condition": "sepsis"},
+        {"step": "Acute kidney injury within 30 days after sepsis", "type": "condition_after_condition", "condition": "aki", "after_condition": "sepsis", "window_days": 30}
+      ]
+    },
+    {
+      "id": "depression_ssri_initiation",
+      "question": "How many patients with major depressive disorder started an SSRI?",
+      "attrition": [
+        {"step": "Any major depressive disorder diagnosis", "type": "any_condition_dx", "condition": "depression"},
+        {"step": "At least 180 days of prior observation", "type": "prior_observation", "days": 180},
+        {"step": "Sertraline, escitalopram or fluoxetine exposure", "type": "drug_exposure", "ingredient": ["Sertraline", "Escitalopram", "Fluoxetine"]}
+      ]
+    },
+    {
+      "id": "anemia_in_ckd",
+      "question": "How many chronic kidney disease patients have anemia with hemoglobin below 11?",
+      "attrition": [
+        {"step": "Any chronic kidney disease diagnosis", "type": "any_condition_dx", "condition": "ckd"},
+        {"step": "Any anemia diagnosis", "type": "any_condition_dx", "condition": "anemia"},
+        {"step": "Hemoglobin < 11 g/dL", "type": "lab_threshold", "lab": "hemoglobin", "operator": "<", "value": 11.0}
+      ]
+    },
+    {
+      "id": "elderly_polypharmacy_opioid",
+      "question": "How many patients 65 and older with chronic pain are receiving opioid therapy?",
+      "attrition": [
+        {"step": "Any chronic pain syndrome diagnosis", "type": "any_condition_dx", "condition": "chronic_pain"},
+        {"step": "Age 65 or older at index", "type": "age_range", "min_age": 65},
+        {"step": "At least 365 days of prior observation", "type": "prior_observation", "days": 365},
+        {"step": "Tramadol or oxycodone exposure", "type": "drug_exposure", "ingredient": ["Tramadol", "Oxycodone"]}
+      ]
+    }
+  ]
+}

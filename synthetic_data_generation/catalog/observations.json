@@ -1,0 +1,109 @@
+{
+  "_comment": "Content for the OMOP observation table, which the writer previously created and then left empty. An empty observation table is not a cosmetic gap: smoking status, alcohol intake and family history are the covariates most RWE studies adjust for, and a phenotype that needs them cannot be tested at all against data that lacks them. Values are conditioned on the patient's latent state, so smoking status agrees with the tobacco_use_disorder condition rather than being drawn independently of it.",
+
+  "items": [
+    {
+      "key": "smoking_status",
+      "name": "Tobacco smoking status",
+      "concept_id": 4041306,
+      "source_code": "OBS-SMK",
+      "domain": "Observation",
+      "value_type": "concept",
+      "cadence": "on_change",
+      "p_recorded": 0.72,
+      "values": [
+        {"key": "current", "name": "Current every day smoker", "concept_id": 45884037, "share": 0.15},
+        {"key": "former", "name": "Former smoker", "concept_id": 45879404, "share": 0.24},
+        {"key": "never", "name": "Never smoker", "concept_id": 45878118, "share": 0.61}
+      ],
+      "conditioned_on": {
+        "_comment": "Given the smoking condition, the observation must agree: a patient coded with tobacco use disorder is a current or former smoker, never a never-smoker. The residual former/current split is the quit rate.",
+        "smoking": {"current": 0.62, "former": 0.38, "never": 0.0},
+        "copd": {"current": 0.38, "former": 0.47, "never": 0.15},
+        "lung_cancer": {"current": 0.34, "former": 0.54, "never": 0.12}
+      },
+      "age_min": 12
+    },
+    {
+      "key": "alcohol_use",
+      "name": "Alcohol intake",
+      "concept_id": 4238768,
+      "source_code": "OBS-ETH",
+      "domain": "Observation",
+      "value_type": "concept",
+      "cadence": "annual",
+      "p_recorded": 0.41,
+      "values": [
+        {"key": "never", "name": "Never drinker", "concept_id": 45877994, "share": 0.31},
+        {"key": "occasional", "name": "Occasional drinker", "concept_id": 45883458, "share": 0.61},
+        {"key": "heavy", "name": "Heavy drinker", "concept_id": 45881667, "share": 0.08}
+      ],
+      "conditioned_on": {
+        "cirrhosis": {"never": 0.06, "occasional": 0.30, "heavy": 0.64},
+        "depression": {"never": 0.25, "occasional": 0.60, "heavy": 0.15}
+      },
+      "age_min": 18
+    },
+    {
+      "key": "family_history",
+      "name": "Family history of clinical finding",
+      "concept_id": 4167217,
+      "source_code": "OBS-FHX",
+      "domain": "Observation",
+      "value_type": "condition_concept",
+      "cadence": "once",
+      "p_recorded": 0.33,
+      "_comment": "value_as_concept_id points at the standard condition concept, which is how family history is normally represented. p_present is the chance the patient has a family history of that condition at all; it is deliberately elevated when the patient has the condition themselves, since heritable risk is shared.",
+      "conditions": [
+        {"condition": "t2dm", "p_present": 0.21, "p_present_if_affected": 0.44},
+        {"condition": "cad", "p_present": 0.18, "p_present_if_affected": 0.39},
+        {"condition": "breast_cancer", "p_present": 0.09, "p_present_if_affected": 0.27},
+        {"condition": "colorectal_cancer", "p_present": 0.06, "p_present_if_affected": 0.22},
+        {"condition": "prostate_cancer", "p_present": 0.07, "p_present_if_affected": 0.24},
+        {"condition": "stroke", "p_present": 0.13, "p_present_if_affected": 0.25},
+        {"condition": "dementia", "p_present": 0.11, "p_present_if_affected": 0.28},
+        {"condition": "hypertension", "p_present": 0.29, "p_present_if_affected": 0.46}
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "education",
+      "name": "Highest level of education",
+      "concept_id": 4023190,
+      "source_code": "OBS-EDU",
+      "domain": "Observation",
+      "value_type": "concept",
+      "cadence": "once",
+      "p_recorded": 0.14,
+      "values": [
+        {"key": "low", "name": "Less than high school", "concept_id": 45880924, "share": 0.11},
+        {"key": "hs", "name": "High school graduate", "concept_id": 45882071, "share": 0.51},
+        {"key": "college", "name": "College graduate or higher", "concept_id": 45884672, "share": 0.38}
+      ],
+      "age_min": 25
+    },
+    {
+      "key": "employment",
+      "name": "Employment status",
+      "concept_id": 4058671,
+      "source_code": "OBS-EMP",
+      "domain": "Observation",
+      "value_type": "concept",
+      "cadence": "annual",
+      "p_recorded": 0.19,
+      "values": [
+        {"key": "employed", "name": "Employed", "concept_id": 45879990, "share": 0.58},
+        {"key": "unemployed", "name": "Unemployed", "concept_id": 45883021, "share": 0.12},
+        {"key": "retired", "name": "Retired", "concept_id": 45876384, "share": 0.30}
+      ],
+      "age_bands": {
+        "_comment": "Retirement is overwhelmingly an age effect, so the marginal shares above are overridden per band.",
+        "18-44": {"employed": 0.85, "unemployed": 0.14, "retired": 0.01},
+        "45-64": {"employed": 0.76, "unemployed": 0.11, "retired": 0.13},
+        "65-79": {"employed": 0.21, "unemployed": 0.03, "retired": 0.76},
+        "80+": {"employed": 0.03, "unemployed": 0.01, "retired": 0.96}
+      },
+      "age_min": 18
+    }
+  ]
+}

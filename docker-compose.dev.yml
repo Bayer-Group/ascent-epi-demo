@@ -1,0 +1,12 @@
+# Opt-in host-backend development only. Never use this overlay for deployment.
+# See docs/development.md for matching host environment variables.
+# All added ports bind to loopback; the default Compose file stays unchanged.
+services:
+  postgres:
+    ports: ["127.0.0.1:15432:5432"]
+  redis:
+    ports: ["127.0.0.1:16379:6379"]
+  qdrant:
+    ports: ["127.0.0.1:16333:6333"]
+  medical-coder:
+    ports: ["127.0.0.1:18001:8000"]

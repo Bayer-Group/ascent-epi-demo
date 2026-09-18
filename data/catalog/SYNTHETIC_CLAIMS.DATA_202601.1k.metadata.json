@@ -1,0 +1,4001 @@
+{
+ "database_name": "SYNTHETIC_CLAIMS",
+ "schema_name": "DATA_202601",
+ "tables": [
+  {
+   "name": "COVERAGE",
+   "row_count": 1196,
+   "columns_count": 6,
+   "columns": [
+    {
+     "name": "MEMBER_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "M100000497",
+       4
+      ],
+      [
+       "M100001141",
+       4
+      ],
+      [
+       "M100001435",
+       4
+      ],
+      [
+       "M100002408",
+       4
+      ],
+      [
+       "M100002877",
+       4
+      ],
+      [
+       "M100004186",
+       4
+      ],
+      [
+       "M100005978",
+       4
+      ],
+      [
+       "M100000014",
+       3
+      ],
+      [
+       "M100000084",
+       3
+      ],
+      [
+       "M100000238",
+       3
+      ],
+      [
+       "M100000868",
+       3
+      ],
+      [
+       "M100001064",
+       3
+      ],
+      [
+       "M100001106",
+       3
+      ],
+      [
+       "M100001127",
+       3
+      ],
+      [
+       "M100001281",
+       3
+      ],
+      [
+       "M100001309",
+       3
+      ],
+      [
+       "M100001386",
+       3
+      ],
+      [
+       "M100001995",
+       3
+      ],
+      [
+       "M100002002",
+       3
+      ],
+      [
+       "M100002135",
+       3
+      ]
+     ],
+     "description": "person-level key; joins PATIENT_MASTER.MEMBER_ID"
+    },
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "LSR0000071",
+       4
+      ],
+      [
+       "LSR0000163",
+       4
+      ],
+      [
+       "LSR0000205",
+       4
+      ],
+      [
+       "LSR0000411",
+       4
+      ],
+      [
+       "LSR0000598",
+       4
+      ],
+      [
+       "RBM0000854",
+       4
+      ],
+      [
+       "SVO0000344",
+       4
+      ],
+      [
+       "LSR0000012",
+       3
+      ],
+      [
+       "LSR0000034",
+       3
+      ],
+      [
+       "LSR0000285",
+       3
+      ],
+      [
+       "LSR0000379",
+       3
+      ],
+      [
+       "LSR0000647",
+       3
+      ],
+      [
+       "LSR0000667",
+       3
+      ],
+      [
+       "LSR0000968",
+       3
+      ],
+      [
+       "NGH0000152",
+       3
+      ],
+      [
+       "NGH0000158",
+       3
+      ],
+      [
+       "NGH0000161",
+       3
+      ],
+      [
+       "NGH0000187",
+       3
+      ],
+      [
+       "NGH0000305",
+       3
+      ],
+      [
+       "NGH0000478",
+       3
+      ]
+     ],
+     "description": "site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people"
+    },
+    {
+     "name": "PAYER_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "commercial",
+       564
+      ],
+      [
+       "medicare",
+       287
+      ],
+      [
+       "medicaid",
+       211
+      ],
+      [
+       "self_pay",
+       134
+      ]
+     ],
+     "description": "payer code"
+    },
+    {
+     "name": "PLAN_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "COMM-PPO",
+       564
+      ],
+      [
+       "MCR-AB",
+       287
+      ],
+      [
+       "MCD-MC",
+       211
+      ],
+      [
+       "SELF",
+       134
+      ]
+     ],
+     "description": "benefit plan code"
+    },
+    {
+     "name": "EFF_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 452,
+     "top_values": [
+      [
+       "MIN: 2010-01-01",
+       1
+      ],
+      [
+       "MAX: 2026-01-01",
+       1
+      ]
+     ],
+     "description": "date coverage became effective"
+    },
+    {
+     "name": "TERM_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 574,
+     "top_values": [
+      [
+       "MIN: 2010-01-21",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "date coverage terminated; populated on every row here, so it does not mark coverage as closed"
+    }
+   ]
+  },
+  {
+   "name": "DX",
+   "row_count": 50849,
+   "columns_count": 9,
+   "columns": [
+    {
+     "name": "ENC_ID",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 53,
+     "empty_count": 0,
+     "distinct_count": 21704,
+     "top_values": [],
+     "description": "encounter this record belongs to; joins ENCOUNTER.ENC_ID"
+    },
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1981,
+     "top_values": [
+      [
+       "LSR0000875",
+       976
+      ],
+      [
+       "LSR0000476",
+       734
+      ],
+      [
+       "LSR0000405",
+       541
+      ],
+      [
+       "LSR0000209",
+       528
+      ],
+      [
+       "LSR0000219",
+       515
+      ],
+      [
+       "LSR0000664",
+       511
+      ],
+      [
+       "LSR0000082",
+       505
+      ],
+      [
+       "LSR0000652",
+       491
+      ],
+      [
+       "LSR0000771",
+       481
+      ],
+      [
+       "LSR0000545",
+       429
+      ],
+      [
+       "NGH0000670",
+       429
+      ],
+      [
+       "NGH0000623",
+       417
+      ],
+      [
+       "LSR0000859",
+       404
+      ],
+      [
+       "SVO0000939",
+       370
+      ],
+      [
+       "SVO0000857",
+       368
+      ],
+      [
+       "LSR0000347",
+       351
+      ],
+      [
+       "LSR0000790",
+       338
+      ],
+      [
+       "LSR0000400",
+       333
+      ],
+      [
+       "NGH0000770",
+       329
+      ],
+      [
+       "LSR0000040",
+       323
+      ]
+     ],
+     "description": "site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people"
+    },
+    {
+     "name": "DX_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 253,
+     "top_values": [
+      [
+       "Q40.0",
+       3216
+      ],
+      [
+       "R01.0",
+       1142
+      ],
+      [
+       "Q30.0",
+       2575
+      ],
+      [
+       "R78.0",
+       838
+      ],
+      [
+       "Q31.0",
+       2238
+      ],
+      [
+       "R72.0",
+       822
+      ],
+      [
+       "Q41.8",
+       2053
+      ],
+      [
+       "R90.8",
+       646
+      ],
+      [
+       "Q40.1",
+       1291
+      ],
+      [
+       "R01.9",
+       435
+      ],
+      [
+       "Q40.9",
+       441
+      ],
+      [
+       "R01.1",
+       413
+      ]
+     ],
+     "description": "diagnosis code, written WITH the decimal point throughout this table, such as I10.9"
+    },
+    {
+     "name": "DX_CD_TYPE",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3,
+     "top_values": [
+      [
+       "DX10",
+       30260
+      ],
+      [
+       "DX9",
+       10680
+      ],
+      [
+       "D10",
+       9909
+      ]
+     ],
+     "description": "code system of DX_CD: DX10 and D10 are BOTH ICD-10 and DX9 is ICD-9, all three at every facility -- match all of them or you silently drop patients"
+    },
+    {
+     "name": "DX_DESC",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 231,
+     "top_values": [
+      [
+       "Essential (primary) hypertension",
+       5242
+      ],
+      [
+       "Obesity, unspecified",
+       4110
+      ],
+      [
+       "Pure hypercholesterolemia",
+       3693
+      ],
+      [
+       "Prediabetes",
+       3242
+      ],
+      [
+       "Hypertensive heart disease without heart failure",
+       2055
+      ],
+      [
+       "Hypertension, unspecified",
+       2006
+      ],
+      [
+       "Impaired fasting glucose",
+       1680
+      ],
+      [
+       "Obesity due to drug",
+       1624
+      ],
+      [
+       "Morbid obesity due to excess calories",
+       1592
+      ],
+      [
+       "Hyperlipidemia, unspecified",
+       1469
+      ],
+      [
+       "Mixed hyperlipidemia",
+       1444
+      ],
+      [
+       "Chronic pain syndrome",
+       1228
+      ],
+      [
+       "Gastro-esophageal reflux disease without esophagitis",
+       1018
+      ],
+      [
+       "Nicotine dependence, cigarettes, uncomplicated",
+       951
+      ],
+      [
+       "Chronic kidney disease, stage 1",
+       884
+      ],
+      [
+       "Type 2 diabetes mellitus without complications",
+       846
+      ],
+      [
+       "Primary osteoarthritis of knee",
+       838
+      ],
+      [
+       "Benign prostatic hyperplasia without lower urinary tract symptoms",
+       653
+      ],
+      [
+       "Atherosclerotic heart disease of native coronary artery",
+       625
+      ],
+      [
+       "Gastro-esophageal reflux disease with esophagitis",
+       537
+      ]
+     ],
+     "description": "diagnosis description as free text"
+    },
+    {
+     "name": "DX_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5537,
+     "top_values": [
+      [
+       "MIN: 2001-01-04",
+       1
+      ],
+      [
+       "MAX: 2091-10-26",
+       1
+      ]
+     ],
+     "description": "date the diagnosis was recorded"
+    },
+    {
+     "name": "PRIMARY_FL",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "N",
+       28879
+      ],
+      [
+       "Y",
+       21970
+      ]
+     ],
+     "description": "flag marking the primary diagnosis of the encounter"
+    },
+    {
+     "name": "DX_SEQ",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "1",
+       21970
+      ],
+      [
+       "2",
+       18050
+      ],
+      [
+       "3",
+       10092
+      ],
+      [
+       "4",
+       737
+      ]
+     ],
+     "description": "position of the diagnosis within the encounter"
+    },
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       20020
+      ],
+      [
+       "NGH",
+       13552
+      ],
+      [
+       "RBM",
+       8784
+      ],
+      [
+       "SVO",
+       5552
+      ],
+      [
+       "PAC",
+       2941
+      ]
+     ],
+     "description": "facility that produced the record; joins FACILITY.FAC_CD"
+    }
+   ]
+  },
+  {
+   "name": "ENCOUNTER",
+   "row_count": 24892,
+   "columns_count": 11,
+   "columns": [
+    {
+     "name": "ENC_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24606,
+     "top_values": [],
+     "description": "encounter key; DX, PROCEDURES, LAB_RESULTS, MED_ORDERS and SOCIAL_HX reference it"
+    },
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2308,
+     "top_values": [
+      [
+       "LSR0000875",
+       340
+      ],
+      [
+       "LSR0000476",
+       246
+      ],
+      [
+       "LSR0000405",
+       188
+      ],
+      [
+       "LSR0000209",
+       179
+      ],
+      [
+       "LSR0000219",
+       175
+      ],
+      [
+       "LSR0000664",
+       174
+      ],
+      [
+       "LSR0000082",
+       168
+      ],
+      [
+       "LSR0000652",
+       168
+      ],
+      [
+       "NGH0000623",
+       161
+      ],
+      [
+       "LSR0000771",
+       160
+      ],
+      [
+       "NGH0000670",
+       156
+      ],
+      [
+       "LSR0000400",
+       155
+      ],
+      [
+       "PAC0000567",
+       152
+      ],
+      [
+       "LSR0000545",
+       147
+      ],
+      [
+       "RBM0000617",
+       144
+      ],
+      [
+       "RBM0000179",
+       137
+      ],
+      [
+       "LSR0000859",
+       135
+      ],
+      [
+       "RBM0000066",
+       122
+      ],
+      [
+       "LSR0000347",
+       121
+      ],
+      [
+       "RBM0000178",
+       121
+      ]
+     ],
+     "description": "site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people"
+    },
+    {
+     "name": "ENC_TYPE_TXT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "Office Visit",
+       9441
+      ],
+      [
+       "Outpatient Visit",
+       7465
+      ],
+      [
+       "Emergency Room Visit",
+       3080
+      ],
+      [
+       "Telehealth Visit",
+       1848
+      ],
+      [
+       "Inpatient Hospital Stay",
+       1515
+      ],
+      [
+       "Observation Stay",
+       715
+      ],
+      [
+       "Home Health Visit",
+       569
+      ],
+      [
+       "Intensive Care Unit Stay",
+       259
+      ]
+     ],
+     "description": "encounter type as free text, such as Inpatient or Emergency"
+    },
+    {
+     "name": "ENC_TYPE_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "HOSP-102",
+       9441
+      ],
+      [
+       "HOSP-101",
+       7465
+      ],
+      [
+       "HOSP-104",
+       3080
+      ],
+      [
+       "HOSP-103",
+       1848
+      ],
+      [
+       "HOSP-105",
+       1515
+      ],
+      [
+       "HOSP-107",
+       715
+      ],
+      [
+       "HOSP-108",
+       569
+      ],
+      [
+       "HOSP-106",
+       259
+      ]
+     ],
+     "description": "encounter type code"
+    },
+    {
+     "name": "ADMIT_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5604,
+     "top_values": [
+      [
+       "MIN: 2001-12-31",
+       1
+      ],
+      [
+       "MAX: 2091-10-11",
+       1
+      ]
+     ],
+     "description": "admission date; a handful of rows carry implausible future dates, seeded so the demo has dirty data to handle"
+    },
+    {
+     "name": "DISCH_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5589,
+     "top_values": [
+      [
+       "MIN: 2002-10-02",
+       1
+      ],
+      [
+       "MAX: 2071-07-28",
+       1
+      ]
+     ],
+     "description": "discharge date"
+    },
+    {
+     "name": "LOS_DAYS",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 31,
+     "top_values": [
+      [
+       "0",
+       22408
+      ],
+      [
+       "1",
+       1110
+      ],
+      [
+       "2",
+       334
+      ],
+      [
+       "3",
+       242
+      ],
+      [
+       "4",
+       178
+      ],
+      [
+       "5",
+       116
+      ],
+      [
+       "6",
+       102
+      ],
+      [
+       "7",
+       81
+      ],
+      [
+       "8",
+       67
+      ],
+      [
+       "9",
+       55
+      ],
+      [
+       "10",
+       37
+      ],
+      [
+       "11",
+       32
+      ],
+      [
+       "12",
+       27
+      ],
+      [
+       "14",
+       20
+      ],
+      [
+       "13",
+       15
+      ],
+      [
+       "17",
+       12
+      ],
+      [
+       "18",
+       12
+      ],
+      [
+       "16",
+       9
+      ],
+      [
+       "21",
+       7
+      ],
+      [
+       "15",
+       6
+      ]
+     ],
+     "description": "length of stay in days"
+    },
+    {
+     "name": "DEPT_NM",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "Lakeside Endocrinology Associates",
+       7309
+      ],
+      [
+       "Northgate Cardiology Clinic",
+       6012
+      ],
+      [
+       "Riverbend Family Practice",
+       4968
+      ],
+      [
+       "Summit Valley Oncology Institute",
+       2423
+      ],
+      [
+       "Pinehurst Ambulatory Care",
+       2115
+      ],
+      [
+       "Lakeside Regional Health",
+       845
+      ],
+      [
+       "Northgate General Hospital",
+       619
+      ],
+      [
+       "Riverbend Community Medical Center",
+       601
+      ]
+     ],
+     "description": "department name"
+    },
+    {
+     "name": "ATTENDING_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 200,
+     "top_values": [
+      [
+       "PRV0131",
+       238
+      ],
+      [
+       "PRV0141",
+       235
+      ],
+      [
+       "PRV0115",
+       231
+      ],
+      [
+       "PRV0123",
+       229
+      ],
+      [
+       "PRV0128",
+       224
+      ],
+      [
+       "PRV0111",
+       218
+      ],
+      [
+       "PRV0137",
+       218
+      ],
+      [
+       "PRV0143",
+       218
+      ],
+      [
+       "PRV0148",
+       214
+      ],
+      [
+       "PRV0144",
+       212
+      ],
+      [
+       "PRV0134",
+       211
+      ],
+      [
+       "PRV0116",
+       210
+      ],
+      [
+       "PRV0132",
+       208
+      ],
+      [
+       "PRV0139",
+       208
+      ],
+      [
+       "PRV0140",
+       207
+      ],
+      [
+       "PRV0145",
+       207
+      ],
+      [
+       "PRV0150",
+       206
+      ],
+      [
+       "PRV0122",
+       205
+      ],
+      [
+       "PRV0142",
+       204
+      ],
+      [
+       "PRV0114",
+       203
+      ]
+     ],
+     "description": "attending clinician identifier"
+    },
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       8154
+      ],
+      [
+       "NGH",
+       6631
+      ],
+      [
+       "RBM",
+       5569
+      ],
+      [
+       "SVO",
+       2423
+      ],
+      [
+       "PAC",
+       2115
+      ]
+     ],
+     "description": "facility that produced the record; joins FACILITY.FAC_CD"
+    },
+    {
+     "name": "TOTAL_CHARGE_AMT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 21578,
+     "top_values": [],
+     "description": "total amount charged for the encounter"
+    }
+   ]
+  },
+  {
+   "name": "FACILITY",
+   "row_count": 5,
+   "columns_count": 5,
+   "columns": [
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       1
+      ],
+      [
+       "NGH",
+       1
+      ],
+      [
+       "PAC",
+       1
+      ],
+      [
+       "RBM",
+       1
+      ],
+      [
+       "SVO",
+       1
+      ]
+     ],
+     "description": "facility key referenced by every clinical table"
+    },
+    {
+     "name": "FAC_NM",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "Lakeside Regional Network",
+       1
+      ],
+      [
+       "Northgate Health System",
+       1
+      ],
+      [
+       "Pinehurst Ambulatory Partners",
+       1
+      ],
+      [
+       "Riverbend Medical Group",
+       1
+      ],
+      [
+       "Summit Valley Oncology",
+       1
+      ]
+     ],
+     "description": "facility name"
+    },
+    {
+     "name": "EHR_VENDOR",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "Meridian EHR",
+       2
+      ],
+      [
+       "CareStack",
+       1
+      ],
+      [
+       "ClinicOne",
+       1
+      ],
+      [
+       "OncoTrack",
+       1
+      ]
+     ],
+     "description": "EHR vendor the facility runs"
+    },
+    {
+     "name": "DATE_FMT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "%Y-%m-%d",
+       2
+      ],
+      [
+       "%d-%b-%Y",
+       1
+      ],
+      [
+       "%m/%d/%Y",
+       1
+      ],
+      [
+       "epoch",
+       1
+      ]
+     ],
+     "description": "date format of the vendor extract this facility supplied; the loaded date columns are already typed DATE, so do not parse them with it"
+    },
+    {
+     "name": "SPECIALTY",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "ambulatory_general",
+       1
+      ],
+      [
+       "endocrine_renal",
+       1
+      ],
+      [
+       "oncology",
+       1
+      ],
+      [
+       "primary_care",
+       1
+      ],
+      [
+       "tertiary_cardiac",
+       1
+      ]
+     ],
+     "description": "primary specialty of the facility"
+    }
+   ]
+  },
+  {
+   "name": "LAB_RESULTS",
+   "row_count": 229615,
+   "columns_count": 12,
+   "columns": [
+    {
+     "name": "ENC_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24272,
+     "top_values": [],
+     "description": "encounter this record belongs to; joins ENCOUNTER.ENC_ID"
+    },
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2288,
+     "top_values": [
+      [
+       "LSR0000875",
+       5715
+      ],
+      [
+       "LSR0000476",
+       3741
+      ],
+      [
+       "LSR0000771",
+       3102
+      ],
+      [
+       "LSR0000664",
+       2813
+      ],
+      [
+       "LSR0000082",
+       2682
+      ],
+      [
+       "LSR0000219",
+       2587
+      ],
+      [
+       "LSR0000209",
+       2459
+      ],
+      [
+       "RBM0000178",
+       2425
+      ],
+      [
+       "LSR0000405",
+       2256
+      ],
+      [
+       "LSR0000652",
+       1980
+      ],
+      [
+       "NGH0000670",
+       1894
+      ],
+      [
+       "LSR0000859",
+       1891
+      ],
+      [
+       "NGH0000623",
+       1890
+      ],
+      [
+       "PAC0000567",
+       1762
+      ],
+      [
+       "RBM0000179",
+       1742
+      ],
+      [
+       "NGH0000770",
+       1715
+      ],
+      [
+       "LSR0000545",
+       1705
+      ],
+      [
+       "LSR0000126",
+       1640
+      ],
+      [
+       "SVO0000939",
+       1548
+      ],
+      [
+       "LSR0000644",
+       1510
+      ]
+     ],
+     "description": "site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people"
+    },
+    {
+     "name": "TEST_NM",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 39,
+     "top_values": [
+      [
+       "Systolic blood pressure",
+       20778
+      ],
+      [
+       "Diastolic blood pressure",
+       20764
+      ],
+      [
+       "Body mass index (BMI)",
+       15294
+      ],
+      [
+       "Creatinine",
+       13847
+      ],
+      [
+       "Cholesterol in LDL",
+       12937
+      ],
+      [
+       "Cholesterol in HDL",
+       11758
+      ],
+      [
+       "Glucose",
+       11503
+      ],
+      [
+       "Potassium",
+       11131
+      ],
+      [
+       "Triglyceride",
+       11074
+      ],
+      [
+       "Sodium",
+       9543
+      ],
+      [
+       "Hemoglobin",
+       8133
+      ],
+      [
+       "Hemoglobin A1c",
+       7783
+      ],
+      [
+       "Cholesterol",
+       7692
+      ],
+      [
+       "Alanine aminotransferase",
+       7211
+      ],
+      [
+       "Glomerular filtration rate estimated",
+       5679
+      ],
+      [
+       "Leukocytes",
+       5525
+      ],
+      [
+       "C reactive protein",
+       5379
+      ],
+      [
+       "Albumin/Creatinine",
+       4978
+      ],
+      [
+       "Platelets",
+       4078
+      ],
+      [
+       "Thyrotropin",
+       4029
+      ]
+     ],
+     "description": "lab test name as free text"
+    },
+    {
+     "name": "LOCAL_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 77,
+     "top_values": [
+      [
+       "LC100706",
+       14445
+      ],
+      [
+       "LC100714",
+       14399
+      ],
+      [
+       "LC100722",
+       10894
+      ],
+      [
+       "LC100037",
+       10138
+      ],
+      [
+       "LC100110",
+       9343
+      ],
+      [
+       "LC100128",
+       8481
+      ],
+      [
+       "LC100029",
+       8362
+      ],
+      [
+       "LC100060",
+       8219
+      ],
+      [
+       "LC100136",
+       8020
+      ],
+      [
+       "LC100078",
+       7041
+      ],
+      [
+       "DBP",
+       6365
+      ],
+      [
+       "SBP",
+       6333
+      ],
+      [
+       "LC100300",
+       6112
+      ],
+      [
+       "LC100011",
+       5752
+      ],
+      [
+       "LC100102",
+       5563
+      ],
+      [
+       "LC100201",
+       5344
+      ],
+      [
+       "BMI",
+       4400
+      ],
+      [
+       "LC100045",
+       4243
+      ],
+      [
+       "LC100326",
+       3994
+      ],
+      [
+       "LC100524",
+       3828
+      ]
+     ],
+     "description": "facility-local test code"
+    },
+    {
+     "name": "STD_LAB_CD",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 52260,
+     "empty_count": 0,
+     "distinct_count": 39,
+     "top_values": [
+      [
+       "LX07108",
+       15939
+      ],
+      [
+       "LX07105",
+       15888
+      ],
+      [
+       "LX07111",
+       11742
+      ],
+      [
+       "LX07006",
+       10829
+      ],
+      [
+       "LX07027",
+       9993
+      ],
+      [
+       "LX07030",
+       9077
+      ],
+      [
+       "LX07003",
+       8819
+      ],
+      [
+       "LX07015",
+       8646
+      ],
+      [
+       "LX07033",
+       8567
+      ],
+      [
+       "LX07018",
+       7425
+      ],
+      [
+       "LX07051",
+       6316
+      ],
+      [
+       "LX07024",
+       5960
+      ],
+      [
+       "LX07000",
+       5947
+      ],
+      [
+       "LX07036",
+       5593
+      ],
+      [
+       "LX07009",
+       4345
+      ],
+      [
+       "LX07057",
+       4281
+      ],
+      [
+       "LX07087",
+       4176
+      ],
+      [
+       "LX07102",
+       3787
+      ],
+      [
+       "LX07072",
+       3184
+      ],
+      [
+       "LX07060",
+       3179
+      ]
+     ],
+     "description": "standardised lab code, but NULL on about a quarter of rows and more at some facilities, so filtering on it alone drops results; fall back to LOCAL_CD or TEST_NM"
+    },
+    {
+     "name": "RESULT_VAL",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 6335,
+     "empty_count": 0,
+     "distinct_count": 2176,
+     "top_values": [
+      [
+       "140",
+       1846
+      ],
+      [
+       "139",
+       1781
+      ],
+      [
+       "141",
+       1709
+      ],
+      [
+       "138",
+       1634
+      ],
+      [
+       "142",
+       1564
+      ],
+      [
+       "137",
+       1447
+      ],
+      [
+       "143",
+       1317
+      ],
+      [
+       "136",
+       1256
+      ],
+      [
+       "80",
+       1164
+      ],
+      [
+       "4.2",
+       1162
+      ],
+      [
+       "76",
+       1156
+      ],
+      [
+       "4.1",
+       1153
+      ],
+      [
+       "81",
+       1131
+      ],
+      [
+       "79",
+       1127
+      ],
+      [
+       "78",
+       1120
+      ],
+      [
+       "82",
+       1108
+      ],
+      [
+       "77",
+       1099
+      ],
+      [
+       "4",
+       1095
+      ],
+      [
+       "33",
+       1077
+      ],
+      [
+       "4.3",
+       1076
+      ]
+     ],
+     "description": "result value; stored as text, cast before aggregating"
+    },
+    {
+     "name": "RESULT_UNIT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 44,
+     "top_values": [
+      [
+       "MG/DL",
+       28404
+      ],
+      [
+       "mg/dl",
+       25821
+      ],
+      [
+       "mg/dL",
+       17386
+      ],
+      [
+       "mm[hg]",
+       16677
+      ],
+      [
+       "MM[HG]",
+       13756
+      ],
+      [
+       "mm[Hg]",
+       11109
+      ],
+      [
+       "%",
+       10924
+      ],
+      [
+       "kg/m2",
+       9617
+      ],
+      [
+       "mmol/l",
+       8233
+      ],
+      [
+       "MMOL/L",
+       8157
+      ],
+      [
+       "KG/M2",
+       5677
+      ],
+      [
+       "mmol/L",
+       5589
+      ],
+      [
+       "U/L",
+       5440
+      ],
+      [
+       "G/DL",
+       5087
+      ],
+      [
+       "NG/ML",
+       4012
+      ],
+      [
+       "g/dl",
+       3916
+      ],
+      [
+       "10*3/ul",
+       3672
+      ],
+      [
+       "10*3/UL",
+       3666
+      ],
+      [
+       "ng/ml",
+       3516
+      ],
+      [
+       "ML/MIN/1.73M2",
+       2684
+      ]
+     ],
+     "description": "unit of RESULT_VAL"
+    },
+    {
+     "name": "REF_RANGE_TXT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 38,
+     "top_values": [
+      [
+       "90-120",
+       20778
+      ],
+      [
+       "60-80",
+       20764
+      ],
+      [
+       "18.5-24.9",
+       15294
+      ],
+      [
+       "0.6-1.3",
+       13847
+      ],
+      [
+       "0-100",
+       13593
+      ],
+      [
+       "40-90",
+       11758
+      ],
+      [
+       "70-99",
+       11503
+      ],
+      [
+       "3.5-5.1",
+       11131
+      ],
+      [
+       "0-150",
+       11074
+      ],
+      [
+       "136-145",
+       9543
+      ],
+      [
+       "12-17",
+       8133
+      ],
+      [
+       "4-5.6",
+       7783
+      ],
+      [
+       "0-200",
+       7692
+      ],
+      [
+       "7-56",
+       7211
+      ],
+      [
+       "60-120",
+       5679
+      ],
+      [
+       "4.5-11",
+       5525
+      ],
+      [
+       "0-5",
+       5379
+      ],
+      [
+       "0-30",
+       4978
+      ],
+      [
+       "150-400",
+       4078
+      ],
+      [
+       "0.4-4.5",
+       4029
+      ]
+     ],
+     "description": "reference range as free text"
+    },
+    {
+     "name": "ABNORMAL_FL",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 6335,
+     "empty_count": 0,
+     "distinct_count": 3,
+     "top_values": [
+      [
+       "N",
+       118854
+      ],
+      [
+       "H",
+       83853
+      ],
+      [
+       "L",
+       20573
+      ]
+     ],
+     "description": "flag marking an out-of-range result"
+    },
+    {
+     "name": "COLLECT_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5690,
+     "top_values": [
+      [
+       "MIN: 2001-01-14",
+       1
+      ],
+      [
+       "MAX: 2091-12-27",
+       1
+      ]
+     ],
+     "description": "date the specimen was collected"
+    },
+    {
+     "name": "RESULT_STATUS",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "FINAL",
+       223280
+      ],
+      [
+       "ORDERED",
+       6335
+      ]
+     ],
+     "description": "status of the result, such as final or preliminary"
+    },
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       89655
+      ],
+      [
+       "NGH",
+       56052
+      ],
+      [
+       "RBM",
+       46783
+      ],
+      [
+       "SVO",
+       20789
+      ],
+      [
+       "PAC",
+       16336
+      ]
+     ],
+     "description": "facility that produced the record; joins FACILITY.FAC_CD"
+    }
+   ]
+  },
+  {
+   "name": "MED_ORDERS",
+   "row_count": 24356,
+   "columns_count": 12,
+   "columns": [
+    {
+     "name": "ORDER_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24062,
+     "top_values": [],
+     "description": "medication order key"
+    },
+    {
+     "name": "ENC_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 12899,
+     "top_values": [],
+     "description": "encounter this record belongs to; joins ENCOUNTER.ENC_ID"
+    },
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1555,
+     "top_values": [
+      [
+       "LSR0000771",
+       242
+      ],
+      [
+       "NGH0000727",
+       222
+      ],
+      [
+       "LSR0000875",
+       198
+      ],
+      [
+       "NGH0000019",
+       186
+      ],
+      [
+       "RBM0000178",
+       181
+      ],
+      [
+       "LSR0000126",
+       180
+      ],
+      [
+       "NGH0000160",
+       179
+      ],
+      [
+       "SVO0000795",
+       179
+      ],
+      [
+       "NGH0000412",
+       175
+      ],
+      [
+       "LSR0000405",
+       166
+      ],
+      [
+       "NGH0000709",
+       154
+      ],
+      [
+       "RBM0000066",
+       154
+      ],
+      [
+       "RBM0000803",
+       154
+      ],
+      [
+       "SVO0000857",
+       153
+      ],
+      [
+       "NGH0000770",
+       149
+      ],
+      [
+       "LSR0000282",
+       147
+      ],
+      [
+       "LSR0000853",
+       144
+      ],
+      [
+       "PAC0000039",
+       143
+      ],
+      [
+       "RBM0000179",
+       143
+      ],
+      [
+       "LSR0000395",
+       142
+      ]
+     ],
+     "description": "site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people"
+    },
+    {
+     "name": "MED_NM",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 150,
+     "top_values": [
+      [
+       "Lisinopril 10 MG Oral Tablet",
+       1994
+      ],
+      [
+       "Atorvastatin 40 MG Oral Tablet",
+       1881
+      ],
+      [
+       "Ibuprofen 600 MG Oral Tablet",
+       1231
+      ],
+      [
+       "Metoprolol Succinate 50 MG Extended Release Oral Tablet",
+       1059
+      ],
+      [
+       "Amlodipine 5 MG Oral Tablet",
+       1015
+      ],
+      [
+       "Hydrochlorothiazide 25 MG Oral Tablet",
+       899
+      ],
+      [
+       "Naproxen 500 MG Oral Tablet",
+       882
+      ],
+      [
+       "Losartan 50 MG Oral Tablet",
+       798
+      ],
+      [
+       "Albuterol Sulfate 90 MCG/ACTUAT Metered Dose Inhaler",
+       793
+      ],
+      [
+       "Omeprazole 20 MG Delayed Release Oral Capsule",
+       780
+      ],
+      [
+       "Aspirin 81 MG Delayed Release Oral Tablet",
+       749
+      ],
+      [
+       "Metformin Hydrochloride 500 MG Oral Tablet",
+       558
+      ],
+      [
+       "Rosuvastatin 20 MG Oral Tablet",
+       526
+      ],
+      [
+       "Ferrous Sulfate 325 MG Oral Tablet",
+       500
+      ],
+      [
+       "Cholecalciferol 1000 UNT Oral Tablet",
+       476
+      ],
+      [
+       "Pantoprazole 40 MG Delayed Release Oral Tablet",
+       410
+      ],
+      [
+       "Sertraline 50 MG Oral Tablet",
+       408
+      ],
+      [
+       "Escitalopram 10 MG Oral Tablet",
+       378
+      ],
+      [
+       "Lovastatin 20 MG Oral Tablet",
+       377
+      ],
+      [
+       "Clopidogrel 75 MG Oral Tablet",
+       371
+      ]
+     ],
+     "description": "medication name as free text"
+    },
+    {
+     "name": "PKG_CD",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 3484,
+     "empty_count": 0,
+     "distinct_count": 79,
+     "top_values": [
+      [
+       "99999-1001-30",
+       1789
+      ],
+      [
+       "99999-1010-30",
+       1654
+      ],
+      [
+       "99999-1060-30",
+       1059
+      ],
+      [
+       "99999-1005-30",
+       953
+      ],
+      [
+       "99999-1002-30",
+       881
+      ],
+      [
+       "99999-1003-30",
+       794
+      ],
+      [
+       "99999-1061-30",
+       743
+      ],
+      [
+       "99999-1004-30",
+       708
+      ],
+      [
+       "99999-1040-01",
+       701
+      ],
+      [
+       "99999-1080-30",
+       693
+      ],
+      [
+       "99999-1030-90",
+       671
+      ],
+      [
+       "99999-1020-60",
+       478
+      ],
+      [
+       "99999-1093-90",
+       446
+      ],
+      [
+       "99999-1011-30",
+       438
+      ],
+      [
+       "99999-1092-90",
+       427
+      ],
+      [
+       "99999-1070-30",
+       365
+      ],
+      [
+       "99999-1081-30",
+       363
+      ],
+      [
+       "99999-1031-30",
+       342
+      ],
+      [
+       "99999-1071-30",
+       334
+      ],
+      [
+       "99999-1125-30",
+       334
+      ]
+     ],
+     "description": "package code identifying the dispensed product"
+    },
+    {
+     "name": "DOSE_TXT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 39,
+     "top_values": [
+      [
+       "10 mg",
+       3163
+      ],
+      [
+       "40 mg",
+       2612
+      ],
+      [
+       "50 mg",
+       2580
+      ],
+      [
+       "20 mg",
+       2345
+      ],
+      [
+       "500 mg",
+       1638
+      ],
+      [
+       "5 mg",
+       1390
+      ],
+      [
+       "600 mg",
+       1274
+      ],
+      [
+       "25 mg",
+       982
+      ],
+      [
+       "90 mcg/actuation",
+       813
+      ],
+      [
+       "81 mg",
+       771
+      ],
+      [
+       "325 mg",
+       511
+      ],
+      [
+       "1000 unit",
+       488
+      ],
+      [
+       "75 mg",
+       469
+      ],
+      [
+       "20 MG",
+       391
+      ],
+      [
+       "1000 mg",
+       388
+      ],
+      [
+       "300 mg",
+       375
+      ],
+      [
+       "0.4 mg",
+       371
+      ],
+      [
+       "50 mcg",
+       322
+      ],
+      [
+       "100 unit/mL",
+       305
+      ],
+      [
+       "550 MG",
+       283
+      ]
+     ],
+     "description": "dose as free text"
+    },
+    {
+     "name": "ROUTE",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "oral",
+       22015
+      ],
+      [
+       "inhalation",
+       1408
+      ],
+      [
+       "subcutaneous",
+       448
+      ],
+      [
+       "intramuscular",
+       303
+      ],
+      [
+       "intravenous",
+       182
+      ]
+     ],
+     "description": "route of administration"
+    },
+    {
+     "name": "ORDER_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5061,
+     "top_values": [
+      [
+       "MIN: 2001-02-25",
+       1
+      ],
+      [
+       "MAX: 2081-02-02",
+       1
+      ]
+     ],
+     "description": "date the medication was ordered"
+    },
+    {
+     "name": "END_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5380,
+     "top_values": [
+      [
+       "MIN: 2001-04-16",
+       1
+      ],
+      [
+       "MAX: 2091-09-11",
+       1
+      ]
+     ],
+     "description": "date the medication was stopped"
+    },
+    {
+     "name": "DAYS_SUPPLY",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 10,
+     "top_values": [
+      [
+       "30",
+       13168
+      ],
+      [
+       "90",
+       9935
+      ],
+      [
+       "10",
+       360
+      ],
+      [
+       "5",
+       323
+      ],
+      [
+       "7",
+       209
+      ],
+      [
+       "14",
+       200
+      ],
+      [
+       "28",
+       92
+      ],
+      [
+       "21",
+       46
+      ],
+      [
+       "1",
+       19
+      ],
+      [
+       "3",
+       4
+      ]
+     ],
+     "description": "days the order is expected to last"
+    },
+    {
+     "name": "REFILLS",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "3",
+       6141
+      ],
+      [
+       "2",
+       6122
+      ],
+      [
+       "1",
+       6080
+      ],
+      [
+       "0",
+       6013
+      ]
+     ],
+     "description": "number of refills authorised"
+    },
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       7690
+      ],
+      [
+       "NGH",
+       6713
+      ],
+      [
+       "RBM",
+       5673
+      ],
+      [
+       "SVO",
+       2375
+      ],
+      [
+       "PAC",
+       1905
+      ]
+     ],
+     "description": "facility that produced the record; joins FACILITY.FAC_CD"
+    }
+   ]
+  },
+  {
+   "name": "PATIENT_MASTER",
+   "row_count": 2327,
+   "columns_count": 10,
+   "columns": [
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2327,
+     "top_values": [
+      [
+       "LSR0000001",
+       1
+      ],
+      [
+       "LSR0000003",
+       1
+      ],
+      [
+       "LSR0000005",
+       1
+      ],
+      [
+       "LSR0000008",
+       1
+      ],
+      [
+       "LSR0000009",
+       1
+      ],
+      [
+       "LSR0000010",
+       1
+      ],
+      [
+       "LSR0000012",
+       1
+      ],
+      [
+       "LSR0000013",
+       1
+      ],
+      [
+       "LSR0000014",
+       1
+      ],
+      [
+       "LSR0000015",
+       1
+      ],
+      [
+       "LSR0000016",
+       1
+      ],
+      [
+       "LSR0000017",
+       1
+      ],
+      [
+       "LSR0000019",
+       1
+      ],
+      [
+       "LSR0000020",
+       1
+      ],
+      [
+       "LSR0000022",
+       1
+      ],
+      [
+       "LSR0000024",
+       1
+      ],
+      [
+       "LSR0000026",
+       1
+      ],
+      [
+       "LSR0000027",
+       1
+      ],
+      [
+       "LSR0000029",
+       1
+      ],
+      [
+       "LSR0000031",
+       1
+      ]
+     ],
+     "description": "site-local registration id; one person may be registered at several facilities"
+    },
+    {
+     "name": "MEMBER_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "M100000070",
+       5
+      ],
+      [
+       "M100000112",
+       5
+      ],
+      [
+       "M100000119",
+       5
+      ],
+      [
+       "M100000140",
+       5
+      ],
+      [
+       "M100000245",
+       5
+      ],
+      [
+       "M100000539",
+       5
+      ],
+      [
+       "M100000693",
+       5
+      ],
+      [
+       "M100000777",
+       5
+      ],
+      [
+       "M100000819",
+       5
+      ],
+      [
+       "M100000973",
+       5
+      ],
+      [
+       "M100001050",
+       5
+      ],
+      [
+       "M100001064",
+       5
+      ],
+      [
+       "M100001302",
+       5
+      ],
+      [
+       "M100001442",
+       5
+      ],
+      [
+       "M100001449",
+       5
+      ],
+      [
+       "M100001470",
+       5
+      ],
+      [
+       "M100001701",
+       5
+      ],
+      [
+       "M100001820",
+       5
+      ],
+      [
+       "M100002079",
+       5
+      ],
+      [
+       "M100002086",
+       5
+      ]
+     ],
+     "description": "person-level key -- COUNT(DISTINCT MEMBER_ID) counts patients; carried only by PATIENT_MASTER and COVERAGE, every other table keys on MRN and must join here"
+    },
+    {
+     "name": "PAT_NM",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 703,
+     "top_values": [
+      [
+       "Ashley Hernandez",
+       14
+      ],
+      [
+       "Joshua Thompson",
+       14
+      ],
+      [
+       "Steven Gonzalez",
+       13
+      ],
+      [
+       "Susan Smith",
+       12
+      ],
+      [
+       "Anthony Clark",
+       11
+      ],
+      [
+       "Elizabeth Miller",
+       11
+      ],
+      [
+       "John Thomas",
+       11
+      ],
+      [
+       "Joshua Johnson",
+       11
+      ],
+      [
+       "Michelle Davis",
+       11
+      ],
+      [
+       "Sandra Taylor",
+       11
+      ],
+      [
+       "Susan Ramirez",
+       11
+      ],
+      [
+       "Barbara White",
+       10
+      ],
+      [
+       "Donna Thompson",
+       10
+      ],
+      [
+       "John Johnson",
+       10
+      ],
+      [
+       "Thomas Miller",
+       10
+      ],
+      [
+       "Andrew Ramirez",
+       9
+      ],
+      [
+       "Elizabeth Anderson",
+       9
+      ],
+      [
+       "Jennifer Jones",
+       9
+      ],
+      [
+       "Linda Clark",
+       9
+      ],
+      [
+       "Mark Miller",
+       9
+      ]
+     ],
+     "description": "patient name"
+    },
+    {
+     "name": "BIRTH_DT",
+     "data_type": "DATE",
+     "nullable": true,
+     "null_count": 178,
+     "empty_count": 0,
+     "distinct_count": 968,
+     "top_values": [
+      [
+       "MIN: 1922-11-22",
+       1
+      ],
+      [
+       "MAX: 2025-12-20",
+       1
+      ]
+     ],
+     "description": "date of birth; use with a query date to derive age"
+    },
+    {
+     "name": "SEX_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "M",
+       1177
+      ],
+      [
+       "F",
+       1150
+      ]
+     ],
+     "description": "sex code as recorded by the facility"
+    },
+    {
+     "name": "RACE_TXT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 10,
+     "top_values": [
+      [
+       "WHITE",
+       1387
+      ],
+      [
+       "UNK",
+       411
+      ],
+      [
+       "BLACK",
+       298
+      ],
+      [
+       "ASIAN",
+       136
+      ],
+      [
+       "WHITE  ",
+       40
+      ],
+      [
+       "AI/AN",
+       22
+      ],
+      [
+       "UNK  ",
+       19
+      ],
+      [
+       "BLACK  ",
+       9
+      ],
+      [
+       "ASIAN  ",
+       3
+      ],
+      [
+       "NH/PI",
+       2
+      ]
+     ],
+     "description": "race as free text"
+    },
+    {
+     "name": "ETHNICITY_TXT",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "NOT HISPANIC",
+       1831
+      ],
+      [
+       "HISPANIC",
+       496
+      ]
+     ],
+     "description": "ethnicity as free text"
+    },
+    {
+     "name": "DECEASED_FL",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "N",
+       1928
+      ],
+      [
+       "Y",
+       399
+      ]
+     ],
+     "description": "flag marking the patient as deceased"
+    },
+    {
+     "name": "DEATH_DT",
+     "data_type": "DATE",
+     "nullable": true,
+     "null_count": 1928,
+     "empty_count": 0,
+     "distinct_count": 159,
+     "top_values": [
+      [
+       "MIN: 2010-04-09",
+       1
+      ],
+      [
+       "MAX: 2026-12-10",
+       1
+      ]
+     ],
+     "description": "date of death; NULL when the patient is alive"
+    },
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "NGH",
+       605
+      ],
+      [
+       "RBM",
+       553
+      ],
+      [
+       "LSR",
+       547
+      ],
+      [
+       "PAC",
+       338
+      ],
+      [
+       "SVO",
+       284
+      ]
+     ],
+     "description": "facility that produced the record; joins FACILITY.FAC_CD"
+    }
+   ]
+  },
+  {
+   "name": "PROCEDURES",
+   "row_count": 16088,
+   "columns_count": 6,
+   "columns": [
+    {
+     "name": "ENC_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 9926,
+     "top_values": [
+      [
+       "E000024446",
+       9
+      ],
+      [
+       "E000011704",
+       8
+      ],
+      [
+       "E000012848",
+       8
+      ],
+      [
+       "E000018363",
+       8
+      ],
+      [
+       "E000018374",
+       8
+      ],
+      [
+       "E000003445",
+       7
+      ],
+      [
+       "E000008755",
+       7
+      ],
+      [
+       "E000011705",
+       7
+      ],
+      [
+       "E000011711",
+       7
+      ],
+      [
+       "E000012367",
+       7
+      ],
+      [
+       "E000012387",
+       7
+      ],
+      [
+       "E000012428",
+       7
+      ],
+      [
+       "E000012471",
+       7
+      ],
+      [
+       "E000018122",
+       7
+      ],
+      [
+       "E000018360",
+       7
+      ],
+      [
+       "E000022269",
+       7
+      ],
+      [
+       "E000022291",
+       7
+      ],
+      [
+       "E000023459",
+       7
+      ],
+      [
+       "E000024447",
+       7
+      ],
+      [
+       "E000001896",
+       6
+      ]
+     ],
+     "description": "encounter this record belongs to; joins ENCOUNTER.ENC_ID"
+    },
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1072,
+     "top_values": [
+      [
+       "LSR0000476",
+       549
+      ],
+      [
+       "LSR0000875",
+       491
+      ],
+      [
+       "LSR0000082",
+       304
+      ],
+      [
+       "LSR0000771",
+       301
+      ],
+      [
+       "LSR0000664",
+       272
+      ],
+      [
+       "LSR0000209",
+       258
+      ],
+      [
+       "SVO0000939",
+       239
+      ],
+      [
+       "NGH0000623",
+       225
+      ],
+      [
+       "LSR0000405",
+       216
+      ],
+      [
+       "RBM0000178",
+       215
+      ],
+      [
+       "SVO0000857",
+       209
+      ],
+      [
+       "RBM0000706",
+       196
+      ],
+      [
+       "LSR0000219",
+       195
+      ],
+      [
+       "LSR0000126",
+       192
+      ],
+      [
+       "NGH0000670",
+       173
+      ],
+      [
+       "NGH0000770",
+       171
+      ],
+      [
+       "PAC0000567",
+       149
+      ],
+      [
+       "NGH0000727",
+       133
+      ],
+      [
+       "LSR0000644",
+       130
+      ],
+      [
+       "NGH0000160",
+       123
+      ]
+     ],
+     "description": "site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people"
+    },
+    {
+     "name": "PROC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 37,
+     "top_values": [
+      [
+       "END3001",
+       1592
+      ],
+      [
+       "IMG2001",
+       1490
+      ],
+      [
+       "IMG2007",
+       1239
+      ],
+      [
+       "MSK7001",
+       1158
+      ],
+      [
+       "REN5001",
+       1036
+      ],
+      [
+       "LAB8003",
+       977
+      ],
+      [
+       "CAR1001",
+       964
+      ],
+      [
+       "LAB8004",
+       911
+      ],
+      [
+       "PUL6001",
+       904
+      ],
+      [
+       "CAR1004",
+       814
+      ],
+      [
+       "IMG2009",
+       718
+      ],
+      [
+       "CAR1003",
+       618
+      ],
+      [
+       "LAB8002",
+       508
+      ],
+      [
+       "CAR1002",
+       377
+      ],
+      [
+       "IMG2003",
+       302
+      ],
+      [
+       "IMG2004",
+       285
+      ],
+      [
+       "IMG2008",
+       268
+      ],
+      [
+       "ONC4002",
+       265
+      ],
+      [
+       "ONC4005",
+       264
+      ],
+      [
+       "ONC4003",
+       238
+      ]
+     ],
+     "description": "procedure code, written WITHOUT a decimal point, unlike DX.DX_CD"
+    },
+    {
+     "name": "PROC_DESC",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 70,
+     "top_values": [
+      [
+       "Esophagogastroduodenoscopy",
+       1544
+      ],
+      [
+       "Radiography of chest",
+       1433
+      ],
+      [
+       "Radiography of knee",
+       1206
+      ],
+      [
+       "Total knee replacement",
+       1122
+      ],
+      [
+       "Hemodialysis",
+       1004
+      ],
+      [
+       "Dilated retinal examination",
+       945
+      ],
+      [
+       "Electrocardiogram",
+       942
+      ],
+      [
+       "Diabetic foot examination",
+       886
+      ],
+      [
+       "Spirometry",
+       878
+      ],
+      [
+       "Coronary angiography",
+       795
+      ],
+      [
+       "Dual energy X-ray absorptiometry bone density scan",
+       700
+      ],
+      [
+       "Cardiac stress test",
+       602
+      ],
+      [
+       "SARS-CoV-2 RNA detection by NAA",
+       494
+      ],
+      [
+       "Transthoracic echocardiography",
+       365
+      ],
+      [
+       "Computed tomography of head",
+       290
+      ],
+      [
+       "Magnetic resonance imaging of brain",
+       277
+      ],
+      [
+       "Biopsy of breast",
+       261
+      ],
+      [
+       "Mastectomy",
+       259
+      ],
+      [
+       "Mammography",
+       254
+      ],
+      [
+       "Biopsy of prostate",
+       230
+      ]
+     ],
+     "description": "procedure description as free text"
+    },
+    {
+     "name": "PROC_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4501,
+     "top_values": [
+      [
+       "MIN: 2001-05-15",
+       1
+      ],
+      [
+       "MAX: 2091-10-28",
+       1
+      ]
+     ],
+     "description": "date the procedure was performed"
+    },
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       6790
+      ],
+      [
+       "NGH",
+       3992
+      ],
+      [
+       "RBM",
+       2964
+      ],
+      [
+       "SVO",
+       1479
+      ],
+      [
+       "PAC",
+       863
+      ]
+     ],
+     "description": "facility that produced the record; joins FACILITY.FAC_CD"
+    }
+   ]
+  },
+  {
+   "name": "SOCIAL_HX",
+   "row_count": 9441,
+   "columns_count": 8,
+   "columns": [
+    {
+     "name": "ENC_ID",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 7194,
+     "top_values": [
+      [
+       "E000002119",
+       7
+      ],
+      [
+       "E000008390",
+       7
+      ],
+      [
+       "E000000258",
+       6
+      ],
+      [
+       "E000008823",
+       6
+      ],
+      [
+       "E000009687",
+       6
+      ],
+      [
+       "E000015219",
+       6
+      ],
+      [
+       "E000021087",
+       6
+      ],
+      [
+       "E000000071",
+       5
+      ],
+      [
+       "E000000801",
+       5
+      ],
+      [
+       "E000000983",
+       5
+      ],
+      [
+       "E000001219",
+       5
+      ],
+      [
+       "E000001720",
+       5
+      ],
+      [
+       "E000004007",
+       5
+      ],
+      [
+       "E000004603",
+       5
+      ],
+      [
+       "E000005580",
+       5
+      ],
+      [
+       "E000005643",
+       5
+      ],
+      [
+       "E000006986",
+       5
+      ],
+      [
+       "E000007657",
+       5
+      ],
+      [
+       "E000008263",
+       5
+      ],
+      [
+       "E000009817",
+       5
+      ]
+     ],
+     "description": "encounter this record belongs to; joins ENCOUNTER.ENC_ID"
+    },
+    {
+     "name": "MRN",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1493,
+     "top_values": [
+      [
+       "LSR0000875",
+       44
+      ],
+      [
+       "LSR0000545",
+       43
+      ],
+      [
+       "LSR0000400",
+       42
+      ],
+      [
+       "LSR0000219",
+       41
+      ],
+      [
+       "LSR0000405",
+       41
+      ],
+      [
+       "LSR0000652",
+       41
+      ],
+      [
+       "NGH0000670",
+       40
+      ],
+      [
+       "RBM0000179",
+       40
+      ],
+      [
+       "PAC0000567",
+       39
+      ],
+      [
+       "RBM0000617",
+       39
+      ],
+      [
+       "LSR0000209",
+       38
+      ],
+      [
+       "LSR0000664",
+       38
+      ],
+      [
+       "NGH0000020",
+       38
+      ],
+      [
+       "LSR0000409",
+       35
+      ],
+      [
+       "NGH0000099",
+       35
+      ],
+      [
+       "NGH0000623",
+       35
+      ],
+      [
+       "NGH0000250",
+       34
+      ],
+      [
+       "SVO0000795",
+       34
+      ],
+      [
+       "LSR0000247",
+       33
+      ],
+      [
+       "NGH0000924",
+       33
+      ]
+     ],
+     "description": "site-local registration id, NOT a patient key -- one person may hold several; join PATIENT_MASTER and count MEMBER_ID to count people"
+    },
+    {
+     "name": "OBS_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 6,
+     "top_values": [
+      [
+       "OBS-SMK",
+       2974
+      ],
+      [
+       "OBS-ETH",
+       2899
+      ],
+      [
+       "OBS-EMP",
+       2071
+      ],
+      [
+       "OBS-FHX",
+       910
+      ],
+      [
+       "OBS-EDU",
+       560
+      ],
+      [
+       "OBS-GA",
+       27
+      ]
+     ],
+     "description": "social-history observation code"
+    },
+    {
+     "name": "OBS_NM",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 6,
+     "top_values": [
+      [
+       "Tobacco smoking status",
+       2974
+      ],
+      [
+       "Alcohol intake",
+       2899
+      ],
+      [
+       "Employment status",
+       2071
+      ],
+      [
+       "Family history of clinical finding",
+       910
+      ],
+      [
+       "Highest level of education",
+       560
+      ],
+      [
+       "Gestational age at delivery",
+       27
+      ]
+     ],
+     "description": "observation name, such as smoking status"
+    },
+    {
+     "name": "OBS_VAL",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 27,
+     "empty_count": 0,
+     "distinct_count": 40,
+     "top_values": [
+      [
+       "Occasional drinker",
+       1666
+      ],
+      [
+       "Never smoker",
+       1386
+      ],
+      [
+       "Employed",
+       1146
+      ],
+      [
+       "Never drinker",
+       878
+      ],
+      [
+       "Former smoker",
+       768
+      ],
+      [
+       "Current every day smoker",
+       725
+      ],
+      [
+       "Retired",
+       681
+      ],
+      [
+       "High school graduate",
+       299
+      ],
+      [
+       "Heavy drinker",
+       251
+      ],
+      [
+       "Family history of Essential hypertension",
+       245
+      ],
+      [
+       "College graduate or higher",
+       194
+      ],
+      [
+       "Unemployed",
+       180
+      ],
+      [
+       "Family history of Type 2 diabetes mellitus",
+       178
+      ],
+      [
+       "Family history of Coronary artery disease",
+       136
+      ],
+      [
+       "Family history of Cerebral infarction",
+       89
+      ],
+      [
+       "Family history of Dementia",
+       71
+      ],
+      [
+       "Family history of Malignant neoplasm of breast",
+       63
+      ],
+      [
+       "Occasional drinker  ",
+       60
+      ],
+      [
+       "Family history of Malignant neoplasm of prostate",
+       53
+      ],
+      [
+       "Less than high school",
+       50
+      ]
+     ],
+     "description": "observation value as free text"
+    },
+    {
+     "name": "OBS_NUM",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 9414,
+     "empty_count": 0,
+     "distinct_count": 24,
+     "top_values": [
+      [
+       "38.6",
+       3
+      ],
+      [
+       "41",
+       2
+      ],
+      [
+       "29.7",
+       1
+      ],
+      [
+       "30.9",
+       1
+      ],
+      [
+       "31.7",
+       1
+      ],
+      [
+       "33.1",
+       1
+      ],
+      [
+       "33.7",
+       1
+      ],
+      [
+       "35.7",
+       1
+      ],
+      [
+       "35.8",
+       1
+      ],
+      [
+       "36.2",
+       1
+      ],
+      [
+       "36.7",
+       1
+      ],
+      [
+       "36.8",
+       1
+      ],
+      [
+       "37.3",
+       1
+      ],
+      [
+       "37.4",
+       1
+      ],
+      [
+       "38.1",
+       1
+      ],
+      [
+       "38.2",
+       1
+      ],
+      [
+       "38.7",
+       1
+      ],
+      [
+       "39",
+       1
+      ],
+      [
+       "39.2",
+       1
+      ],
+      [
+       "40",
+       1
+      ]
+     ],
+     "description": "numeric form of the observation, populated on only a handful of rows -- read OBS_VAL instead"
+    },
+    {
+     "name": "OBS_DT",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3908,
+     "top_values": [
+      [
+       "MIN: 2002-10-05",
+       1
+      ],
+      [
+       "MAX: 2042-09-30",
+       1
+      ]
+     ],
+     "description": "date the observation was recorded"
+    },
+    {
+     "name": "FAC_CD",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       2708
+      ],
+      [
+       "NGH",
+       2592
+      ],
+      [
+       "RBM",
+       2319
+      ],
+      [
+       "PAC",
+       911
+      ],
+      [
+       "SVO",
+       911
+      ]
+     ],
+     "description": "facility that produced the record; joins FACILITY.FAC_CD"
+    }
+   ]
+  }
+ ],
+ "tables_count": 9
+}

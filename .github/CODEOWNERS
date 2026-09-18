@@ -1,0 +1,10 @@
+# Code owners for this repository.
+#
+# GitHub requests a review from these accounts on every pull request. The file
+# must be named exactly CODEOWNERS -- no extension -- and live in the repository
+# root, .github/ or docs/; anywhere else it is inert.
+#
+# One global rule, deliberately. Per-path ownership is worth adding when
+# different people genuinely own different subsystems, not before.
+
+* @angeloziletti @leodambrosi

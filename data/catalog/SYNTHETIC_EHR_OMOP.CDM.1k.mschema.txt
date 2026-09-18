@@ -1,0 +1,336 @@
+【DB_ID】 SYNTHETIC_EHR_OMOP
+【Schema】
+# Table: care_site
+[
+(care_site_id:BIGINT, care site key; person and visit_occurrence reference it, Examples: [1, 2, 3, 4, 5, 6]),
+(care_site_name:VARCHAR, name of the facility or department, Examples: [Lakeside Endocrinology Associates, Lakeside Regional Health, Northgate Cardiology Clinic, Northgate General Hospital, Pinehurst Ambulatory Care, Riverbend Community Medical Center]),
+(place_of_service_concept_id:BIGINT, standard concept for the place of service, Examples: [8717, 8940, 8756]),
+(location_id:BIGINT, geographic location; joins location.location_id, Examples: [1, 2, 3, 4, 5]),
+(care_site_source_value:VARCHAR, care site identifier as it appeared in the source system, Examples: [LSR, NGH, RBM, PAC, SVO]),
+(place_of_service_source_value:VARCHAR, place of service as it appeared in the source system, Examples: [Inpatient Hospital, Office, Outpatient Clinic]),
+]
+# Table: cdm_source
+[
+(cdm_source_name:VARCHAR, name of the source database, Examples: [Synthetic RWE Demo Database]),
+(cdm_source_abbreviation:VARCHAR, short name of the source database, Examples: [SYNTH-RWE]),
+(cdm_holder:VARCHAR, organisation that holds the data, Examples: [Medical Coder demo]),
+(source_description:VARCHAR, description of the source data, Examples: [Fictitious patient-level data generated from a hand-authored clinical catalog (seed=42). All patients, codes and vocabularies are invented.]),
+(source_documentation_reference:VARCHAR, where the source is documented, Examples: [synthetic_data_generation/catalog]),
+(cdm_etl_reference:VARCHAR, where the ETL is documented, Examples: [synthetic_data_generation/generate.py]),
+(source_release_date:DATE, date the source data was released),
+(cdm_release_date:DATE, date this CDM instance was released),
+(cdm_version:VARCHAR, OMOP CDM version, Examples: [5.4]),
+(cdm_version_concept_id:BIGINT, standard concept for the CDM version, Examples: [0]),
+(vocabulary_version:VARCHAR, version of the vocabulary bundled with this instance, Examples: [SIM v1.0]),
+]
+# Table: concept
+[
+(concept_id:BIGINT, concept key referenced by every *_concept_id column; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing, Examples: [0, 19000000, 19000001, 19000002, 19000003, 19000004]),
+(concept_name:VARCHAR, human-readable name of the concept, Examples: [Chronic pain syndrome, Generalized anxiety disorder, Malignant neoplasm of prostate, Postpartum hemorrhage, Prediabetes, 25-hydroxyvitamin D3]),
+(domain_id:VARCHAR, domain the concept belongs to, such as Condition, Drug or Measurement, Examples: [Drug, Condition, Procedure, Measurement, Unit, Visit]),
+(vocabulary_id:VARCHAR, vocabulary the concept comes from; these are simulated vocabularies (MEDLEX, DXCODE, LABLEX, PHARMLEX, DRUGPKG), not SNOMED, ICD or RxNorm, Examples: [PHARMLEX, DRUGPKG, MEDLEX, DXCODE, PXCODE, DXCODE9]),
+(concept_class_id:VARCHAR, class of the concept within its vocabulary, Examples: [Drug Product, Package Code, Diagnosis Code, Disorder, Procedure, Procedure Code]),
+(standard_concept:VARCHAR, 'S' marks a standard concept of this database's simulated vocabularies; blank means non-standard, map it through concept_relationship first, Examples: [, S]),
+(concept_code:VARCHAR, code as it appears in its source vocabulary, Examples: [%, 1, 10*3/uL, 11, 2, 21]),
+(valid_start_date:DATE, date the concept became valid, Examples: [MIN: 2000-01-01, MAX: 2020-05-01]),
+(valid_end_date:DATE, date the concept stopped being valid; 2099-12-31 means still valid, Examples: [MIN: 2015-09-30, MAX: 2099-12-31]),
+(invalid_reason:VARCHAR, why the concept was retired; blank for valid concepts, Examples: []),
+]
+# Table: concept_ancestor
+[
+(ancestor_concept_id:BIGINT, the more general concept -- join here to include a concept and everything beneath it, Examples: [19000000, 20000000, 19000013, 19000001, 20000001, 20000011]),
+(descendant_concept_id:BIGINT, the more specific concept, Examples: [20006152, 20006153, 20006154, 20006155, 20006156, 20006157]),
+(min_levels_of_separation:BIGINT, shortest hop count between ancestor and descendant, Examples: [0, 1, 2, 3, 4]),
+(max_levels_of_separation:BIGINT, longest hop count between ancestor and descendant, Examples: [0, 1, 2, 3, 4]),
+]
+# Table: concept_relationship
+[
+(concept_id_1:BIGINT, source concept of the relationship, Examples: [19000000, 20001014, 20001030, 20001034, 20001047, 20001008]),
+(concept_id_2:BIGINT, target concept of the relationship, Examples: [19000000, 20001014, 20001030, 20001034, 20001047, 20001008]),
+(relationship_id:VARCHAR, kind of relationship; 'Maps to' converts a non-standard concept to its standard one, Examples: [Mapped from, Maps to, Is a, Subsumes]),
+(valid_start_date:DATE, date the relationship became valid, Examples: [MIN: 2000-01-01, MAX: 2000-01-01]),
+(valid_end_date:DATE, date the relationship stopped being valid, Examples: [MIN: 2099-12-31, MAX: 2099-12-31]),
+(invalid_reason:VARCHAR, why the relationship was retired; blank when valid, Examples: []),
+]
+# Table: condition_era
+[
+(condition_era_id:BIGINT, surrogate key of the era),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [875, 476, 652, 219, 209, 405]),
+(condition_concept_id:BIGINT, standard concept for the condition the era covers, Examples: [20001028, 20001033, 20001027, 20001038, 20001011, 20001013]),
+(condition_era_start_date:DATE, start of the continuous period of the condition, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(condition_era_end_date:DATE, end of the continuous period of the condition, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(condition_occurrence_count:BIGINT, number of condition_occurrence records collapsed into this era, Examples: [1, 2, 3, 4, 5, 6]),
+]
+# Table: condition_occurrence
+[
+(condition_occurrence_id:BIGINT, surrogate key of the diagnosis record),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [875, 476, 209, 405, 82, 664]),
+(condition_concept_id:BIGINT, concept for the diagnosis -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing, Examples: [20001028, 20001033, 20001027, 20001038, 20001011, 20001013]),
+(condition_start_date:DATE, date the condition was first recorded, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(condition_start_datetime:VARCHAR, timestamp the condition was first recorded, Examples: [2025-09-18 09:00:00, 2025-03-16 09:00:00, 2025-04-03 09:00:00, 2025-09-21 09:00:00, 2023-09-05 09:00:00, 2024-05-11 09:00:00]),
+(condition_end_date:DATE, date the condition resolved; NULL if ongoing, Examples: [MIN: 2010-03-17, MAX: 2026-01-28]),
+(condition_end_datetime:VARCHAR, timestamp the condition resolved; NULL if ongoing, Examples: [2014-11-22 17:00:00, 2015-06-05 17:00:00, 2018-08-23 17:00:00, 2014-03-09 17:00:00, 2020-07-07 17:00:00, 2023-06-15 17:00:00]),
+(condition_type_concept_id:BIGINT, provenance of the diagnosis record, Examples: [32020]),
+(condition_status_concept_id:BIGINT, status such as admitting, final, or problem-list, Examples: [32893, 32902]),
+(stop_reason:VARCHAR, why the condition stopped being recorded),
+(provider_id:BIGINT, provider who recorded the record; joins provider.provider_id),
+(visit_occurrence_id:BIGINT, visit this record belongs to; joins visit_occurrence.visit_occurrence_id),
+(visit_detail_id:BIGINT, sub-visit detail; never populated in this dataset, do not join on it),
+(condition_source_value:VARCHAR, diagnosis code as it appeared in the source system, Examples: [Q40.0, Q30.0, Q31.0, Q41.8, Q40.1, Q40.9]),
+(condition_source_concept_id:BIGINT, source concept for the diagnosis, Examples: [21002800, 21003300, 21002700, 21003800, 21002801, 21002802]),
+(condition_status_source_value:VARCHAR, condition status as it appeared in the source system),
+]
+# Table: cost
+[
+(cost_id:BIGINT, surrogate key of the cost record),
+(cost_event_id:BIGINT, identifier of the record this cost is about, in the domain named by cost_domain_id),
+(cost_domain_id:VARCHAR, which table cost_event_id points at, such as Drug or Visit, Examples: [Measurement, Visit, Drug, Procedure]),
+(cost_type_concept_id:BIGINT, provenance of the cost record, Examples: [5032]),
+(currency_concept_id:BIGINT, standard concept for the currency of the amounts, Examples: [44818668]),
+(total_charge:DOUBLE, amount charged by the provider),
+(total_cost:DOUBLE, cost to the provider of delivering the service),
+(total_paid:DOUBLE, total amount paid from all sources),
+(paid_by_payer:DOUBLE, amount paid by the insurer),
+(paid_by_patient:DOUBLE, total amount paid out of pocket by the patient, Examples: [0.0, 0.31, 0.26, 0.22, 0.24, 0.77]),
+(paid_patient_copay:DOUBLE, patient copay portion, Examples: [0.0, 0.31, 0.26, 0.22, 0.24, 0.77]),
+(paid_patient_coinsurance:DOUBLE, patient coinsurance portion, Examples: [0.0]),
+(paid_patient_deductible:DOUBLE, patient deductible portion, Examples: [0.0]),
+(paid_by_primary:DOUBLE, amount paid by the primary insurer when coverage is coordinated),
+(paid_ingredient_cost:DOUBLE, drug ingredient portion of the amount paid),
+(paid_dispensing_fee:DOUBLE, dispensing-fee portion of the amount paid),
+(payer_plan_period_id:BIGINT, coverage period this cost falls in; joins payer_plan_period, Examples: [1050, 588, 925, 806, 101, 266]),
+(amount_allowed:DOUBLE, amount the payer contract allows for the service),
+(revenue_code_concept_id:BIGINT, standard concept for the revenue code, Examples: [0]),
+(revenue_code_source_value:VARCHAR, revenue code as it appeared in the source system),
+(drg_concept_id:BIGINT, standard concept for the diagnosis-related group, Examples: [0]),
+(drg_source_value:VARCHAR, DRG as it appeared in the source system),
+]
+# Table: death
+[
+(person_id:BIGINT, patient key of the deceased person; presence of a row means the person died, Examples: [118, 121, 126, 128, 131, 139]),
+(death_date:DATE, date of death, Examples: [MIN: 2010-04-09, MAX: 2026-12-10]),
+(death_datetime:VARCHAR, timestamp of death, Examples: [2016-07-21 00:00:00, 2026-07-15 00:00:00, 2010-04-09 00:00:00, 2010-06-21 00:00:00, 2010-10-13 00:00:00, 2010-12-14 00:00:00]),
+(death_type_concept_id:BIGINT, provenance of the death record, Examples: [32817]),
+(cause_concept_id:BIGINT, standard concept for the cause of death, Examples: [4306655, 20001009, 4145711, 20001015, 20001031, 20001019]),
+(cause_source_value:VARCHAR, cause of death as it appeared in the source system, Examples: [natural, Q45.1, accidental, Q44.0, Q70.0, Q12.0]),
+(cause_source_concept_id:BIGINT, source concept for the cause of death; 0 when unmapped, Examples: [0]),
+]
+# Table: drug_era
+[
+(drug_era_id:BIGINT, surrogate key of the era),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [771, 412, 66, 160, 179, 944]),
+(drug_concept_id:BIGINT, concept for the drug the era covers, Examples: [22001041, 22001009, 22001034, 22001004, 22001049, 22001047]),
+(drug_era_start_date:DATE, start of the continuous period of exposure, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(drug_era_end_date:DATE, end of the continuous period of exposure, Examples: [MIN: 2010-01-21, MAX: 2026-01-31]),
+(drug_exposure_count:BIGINT, number of drug_exposure records collapsed into this era, Examples: [1, 2, 3, 4, 5, 6]),
+(gap_days:BIGINT, days of permissible gap inside the era, Examples: [0]),
+]
+# Table: drug_exposure
+[
+(drug_exposure_id:BIGINT, surrogate key of the drug record),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [771, 727, 795, 875, 19, 160]),
+(drug_concept_id:BIGINT, concept for the drug -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing, Examples: [22001041, 22001009, 22001034, 22001047, 22001004, 22001033]),
+(drug_exposure_start_date:DATE, date the exposure began, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(drug_exposure_start_datetime:VARCHAR, timestamp the exposure began, Examples: [2020-02-23 09:00:00, 2015-01-02 09:00:00, 2026-01-11 09:00:00, 2024-08-11 09:00:00, 2022-03-03 09:00:00, 2010-02-05 09:00:00]),
+(drug_exposure_end_date:DATE, date the exposure ended, Examples: [MIN: 2010-01-21, MAX: 2026-01-31]),
+(drug_exposure_end_datetime:VARCHAR, timestamp the exposure ended, Examples: [2026-01-31 09:00:00, 2016-01-05 09:00:00, 2021-01-03 09:00:00, 2020-12-12 09:00:00, 2015-02-01 09:00:00, 2025-04-15 09:00:00]),
+(verbatim_end_date:DATE, end date exactly as given in the source system),
+(drug_type_concept_id:BIGINT, provenance: prescription written, dispensed, or administered, Examples: [32818]),
+(stop_reason:VARCHAR, why the drug was stopped),
+(refills:BIGINT, number of refills authorised, Examples: [3, 2, 1, 0]),
+(quantity:DOUBLE, quantity dispensed, Examples: [30.0, 90.0, 10.0, 5.0, 7.0, 14.0]),
+(days_supply:BIGINT, days the dispensed quantity is expected to last, Examples: [30, 90, 10, 5, 7, 14]),
+(sig:VARCHAR, free-text directions for use, Examples: [Take as directed (10 mg Oral Tablet), Take as directed (40 mg Oral Tablet), Take as directed (500 mg Oral Tablet), Take as directed (50 mg Oral Tablet), Take as directed (20 mg Oral Tablet), Take as directed (5 mg Oral Tablet)]),
+(route_concept_id:BIGINT, standard concept for route of administration, Examples: [4132161, 4139962, 4142048, 4302612, 4171047]),
+(lot_number:VARCHAR, manufacturing lot number),
+(provider_id:BIGINT, prescribing provider; joins provider.provider_id),
+(visit_occurrence_id:BIGINT, visit this record belongs to; joins visit_occurrence.visit_occurrence_id),
+(visit_detail_id:BIGINT, sub-visit detail; never populated in this dataset, do not join on it),
+(drug_source_value:VARCHAR, drug code as it appeared in the source system, Examples: [99999-1001-30, 99999-1010-30, 99999-1060-30, 99999-1005-30, 99999-1002-30, 99999-1003-30]),
+(drug_source_concept_id:BIGINT, source concept for the drug, Examples: [23000041, 23000009, 23000034, 23000047, 23000004, 23000033]),
+(route_source_value:VARCHAR, route as it appeared in the source system, Examples: [oral, inhalation, subcutaneous, intramuscular, intravenous]),
+(dose_unit_source_value:VARCHAR, dose unit as it appeared in the source system),
+]
+# Table: fact_relationship
+[
+(domain_concept_id_1:BIGINT, which table fact_id_1 points at, Examples: [56]),
+(fact_id_1:BIGINT, identifier of the first record in the relationship, Examples: [349, 119, 173, 246, 257, 271]),
+(domain_concept_id_2:BIGINT, which table fact_id_2 points at, Examples: [56]),
+(fact_id_2:BIGINT, identifier of the second record in the relationship, Examples: [349, 119, 173, 246, 257, 271]),
+(relationship_concept_id:BIGINT, standard concept for the kind of relationship, Examples: [44818784, 44818821]),
+]
+# Table: location
+[
+(location_id:BIGINT, location key; person, care_site and provider reference it, Examples: [1, 2, 3, 4, 5, 6]),
+(address_1:VARCHAR, first address line),
+(address_2:VARCHAR, second address line),
+(city:VARCHAR, city, Examples: [Elmridge, Fairmont, Lakeside, Northgate, Pinehurst, Riverbend]),
+(state:VARCHAR, two-letter state code, Examples: [MI, OH, PA]),
+(zip:VARCHAR, postal code, Examples: [15012, 15068, 43001, 43055, 43107, 48198]),
+(county:VARCHAR, county, Examples: [Lakeside County, Northgate County, Summit County, Pinehurst County, Riverbend County]),
+(location_source_value:VARCHAR, address as it appeared in the source system, Examples: [LOC001, LOC002, LOC003, LOC004, LOC005, LOC006]),
+(country_concept_id:BIGINT, standard concept for the country, Examples: [0]),
+(country_source_value:VARCHAR, country as it appeared in the source system, Examples: [US]),
+(latitude:DOUBLE, latitude of the location),
+(longitude:DOUBLE, longitude of the location),
+]
+# Table: measurement
+[
+(measurement_id:BIGINT, surrogate key of the measurement record),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [875, 476, 771, 664, 82, 209]),
+(measurement_concept_id:BIGINT, concept for what was measured -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing, Examples: [24000028, 24000011, 24000005, 24000009, 24000023, 24000018]),
+(measurement_date:DATE, date the measurement was taken, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(measurement_datetime:VARCHAR, timestamp the measurement was taken, Examples: [2025-09-18 10:00:00, 2025-03-03 10:00:00, 2025-02-01 10:00:00, 2025-01-23 10:00:00, 2025-04-03 10:00:00, 2025-09-22 10:00:00]),
+(measurement_time:VARCHAR, time of day the measurement was taken, Examples: [10:00:00]),
+(measurement_type_concept_id:BIGINT, provenance: lab result, vital sign, or derived value, Examples: [32817]),
+(operator_concept_id:BIGINT, comparison operator when the value is not exact, such as < or >, Examples: [0]),
+(value_as_number:DOUBLE, numeric result -- the column to aggregate for lab and vital values, Examples: [140.0, 139.0, 141.0, 138.0, 142.0, 137.0]),
+(value_as_concept_id:BIGINT, categorical result expressed as a standard concept, Examples: [0]),
+(unit_concept_id:BIGINT, standard concept for the unit of value_as_number, Examples: [8840, 8876, 8753, 9531, 8713, 8554]),
+(range_low:DOUBLE, lower bound of the reference range, Examples: [0.0, 60.0, 90.0, 18.5, 3.5, 0.6]),
+(range_high:DOUBLE, upper bound of the reference range, Examples: [120.0, 80.0, 100.0, 24.9, 1.3, 90.0]),
+(provider_id:BIGINT, provider who recorded the record; joins provider.provider_id),
+(visit_occurrence_id:BIGINT, visit this record belongs to; joins visit_occurrence.visit_occurrence_id),
+(visit_detail_id:BIGINT, sub-visit detail; never populated in this dataset, do not join on it),
+(measurement_source_value:VARCHAR, measurement code as it appeared in the source system, Examples: [LC100706, LC100714, LC100722, LC100037, LC100110, LC100128]),
+(measurement_source_concept_id:BIGINT, source concept for the measurement, Examples: [25000028, 25000011, 25000005, 25000009, 25000023, 25000018]),
+(unit_source_value:VARCHAR, unit as it appeared in the source system, Examples: [mg/dL, mm[Hg], mmol/L, kg/m2, g/dL, %]),
+(unit_source_concept_id:BIGINT, source concept for the unit; 0 when unmapped, Examples: [0]),
+(value_source_value:VARCHAR, result exactly as it appeared in the source system, Examples: [140.0, 139.0, 141.0, 138.0, 142.0, 137.0]),
+(measurement_event_id:BIGINT, identifier of the record this measurement is about),
+(meas_event_field_concept_id:BIGINT, which table and field measurement_event_id points at, Examples: [0]),
+]
+# Table: observation
+[
+(observation_id:BIGINT, surrogate key of the observation record, Examples: [1, 10, 100, 1000, 1001, 1002]),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [545, 652, 400, 875, 219, 405]),
+(observation_concept_id:BIGINT, standard concept for what was observed, Examples: [4041306, 4238768, 4058671, 4167217, 4023190, 4051245]),
+(observation_date:DATE, date of the observation, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(observation_datetime:VARCHAR, timestamp of the observation, Examples: [2026-01-17 09:00:00, 2021-01-08 09:00:00, 2025-09-21 09:00:00, 2024-03-19 09:00:00, 2025-01-13 09:00:00, 2024-01-05 09:00:00]),
+(observation_type_concept_id:BIGINT, provenance of the observation record, Examples: [32817]),
+(value_as_number:DOUBLE, numeric value of the observation, Examples: [38.6, 41.0, 29.7, 30.9, 31.7, 33.1]),
+(value_as_string:VARCHAR, free-text value of the observation, Examples: [Occasional drinker, Never smoker, Employed, Never drinker, Former smoker, Current every day smoker]),
+(value_as_concept_id:BIGINT, categorical value expressed as a standard concept, Examples: [45883458, 45878118, 45879990, 45877994, 45879404, 45884037]),
+(qualifier_concept_id:BIGINT, standard concept qualifying the observation, Examples: [0]),
+(unit_concept_id:BIGINT, standard concept for the unit of value_as_number, Examples: [0]),
+(provider_id:BIGINT, provider who recorded the record; joins provider.provider_id),
+(visit_occurrence_id:BIGINT, visit this record belongs to; joins visit_occurrence.visit_occurrence_id, Examples: [2119, 8390, 15219, 21087, 258, 8823]),
+(visit_detail_id:BIGINT, sub-visit detail; never populated in this dataset, do not join on it),
+(observation_source_value:VARCHAR, observation code as it appeared in the source system, Examples: [OBS-SMK, OBS-ETH, OBS-EMP, OBS-FHX, OBS-EDU, OBS-GA]),
+(observation_source_concept_id:BIGINT, source concept for the observation, Examples: [0]),
+(unit_source_value:VARCHAR, unit as it appeared in the source system),
+(qualifier_source_value:VARCHAR, qualifier as it appeared in the source system),
+(value_source_value:VARCHAR, value exactly as it appeared in the source system, Examples: [Occasional drinker, Never smoker, Employed, Never drinker, Former smoker, Current every day smoker]),
+(observation_event_id:BIGINT, identifier of the record this observation is about),
+(obs_event_field_concept_id:BIGINT, which table and field observation_event_id points at, Examples: [0]),
+]
+# Table: observation_period
+[
+(observation_period_id:BIGINT, surrogate key of the period, Examples: [1, 10, 100, 1000, 1001, 1002]),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [163, 205, 344, 411, 598, 71]),
+(observation_period_start_date:DATE, first date the person is observable; data before this is absent, not negative, Examples: [MIN: 2010-01-01, MAX: 2026-01-01]),
+(observation_period_end_date:DATE, last date the person is observable, Examples: [MIN: 2010-01-21, MAX: 2026-01-31]),
+(period_type_concept_id:BIGINT, provenance of the period record, Examples: [44814724]),
+]
+# Table: payer_plan_period
+[
+(payer_plan_period_id:BIGINT, surrogate key of the coverage period, Examples: [1, 10, 100, 1000, 1001, 1002]),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [163, 205, 344, 411, 598, 71]),
+(payer_plan_period_start_date:DATE, first date of continuous insurance coverage, Examples: [MIN: 2010-01-01, MAX: 2026-01-01]),
+(payer_plan_period_end_date:DATE, last date of continuous insurance coverage, Examples: [MIN: 2010-01-21, MAX: 2026-01-31]),
+(payer_concept_id:BIGINT, standard concept for the payer, Examples: [32810, 32812, 32811, 32813]),
+(payer_source_value:VARCHAR, payer as it appeared in the source system, Examples: [commercial, medicare, medicaid, self_pay]),
+(payer_source_concept_id:BIGINT, source concept for the payer; 0 when unmapped, Examples: [0]),
+(plan_concept_id:BIGINT, standard concept for the benefit plan, Examples: [0]),
+(plan_source_value:VARCHAR, plan as it appeared in the source system, Examples: [COMM-PPO, MCR-AB, MCD-MC, SELF]),
+(plan_source_concept_id:BIGINT, source concept for the plan; 0 when unmapped, Examples: [0]),
+(sponsor_concept_id:BIGINT, standard concept for the plan sponsor, Examples: [0]),
+(sponsor_source_value:VARCHAR, sponsor as it appeared in the source system),
+(sponsor_source_concept_id:BIGINT, source concept for the sponsor; 0 when unmapped, Examples: [0]),
+(family_source_value:VARCHAR, family identifier as it appeared in the source system, Examples: [M100000497, M100001141, M100001435, M100002408, M100002877, M100004186]),
+(stop_reason_concept_id:BIGINT, standard concept for why coverage ended, Examples: [0]),
+(stop_reason_source_value:VARCHAR, reason coverage ended as it appeared in the source system),
+(stop_reason_source_concept_id:BIGINT, source concept for the stop reason; 0 when unmapped, Examples: [0]),
+]
+# Table: person
+[
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) is the correct patient count for this database, Examples: [1, 10, 100, 1000, 101, 102]),
+(gender_concept_id:BIGINT, standard concept for gender: 8507 male, 8532 female, Examples: [8507, 8532]),
+(year_of_birth:BIGINT, birth year; use with a query date to derive age, Examples: [1962, 2022, 1957, 1954, 1960, 1980]),
+(month_of_birth:BIGINT, birth month, 1-12, Examples: [12, 4, 7, 9, 11, 8]),
+(day_of_birth:BIGINT, day of month of birth, Examples: [8, 20, 13, 6, 14, 4]),
+(birth_datetime:VARCHAR, full birth timestamp when known, Examples: [2022-04-07 00:00:00, 1941-04-14 00:00:00, 1948-08-10 00:00:00, 1949-01-20 00:00:00, 1952-02-08 00:00:00, 1955-06-13 00:00:00]),
+(race_concept_id:BIGINT, standard concept for race, Examples: [8527, 0, 8516, 8515, 8657, 8557]),
+(ethnicity_concept_id:BIGINT, standard concept for ethnicity: 38003563 Hispanic, 38003564 not Hispanic, Examples: [38003564, 38003563]),
+(location_id:BIGINT, geographic location; joins location.location_id, Examples: [3, 7, 2, 6, 5, 8]),
+(provider_id:BIGINT, primary care provider; joins provider.provider_id),
+(care_site_id:BIGINT, care site; joins care_site.care_site_id, Examples: [1, 5, 3, 7, 8]),
+(person_source_value:VARCHAR, patient identifier as it appeared in the source system, Examples: [LSR0000001, LSR0000003, LSR0000005, LSR0000009, LSR0000012, LSR0000015]),
+(gender_source_value:VARCHAR, gender as it appeared in the source system, Examples: [M, F]),
+(gender_source_concept_id:BIGINT, source concept for gender; 0 when unmapped, Examples: [0]),
+(race_source_value:VARCHAR, race as it appeared in the source system, Examples: [WHITE, UNK, BLACK, ASIAN, AI/AN, NH/PI]),
+(race_source_concept_id:BIGINT, source concept for race; 0 when unmapped, Examples: [0]),
+(ethnicity_source_value:VARCHAR, ethnicity as it appeared in the source system, Examples: [NOT HISPANIC, HISPANIC]),
+(ethnicity_source_concept_id:BIGINT, source concept for ethnicity; 0 when unmapped, Examples: [0]),
+]
+# Table: procedure_occurrence
+[
+(procedure_occurrence_id:BIGINT, surrogate key of the procedure record),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [476, 875, 82, 771, 664, 939]),
+(procedure_concept_id:BIGINT, concept for the procedure -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing, Examples: [26000035, 26000008, 26000023, 26000022, 26000017, 26000032]),
+(procedure_date:DATE, date the procedure was performed, Examples: [MIN: 2010-01-05, MAX: 2026-01-31]),
+(procedure_datetime:VARCHAR, timestamp the procedure was performed, Examples: [2020-11-18 11:00:00, 2024-05-31 11:00:00, 2015-01-22 11:00:00, 2020-02-23 11:00:00, 2020-08-30 11:00:00, 2021-01-08 11:00:00]),
+(procedure_end_date:DATE, end date for procedures spanning more than a day, Examples: [MIN: 2010-01-05, MAX: 2026-01-31]),
+(procedure_end_datetime:VARCHAR, end timestamp for procedures spanning more than a day, Examples: [2020-11-18 11:30:00, 2024-05-31 11:30:00, 2015-01-22 11:30:00, 2020-02-23 11:30:00, 2020-08-30 11:30:00, 2021-01-08 11:30:00]),
+(procedure_type_concept_id:BIGINT, provenance of the procedure record, Examples: [32817]),
+(modifier_concept_id:BIGINT, standard concept for the procedure modifier, Examples: [0]),
+(quantity:BIGINT, number of times the procedure was performed, Examples: [1]),
+(provider_id:BIGINT, provider who recorded the record; joins provider.provider_id),
+(visit_occurrence_id:BIGINT, visit this record belongs to; joins visit_occurrence.visit_occurrence_id, Examples: [24446, 11704, 12848, 18363, 18374, 11705]),
+(visit_detail_id:BIGINT, sub-visit detail; never populated in this dataset, do not join on it),
+(procedure_source_value:VARCHAR, procedure code as it appeared in the source system, Examples: [END3001, IMG2001, IMG2007, MSK7001, REN5001, LAB8003]),
+(procedure_source_concept_id:BIGINT, source concept for the procedure, Examples: [27000035, 27000008, 27000023, 27000022, 27000017, 27000032]),
+(modifier_source_value:VARCHAR, modifier as it appeared in the source system),
+]
+# Table: provider
+[
+(provider_id:BIGINT, provider key; clinical tables reference it, Examples: [1, 10, 100, 101, 102, 103]),
+(provider_name:VARCHAR, provider name, Examples: [Provider 001, Provider 002, Provider 003, Provider 004, Provider 005, Provider 006]),
+(npi:VARCHAR, National Provider Identifier),
+(dea:VARCHAR, Drug Enforcement Administration number),
+(specialty_concept_id:BIGINT, standard concept for the provider specialty, Examples: [38004446, 38004456, 38004451, 38004485, 38004473, 38004479]),
+(care_site_id:BIGINT, care site; joins care_site.care_site_id, Examples: [2, 4, 7, 1, 3, 5]),
+(year_of_birth:BIGINT, provider year of birth),
+(gender_concept_id:BIGINT, standard concept for provider gender, Examples: [0]),
+(provider_source_value:VARCHAR, provider identifier as it appeared in the source system, Examples: [PRV0001, PRV0002, PRV0003, PRV0004, PRV0005, PRV0006]),
+(specialty_source_value:VARCHAR, specialty as it appeared in the source system, Examples: [Family Practice, Internal Medicine, Cardiology, Endocrinology, Oncology, Nephrology]),
+(specialty_source_concept_id:BIGINT, source concept for the specialty; 0 when unmapped, Examples: [0]),
+(gender_source_value:VARCHAR, provider gender as it appeared in the source system),
+(gender_source_concept_id:BIGINT, source concept for provider gender; 0 when unmapped, Examples: [0]),
+]
+# Table: visit_occurrence
+[
+(visit_occurrence_id:BIGINT, visit key; clinical events reference it),
+(person_id:BIGINT, patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this, Examples: [875, 476, 405, 209, 664, 82]),
+(visit_concept_id:BIGINT, concept for visit type, MEDLEX 28000000-28000007 such as 28000005 office, 28000003 inpatient, 28000000 emergency -- not the real OMOP 9201/9202/9203, Examples: [28000005, 28000006, 28000000, 28000007, 28000003, 28000004]),
+(visit_start_date:DATE, visit start (admission) date, Examples: [MIN: 2010-01-02, MAX: 2026-01-31]),
+(visit_start_datetime:VARCHAR, visit start timestamp, Examples: [2025-09-18 09:00:00, 2025-06-18 09:00:00, 2025-02-01 09:00:00, 2025-04-03 09:00:00, 2025-04-29 09:00:00, 2024-05-31 09:00:00]),
+(visit_end_date:DATE, visit end (discharge) date, Examples: [MIN: 2010-01-02, MAX: 2026-02-05]),
+(visit_end_datetime:VARCHAR, visit end timestamp, Examples: [2025-09-18 17:00:00, 2025-04-29 17:00:00, 2025-04-03 17:00:00, 2025-06-03 17:00:00, 2024-01-23 17:00:00, 2025-03-03 17:00:00]),
+(visit_type_concept_id:BIGINT, provenance of the visit record, Examples: [32817]),
+(provider_id:BIGINT, provider who recorded the record; joins provider.provider_id, Examples: [131, 141, 115, 123, 128, 137]),
+(care_site_id:BIGINT, care site; joins care_site.care_site_id, Examples: [6, 2, 4, 8, 7, 5]),
+(visit_source_value:VARCHAR, visit type as it appeared in the source system, Examples: [HOSP-102, HOSP-101, HOSP-104, HOSP-103, HOSP-105, HOSP-107]),
+(visit_source_concept_id:BIGINT, source concept for the visit, Examples: [29000005, 29000006, 29000000, 29000007, 29000003, 29000004]),
+(admitted_from_concept_id:BIGINT, where the patient was admitted from, Examples: [0]),
+(discharged_to_concept_id:BIGINT, where the patient was discharged to, Examples: [0]),
+(preceding_visit_occurrence_id:BIGINT, the immediately prior visit for this person),
+]
+# Table: vocabulary
+[
+(vocabulary_id:VARCHAR, vocabulary key referenced by concept.vocabulary_id; the clinical vocabularies here are simulated, not SNOMED, ICD or RxNorm, Examples: [DRUGPKG, DXCODE, DXCODE9, ENCTYPE, Ethnicity, Gender]),
+(vocabulary_name:VARCHAR, full name of the vocabulary, Examples: [OMOP Ethnicity, OMOP Gender, OMOP Payer, OMOP Route, OMOP Specialty, OMOP Standardized Vocabularies]),
+(vocabulary_reference:VARCHAR, where the vocabulary is published, Examples: [Synthetic - not a real vocabulary]),
+(vocabulary_version:VARCHAR, version of the vocabulary in this database, Examples: [v1.0]),
+(vocabulary_concept_id:BIGINT, concept representing the vocabulary itself, Examples: [0]),
+]

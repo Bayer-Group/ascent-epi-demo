@@ -1,0 +1,317 @@
+# The whole stack, from a clean clone:
+#
+#     cp .env.template .env      # add one LLM API key
+#     docker compose up
+#
+# No hosted warehouse is needed for the default setup. An external LLM key is
+# required; data and the concept index stay local.
+#
+# Only the backend and the chat UI publish ports, on 127.0.0.1. Postgres, Redis, Qdrant
+# and the coder talk to each other over the compose network by service name, so
+# publishing them would achieve nothing except colliding with whatever you
+# already run locally. To poke at one while debugging, add a
+# docker-compose.override.yml:
+#
+#     services:
+#       qdrant:
+#         ports: ["127.0.0.1:6333:6333"]
+#
+# NOTE ON EXPOSURE: backend MCP is open unless API_AUTH_TOKEN is set;
+# LibreChat uses login sessions with local-demo credentials/secrets. Keep the
+# loopback bindings and follow docs/operations.md before exposing the stack.
+
+name: ascent
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ascent
+      POSTGRES_PASSWORD: ascent
+      POSTGRES_DB: ascent
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ascent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  qdrant:
+    # Must track the client the coder pins (qdrant-client==1.16.1). The client
+    # refuses a major mismatch and warns beyond one minor, so an arbitrary
+    # server tag produces a warning today and a hard failure on the next bump.
+    image: qdrant/qdrant:v1.16.1
+    volumes: ["qdrant:/qdrant/storage"]
+    healthcheck:
+      # The image has no curl or wget, so probe from inside with bash's
+      # /dev/tcp rather than adding a package just to health-check it.
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/6333'"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Builds the vocabulary database and embeds it into Qdrant, then exits.
+  # A separate one-shot service rather than an entrypoint step, so the coder
+  # and backend can both wait for it to *complete* -- an index that is still
+  # filling returns fewer results rather than failing, which is the kind of
+  # flake that wastes an afternoon.
+  coder-init:
+    build:
+      context: .
+      dockerfile: services/medical-coder/Dockerfile
+    command: >
+      sh -c "python scripts/build_vocabulary.py --data /app/vocabulary --out /data/vocabulary.duckdb &&
+             python scripts/seed_qdrant.py"
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      VOCABULARY_DB: /data/vocabulary.duckdb
+      HF_HOME: /models
+    volumes:
+      - coderdata:/data
+      - models:/models
+    depends_on:
+      qdrant: {condition: service_healthy}
+    restart: "no"
+
+  medical-coder:
+    build:
+      context: .
+      dockerfile: services/medical-coder/Dockerfile
+    environment:
+      # The service reads QDRANT_HOST/QDRANT_PORT; only the seed script takes
+      # a URL. Setting just QDRANT_URL leaves host=None and every search fails
+      # with a Qdrant ResponseHandlingException behind a retry.
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6333
+      QDRANT_URL: http://qdrant:6333
+      VOCABULARY_DB: /data/vocabulary.duckdb
+      HF_HOME: /models
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      # The coder's llm_filter="haiku" is Bedrock-backed, same as above.
+      AWS_REGION: ${AWS_REGION:-}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN:-}
+    volumes:
+      - coderdata:/data
+      - models:/models
+    depends_on:
+      qdrant: {condition: service_healthy}
+      coder-init: {condition: service_completed_successfully}
+
+  backend:
+    build:
+      context: .
+    ports: ["127.0.0.1:${BACKEND_PORT:-8000}:8000"]
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ascent
+      DB_APP_USR: ascent
+      DB_APP_PWD: ascent
+      REDIS_HOST: redis
+      # "redis-local" is the plain-TCP mode. "redis" means TLS (ElastiCache),
+      # which times out against the Redis container in this stack.
+      CACHE: redis-local
+      # The warehouse is built into a volume on first start so a restart does
+      # not repeat the ~2s build and the unzip.
+      WAREHOUSE_DATA_DIR: /app/data/synthetic
+      WAREHOUSE_WORK_DIR: /warehouse
+      WAREHOUSE_SCALE: ${DATA_SCALE:-1k}
+      # The query library embeds with BAAI/bge-large-en-v1.5, ~1.3 GB pulled
+      # from HuggingFace on first use. Without this it lands in the container's
+      # writable layer and is lost on every recreate, so each rebuild
+      # re-downloads it -- and the stack stops working offline. Shared with the
+      # coder, which caches its own model in the same volume.
+      HF_HOME: /models
+      MEDICAL_CODER_BASE_URL: http://medical-coder:8000/v1/medical-coder
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_API_BASE: ${OPENAI_API_BASE:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # Bedrock, for the claude_sonnet assistant the OMOP path asks for.
+      # Without these the provider looks unconfigured and every request for it
+      # is silently substituted with whatever else is available.
+      AWS_REGION: ${AWS_REGION:-}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN:-}
+      LLM_PROVIDER_ALIASES: ${LLM_PROVIDER_ALIASES:-}
+      API_AUTH_TOKEN: ${API_AUTH_TOKEN:-}
+    volumes:
+      # Bind-mounted rather than baked in so the datasets and the generated
+      # catalog are the same files you see in the editor. Without it a catalog
+      # built at startup lands inside the container and is invisible from the
+      # host -- and adding a dataset means rebuilding the image.
+      - ./data:/app/data
+      - warehouse:/warehouse
+      - models:/models
+    # Serving is not the same as started: the warehouse build and the query
+    # library take minutes, and LibreChat gives up on its MCP servers after
+    # three failed attempts and latches a circuit breaker open. start_period is
+    # generous for that reason -- a first boot builds the warehouse from the
+    # shipped archives before anything answers.
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/public/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 60
+      start_period: 60s
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      medical-coder: {condition: service_started}
+
+  # Chat UI, on 127.0.0.1:3080. Comes up with the rest of the stack so that
+  # `docker compose up` is the whole demo -- ask a question in a browser without
+  # configuring an MCP client first. librechat/librechat.yaml connects it to
+  # the v1 server; experimental and ui-kit are separate, optional endpoints.
+  librechat:
+    # Built rather than pulled: the skills-on / MCP-selected defaults are
+    # compiled into the React bundle and no configuration file reaches them.
+    # See librechat/Dockerfile. The first build takes ~15 minutes; after that
+    # it is cached.
+    build:
+      context: ./librechat
+    image: ascent-epi-demo/librechat:local
+    ports: ["127.0.0.1:${LIBRECHAT_PORT:-3080}:3080"]
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3080
+      MONGO_URI: mongodb://chat-mongodb:27017/LibreChat
+      # Conversation search (Meilisearch) and file RAG (pgvector + rag_api) are
+      # both switched off -- three extra containers that a tool-calling demo
+      # never touches. Leaving SEARCH unset defaults it on and the UI then spins
+      # on a search backend that is not there.
+      SEARCH: "false"
+      ALLOW_REGISTRATION: "true"
+      ALLOW_EMAIL_LOGIN: "true"
+      ALLOW_UNVERIFIED_EMAIL_LOGIN: "true"
+      # LibreChat's default session is 15 minutes, so a seeded account still
+      # means logging in again mid-demo. A week means one login, once.
+      # Rate limits, which LibreChat ships disabled. A demo handing a shared
+      # LLM key to a group is exactly where they matter -- one runaway
+      # conversation is a real bill rather than a slow afternoon.
+      LIMIT_CONCURRENT_MESSAGES: "true"
+      CONCURRENT_MESSAGE_MAX: "2"
+      LIMIT_MESSAGE_USER: "true"
+      MESSAGE_USER_MAX: "40"
+      MESSAGE_USER_WINDOW: "60"
+      LIMIT_MESSAGE_IP: "true"
+      MESSAGE_IP_MAX: "60"
+      MESSAGE_IP_WINDOW: "60"
+      BAN_VIOLATIONS: "true"
+      BAN_DURATION: "1000 * 60 * 60 * 2"
+      BAN_INTERVAL: "20"
+      SESSION_EXPIRY: "1000 * 60 * 60 * 24 * 7"
+      REFRESH_TOKEN_EXPIRY: "(1000 * 60 * 60 * 24) * 30"
+      # Encrypt-at-rest keys for user-entered credentials, plus the chat session
+      # secrets. The defaults are deliberately worthless -- all-zero keys, and
+      # strings that say out loud what they are -- so a clone starts with no
+      # setup step and nobody mistakes them for real ones.
+      #
+      # All four are overridable from .env, so anywhere that is not a laptop
+      # demo supplies its own without editing this file:
+      #   CREDS_KEY=$(openssl rand -hex 32)
+      #   CREDS_IV=$(openssl rand -hex 16)
+      #   JWT_SECRET=$(openssl rand -hex 32)
+      #   JWT_REFRESH_SECRET=$(openssl rand -hex 32)
+      CREDS_KEY: ${CREDS_KEY:-0000000000000000000000000000000000000000000000000000000000000000}
+      CREDS_IV: ${CREDS_IV:-00000000000000000000000000000000}
+      # All-zero rather than a memorable string: a default that reads as a
+      # placeholder to a human is still a valid signing key to LibreChat, and a
+      # published one lets anyone forge a session against a deployment that did
+      # not override it. Override these before exposing the stack.
+      JWT_SECRET: ${JWT_SECRET:-0000000000000000000000000000000000000000000000000000000000000000}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-0000000000000000000000000000000000000000000000000000000000000000}
+      # LibreChat names the Gemini key GOOGLE_KEY; the rest of this stack calls
+      # it GEMINI_API_KEY, so one value in .env feeds both.
+      # Must match the backend's API_AUTH_TOKEN: LibreChat reaches the MCP
+      # servers over the internal network, so the ALB never sees those calls
+      # and the app's own bearer is what authenticates them.
+      ASCENT_MCP_TOKEN: ${API_AUTH_TOKEN:-}
+      GOOGLE_KEY: ${GEMINI_API_KEY:-}
+      # One model, so there is nothing to choose and nothing to choose wrong.
+      # GOOGLE_MODELS replaces LibreChat's built-in list rather than adding to
+      # it, which is what is wanted: everything else disappears from the picker
+      # and the single remaining entry is what a new chat opens on.
+      #
+      # Set here so every run shows the same model picker.
+      GOOGLE_MODELS: ${GOOGLE_MODELS:-gemini-3.7-flash}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    volumes:
+      - ./librechat/librechat.yaml:/app/librechat.yaml:ro
+      - chat_images:/app/client/public/images
+      - chat_uploads:/app/uploads
+      - chat_logs:/app/logs
+    depends_on:
+      chat-mongodb: {condition: service_started}
+      # healthy, not started. LibreChat connects to the MCP servers once at
+      # startup; if the backend is not serving yet it fails three times, opens a
+      # circuit breaker and never retries -- leaving a UI with no tools, which
+      # only shows on a first boot when the warehouse build makes the backend
+      # slow to answer.
+      backend: {condition: service_healthy}
+    restart: unless-stopped
+
+  # Creates the demo account, then exits. LibreChat has no anonymous mode --
+  # every route sits behind a JWT -- so the closest thing to "open it and ask"
+  # is an account that already exists, with the credentials in the README.
+  # Re-running is harmless: create-user fails on a duplicate and we ignore it.
+  chat-init:
+    # The same image as the chat itself -- the seed runs LibreChat's own
+    # `create-user` script, so it needs that codebase and nothing more.
+    image: ascent-epi-demo/librechat:local
+    environment:
+      MONGO_URI: mongodb://chat-mongodb:27017/LibreChat
+      CHAT_USER: ${CHAT_USER:-demo@ascent.local}
+      CHAT_PASSWORD: ${CHAT_PASSWORD:-ascentdemo}
+      LIBRECHAT_URL: http://librechat:3080
+    command: ["sh", "/seed/seed.sh"]
+    volumes:
+      - ./librechat:/seed:ro
+      # The same SKILL.md files sync_skills serves to Claude Code. LibreChat
+      # has its own skills store, so they are loaded into it rather than
+      # rewritten by hand -- one source, both clients.
+      - ./.claude/skills:/seed-skills:ro
+    # Runs *after* librechat, not before: creating the agent goes through
+    # LibreChat's own API, so the service has to be up. The seed polls for it
+    # and gives up quietly rather than holding the stack open.
+    depends_on:
+      chat-mongodb: {condition: service_started}
+      librechat: {condition: service_started}
+    restart: "no"
+
+  chat-mongodb:
+    image: mongo:8.0.20
+    command: mongod --noauth
+    volumes:
+      - chat_mongo:/data/db
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  qdrant:
+  coderdata:
+  warehouse:
+  chat_mongo:
+  chat_images:
+  chat_uploads:
+  chat_logs:
+  # The sentence-transformers models are ~2.5 GB across the two services --
+  # bge-base and bge-large, plus the SapBERT and BioLORD the coder warms at
+  # startup. Caching them keeps a restart from re-downloading and lets
+  # coder-init, the coder and the backend share one copy.
+  models:

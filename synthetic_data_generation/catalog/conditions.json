@@ -1,0 +1,3198 @@
+{
+  "_comment": "Fictitious clinical catalog. All codes are invented: DXCODE source codes use letter prefixes Q-Z, which no real diagnosis classification issues, and the 3-character prefix groups a genuine disease family, so prefix-based recall returns genuine clinical siblings. Prevalence targets are calibrated to published US adult epidemiology so a literature-comparison step agrees by construction.  seasonality names a profile in calendar.json; without it every onset is drawn uniformly over the observation window and monthly counts come out flat, which no real disease does. cause_of_death_weight is the relative propensity that a decedent carrying this condition died *of* it, used to fill death.cause_concept_id instead of the constant 0 it held before. monotonic_age asserts that recorded prevalence must rise with age; the validation suite fails the build if it does not, which is how the 80+ hypertension dip was caught. valid_from/valid_to bound when the disease and its codes could exist at all. assigned_by marks a condition the population sampler must skip because a dedicated episode generator owns it - the maternal and perinatal conditions are assigned by the pregnancy model, not by prevalence sampling.",
+  "_cause_of_death_comment": "cause_of_death_weight values are FITTED relative propensities, not clinical quantities, and they span four orders of magnitude because the competition is between conditions that co-occur constantly. A decedent's underlying cause is drawn from {natural} plus every condition they carried whose onset preceded death, with probability proportional to these weights. They were fitted by iterative proportional scaling over a 60,000-patient simulation until the realised mix matched a target distribution: heart disease 18.7%, stroke 5%, COPD 5.5%, dementia 4.5%, cancer 6.9%, diabetes 3%, sepsis/pneumonia/COVID 8%, renal and hepatic 3.9%, accidental 6%. Two consequences are deliberate and should not be read as defects. First, hypertension sits at 0.10 while CAD sits at 116: two thirds of decedents carry hypertension, so without a near-zero weight it becomes the leading cause in the file - it was recorded on 13% of deaths before this was fitted, roughly four times its real share. Second, cancer reaches only about 7% of deaths against the true US figure of 18%, because the catalog carries four cancer sites and those four are only about 45% of US cancer mortality; the shortfall is coverage, not calibration, and is recorded in KNOWN_QUIRKS.md.",
+  "groupers": [
+    {
+      "key": "g_all_conditions",
+      "name": "Clinical finding",
+      "std_code": "3000001"
+    },
+    {
+      "key": "g_endocrine",
+      "name": "Disorder of endocrine system",
+      "std_code": "3000010",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_diabetes",
+      "name": "Diabetes mellitus",
+      "std_code": "3000011",
+      "parent": "g_endocrine"
+    },
+    {
+      "key": "g_cardiovascular",
+      "name": "Disorder of cardiovascular system",
+      "std_code": "3000020",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_ischemic_heart",
+      "name": "Ischemic heart disease",
+      "std_code": "3000021",
+      "parent": "g_cardiovascular"
+    },
+    {
+      "key": "g_cerebrovascular",
+      "name": "Cerebrovascular disease",
+      "std_code": "3000022",
+      "parent": "g_cardiovascular"
+    },
+    {
+      "key": "g_respiratory",
+      "name": "Disorder of respiratory system",
+      "std_code": "3000030",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_renal",
+      "name": "Disorder of kidney",
+      "std_code": "3000040",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_neoplasm",
+      "name": "Malignant neoplastic disease",
+      "std_code": "3000050",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_mental",
+      "name": "Mental disorder",
+      "std_code": "3000060",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_neurological",
+      "name": "Disorder of nervous system",
+      "std_code": "3000070",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_musculoskeletal",
+      "name": "Disorder of musculoskeletal system",
+      "std_code": "3000080",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_gastrointestinal",
+      "name": "Disorder of digestive system",
+      "std_code": "3000090",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_infectious",
+      "name": "Infectious disease",
+      "std_code": "3000100",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_maternal",
+      "name": "Disorder of pregnancy, childbirth and the puerperium",
+      "std_code": "3000110",
+      "parent": "g_all_conditions"
+    },
+    {
+      "key": "g_perinatal",
+      "name": "Condition originating in the perinatal period",
+      "std_code": "3000120",
+      "parent": "g_all_conditions"
+    }
+  ],
+  "conditions": [
+    {
+      "key": "obesity",
+      "name": "Obesity",
+      "std_code": "3401001",
+      "parent": "g_endocrine",
+      "source_codes": [
+        {
+          "code": "Q30.0",
+          "name": "Obesity, unspecified",
+          "legacy_code": "R78.0"
+        },
+        {
+          "code": "Q30.1",
+          "name": "Morbid obesity due to excess calories",
+          "legacy_code": "R78.1"
+        },
+        {
+          "code": "Q30.2",
+          "name": "Obesity due to drug",
+          "legacy_code": "R78.2"
+        }
+      ],
+      "prevalence": 0.42,
+      "age_multipliers": {
+        "0-17": 0.45,
+        "18-44": 0.92,
+        "45-64": 1.2,
+        "65-79": 1.05,
+        "80+": 0.65
+      },
+      "age_min": 12,
+      "onset_mean": 34,
+      "onset_sd": 14,
+      "chronic": true,
+      "frailty_beta": 0.55,
+      "lab_panel": [
+        "bmi",
+        "glucose",
+        "ldl",
+        "hdl",
+        "triglycerides"
+      ],
+      "visit_rate": 0.3,
+      "mortality_hr": 1.15,
+      "reference": "CDC NHANES 2017-2020: US adult obesity prevalence 41.9%",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.04,
+      "procedures": [
+        "gastric_bypass"
+      ]
+    },
+    {
+      "key": "hypertension",
+      "name": "Essential hypertension",
+      "std_code": "3402001",
+      "parent": "g_cardiovascular",
+      "source_codes": [
+        {
+          "code": "Q40.0",
+          "name": "Essential (primary) hypertension",
+          "legacy_code": "R01.0"
+        },
+        {
+          "code": "Q40.1",
+          "name": "Hypertensive heart disease without heart failure",
+          "legacy_code": "R01.1"
+        },
+        {
+          "code": "Q40.9",
+          "name": "Hypertension, unspecified",
+          "legacy_code": "R01.9"
+        }
+      ],
+      "prevalence": 0.47,
+      "age_multipliers": {
+        "0-17": 0.02,
+        "18-44": 0.48,
+        "45-64": 1.25,
+        "65-79": 1.55,
+        "80+": 1.7
+      },
+      "age_min": 18,
+      "onset_mean": 48,
+      "onset_sd": 13,
+      "chronic": true,
+      "frailty_beta": 0.5,
+      "depends_on": {
+        "obesity": 0.85
+      },
+      "treatment_lines": [
+        {
+          "drug": "lisinopril_10",
+          "p_treated": 0.44,
+          "line": 1
+        },
+        {
+          "drug": "amlodipine_5",
+          "p_treated": 0.3,
+          "line": 2
+        },
+        {
+          "drug": "hydrochlorothiazide_25",
+          "p_treated": 0.24,
+          "line": 2
+        },
+        {
+          "drug": "losartan_50",
+          "p_treated": 0.2,
+          "line": 3
+        },
+        {
+          "drug": "metoprolol_50",
+          "p_treated": 0.18,
+          "line": 3
+        }
+      ],
+      "lab_panel": [
+        "sbp",
+        "dbp",
+        "creatinine",
+        "potassium",
+        "sodium"
+      ],
+      "visit_rate": 1.1,
+      "mortality_hr": 1.2,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: US adult hypertension 47.3%",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.1,
+      "monotonic_age": true
+    },
+    {
+      "key": "hyperlipidemia",
+      "name": "Hyperlipidemia",
+      "std_code": "3401501",
+      "parent": "g_endocrine",
+      "source_codes": [
+        {
+          "code": "Q31.0",
+          "name": "Pure hypercholesterolemia",
+          "legacy_code": "R72.0"
+        },
+        {
+          "code": "Q31.2",
+          "name": "Mixed hyperlipidemia",
+          "legacy_code": "R72.2"
+        },
+        {
+          "code": "Q31.9",
+          "name": "Hyperlipidemia, unspecified",
+          "legacy_code": "R72.9"
+        }
+      ],
+      "prevalence": 0.38,
+      "age_multipliers": {
+        "0-17": 0.03,
+        "18-44": 0.55,
+        "45-64": 1.35,
+        "65-79": 1.45,
+        "80+": 1.25
+      },
+      "age_min": 18,
+      "onset_mean": 50,
+      "onset_sd": 12,
+      "chronic": true,
+      "frailty_beta": 0.45,
+      "depends_on": {
+        "obesity": 0.7,
+        "t2dm": 0.65
+      },
+      "treatment_lines": [
+        {
+          "drug": "atorvastatin_40",
+          "p_treated": 0.47,
+          "line": 1
+        },
+        {
+          "drug": "rosuvastatin_20",
+          "p_treated": 0.26,
+          "line": 2
+        },
+        {
+          "drug": "simvastatin_20",
+          "p_treated": 0.16,
+          "line": 3
+        },
+        {
+          "drug": "ezetimibe_10",
+          "p_treated": 0.09,
+          "line": 3
+        },
+        {
+          "drug": "lovastatin_20",
+          "p_treated": 0.14,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "ldl",
+        "hdl",
+        "total_cholesterol",
+        "triglycerides",
+        "alt"
+      ],
+      "visit_rate": 0.7,
+      "mortality_hr": 1.1,
+      "reference": "CDC NHANES 2017-2020: US adults with high total cholesterol or on lipid-lowering therapy",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0
+    },
+    {
+      "key": "prediabetes",
+      "name": "Prediabetes",
+      "std_code": "3401800",
+      "parent": "g_diabetes",
+      "source_codes": [
+        {
+          "code": "Q41.8",
+          "name": "Prediabetes",
+          "legacy_code": "R90.8"
+        },
+        {
+          "code": "Q41.7",
+          "name": "Impaired fasting glucose",
+          "legacy_code": "R90.7"
+        }
+      ],
+      "prevalence": 0.3,
+      "age_multipliers": {
+        "0-17": 0.1,
+        "18-44": 0.7,
+        "45-64": 1.3,
+        "65-79": 1.5,
+        "80+": 1.35
+      },
+      "age_min": 18,
+      "onset_mean": 47,
+      "onset_sd": 13,
+      "chronic": true,
+      "frailty_beta": 0.4,
+      "depends_on": {
+        "obesity": 1.1
+      },
+      "lab_panel": [
+        "hba1c",
+        "glucose",
+        "bmi"
+      ],
+      "visit_rate": 0.5,
+      "mortality_hr": 1.05,
+      "reference": "CDC National Diabetes Statistics Report 2022: prediabetes in 38% of US adults (modelled lower to avoid overlap with diagnosed T2DM)",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0
+    },
+    {
+      "key": "t2dm",
+      "name": "Type 2 diabetes mellitus",
+      "std_code": "3401882",
+      "parent": "g_diabetes",
+      "source_codes": [
+        {
+          "code": "Q41.0",
+          "name": "Type 2 diabetes mellitus without complications",
+          "legacy_code": "R90.0"
+        },
+        {
+          "code": "Q41.2",
+          "name": "Type 2 diabetes mellitus with diabetic chronic kidney disease",
+          "legacy_code": "R90.2"
+        },
+        {
+          "code": "Q41.3",
+          "name": "Type 2 diabetes mellitus with diabetic retinopathy",
+          "legacy_code": "R90.3"
+        },
+        {
+          "code": "Q41.4",
+          "name": "Type 2 diabetes mellitus with diabetic neuropathy",
+          "legacy_code": "R90.4"
+        },
+        {
+          "code": "Q41.5",
+          "name": "Type 2 diabetes mellitus with diabetic foot ulcer",
+          "legacy_code": "R90.5"
+        },
+        {
+          "code": "Q41.6",
+          "name": "Type 2 diabetes mellitus with hyperglycemia",
+          "legacy_code": "R90.6"
+        }
+      ],
+      "prevalence": 0.114,
+      "age_multipliers": {
+        "0-17": 0.02,
+        "18-44": 0.3,
+        "45-64": 1.45,
+        "65-79": 2.1,
+        "80+": 1.95
+      },
+      "age_min": 18,
+      "onset_mean": 52,
+      "onset_sd": 12,
+      "chronic": true,
+      "frailty_beta": 0.6,
+      "depends_on": {
+        "obesity": 1.35,
+        "prediabetes": 1.2,
+        "hypertension": 0.45
+      },
+      "treatment_lines": [
+        {
+          "drug": "metformin_500",
+          "p_treated": 0.62,
+          "line": 1
+        },
+        {
+          "drug": "metformin_1000",
+          "p_treated": 0.34,
+          "line": 1
+        },
+        {
+          "drug": "sitagliptin_100",
+          "p_treated": 0.19,
+          "line": 2
+        },
+        {
+          "drug": "empagliflozin_10",
+          "p_treated": 0.17,
+          "line": 2
+        },
+        {
+          "drug": "glipizide_5",
+          "p_treated": 0.15,
+          "line": 3
+        },
+        {
+          "drug": "insulin_glargine",
+          "p_treated": 0.13,
+          "line": 4
+        }
+      ],
+      "lab_panel": [
+        "hba1c",
+        "glucose",
+        "creatinine",
+        "egfr",
+        "ldl",
+        "urine_acr"
+      ],
+      "procedures": [
+        "retinal_exam",
+        "foot_exam"
+      ],
+      "visit_rate": 1.8,
+      "mortality_hr": 1.45,
+      "reference": "CDC National Diabetes Statistics Report 2022: diagnosed diabetes in 11.3% of US population",
+      "seasonality": "none",
+      "cause_of_death_weight": 1.4
+    },
+    {
+      "key": "t1dm",
+      "name": "Type 1 diabetes mellitus",
+      "std_code": "3401881",
+      "parent": "g_diabetes",
+      "source_codes": [
+        {
+          "code": "Q41.1",
+          "name": "Type 1 diabetes mellitus without complications",
+          "legacy_code": "R90.1"
+        },
+        {
+          "code": "Q41.11",
+          "name": "Type 1 diabetes mellitus with ketoacidosis",
+          "legacy_code": "R90.11"
+        }
+      ],
+      "prevalence": 0.005,
+      "age_multipliers": {
+        "0-17": 1.4,
+        "18-44": 1.2,
+        "45-64": 0.85,
+        "65-79": 0.6,
+        "80+": 0.35
+      },
+      "age_min": 1,
+      "onset_mean": 16,
+      "onset_sd": 9,
+      "chronic": true,
+      "frailty_beta": 0.3,
+      "treatment_lines": [
+        {
+          "drug": "insulin_glargine",
+          "p_treated": 0.93,
+          "line": 1
+        },
+        {
+          "drug": "insulin_lispro",
+          "p_treated": 0.81,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "hba1c",
+        "glucose",
+        "creatinine",
+        "egfr"
+      ],
+      "procedures": [
+        "retinal_exam"
+      ],
+      "visit_rate": 2.4,
+      "mortality_hr": 1.6,
+      "reference": "CDC National Diabetes Statistics Report 2022: type 1 accounts for ~5-10% of diagnosed diabetes",
+      "seasonality": "none",
+      "cause_of_death_weight": 46
+    },
+    {
+      "key": "ckd",
+      "name": "Chronic kidney disease",
+      "std_code": "3403001",
+      "parent": "g_renal",
+      "source_codes": [
+        {
+          "code": "Q60.1",
+          "name": "Chronic kidney disease, stage 1",
+          "legacy_code": "R85.1"
+        },
+        {
+          "code": "Q60.2",
+          "name": "Chronic kidney disease, stage 2 (mild)",
+          "legacy_code": "R85.2"
+        },
+        {
+          "code": "Q60.3",
+          "name": "Chronic kidney disease, stage 3 (moderate)",
+          "legacy_code": "R85.3"
+        },
+        {
+          "code": "Q60.4",
+          "name": "Chronic kidney disease, stage 4 (severe)",
+          "legacy_code": "R85.4"
+        },
+        {
+          "code": "Q60.5",
+          "name": "Chronic kidney disease, stage 5",
+          "legacy_code": "R85.5"
+        },
+        {
+          "code": "Q60.6",
+          "name": "End stage renal disease",
+          "legacy_code": "R85.6"
+        }
+      ],
+      "prevalence": 0.14,
+      "age_multipliers": {
+        "0-17": 0.03,
+        "18-44": 0.22,
+        "45-64": 0.95,
+        "65-79": 2.3,
+        "80+": 3.1
+      },
+      "age_min": 18,
+      "onset_mean": 63,
+      "onset_sd": 13,
+      "chronic": true,
+      "frailty_beta": 0.75,
+      "depends_on": {
+        "t2dm": 1.15,
+        "hypertension": 0.95
+      },
+      "treatment_lines": [
+        {
+          "drug": "lisinopril_10",
+          "p_treated": 0.34,
+          "line": 1
+        },
+        {
+          "drug": "furosemide_40",
+          "p_treated": 0.22,
+          "line": 2
+        },
+        {
+          "drug": "darbepoetin_40",
+          "p_treated": 0.12,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "creatinine",
+        "egfr",
+        "potassium",
+        "hemoglobin",
+        "urine_acr",
+        "albumin"
+      ],
+      "procedures": [
+        "dialysis"
+      ],
+      "visit_rate": 2.0,
+      "mortality_hr": 2.4,
+      "reference": "CDC Chronic Kidney Disease Surveillance System: CKD in ~14% of US adults",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.49,
+      "monotonic_age": true
+    },
+    {
+      "key": "heart_failure",
+      "name": "Heart failure",
+      "std_code": "3402501",
+      "parent": "g_cardiovascular",
+      "source_codes": [
+        {
+          "code": "Q50.2",
+          "name": "Systolic (congestive) heart failure",
+          "legacy_code": "R28.2"
+        },
+        {
+          "code": "Q50.3",
+          "name": "Diastolic (congestive) heart failure",
+          "legacy_code": "R28.3"
+        },
+        {
+          "code": "Q50.4",
+          "name": "Combined systolic and diastolic heart failure",
+          "legacy_code": "R28.4"
+        },
+        {
+          "code": "Q50.9",
+          "name": "Heart failure, unspecified",
+          "legacy_code": "R28.9"
+        }
+      ],
+      "prevalence": 0.023,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.1,
+        "45-64": 0.7,
+        "65-79": 2.8,
+        "80+": 5.2
+      },
+      "age_min": 18,
+      "onset_mean": 70,
+      "onset_sd": 12,
+      "chronic": true,
+      "frailty_beta": 0.85,
+      "depends_on": {
+        "hypertension": 1.05,
+        "mi": 1.45,
+        "afib": 0.95,
+        "ckd": 0.8,
+        "t2dm": 0.55
+      },
+      "treatment_lines": [
+        {
+          "drug": "furosemide_40",
+          "p_treated": 0.71,
+          "line": 1
+        },
+        {
+          "drug": "metoprolol_50",
+          "p_treated": 0.58,
+          "line": 1
+        },
+        {
+          "drug": "lisinopril_10",
+          "p_treated": 0.49,
+          "line": 1
+        },
+        {
+          "drug": "spironolactone_25",
+          "p_treated": 0.28,
+          "line": 2
+        },
+        {
+          "drug": "vericiguat_10",
+          "p_treated": 0.08,
+          "line": 3
+        }
+      ],
+      "lab_panel": [
+        "bnp",
+        "creatinine",
+        "egfr",
+        "potassium",
+        "sodium",
+        "hemoglobin",
+        "lvef"
+      ],
+      "procedures": [
+        "echocardiogram",
+        "chest_xray"
+      ],
+      "visit_rate": 3.0,
+      "mortality_hr": 3.2,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: ~6.7 million US adults with heart failure",
+      "seasonality": "cardiovascular_winter",
+      "cause_of_death_weight": 400,
+      "monotonic_age": true
+    },
+    {
+      "key": "afib",
+      "name": "Atrial fibrillation",
+      "std_code": "3402301",
+      "parent": "g_cardiovascular",
+      "source_codes": [
+        {
+          "code": "Q48.0",
+          "name": "Paroxysmal atrial fibrillation",
+          "legacy_code": "R27.0"
+        },
+        {
+          "code": "Q48.1",
+          "name": "Persistent atrial fibrillation",
+          "legacy_code": "R27.1"
+        },
+        {
+          "code": "Q48.2",
+          "name": "Chronic atrial fibrillation",
+          "legacy_code": "R27.2"
+        },
+        {
+          "code": "Q48.9",
+          "name": "Atrial fibrillation, unspecified",
+          "legacy_code": "R27.9"
+        }
+      ],
+      "prevalence": 0.02,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.08,
+        "45-64": 0.6,
+        "65-79": 3.1,
+        "80+": 5.5
+      },
+      "age_min": 18,
+      "onset_mean": 72,
+      "onset_sd": 11,
+      "chronic": true,
+      "frailty_beta": 0.65,
+      "depends_on": {
+        "hypertension": 0.85,
+        "obesity": 0.45
+      },
+      "treatment_lines": [
+        {
+          "drug": "apixaban_5",
+          "p_treated": 0.47,
+          "line": 1
+        },
+        {
+          "drug": "metoprolol_50",
+          "p_treated": 0.44,
+          "line": 1
+        },
+        {
+          "drug": "rivaroxaban_20",
+          "p_treated": 0.21,
+          "line": 2
+        },
+        {
+          "drug": "warfarin_5",
+          "p_treated": 0.16,
+          "line": 3
+        },
+        {
+          "drug": "heparin_5000",
+          "p_treated": 0.1,
+          "line": 3
+        }
+      ],
+      "lab_panel": [
+        "inr",
+        "creatinine",
+        "potassium",
+        "tsh"
+      ],
+      "procedures": [
+        "ecg",
+        "echocardiogram",
+        "cardioversion"
+      ],
+      "visit_rate": 2.2,
+      "mortality_hr": 1.9,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: AF affects ~2% of US adults",
+      "seasonality": "cardiovascular_winter",
+      "cause_of_death_weight": 48,
+      "monotonic_age": true
+    },
+    {
+      "key": "cad",
+      "name": "Coronary artery disease",
+      "std_code": "3402101",
+      "parent": "g_ischemic_heart",
+      "source_codes": [
+        {
+          "code": "Q45.1",
+          "name": "Atherosclerotic heart disease of native coronary artery",
+          "legacy_code": "R14.1"
+        },
+        {
+          "code": "Q45.9",
+          "name": "Chronic ischemic heart disease, unspecified",
+          "legacy_code": "R14.9"
+        }
+      ],
+      "prevalence": 0.072,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.12,
+        "45-64": 1.1,
+        "65-79": 2.9,
+        "80+": 3.8
+      },
+      "age_min": 18,
+      "onset_mean": 66,
+      "onset_sd": 12,
+      "chronic": true,
+      "frailty_beta": 0.7,
+      "depends_on": {
+        "hyperlipidemia": 1.05,
+        "hypertension": 0.8,
+        "t2dm": 0.7,
+        "smoking": 0.75
+      },
+      "treatment_lines": [
+        {
+          "drug": "atorvastatin_40",
+          "p_treated": 0.74,
+          "line": 1
+        },
+        {
+          "drug": "aspirin_81",
+          "p_treated": 0.68,
+          "line": 1
+        },
+        {
+          "drug": "metoprolol_50",
+          "p_treated": 0.41,
+          "line": 2
+        },
+        {
+          "drug": "clopidogrel_75",
+          "p_treated": 0.27,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "ldl",
+        "hdl",
+        "total_cholesterol",
+        "troponin"
+      ],
+      "procedures": [
+        "ecg",
+        "coronary_angiography",
+        "stress_test",
+        "cabg"
+      ],
+      "visit_rate": 2.0,
+      "mortality_hr": 2.1,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: coronary heart disease in 7.2% of US adults 20+",
+      "seasonality": "none",
+      "cause_of_death_weight": 116,
+      "monotonic_age": true
+    },
+    {
+      "key": "mi",
+      "name": "Acute myocardial infarction",
+      "std_code": "3402201",
+      "parent": "g_ischemic_heart",
+      "source_codes": [
+        {
+          "code": "Q44.0",
+          "name": "ST elevation myocardial infarction of anterior wall",
+          "legacy_code": "R10.0"
+        },
+        {
+          "code": "Q44.1",
+          "name": "ST elevation myocardial infarction of inferior wall",
+          "legacy_code": "R10.1"
+        },
+        {
+          "code": "Q44.2",
+          "name": "Non-ST elevation myocardial infarction",
+          "legacy_code": "R10.2"
+        },
+        {
+          "code": "Q44.9",
+          "name": "Acute myocardial infarction, unspecified",
+          "legacy_code": "R10.9"
+        }
+      ],
+      "prevalence": 0.031,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.12,
+        "45-64": 1.0,
+        "65-79": 2.7,
+        "80+": 3.6
+      },
+      "age_min": 18,
+      "onset_mean": 68,
+      "onset_sd": 12,
+      "chronic": false,
+      "frailty_beta": 0.7,
+      "depends_on": {
+        "cad": 1.95,
+        "hyperlipidemia": 0.6,
+        "smoking": 0.7,
+        "t2dm": 0.5
+      },
+      "treatment_lines": [
+        {
+          "drug": "aspirin_81",
+          "p_treated": 0.86,
+          "line": 1
+        },
+        {
+          "drug": "atorvastatin_40",
+          "p_treated": 0.82,
+          "line": 1
+        },
+        {
+          "drug": "clopidogrel_75",
+          "p_treated": 0.61,
+          "line": 1
+        },
+        {
+          "drug": "metoprolol_50",
+          "p_treated": 0.57,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "troponin",
+        "ldl",
+        "creatinine",
+        "potassium",
+        "lvef"
+      ],
+      "procedures": [
+        "ecg",
+        "coronary_angiography",
+        "pci",
+        "cabg"
+      ],
+      "visit_rate": 1.2,
+      "mortality_hr": 2.6,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: MI prevalence 3.1% in US adults 20+",
+      "seasonality": "cardiovascular_winter",
+      "cause_of_death_weight": 370
+    },
+    {
+      "key": "stroke",
+      "name": "Cerebral infarction",
+      "std_code": "3402701",
+      "parent": "g_cerebrovascular",
+      "source_codes": [
+        {
+          "code": "Q52.0",
+          "name": "Cerebral infarction due to thrombosis of cerebral artery",
+          "legacy_code": "R34.0"
+        },
+        {
+          "code": "Q52.1",
+          "name": "Cerebral infarction due to embolism of cerebral artery",
+          "legacy_code": "R34.1"
+        },
+        {
+          "code": "Q52.9",
+          "name": "Cerebral infarction, unspecified",
+          "legacy_code": "R34.9"
+        }
+      ],
+      "prevalence": 0.031,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.15,
+        "45-64": 0.8,
+        "65-79": 2.6,
+        "80+": 4.4
+      },
+      "age_min": 18,
+      "onset_mean": 71,
+      "onset_sd": 12,
+      "chronic": false,
+      "frailty_beta": 0.7,
+      "depends_on": {
+        "hypertension": 1.1,
+        "afib": 1.5,
+        "t2dm": 0.55,
+        "smoking": 0.6
+      },
+      "treatment_lines": [
+        {
+          "drug": "aspirin_81",
+          "p_treated": 0.74,
+          "line": 1
+        },
+        {
+          "drug": "atorvastatin_40",
+          "p_treated": 0.66,
+          "line": 1
+        },
+        {
+          "drug": "clopidogrel_75",
+          "p_treated": 0.34,
+          "line": 2
+        },
+        {
+          "drug": "alteplase_100",
+          "p_treated": 0.09,
+          "line": 1
+        },
+        {
+          "drug": "tenecteplase_50",
+          "p_treated": 0.05,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "ldl",
+        "glucose",
+        "inr",
+        "creatinine"
+      ],
+      "procedures": [
+        "ct_head",
+        "mri_brain",
+        "carotid_ultrasound"
+      ],
+      "visit_rate": 1.6,
+      "mortality_hr": 2.8,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: stroke prevalence 3.1% in US adults 20+",
+      "seasonality": "cardiovascular_winter",
+      "cause_of_death_weight": 400
+    },
+    {
+      "key": "copd",
+      "name": "Chronic obstructive pulmonary disease",
+      "std_code": "3404001",
+      "parent": "g_respiratory",
+      "source_codes": [
+        {
+          "code": "Q70.0",
+          "name": "Chronic obstructive pulmonary disease with acute exacerbation",
+          "legacy_code": "R41.0"
+        },
+        {
+          "code": "Q70.1",
+          "name": "Chronic obstructive pulmonary disease with acute lower respiratory infection",
+          "legacy_code": "R41.1"
+        },
+        {
+          "code": "Q70.9",
+          "name": "Chronic obstructive pulmonary disease, unspecified",
+          "legacy_code": "R41.9"
+        }
+      ],
+      "prevalence": 0.06,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.15,
+        "45-64": 1.1,
+        "65-79": 2.6,
+        "80+": 3.0
+      },
+      "age_min": 30,
+      "onset_mean": 64,
+      "onset_sd": 11,
+      "chronic": true,
+      "frailty_beta": 0.65,
+      "depends_on": {
+        "smoking": 2.1
+      },
+      "treatment_lines": [
+        {
+          "drug": "albuterol_inhaler",
+          "p_treated": 0.78,
+          "line": 1
+        },
+        {
+          "drug": "tiotropium_inhaler",
+          "p_treated": 0.41,
+          "line": 2
+        },
+        {
+          "drug": "fluticasone_salmeterol",
+          "p_treated": 0.36,
+          "line": 2
+        },
+        {
+          "drug": "prednisone_20",
+          "p_treated": 0.29,
+          "line": 3
+        },
+        {
+          "drug": "pseudoephedrine_30",
+          "p_treated": 0.05,
+          "line": 3
+        }
+      ],
+      "lab_panel": [
+        "hemoglobin",
+        "wbc"
+      ],
+      "procedures": [
+        "spirometry",
+        "chest_xray"
+      ],
+      "visit_rate": 2.2,
+      "mortality_hr": 2.3,
+      "reference": "CDC BRFSS 2021: COPD diagnosed in ~6% of US adults",
+      "seasonality": "winter_respiratory",
+      "cause_of_death_weight": 48,
+      "monotonic_age": true
+    },
+    {
+      "key": "asthma",
+      "name": "Asthma",
+      "std_code": "3404101",
+      "parent": "g_respiratory",
+      "source_codes": [
+        {
+          "code": "Q71.0",
+          "name": "Mild intermittent asthma, uncomplicated",
+          "legacy_code": "R42.0"
+        },
+        {
+          "code": "Q71.2",
+          "name": "Moderate persistent asthma, uncomplicated",
+          "legacy_code": "R42.2"
+        },
+        {
+          "code": "Q71.3",
+          "name": "Severe persistent asthma with acute exacerbation",
+          "legacy_code": "R42.3"
+        },
+        {
+          "code": "Q71.9",
+          "name": "Asthma, unspecified",
+          "legacy_code": "R42.9"
+        }
+      ],
+      "prevalence": 0.08,
+      "age_multipliers": {
+        "0-17": 1.2,
+        "18-44": 1.0,
+        "45-64": 0.95,
+        "65-79": 0.85,
+        "80+": 0.75
+      },
+      "age_min": 2,
+      "onset_mean": 20,
+      "onset_sd": 15,
+      "chronic": true,
+      "frailty_beta": 0.3,
+      "depends_on": {
+        "obesity": 0.35
+      },
+      "treatment_lines": [
+        {
+          "drug": "albuterol_inhaler",
+          "p_treated": 0.84,
+          "line": 1
+        },
+        {
+          "drug": "fluticasone_inhaler",
+          "p_treated": 0.47,
+          "line": 2
+        },
+        {
+          "drug": "montelukast_10",
+          "p_treated": 0.26,
+          "line": 2
+        },
+        {
+          "drug": "pseudoephedrine_30",
+          "p_treated": 0.16,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "wbc"
+      ],
+      "procedures": [
+        "spirometry"
+      ],
+      "visit_rate": 1.3,
+      "mortality_hr": 1.15,
+      "reference": "CDC National Health Interview Survey 2021: current asthma in ~8% of the US population",
+      "seasonality": "asthma_exacerbation",
+      "cause_of_death_weight": 0.24
+    },
+    {
+      "key": "pneumonia",
+      "name": "Pneumonia",
+      "std_code": "3404201",
+      "parent": "g_infectious",
+      "source_codes": [
+        {
+          "code": "Q72.0",
+          "name": "Pneumonia due to Streptococcus pneumoniae",
+          "legacy_code": "R43.0"
+        },
+        {
+          "code": "Q72.1",
+          "name": "Bacterial pneumonia, unspecified",
+          "legacy_code": "R43.1"
+        },
+        {
+          "code": "Q72.9",
+          "name": "Pneumonia, unspecified organism",
+          "legacy_code": "R43.9"
+        }
+      ],
+      "prevalence": 0.04,
+      "age_multipliers": {
+        "0-17": 1.1,
+        "18-44": 0.6,
+        "45-64": 0.9,
+        "65-79": 1.9,
+        "80+": 3.2
+      },
+      "age_min": 0,
+      "onset_mean": 58,
+      "onset_sd": 22,
+      "chronic": false,
+      "frailty_beta": 0.6,
+      "depends_on": {
+        "copd": 1.2,
+        "heart_failure": 0.75,
+        "t2dm": 0.4
+      },
+      "treatment_lines": [
+        {
+          "drug": "azithromycin_250",
+          "p_treated": 0.57,
+          "line": 1
+        },
+        {
+          "drug": "amoxicillin_500",
+          "p_treated": 0.42,
+          "line": 1
+        },
+        {
+          "drug": "levofloxacin_500",
+          "p_treated": 0.24,
+          "line": 2
+        },
+        {
+          "drug": "pseudoephedrine_30",
+          "p_treated": 0.2,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "wbc",
+        "crp",
+        "hemoglobin"
+      ],
+      "procedures": [
+        "chest_xray"
+      ],
+      "visit_rate": 0.9,
+      "mortality_hr": 1.7,
+      "reference": "CDC: pneumonia is a leading cause of US hospitalization, incidence highest at the extremes of age",
+      "seasonality": "winter_respiratory",
+      "cause_of_death_weight": 46
+    },
+    {
+      "key": "smoking",
+      "name": "Tobacco use disorder",
+      "std_code": "3406001",
+      "parent": "g_mental",
+      "source_codes": [
+        {
+          "code": "Q90.0",
+          "name": "Nicotine dependence, cigarettes, uncomplicated",
+          "legacy_code": "R05.0"
+        },
+        {
+          "code": "Q90.1",
+          "name": "Nicotine dependence, unspecified",
+          "legacy_code": "R05.1"
+        },
+        {
+          "code": "Q90.2",
+          "name": "History of tobacco use",
+          "legacy_code": "R05.2"
+        }
+      ],
+      "prevalence": 0.19,
+      "age_multipliers": {
+        "0-17": 0.1,
+        "18-44": 1.15,
+        "45-64": 1.25,
+        "65-79": 0.8,
+        "80+": 0.45
+      },
+      "age_min": 14,
+      "onset_mean": 26,
+      "onset_sd": 11,
+      "chronic": true,
+      "frailty_beta": 0.4,
+      "treatment_lines": [
+        {
+          "drug": "varenicline_1",
+          "p_treated": 0.12,
+          "line": 1
+        },
+        {
+          "drug": "bupropion_150",
+          "p_treated": 0.09,
+          "line": 2
+        }
+      ],
+      "lab_panel": [],
+      "visit_rate": 0.2,
+      "mortality_hr": 1.55,
+      "reference": "CDC: US adult cigarette smoking, current and former use combined",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0
+    },
+    {
+      "key": "depression",
+      "name": "Major depressive disorder",
+      "std_code": "3406101",
+      "parent": "g_mental",
+      "source_codes": [
+        {
+          "code": "Q91.0",
+          "name": "Major depressive disorder, single episode, mild",
+          "legacy_code": "R06.0"
+        },
+        {
+          "code": "Q91.2",
+          "name": "Major depressive disorder, single episode, severe",
+          "legacy_code": "R06.2"
+        },
+        {
+          "code": "Q91.3",
+          "name": "Major depressive disorder, recurrent, moderate",
+          "legacy_code": "R06.3"
+        },
+        {
+          "code": "Q91.9",
+          "name": "Major depressive disorder, unspecified",
+          "legacy_code": "R06.9"
+        }
+      ],
+      "prevalence": 0.083,
+      "age_multipliers": {
+        "0-17": 0.55,
+        "18-44": 1.35,
+        "45-64": 1.05,
+        "65-79": 0.7,
+        "80+": 0.65
+      },
+      "age_min": 12,
+      "onset_mean": 33,
+      "onset_sd": 14,
+      "chronic": true,
+      "frailty_beta": 0.45,
+      "depends_on": {
+        "chronic_pain": 0.85,
+        "copd": 0.4
+      },
+      "treatment_lines": [
+        {
+          "drug": "sertraline_50",
+          "p_treated": 0.41,
+          "line": 1
+        },
+        {
+          "drug": "escitalopram_10",
+          "p_treated": 0.29,
+          "line": 1
+        },
+        {
+          "drug": "fluoxetine_20",
+          "p_treated": 0.2,
+          "line": 2
+        },
+        {
+          "drug": "bupropion_150",
+          "p_treated": 0.17,
+          "line": 2
+        },
+        {
+          "drug": "venlafaxine_75",
+          "p_treated": 0.12,
+          "line": 3
+        },
+        {
+          "drug": "zoloft_50",
+          "p_treated": 0.18,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "tsh"
+      ],
+      "visit_rate": 1.5,
+      "mortality_hr": 1.25,
+      "reference": "NIMH 2021: major depressive episode in 8.3% of US adults",
+      "seasonality": "depression_winter",
+      "cause_of_death_weight": 0.24
+    },
+    {
+      "key": "anxiety",
+      "name": "Generalized anxiety disorder",
+      "std_code": "3406201",
+      "parent": "g_mental",
+      "source_codes": [
+        {
+          "code": "Q92.0",
+          "name": "Generalized anxiety disorder",
+          "legacy_code": "R07.0"
+        },
+        {
+          "code": "Q92.1",
+          "name": "Anxiety disorder, unspecified",
+          "legacy_code": "R07.1"
+        },
+        {
+          "code": "Q92.2",
+          "name": "Panic disorder",
+          "legacy_code": "R07.2"
+        }
+      ],
+      "prevalence": 0.072,
+      "age_multipliers": {
+        "0-17": 0.6,
+        "18-44": 1.4,
+        "45-64": 1.0,
+        "65-79": 0.65,
+        "80+": 0.5
+      },
+      "age_min": 12,
+      "onset_mean": 31,
+      "onset_sd": 13,
+      "chronic": true,
+      "frailty_beta": 0.4,
+      "depends_on": {
+        "depression": 1.55
+      },
+      "treatment_lines": [
+        {
+          "drug": "sertraline_50",
+          "p_treated": 0.33,
+          "line": 1
+        },
+        {
+          "drug": "escitalopram_10",
+          "p_treated": 0.28,
+          "line": 1
+        },
+        {
+          "drug": "alprazolam_05",
+          "p_treated": 0.19,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "tsh"
+      ],
+      "visit_rate": 1.2,
+      "mortality_hr": 1.05,
+      "reference": "NIMH: any anxiety disorder in ~7% of US adults in the past year",
+      "seasonality": "depression_winter",
+      "cause_of_death_weight": 0.0
+    },
+    {
+      "key": "chronic_pain",
+      "name": "Chronic pain syndrome",
+      "std_code": "3408001",
+      "parent": "g_musculoskeletal",
+      "source_codes": [
+        {
+          "code": "Q80.0",
+          "name": "Chronic pain syndrome",
+          "legacy_code": "R38.0"
+        },
+        {
+          "code": "Q80.1",
+          "name": "Chronic low back pain",
+          "legacy_code": "R38.1"
+        },
+        {
+          "code": "Q80.2",
+          "name": "Chronic neck pain",
+          "legacy_code": "R38.2"
+        }
+      ],
+      "prevalence": 0.2,
+      "age_multipliers": {
+        "0-17": 0.1,
+        "18-44": 0.7,
+        "45-64": 1.35,
+        "65-79": 1.6,
+        "80+": 1.55
+      },
+      "age_min": 18,
+      "onset_mean": 51,
+      "onset_sd": 15,
+      "chronic": true,
+      "frailty_beta": 0.55,
+      "depends_on": {
+        "obesity": 0.55,
+        "osteoarthritis": 1.25
+      },
+      "treatment_lines": [
+        {
+          "drug": "ibuprofen_600",
+          "p_treated": 0.44,
+          "line": 1
+        },
+        {
+          "drug": "naproxen_500",
+          "p_treated": 0.28,
+          "line": 1
+        },
+        {
+          "drug": "gabapentin_300",
+          "p_treated": 0.24,
+          "line": 2
+        },
+        {
+          "drug": "tramadol_50",
+          "p_treated": 0.16,
+          "line": 3
+        },
+        {
+          "drug": "oxycodone_5",
+          "p_treated": 0.08,
+          "line": 4
+        }
+      ],
+      "lab_panel": [],
+      "visit_rate": 1.7,
+      "mortality_hr": 1.1,
+      "reference": "CDC MMWR 2023: chronic pain in ~20.9% of US adults",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0
+    },
+    {
+      "key": "osteoarthritis",
+      "name": "Osteoarthritis",
+      "std_code": "3408101",
+      "parent": "g_musculoskeletal",
+      "source_codes": [
+        {
+          "code": "Q81.0",
+          "name": "Primary osteoarthritis of knee",
+          "legacy_code": "R39.0"
+        },
+        {
+          "code": "Q81.1",
+          "name": "Primary osteoarthritis of hip",
+          "legacy_code": "R39.1"
+        },
+        {
+          "code": "Q81.9",
+          "name": "Osteoarthritis, unspecified site",
+          "legacy_code": "R39.9"
+        }
+      ],
+      "prevalence": 0.14,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.2,
+        "45-64": 1.25,
+        "65-79": 2.5,
+        "80+": 3.0
+      },
+      "age_min": 30,
+      "onset_mean": 62,
+      "onset_sd": 12,
+      "chronic": true,
+      "frailty_beta": 0.5,
+      "depends_on": {
+        "obesity": 0.95
+      },
+      "treatment_lines": [
+        {
+          "drug": "ibuprofen_600",
+          "p_treated": 0.46,
+          "line": 1
+        },
+        {
+          "drug": "naproxen_500",
+          "p_treated": 0.31,
+          "line": 1
+        },
+        {
+          "drug": "celecoxib_200",
+          "p_treated": 0.14,
+          "line": 2
+        },
+        {
+          "drug": "naproxen_sodium_550",
+          "p_treated": 0.16,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "esr",
+        "crp"
+      ],
+      "procedures": [
+        "knee_xray",
+        "joint_replacement"
+      ],
+      "visit_rate": 1.4,
+      "mortality_hr": 1.05,
+      "reference": "CDC: doctor-diagnosed arthritis affects ~1 in 4 US adults; osteoarthritis is the most common form",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0,
+      "monotonic_age": true
+    },
+    {
+      "key": "osteoporosis",
+      "name": "Osteoporosis",
+      "std_code": "3408201",
+      "parent": "g_musculoskeletal",
+      "source_codes": [
+        {
+          "code": "Q82.0",
+          "name": "Age-related osteoporosis without current pathological fracture",
+          "legacy_code": "R40.0"
+        },
+        {
+          "code": "Q82.1",
+          "name": "Osteoporosis with current pathological fracture",
+          "legacy_code": "R40.1"
+        }
+      ],
+      "prevalence": 0.125,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.05,
+        "45-64": 0.7,
+        "65-79": 2.6,
+        "80+": 4.1
+      },
+      "sex": "female",
+      "age_min": 40,
+      "onset_mean": 68,
+      "onset_sd": 10,
+      "chronic": true,
+      "frailty_beta": 0.45,
+      "treatment_lines": [
+        {
+          "drug": "alendronate_70",
+          "p_treated": 0.38,
+          "line": 1
+        },
+        {
+          "drug": "vitamin_d_1000",
+          "p_treated": 0.52,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "vitamin_d",
+        "calcium"
+      ],
+      "procedures": [
+        "dexa_scan"
+      ],
+      "visit_rate": 0.8,
+      "mortality_hr": 1.3,
+      "reference": "CDC NHANES 2017-2018: osteoporosis in 12.6% of US adults 50 and over",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.13,
+      "monotonic_age": true
+    },
+    {
+      "key": "hypothyroidism",
+      "name": "Hypothyroidism",
+      "std_code": "3401601",
+      "parent": "g_endocrine",
+      "source_codes": [
+        {
+          "code": "Q32.0",
+          "name": "Hypothyroidism, unspecified",
+          "legacy_code": "R73.0"
+        },
+        {
+          "code": "Q32.1",
+          "name": "Autoimmune thyroiditis",
+          "legacy_code": "R73.1"
+        }
+      ],
+      "prevalence": 0.048,
+      "age_multipliers": {
+        "0-17": 0.15,
+        "18-44": 0.7,
+        "45-64": 1.3,
+        "65-79": 1.6,
+        "80+": 1.55
+      },
+      "age_min": 10,
+      "onset_mean": 49,
+      "onset_sd": 15,
+      "chronic": true,
+      "frailty_beta": 0.3,
+      "treatment_lines": [
+        {
+          "drug": "levothyroxine_50",
+          "p_treated": 0.88,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "tsh",
+        "free_t4"
+      ],
+      "visit_rate": 0.9,
+      "mortality_hr": 1.05,
+      "reference": "NIDDK: hypothyroidism affects roughly 4.6% of the US population aged 12 and over",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0
+    },
+    {
+      "key": "gerd",
+      "name": "Gastro-esophageal reflux disease",
+      "std_code": "3409001",
+      "parent": "g_gastrointestinal",
+      "source_codes": [
+        {
+          "code": "Q95.0",
+          "name": "Gastro-esophageal reflux disease without esophagitis",
+          "legacy_code": "R53.0"
+        },
+        {
+          "code": "Q95.1",
+          "name": "Gastro-esophageal reflux disease with esophagitis",
+          "legacy_code": "R53.1"
+        }
+      ],
+      "prevalence": 0.2,
+      "age_multipliers": {
+        "0-17": 0.2,
+        "18-44": 0.85,
+        "45-64": 1.2,
+        "65-79": 1.3,
+        "80+": 1.25
+      },
+      "age_min": 12,
+      "onset_mean": 47,
+      "onset_sd": 15,
+      "chronic": true,
+      "frailty_beta": 0.35,
+      "depends_on": {
+        "obesity": 0.7
+      },
+      "treatment_lines": [
+        {
+          "drug": "omeprazole_20",
+          "p_treated": 0.52,
+          "line": 1
+        },
+        {
+          "drug": "pantoprazole_40",
+          "p_treated": 0.27,
+          "line": 2
+        },
+        {
+          "drug": "famotidine_20",
+          "p_treated": 0.18,
+          "line": 2
+        }
+      ],
+      "lab_panel": [],
+      "procedures": [
+        "upper_endoscopy"
+      ],
+      "visit_rate": 0.7,
+      "mortality_hr": 1.0,
+      "reference": "NIDDK: GERD symptoms reported by ~20% of the US population",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0
+    },
+    {
+      "key": "cirrhosis",
+      "name": "Cirrhosis of liver",
+      "std_code": "3409101",
+      "parent": "g_gastrointestinal",
+      "source_codes": [
+        {
+          "code": "Q96.0",
+          "name": "Alcoholic cirrhosis of liver",
+          "legacy_code": "R54.0"
+        },
+        {
+          "code": "Q96.1",
+          "name": "Nonalcoholic steatohepatitis with cirrhosis",
+          "legacy_code": "R54.1"
+        },
+        {
+          "code": "Q96.9",
+          "name": "Cirrhosis of liver, unspecified",
+          "legacy_code": "R54.9"
+        }
+      ],
+      "prevalence": 0.006,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.35,
+        "45-64": 1.7,
+        "65-79": 1.9,
+        "80+": 1.3
+      },
+      "age_min": 20,
+      "onset_mean": 59,
+      "onset_sd": 11,
+      "chronic": true,
+      "frailty_beta": 0.8,
+      "depends_on": {
+        "obesity": 0.55,
+        "t2dm": 0.5
+      },
+      "treatment_lines": [
+        {
+          "drug": "furosemide_40",
+          "p_treated": 0.34,
+          "line": 1
+        },
+        {
+          "drug": "spironolactone_25",
+          "p_treated": 0.41,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "alt",
+        "ast",
+        "albumin",
+        "bilirubin",
+        "inr",
+        "platelets"
+      ],
+      "procedures": [
+        "abdominal_ultrasound",
+        "upper_endoscopy"
+      ],
+      "visit_rate": 2.4,
+      "mortality_hr": 3.6,
+      "reference": "NIDDK: cirrhosis affects roughly 0.27% of US adults; modelled slightly higher to support subgroup analysis",
+      "seasonality": "none",
+      "cause_of_death_weight": 400
+    },
+    {
+      "key": "lung_cancer",
+      "name": "Malignant neoplasm of lung",
+      "std_code": "3405001",
+      "parent": "g_neoplasm",
+      "source_codes": [
+        {
+          "code": "Q10.0",
+          "name": "Malignant neoplasm of upper lobe, bronchus or lung",
+          "legacy_code": "R62.0"
+        },
+        {
+          "code": "Q10.1",
+          "name": "Malignant neoplasm of lower lobe, bronchus or lung",
+          "legacy_code": "R62.1"
+        },
+        {
+          "code": "Q10.9",
+          "name": "Malignant neoplasm of bronchus or lung, unspecified",
+          "legacy_code": "R62.9"
+        }
+      ],
+      "prevalence": 0.005,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.08,
+        "45-64": 0.95,
+        "65-79": 3.2,
+        "80+": 3.5
+      },
+      "age_min": 30,
+      "onset_mean": 70,
+      "onset_sd": 10,
+      "chronic": true,
+      "frailty_beta": 0.75,
+      "depends_on": {
+        "smoking": 2.4,
+        "copd": 0.85
+      },
+      "treatment_lines": [
+        {
+          "drug": "cisplatin_inj",
+          "p_treated": 0.44,
+          "line": 1
+        },
+        {
+          "drug": "pembrolizumab_inj",
+          "p_treated": 0.31,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "wbc",
+        "hemoglobin",
+        "platelets",
+        "creatinine",
+        "albumin"
+      ],
+      "procedures": [
+        "ct_chest",
+        "lung_biopsy",
+        "chest_xray"
+      ],
+      "visit_rate": 4.5,
+      "mortality_hr": 6.5,
+      "reference": "SEER: lung and bronchus cancer, ~6.5% lifetime risk of diagnosis",
+      "seasonality": "none",
+      "cause_of_death_weight": 400
+    },
+    {
+      "key": "breast_cancer",
+      "name": "Malignant neoplasm of breast",
+      "std_code": "3405101",
+      "parent": "g_neoplasm",
+      "source_codes": [
+        {
+          "code": "Q11.0",
+          "name": "Malignant neoplasm of upper-outer quadrant of breast",
+          "legacy_code": "R63.0"
+        },
+        {
+          "code": "Q11.9",
+          "name": "Malignant neoplasm of breast, unspecified",
+          "legacy_code": "R63.9"
+        }
+      ],
+      "prevalence": 0.017,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.25,
+        "45-64": 1.4,
+        "65-79": 2.3,
+        "80+": 2.1
+      },
+      "sex": "female",
+      "age_min": 25,
+      "onset_mean": 63,
+      "onset_sd": 12,
+      "chronic": true,
+      "frailty_beta": 0.45,
+      "depends_on": {
+        "obesity": 0.35
+      },
+      "treatment_lines": [
+        {
+          "drug": "tamoxifen_20",
+          "p_treated": 0.48,
+          "line": 1
+        },
+        {
+          "drug": "anastrozole_1",
+          "p_treated": 0.36,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "wbc",
+        "hemoglobin",
+        "platelets",
+        "alt"
+      ],
+      "procedures": [
+        "mammography",
+        "breast_biopsy",
+        "mastectomy"
+      ],
+      "visit_rate": 3.8,
+      "mortality_hr": 2.2,
+      "reference": "SEER: female breast cancer, ~13% lifetime risk of diagnosis",
+      "seasonality": "none",
+      "cause_of_death_weight": 180
+    },
+    {
+      "key": "prostate_cancer",
+      "name": "Malignant neoplasm of prostate",
+      "std_code": "3405201",
+      "parent": "g_neoplasm",
+      "source_codes": [
+        {
+          "code": "Q12.0",
+          "name": "Malignant neoplasm of prostate",
+          "legacy_code": "R64.0"
+        }
+      ],
+      "prevalence": 0.021,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.05,
+        "45-64": 0.9,
+        "65-79": 3.4,
+        "80+": 3.8
+      },
+      "sex": "male",
+      "age_min": 40,
+      "onset_mean": 69,
+      "onset_sd": 9,
+      "chronic": true,
+      "frailty_beta": 0.45,
+      "treatment_lines": [
+        {
+          "drug": "leuprolide_inj",
+          "p_treated": 0.39,
+          "line": 1
+        },
+        {
+          "drug": "bicalutamide_50",
+          "p_treated": 0.27,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "psa",
+        "creatinine",
+        "hemoglobin",
+        "alkaline_phosphatase"
+      ],
+      "procedures": [
+        "prostate_biopsy",
+        "prostatectomy"
+      ],
+      "visit_rate": 3.2,
+      "mortality_hr": 1.8,
+      "reference": "SEER: prostate cancer, ~12.9% lifetime risk of diagnosis among men",
+      "seasonality": "none",
+      "cause_of_death_weight": 280,
+      "monotonic_age": true
+    },
+    {
+      "key": "colorectal_cancer",
+      "name": "Malignant neoplasm of colon",
+      "std_code": "3405301",
+      "parent": "g_neoplasm",
+      "source_codes": [
+        {
+          "code": "Q13.0",
+          "name": "Malignant neoplasm of ascending colon",
+          "legacy_code": "R65.0"
+        },
+        {
+          "code": "Q13.1",
+          "name": "Malignant neoplasm of sigmoid colon",
+          "legacy_code": "R65.1"
+        },
+        {
+          "code": "Q13.9",
+          "name": "Malignant neoplasm of colon, unspecified",
+          "legacy_code": "R65.9"
+        }
+      ],
+      "prevalence": 0.009,
+      "age_multipliers": {
+        "0-17": 0.01,
+        "18-44": 0.15,
+        "45-64": 1.0,
+        "65-79": 2.9,
+        "80+": 3.4
+      },
+      "age_min": 30,
+      "onset_mean": 67,
+      "onset_sd": 11,
+      "chronic": true,
+      "frailty_beta": 0.55,
+      "depends_on": {
+        "obesity": 0.4
+      },
+      "treatment_lines": [
+        {
+          "drug": "oxaliplatin_inj",
+          "p_treated": 0.42,
+          "line": 1
+        },
+        {
+          "drug": "capecitabine_500",
+          "p_treated": 0.35,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "hemoglobin",
+        "cea",
+        "albumin",
+        "alt",
+        "platelets"
+      ],
+      "procedures": [
+        "colonoscopy",
+        "colon_biopsy",
+        "colectomy"
+      ],
+      "visit_rate": 3.9,
+      "mortality_hr": 3.4,
+      "reference": "SEER: colorectal cancer, ~4% lifetime risk of diagnosis",
+      "seasonality": "none",
+      "cause_of_death_weight": 344,
+      "monotonic_age": true
+    },
+    {
+      "key": "dementia",
+      "name": "Dementia",
+      "std_code": "3407001",
+      "parent": "g_neurological",
+      "source_codes": [
+        {
+          "code": "Q85.0",
+          "name": "Alzheimer's disease with late onset",
+          "legacy_code": "R31.0"
+        },
+        {
+          "code": "Q85.1",
+          "name": "Vascular dementia",
+          "legacy_code": "R31.1"
+        },
+        {
+          "code": "Q85.9",
+          "name": "Unspecified dementia",
+          "legacy_code": "R31.9"
+        }
+      ],
+      "prevalence": 0.035,
+      "age_multipliers": {
+        "0-17": 0.0,
+        "18-44": 0.01,
+        "45-64": 0.15,
+        "65-79": 2.2,
+        "80+": 7.5
+      },
+      "age_min": 50,
+      "onset_mean": 79,
+      "onset_sd": 8,
+      "chronic": true,
+      "frailty_beta": 0.7,
+      "depends_on": {
+        "stroke": 1.05,
+        "hypertension": 0.35
+      },
+      "treatment_lines": [
+        {
+          "drug": "donepezil_10",
+          "p_treated": 0.44,
+          "line": 1
+        },
+        {
+          "drug": "memantine_10",
+          "p_treated": 0.26,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "tsh",
+        "vitamin_b12",
+        "sodium"
+      ],
+      "procedures": [
+        "mri_brain",
+        "ct_head"
+      ],
+      "visit_rate": 2.6,
+      "mortality_hr": 3.1,
+      "reference": "Alzheimer's Association 2023: ~1 in 9 Americans aged 65+ has Alzheimer's dementia",
+      "seasonality": "none",
+      "cause_of_death_weight": 375,
+      "monotonic_age": true
+    },
+    {
+      "key": "sepsis",
+      "name": "Sepsis",
+      "std_code": "3410001",
+      "parent": "g_infectious",
+      "source_codes": [
+        {
+          "code": "Q73.0",
+          "name": "Sepsis due to unspecified organism",
+          "legacy_code": "R44.0"
+        },
+        {
+          "code": "Q73.1",
+          "name": "Severe sepsis with septic shock",
+          "legacy_code": "R44.1"
+        }
+      ],
+      "prevalence": 0.012,
+      "age_multipliers": {
+        "0-17": 0.3,
+        "18-44": 0.35,
+        "45-64": 0.9,
+        "65-79": 2.4,
+        "80+": 4.0
+      },
+      "age_min": 0,
+      "onset_mean": 68,
+      "onset_sd": 16,
+      "chronic": false,
+      "frailty_beta": 0.85,
+      "depends_on": {
+        "pneumonia": 1.4,
+        "ckd": 0.7,
+        "t2dm": 0.45,
+        "lung_cancer": 0.6
+      },
+      "treatment_lines": [
+        {
+          "drug": "vancomycin_inj",
+          "p_treated": 0.62,
+          "line": 1
+        },
+        {
+          "drug": "piperacillin_tazobactam",
+          "p_treated": 0.58,
+          "line": 1
+        }
+      ],
+      "lab_panel": [
+        "wbc",
+        "lactate",
+        "crp",
+        "creatinine",
+        "platelets",
+        "bilirubin"
+      ],
+      "procedures": [
+        "blood_culture",
+        "central_line"
+      ],
+      "visit_rate": 1.0,
+      "mortality_hr": 5.5,
+      "reference": "CDC: at least 1.7 million US adults develop sepsis annually",
+      "seasonality": "cardiovascular_winter",
+      "cause_of_death_weight": 400
+    },
+    {
+      "key": "covid19",
+      "name": "COVID-19",
+      "std_code": "3410101",
+      "parent": "g_infectious",
+      "source_codes": [
+        {
+          "code": "Q74.0",
+          "name": "COVID-19, virus identified",
+          "legacy_code": null
+        },
+        {
+          "code": "Q74.1",
+          "name": "COVID-19 with pneumonia",
+          "legacy_code": null
+        }
+      ],
+      "prevalence": 0.22,
+      "age_multipliers": {
+        "0-17": 0.8,
+        "18-44": 1.15,
+        "45-64": 1.05,
+        "65-79": 0.95,
+        "80+": 0.9
+      },
+      "age_min": 0,
+      "onset_mean": 45,
+      "onset_sd": 20,
+      "chronic": false,
+      "frailty_beta": 0.25,
+      "treatment_lines": [
+        {
+          "drug": "dexamethasone_6",
+          "p_treated": 0.18,
+          "line": 1
+        },
+        {
+          "drug": "remdesivir_inj",
+          "p_treated": 0.11,
+          "line": 2
+        }
+      ],
+      "lab_panel": [
+        "wbc",
+        "crp",
+        "lactate",
+        "platelets"
+      ],
+      "procedures": [
+        "chest_xray",
+        "covid_pcr"
+      ],
+      "visit_rate": 0.8,
+      "mortality_hr": 1.6,
+      "reference": "CDC: cumulative reported COVID-19 cases. valid_from is enforced as a hard clamp applied after every date perturbation - an earlier build clamped before the 'surface censored onset during follow-up' step, which then re-drew the onset uniformly from the coverage window and put 305 COVID-19 diagnoses into 2010-2019.",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.64,
+      "valid_from": "2020-03-01"
+    },
+    {
+      "key": "aki",
+      "name": "Acute kidney injury",
+      "std_code": "3403101",
+      "parent": "g_renal",
+      "source_codes": [
+        {
+          "code": "Q61.0",
+          "name": "Acute kidney failure with tubular necrosis",
+          "legacy_code": "R86.0"
+        },
+        {
+          "code": "Q61.9",
+          "name": "Acute kidney failure, unspecified",
+          "legacy_code": "R86.9"
+        }
+      ],
+      "prevalence": 0.028,
+      "age_multipliers": {
+        "0-17": 0.15,
+        "18-44": 0.3,
+        "45-64": 0.85,
+        "65-79": 2.2,
+        "80+": 3.3
+      },
+      "age_min": 18,
+      "onset_mean": 69,
+      "onset_sd": 13,
+      "chronic": false,
+      "frailty_beta": 0.8,
+      "depends_on": {
+        "ckd": 1.6,
+        "sepsis": 1.5,
+        "heart_failure": 0.85,
+        "cirrhosis": 0.7
+      },
+      "lab_panel": [
+        "creatinine",
+        "egfr",
+        "potassium",
+        "sodium",
+        "urea_nitrogen"
+      ],
+      "visit_rate": 1.1,
+      "mortality_hr": 2.7,
+      "reference": "AKI complicates 10-15% of US hospitalizations; population-level prevalence modelled lower",
+      "seasonality": "summer_injury",
+      "cause_of_death_weight": 2.3
+    },
+    {
+      "key": "anemia",
+      "name": "Anemia",
+      "std_code": "3411001",
+      "parent": "g_all_conditions",
+      "source_codes": [
+        {
+          "code": "Q20.0",
+          "name": "Iron deficiency anemia, unspecified",
+          "legacy_code": "R80.0"
+        },
+        {
+          "code": "Q20.1",
+          "name": "Anemia in chronic kidney disease",
+          "legacy_code": "R80.1"
+        },
+        {
+          "code": "Q20.9",
+          "name": "Anemia, unspecified",
+          "legacy_code": "R80.9"
+        }
+      ],
+      "prevalence": 0.098,
+      "age_multipliers": {
+        "0-17": 0.65,
+        "18-44": 0.85,
+        "45-64": 0.9,
+        "65-79": 1.7,
+        "80+": 2.4
+      },
+      "age_min": 0,
+      "onset_mean": 57,
+      "onset_sd": 18,
+      "chronic": true,
+      "frailty_beta": 0.6,
+      "depends_on": {
+        "ckd": 1.3,
+        "colorectal_cancer": 1.1,
+        "cirrhosis": 0.6
+      },
+      "treatment_lines": [
+        {
+          "drug": "ferrous_sulfate_325",
+          "p_treated": 0.51,
+          "line": 1
+        },
+        {
+          "drug": "vitamin_b12_inj",
+          "p_treated": 0.14,
+          "line": 2
+        },
+        {
+          "drug": "darbepoetin_40",
+          "p_treated": 0.07,
+          "line": 3
+        }
+      ],
+      "lab_panel": [
+        "hemoglobin",
+        "hematocrit",
+        "ferritin",
+        "vitamin_b12",
+        "platelets"
+      ],
+      "visit_rate": 0.9,
+      "mortality_hr": 1.35,
+      "reference": "NHANES: anemia prevalence rises sharply after age 65",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.19,
+      "monotonic_age": true
+    },
+    {
+      "key": "gestational_diabetes",
+      "name": "Gestational diabetes mellitus",
+      "std_code": "3412001",
+      "parent": "g_maternal",
+      "source_codes": [
+        {
+          "code": "Q97.0",
+          "name": "Gestational diabetes mellitus in pregnancy, diet controlled",
+          "legacy_code": "R91.0"
+        },
+        {
+          "code": "Q97.1",
+          "name": "Gestational diabetes mellitus in pregnancy, insulin controlled",
+          "legacy_code": "R91.1"
+        }
+      ],
+      "lab_panel": [
+        "glucose",
+        "hba1c"
+      ],
+      "procedures": [],
+      "mortality_hr": 1.0,
+      "cause_of_death_weight": 0.0,
+      "reference": "CDC: gestational diabetes complicates roughly 8% of US pregnancies",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55,
+      "assigned_by": "pregnancy",
+      "prevalence": 0.0,
+      "age_multipliers": {},
+      "onset_mean": 30.0,
+      "onset_sd": 8.0,
+      "chronic": false,
+      "frailty_beta": 0.0,
+      "seasonality": "none",
+      "visit_rate": 0.0,
+      "treatment_lines": []
+    },
+    {
+      "key": "preeclampsia",
+      "name": "Pre-eclampsia",
+      "std_code": "3412002",
+      "parent": "g_maternal",
+      "source_codes": [
+        {
+          "code": "Q97.2",
+          "name": "Pre-eclampsia, unspecified trimester",
+          "legacy_code": "R91.2"
+        },
+        {
+          "code": "Q97.3",
+          "name": "Severe pre-eclampsia",
+          "legacy_code": "R91.3"
+        }
+      ],
+      "lab_panel": [
+        "creatinine",
+        "alt",
+        "platelets",
+        "urine_acr",
+        "sbp",
+        "dbp"
+      ],
+      "procedures": [],
+      "mortality_hr": 1.4,
+      "cause_of_death_weight": 1.5,
+      "reference": "ACOG: hypertensive disorders of pregnancy affect 5-8% of pregnancies",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55,
+      "assigned_by": "pregnancy",
+      "prevalence": 0.0,
+      "age_multipliers": {},
+      "onset_mean": 30.0,
+      "onset_sd": 8.0,
+      "chronic": false,
+      "frailty_beta": 0.0,
+      "seasonality": "none",
+      "visit_rate": 0.0,
+      "treatment_lines": []
+    },
+    {
+      "key": "preterm_labor",
+      "name": "Preterm labor",
+      "std_code": "3412003",
+      "parent": "g_maternal",
+      "source_codes": [
+        {
+          "code": "Q97.4",
+          "name": "Preterm labor with preterm delivery",
+          "legacy_code": "R91.4"
+        }
+      ],
+      "lab_panel": [],
+      "procedures": [],
+      "mortality_hr": 1.0,
+      "cause_of_death_weight": 0.0,
+      "reference": "CDC: US preterm birth rate approximately 10%",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55,
+      "assigned_by": "pregnancy",
+      "prevalence": 0.0,
+      "age_multipliers": {},
+      "onset_mean": 30.0,
+      "onset_sd": 8.0,
+      "chronic": false,
+      "frailty_beta": 0.0,
+      "seasonality": "none",
+      "visit_rate": 0.0,
+      "treatment_lines": []
+    },
+    {
+      "key": "postpartum_hemorrhage",
+      "name": "Postpartum hemorrhage",
+      "std_code": "3412004",
+      "parent": "g_maternal",
+      "source_codes": [
+        {
+          "code": "Q97.5",
+          "name": "Postpartum hemorrhage",
+          "legacy_code": "R91.5"
+        }
+      ],
+      "lab_panel": [
+        "hemoglobin",
+        "hematocrit",
+        "platelets"
+      ],
+      "procedures": [],
+      "mortality_hr": 1.3,
+      "cause_of_death_weight": 1.0,
+      "reference": "CDC: postpartum hemorrhage complicates roughly 4% of deliveries",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55,
+      "assigned_by": "pregnancy",
+      "prevalence": 0.0,
+      "age_multipliers": {},
+      "onset_mean": 30.0,
+      "onset_sd": 8.0,
+      "chronic": false,
+      "frailty_beta": 0.0,
+      "seasonality": "none",
+      "visit_rate": 0.0,
+      "treatment_lines": []
+    },
+    {
+      "key": "delivery_encounter",
+      "name": "Delivery",
+      "std_code": "3412005",
+      "parent": "g_maternal",
+      "source_codes": [
+        {
+          "code": "Q97.8",
+          "name": "Encounter for full-term uncomplicated delivery",
+          "legacy_code": "R91.8"
+        },
+        {
+          "code": "Q97.9",
+          "name": "Delivery by cesarean section",
+          "legacy_code": "R91.9"
+        }
+      ],
+      "lab_panel": [
+        "hemoglobin"
+      ],
+      "procedures": [],
+      "mortality_hr": 1.0,
+      "cause_of_death_weight": 0.0,
+      "reference": "Encounter code, not a disorder; present so delivery hospitalisations are identifiable",
+      "sex": "female",
+      "age_min": 12,
+      "age_max": 55,
+      "assigned_by": "pregnancy",
+      "prevalence": 0.0,
+      "age_multipliers": {},
+      "onset_mean": 30.0,
+      "onset_sd": 8.0,
+      "chronic": false,
+      "frailty_beta": 0.0,
+      "seasonality": "none",
+      "visit_rate": 0.0,
+      "treatment_lines": []
+    },
+    {
+      "key": "newborn_encounter",
+      "name": "Single liveborn infant, born in hospital",
+      "std_code": "3412006",
+      "parent": "g_perinatal",
+      "source_codes": [
+        {
+          "code": "Q98.0",
+          "name": "Single liveborn infant, delivered vaginally",
+          "legacy_code": "R92.0"
+        },
+        {
+          "code": "Q98.1",
+          "name": "Single liveborn infant, delivered by cesarean",
+          "legacy_code": "R92.1"
+        }
+      ],
+      "lab_panel": [],
+      "procedures": [],
+      "mortality_hr": 1.0,
+      "cause_of_death_weight": 0.0,
+      "sex": null,
+      "age_min": 0,
+      "age_max": 0,
+      "reference": "Birth-admission code; the anchor for mother-child linkage in fact_relationship",
+      "assigned_by": "pregnancy",
+      "prevalence": 0.0,
+      "age_multipliers": {},
+      "onset_mean": 30.0,
+      "onset_sd": 8.0,
+      "chronic": false,
+      "frailty_beta": 0.0,
+      "seasonality": "none",
+      "visit_rate": 0.0,
+      "treatment_lines": []
+    },
+    {
+      "key": "atopic_dermatitis",
+      "name": "Atopic dermatitis",
+      "std_code": "3413001",
+      "parent": "g_all_conditions",
+      "source_codes": [
+        {
+          "code": "Q14.0",
+          "name": "Atopic dermatitis, unspecified",
+          "legacy_code": "R02.0"
+        },
+        {
+          "code": "Q14.1",
+          "name": "Atopic dermatitis of face",
+          "legacy_code": "R02.1"
+        },
+        {
+          "code": "Q14.2",
+          "name": "Atopic dermatitis of flexural surfaces",
+          "legacy_code": "R02.2"
+        },
+        {
+          "code": "Q14.9",
+          "name": "Other atopic dermatitis",
+          "legacy_code": "R02.9"
+        }
+      ],
+      "prevalence": 0.073,
+      "age_multipliers": {
+        "0-17": 1.9,
+        "18-44": 1.0,
+        "45-64": 0.7,
+        "65-79": 0.6,
+        "80+": 0.55
+      },
+      "age_min": 0,
+      "onset_mean": 12,
+      "onset_sd": 14,
+      "chronic": true,
+      "frailty_beta": 0.1,
+      "lab_panel": [
+        "wbc"
+      ],
+      "visit_rate": 0.35,
+      "mortality_hr": 1.0,
+      "reference": "Chiesa Fuxench et al., J Invest Dermatol 2019: US adult atopic dermatitis prevalence 7.3%",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0,
+      "treatment_lines": [
+        {
+          "drug": "itraconazole_100",
+          "p_treated": 0.05,
+          "line": 3
+        }
+      ]
+    },
+    {
+      "key": "ulcerative_colitis",
+      "name": "Ulcerative colitis",
+      "std_code": "3413002",
+      "parent": "g_gastrointestinal",
+      "source_codes": [
+        {
+          "code": "Q15.0",
+          "name": "Ulcerative (chronic) pancolitis",
+          "legacy_code": "R03.0"
+        },
+        {
+          "code": "Q15.1",
+          "name": "Ulcerative (chronic) proctitis",
+          "legacy_code": "R03.1"
+        },
+        {
+          "code": "Q15.9",
+          "name": "Ulcerative colitis, unspecified",
+          "legacy_code": "R03.9"
+        }
+      ],
+      "prevalence": 0.0034,
+      "age_multipliers": {
+        "0-17": 0.3,
+        "18-44": 1.2,
+        "45-64": 1.3,
+        "65-79": 1.1,
+        "80+": 0.9
+      },
+      "age_min": 10,
+      "onset_mean": 32,
+      "onset_sd": 15,
+      "chronic": true,
+      "frailty_beta": 0.3,
+      "lab_panel": [
+        "hemoglobin",
+        "crp",
+        "esr",
+        "albumin",
+        "ferritin"
+      ],
+      "visit_rate": 0.75,
+      "mortality_hr": 1.15,
+      "reference": "Ye et al., Inflamm Bowel Dis 2020: US ulcerative colitis prevalence ~0.34%",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.01
+    },
+    {
+      "key": "crohns_disease",
+      "name": "Crohn disease",
+      "std_code": "3413003",
+      "parent": "g_gastrointestinal",
+      "source_codes": [
+        {
+          "code": "Q16.0",
+          "name": "Crohn disease of small intestine",
+          "legacy_code": "R04.0"
+        },
+        {
+          "code": "Q16.1",
+          "name": "Crohn disease of large intestine",
+          "legacy_code": "R04.1"
+        },
+        {
+          "code": "Q16.9",
+          "name": "Crohn disease, unspecified",
+          "legacy_code": "R04.9"
+        }
+      ],
+      "prevalence": 0.0026,
+      "age_multipliers": {
+        "0-17": 0.4,
+        "18-44": 1.3,
+        "45-64": 1.2,
+        "65-79": 1.0,
+        "80+": 0.8
+      },
+      "age_min": 8,
+      "onset_mean": 29,
+      "onset_sd": 14,
+      "chronic": true,
+      "frailty_beta": 0.32,
+      "lab_panel": [
+        "hemoglobin",
+        "crp",
+        "esr",
+        "albumin",
+        "ferritin",
+        "vitamin_b12"
+      ],
+      "visit_rate": 0.8,
+      "mortality_hr": 1.2,
+      "reference": "Ye et al., Inflamm Bowel Dis 2020: US Crohn disease prevalence ~0.26%",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.01
+    },
+    {
+      "key": "endometriosis",
+      "name": "Endometriosis",
+      "std_code": "3413004",
+      "parent": "g_all_conditions",
+      "source_codes": [
+        {
+          "code": "Q17.0",
+          "name": "Endometriosis of uterus",
+          "legacy_code": "R08.0"
+        },
+        {
+          "code": "Q17.1",
+          "name": "Endometriosis of ovary",
+          "legacy_code": "R08.1"
+        },
+        {
+          "code": "Q17.2",
+          "name": "Endometriosis of pelvic peritoneum",
+          "legacy_code": "R08.2"
+        },
+        {
+          "code": "Q17.9",
+          "name": "Endometriosis, unspecified",
+          "legacy_code": "R08.9"
+        }
+      ],
+      "prevalence": 0.062,
+      "sex": "female",
+      "age_multipliers": {
+        "0-17": 0.1,
+        "18-44": 1.6,
+        "45-64": 0.6,
+        "65-79": 0.1,
+        "80+": 0.05
+      },
+      "age_min": 15,
+      "age_max": 55,
+      "onset_mean": 28,
+      "onset_sd": 8,
+      "chronic": true,
+      "frailty_beta": 0.12,
+      "lab_panel": [
+        "hemoglobin",
+        "ferritin"
+      ],
+      "visit_rate": 0.7,
+      "mortality_hr": 1.0,
+      "reference": "Zondervan et al., N Engl J Med 2020: endometriosis affects ~6-10% of reproductive-age women",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0,
+      "treatment_lines": [
+        {
+          "drug": "estradiol_1",
+          "p_treated": 0.22,
+          "line": 2
+        }
+      ]
+    },
+    {
+      "key": "bph",
+      "name": "Benign prostatic hyperplasia",
+      "std_code": "3413005",
+      "parent": "g_all_conditions",
+      "source_codes": [
+        {
+          "code": "Q18.0",
+          "name": "Benign prostatic hyperplasia without lower urinary tract symptoms",
+          "legacy_code": "R09.0"
+        },
+        {
+          "code": "Q18.1",
+          "name": "Benign prostatic hyperplasia with lower urinary tract symptoms",
+          "legacy_code": "R09.1"
+        }
+      ],
+      "prevalence": 0.105,
+      "sex": "male",
+      "age_multipliers": {
+        "0-17": 0.0,
+        "18-44": 0.15,
+        "45-64": 1.2,
+        "65-79": 2.6,
+        "80+": 3.4
+      },
+      "age_min": 40,
+      "onset_mean": 62,
+      "onset_sd": 10,
+      "chronic": true,
+      "frailty_beta": 0.25,
+      "lab_panel": [
+        "psa",
+        "creatinine"
+      ],
+      "visit_rate": 0.6,
+      "mortality_hr": 1.0,
+      "monotonic_age": true,
+      "reference": "Berry et al., J Urol 1984 / GBD 2019: BPH prevalence rises from ~8% at 40 to >50% by 80",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0,
+      "treatment_lines": [
+        {
+          "drug": "tamsulosin_04",
+          "p_treated": 0.55,
+          "line": 1
+        }
+      ]
+    },
+    {
+      "key": "cardiomyopathy",
+      "name": "Cardiomyopathy",
+      "std_code": "3413006",
+      "parent": "g_cardiovascular",
+      "source_codes": [
+        {
+          "code": "Q19.0",
+          "name": "Dilated cardiomyopathy",
+          "legacy_code": "R11.0"
+        },
+        {
+          "code": "Q19.1",
+          "name": "Hypertrophic cardiomyopathy",
+          "legacy_code": "R11.1"
+        },
+        {
+          "code": "Q19.9",
+          "name": "Cardiomyopathy, unspecified",
+          "legacy_code": "R11.9"
+        }
+      ],
+      "prevalence": 0.006,
+      "age_multipliers": {
+        "0-17": 0.2,
+        "18-44": 0.5,
+        "45-64": 1.2,
+        "65-79": 2.0,
+        "80+": 2.4
+      },
+      "age_min": 18,
+      "onset_mean": 58,
+      "onset_sd": 15,
+      "chronic": true,
+      "frailty_beta": 0.55,
+      "lab_panel": [
+        "bnp",
+        "troponin",
+        "creatinine",
+        "sodium",
+        "potassium",
+        "lvef"
+      ],
+      "visit_rate": 1.1,
+      "mortality_hr": 2.3,
+      "monotonic_age": true,
+      "depends_on": {
+        "hypertension": 0.75
+      },
+      "reference": "Maron et al., Circulation 2006 / GBD 2019: cardiomyopathy prevalence ~0.6% of adults",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.22,
+      "treatment_lines": [
+        {
+          "drug": "vericiguat_10",
+          "p_treated": 0.06,
+          "line": 3
+        }
+      ]
+    },
+    {
+      "key": "tia",
+      "name": "Transient ischemic attack",
+      "std_code": "3413007",
+      "parent": "g_cerebrovascular",
+      "source_codes": [
+        {
+          "code": "Q21.0",
+          "name": "Transient ischemic attack, unspecified",
+          "legacy_code": "R12.0"
+        },
+        {
+          "code": "Q21.1",
+          "name": "Transient cerebral ischemic attack with carotid territory involvement",
+          "legacy_code": "R12.1"
+        },
+        {
+          "code": "Q21.9",
+          "name": "Other transient cerebral ischemic attack",
+          "legacy_code": "R12.9"
+        }
+      ],
+      "prevalence": 0.023,
+      "age_multipliers": {
+        "0-17": 0.0,
+        "18-44": 0.15,
+        "45-64": 1.0,
+        "65-79": 2.8,
+        "80+": 4.2
+      },
+      "age_min": 35,
+      "onset_mean": 68,
+      "onset_sd": 11,
+      "chronic": false,
+      "frailty_beta": 0.6,
+      "lab_panel": [
+        "ldl",
+        "hba1c",
+        "creatinine",
+        "inr"
+      ],
+      "visit_rate": 0.9,
+      "mortality_hr": 1.6,
+      "monotonic_age": true,
+      "depends_on": {
+        "hypertension": 0.9,
+        "afib": 1.2
+      },
+      "reference": "Kleindorfer et al., Stroke 2005: US TIA prevalence ~2.3% of adults",
+      "seasonality": "cardiovascular_winter",
+      "cause_of_death_weight": 0.05,
+      "treatment_lines": [
+        {
+          "drug": "heparin_5000",
+          "p_treated": 0.14,
+          "line": 2
+        }
+      ]
+    },
+    {
+      "key": "amyloidosis",
+      "name": "Amyloidosis",
+      "std_code": "3413008",
+      "parent": "g_all_conditions",
+      "source_codes": [
+        {
+          "code": "Q22.0",
+          "name": "Amyloidosis, unspecified",
+          "legacy_code": "R13.0"
+        },
+        {
+          "code": "Q22.1",
+          "name": "Transthyretin-related amyloidosis",
+          "legacy_code": "R13.1"
+        }
+      ],
+      "prevalence": 0.0025,
+      "age_multipliers": {
+        "0-17": 0.0,
+        "18-44": 0.1,
+        "45-64": 0.8,
+        "65-79": 2.6,
+        "80+": 4.0
+      },
+      "age_min": 40,
+      "onset_mean": 71,
+      "onset_sd": 9,
+      "chronic": true,
+      "frailty_beta": 0.7,
+      "lab_panel": [
+        "bnp",
+        "troponin",
+        "creatinine",
+        "albumin",
+        "alkaline_phosphatase"
+      ],
+      "visit_rate": 1.3,
+      "mortality_hr": 3.1,
+      "monotonic_age": true,
+      "reference": "Quock et al., Blood Adv 2018: US AL amyloidosis prevalence ~40 per 100,000",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.35,
+      "benchmark_inflated": true,
+      "real_world_prevalence": 0.0004
+    },
+    {
+      "key": "hookworm",
+      "name": "Hookworm disease",
+      "std_code": "3413009",
+      "parent": "g_infectious",
+      "source_codes": [
+        {
+          "code": "Q23.0",
+          "name": "Ancylostomiasis",
+          "legacy_code": "R15.0"
+        },
+        {
+          "code": "Q23.9",
+          "name": "Hookworm disease, unspecified",
+          "legacy_code": "R15.9"
+        }
+      ],
+      "prevalence": 0.0015,
+      "age_multipliers": {
+        "0-17": 1.6,
+        "18-44": 1.0,
+        "45-64": 0.8,
+        "65-79": 0.6,
+        "80+": 0.5
+      },
+      "age_min": 0,
+      "onset_mean": 26,
+      "onset_sd": 18,
+      "chronic": false,
+      "frailty_beta": 0.05,
+      "lab_panel": [
+        "hemoglobin",
+        "ferritin",
+        "wbc"
+      ],
+      "visit_rate": 0.4,
+      "mortality_hr": 1.0,
+      "reference": "Starr & Montgomery, Am J Trop Med Hyg 2011: hookworm is rare in the US, well under 0.1%",
+      "seasonality": "none",
+      "cause_of_death_weight": 0.0,
+      "benchmark_inflated": true,
+      "real_world_prevalence": 0.0002
+    },
+    {
+      "key": "dysphagia",
+      "name": "Dysphagia",
+      "std_code": "3413010",
+      "parent": "g_all_conditions",
+      "source_codes": [
+        {
+          "code": "Q24.0",
+          "name": "Dysphagia, oropharyngeal phase",
+          "legacy_code": "R16.0"
+        },
+        {
+          "code": "Q24.1",
+          "name": "Dysphagia, pharyngoesophageal phase",
+          "legacy_code": "R16.1"
+        },
+        {
+          "code": "Q24.9",
+          "name": "Dysphagia, unspecified",
+          "legacy_code": "R16.9"
+        }
+      ],
+      "prevalence": 0.03,
+      "age_min": 0,
+      "age_max": 120,
+      "age_multipliers": {
+        "0-17": 0.2,
+        "18-44": 0.4,
+        "45-64": 0.9,
+        "65-79": 2.1,
+        "80+": 3.4
+      },
+      "depends_on": {
+        "stroke": 1.6,
+        "tia": 0.7
+      },
+      "seasonality": "none",
+      "reference": "Common post-stroke and age-related; ~3% adult prevalence rising sharply after 65",
+      "procedures": [
+        "upper_endoscopy"
+      ]
+    },
+    {
+      "key": "pulmonary_embolism",
+      "name": "Pulmonary embolism",
+      "std_code": "3413011",
+      "parent": "g_all_conditions",
+      "source_codes": [
+        {
+          "code": "Q25.0",
+          "name": "Septic pulmonary embolism",
+          "legacy_code": "R17.0"
+        },
+        {
+          "code": "Q25.1",
+          "name": "Pulmonary embolism with acute cor pulmonale",
+          "legacy_code": "R17.1"
+        },
+        {
+          "code": "Q25.9",
+          "name": "Pulmonary embolism, unspecified",
+          "legacy_code": "R17.9"
+        }
+      ],
+      "prevalence": 0.012,
+      "age_min": 18,
+      "age_max": 120,
+      "age_multipliers": {
+        "0-17": 0.05,
+        "18-44": 0.4,
+        "45-64": 1.1,
+        "65-79": 2.0,
+        "80+": 2.6
+      },
+      "depends_on": {
+        "lung_cancer": 1.1
+      },
+      "seasonality": "none",
+      "reference": "US incidence ~1-2 per 1000/yr; cumulative prevalence ~1% in an adult claims window",
+      "procedures": [
+        "ct_chest"
+      ]
+    }
+  ]
+}

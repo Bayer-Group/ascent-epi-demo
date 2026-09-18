@@ -1,0 +1,7 @@
+[coverage:run]
+relative_files = True
+include = src/
+branch = True
+
+[xml]
+output = tests/coverage-report.xml

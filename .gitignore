@@ -1,0 +1,63 @@
+.idea/
+.DS_Store
+.env
+.env.*
+!.env.template
+# the dummy .env in tests should be committed
+!tests/.env
+__pycache__/
+*.pyc
+.terraform
+.terraform.lock.hcl
+/*.pkl
+/*.db
+scripts/logs
+
+venv/
+**/venv
+global-packages.txt
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.vscode/
+*.egg-info/
+*.vscode/
+failed_tests*.json
+.tmp
+.mcp
+.mcp.json
+settings.local.json
+docker-compose.override.yml
+
+# Coverage artifacts (CI writes tests/coverage-report.xml)
+.coverage
+tests/coverage-report.xml
+
+# Local MCP OAuth token caches (never commit; they hold real tokens)
+.oauth-tokens*/
+
+# Built local warehouse (regenerated from data/synthetic on first run)
+.warehouse/
+
+# Larger synthetic datasets are fetched, not committed. omop_synthetic_10k.db.zip
+# is 104 MiB, past GitHub's 100 MiB hard limit for a single file, so committing
+# it would make the repository unpushable. The 1k set (~20 MiB total) ships in
+# the tree so a clone runs with no download; anything larger is fetched by
+# scripts/fetch_synthetic_data.py.
+data/synthetic/*_10k.db.zip
+data/synthetic/*_10k.db
+data/synthetic/ground_truth_10k.json
+
+# Local CA bundle for developers behind a TLS-intercepting proxy, used only by
+# the opt-in docker-compose.tls-proxy.yml (which explains how to build one).
+# Never committed: which CA you need is a property of the network you happen to
+# be on, and committing one would ask everyone else to trust a
+# man-in-the-middle certificate for a network they are not on.
+certs/
+# Catalog artefacts. The 1k set is committed so a clone starts with no build
+# step; any other scale is generated at startup into this same directory
+# (bind-mounted under compose) and is a build product, not source.
+data/catalog/*
+!data/catalog/*.1k.*
+!data/catalog/manifest.1k.json

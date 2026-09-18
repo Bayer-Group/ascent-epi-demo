@@ -1,0 +1,51 @@
+--- a/api/server/controllers/agents/callbacks.js
++++ b/api/server/controllers/agents/callbacks.js
+@@ -202,6 +202,24 @@
+        * `partsToSignatures` in `@langchain/google-common`. Walk both in a
+        * single pass to map each signature onto the right `tool_call.id`.
+        */
++      /**
++       * GenAI (AI Studio) path: `@langchain/google-genai` emits signatures as a
++       * map keyed by tool_call_id under this key — not the Vertex array form
++       * below. Without capturing it, nothing is persisted for this provider and
++       * the library substitutes its hardcoded DUMMY_SIGNATURE on replay, which
++       * Gemini decodes as real reasoning state (the phantom-weather bug).
++       * The dummy itself is excluded defensively so the poison is never stored.
++       */
++      const GENAI_SIG_MAP_KEY = "__gemini_function_call_thought_signatures__";
++      const GENAI_DUMMY_SIG_PREFIX = "ErYCCrMCAdHtim9kOoOkrPiC";
++      const genaiSigMap = data?.output?.additional_kwargs?.[GENAI_SIG_MAP_KEY];
++      if (this.collectedThoughtSignatures && genaiSigMap && typeof genaiSigMap === "object") {
++        for (const [id, sig] of Object.entries(genaiSigMap)) {
++          if (typeof sig === "string" && sig.length > 0 && !sig.startsWith(GENAI_DUMMY_SIG_PREFIX)) {
++            this.collectedThoughtSignatures[id] = sig;
++          }
++        }
++      }
+       const signatures = data?.output?.additional_kwargs?.signatures;
+       const toolCalls = data?.output?.tool_calls;
+       if (
+--- a/api/app/clients/prompts/formatMessages.js
++++ b/api/app/clients/prompts/formatMessages.js
+@@ -331,6 +331,21 @@
+           aiMsg.additional_kwargs ??= {};
+           aiMsg.additional_kwargs.signatures = sigs;
+         }
++        /**
++         * GenAI (AI Studio) path reads a per-tool_call_id map under this key;
++         * without it, `@langchain/google-genai` stamps its hardcoded
++         * DUMMY_SIGNATURE on every replayed gemini-3 call — alien reasoning
++         * state that corrupts thought summaries (phantom-weather bug).
++         */
++        const genaiMap = {};
++        for (const tc of aiMsg.tool_calls) {
++          const sig = sigsByCallId[tc.id];
++          if (typeof sig === "string" && sig.length > 0) genaiMap[tc.id] = sig;
++        }
++        if (Object.keys(genaiMap).length > 0) {
++          aiMsg.additional_kwargs ??= {};
++          aiMsg.additional_kwargs["__gemini_function_call_thought_signatures__"] = genaiMap;
++        }
+       }
+     }
+   }

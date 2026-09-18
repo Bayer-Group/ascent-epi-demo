@@ -1,0 +1,253 @@
+# Quality gates for pull requests.
+#
+# Lint and type checks run against the files a pull request changes, not the
+# whole tree. A change is responsible for the code it touches, and a gate that
+# cannot pass is one people learn to merge past -- after which a real failure
+# looks like the usual noise.
+#
+# Types go a step further. The type debt in some files is large enough that
+# editing a comment in one would fail a whole-file check, so pyright is
+# enforced as a ratchet: a branch must not add errors, and is not asked to
+# fix the ones it inherited.
+#
+# The repo-wide job reports the same checks across everything and never blocks,
+# so the totals stay visible and a reviewer can see whether a change moved them.
+#
+# Tests are not scoped that way: the whole suite runs, and all of it must pass.
+# It needs no API key and no services -- a clone can run it as-is.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: ruff (changed files)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install project
+        run: uv sync --extra dev
+
+      - name: Collect changed Python files
+        id: changed
+        run: |
+          base="${{ github.event.pull_request.base.sha || 'HEAD~1' }}"
+          files="$(git diff --name-only --diff-filter=ACMR "$base"...HEAD -- '*.py' | tr '\n' ' ')"
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "changed: ${files:-<none>}"
+
+      - name: ruff check
+        if: steps.changed.outputs.files != ''
+        run: uv run ruff check ${{ steps.changed.outputs.files }}
+
+      - name: ruff format --check
+        if: steps.changed.outputs.files != ''
+        run: uv run ruff format --check ${{ steps.changed.outputs.files }}
+
+  types:
+    name: pyright (changed files)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install project
+        run: uv sync --extra dev
+
+      - name: Collect changed Python files under src/
+        id: changed
+        run: |
+          base="${{ github.event.pull_request.base.sha || 'HEAD~1' }}"
+          files="$(git diff --name-only --diff-filter=ACMR "$base"...HEAD -- 'src/**/*.py' | tr '\n' ' ')"
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "changed: ${files:-<none>}"
+
+      # A ratchet, not a threshold: these files carry pre-existing errors, and
+      # editing a comment should not make a branch answerable for all of them.
+      # Both runs happen in this tree and this virtualenv, so only the file
+      # contents differ and the two reports are comparable.
+      - name: pyright, on the branch
+        if: steps.changed.outputs.files != ''
+        run: uv run pyright --outputjson ${{ steps.changed.outputs.files }} > head.json || true
+
+      - name: pyright, on the merge base
+        if: steps.changed.outputs.files != ''
+        run: |
+          base="${{ github.event.pull_request.base.sha || 'HEAD~1' }}"
+          # Added files have no baseline. Do not check their head contents in
+          # both reports, which would incorrectly cancel out every new error.
+          base_files=()
+          for f in ${{ steps.changed.outputs.files }}; do
+            if git cat-file -e "$base:$f" 2>/dev/null; then
+              git checkout "$base" -- "$f"
+              base_files+=("$f")
+            fi
+          done
+          if ((${#base_files[@]})); then
+            uv run pyright --outputjson "${base_files[@]}" > base.json || true
+          else
+            printf '%s\n' '{"generalDiagnostics": []}' > base.json
+          fi
+          git checkout HEAD -- ${{ steps.changed.outputs.files }}
+
+      - name: Fail on errors this branch introduces
+        if: steps.changed.outputs.files != ''
+        run: python ci/pyright_ratchet.py base.json head.json
+
+  # A model added without a migration is invisible until something writes to the
+  # missing table. Two of them sat in the tree for a month that way, alongside a
+  # table a migration still created for a model that had been deleted. This
+  # replays the migrations onto an empty database and asks alembic whether the
+  # result matches the models.
+  migrations:
+    name: alembic check
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: pw
+          POSTGRES_DB: ascent
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 10
+    env:
+      DB_APP_USR: postgres
+      DB_APP_PWD: pw
+      DB_HOST: localhost
+      DB_PORT: "5432"
+      DB_NAME: ascent
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install project
+        run: uv sync --extra dev
+      - name: Apply migrations to an empty database
+        run: uv run alembic upgrade head
+      - name: Models and schema must agree
+        run: uv run alembic check
+
+  test:
+    name: pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install project
+        run: uv sync --extra dev
+
+      - name: pytest
+        run: |
+          PYTHONPATH=./src uv run pytest tests/ -q \
+            --cov=src --cov-report=term-missing --cov-report=xml
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: coverage.xml
+          if-no-files-found: ignore
+
+  medical-coder-test:
+    name: medical-coder pytest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/medical-coder
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install medical-coder
+        run: uv sync --frozen --extra dev
+      - name: pytest
+        run: uv run --no-sync pytest tests/ -q
+
+  docker:
+    # The images are what the demo actually ships, and a Dockerfile is not
+    # exercised by any of the jobs above. Building it here caught four defects
+    # that the suite, `docker build --check` and `docker compose config` all
+    # passed over: a lockfile that pulled 4 GB of CUDA, a PEP 639 licence
+    # conflict that stopped setuptools building the project at all, a
+    # dependency layer that tried to install the project before its source was
+    # copied, and a missing logs/ directory that killed every worker at
+    # startup.
+    #
+    # Build only. Running the stack needs an LLM key, which a fork PR has no
+    # way to supply.
+    name: docker build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reclaim runner disk
+        # The image carries torch and sentence-transformers. A stock runner has
+        # ~14 GB free, which this build exhausts; the preinstalled Android,
+        # .NET and GHC toolchains are worth ~20 GB and nothing here uses them.
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          df -h /
+
+      # Required for the GitHub Actions cache below: the default `docker`
+      # driver cannot export a cache, and the build fails outright rather than
+      # skipping it. This switches to the docker-container driver, which can.
+      - uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e  # v4.3.0
+
+      # Pinned to a commit rather than a tag: a tag is mutable, so a compromised
+      # or retagged release would run here with the repository's token. CodeQL
+      # flags the tag form for that reason.
+      - name: Build backend image
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        with:
+          context: .
+          push: false
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
+
+      - name: Build medical-coder image
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a  # v7.3.0
+        with:
+          context: .
+          file: services/medical-coder/Dockerfile
+          push: false
+          cache-from: type=gha,scope=medical-coder
+          cache-to: type=gha,mode=max,scope=medical-coder
+
+  debt:
+    # Never blocks. Prints the whole-repository totals so the numbers the gates
+    # above deliberately do not enforce are still in front of people, and a
+    # reviewer can see whether a change moved them.
+    name: repo-wide totals (informational)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install project
+        run: uv sync --extra dev
+      - name: ruff
+        run: uv run ruff check . --statistics || true
+      - name: ruff format
+        run: uv run ruff format --check . || true
+      - name: pyright
+        run: uv run pyright || true
+      - name: full suite
+        run: PYTHONPATH=./src uv run pytest tests/ -q || true

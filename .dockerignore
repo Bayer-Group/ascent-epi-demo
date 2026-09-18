@@ -1,0 +1,45 @@
+.venv
+__pycache__
+*.py[co]
+.dockerignore
+.git
+.gitignore
+
+# Built artefacts — regenerated on first start, must not bloat the image
+.warehouse/
+
+# Never bake a local .env (and the user API keys in it) into an image
+.env
+.env.*
+!.env.template
+
+# Same reasoning for a developer's private CA bundle: docker-compose.tls-proxy.yml
+# mounts it at run time, and the root image's `COPY . .` would otherwise bake it
+# into a layer, so an image built behind a corporate proxy would ship trusting
+# that proxy's CA.
+certs/
+
+# A developer's local state, which `COPY . .` would otherwise bake in.
+logs/
+.idea/
+.vscode/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+
+# Development-time only: the generator that produced data/, the test suite, the
+# docs site, and the LibreChat build (its own context is ./librechat, so this
+# only stops it riding along in the backend image). None is imported at run time.
+synthetic_data_generation/
+tests/
+docs/
+librechat/
+
+# NOT excluded, deliberately: data/. It looks like the obvious win -- ~220 MB,
+# and docker-compose.yml bind-mounts ./data over /app/data so the copy is
+# shadowed there. But services/medical-coder/Dockerfile shares this build
+# context and COPYs ./data/synthetic/vocabulary, and a plain `docker run` with
+# no bind mount needs the archives to build its warehouse. Excluding it breaks
+# both.

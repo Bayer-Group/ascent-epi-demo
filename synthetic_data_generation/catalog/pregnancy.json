@@ -1,0 +1,128 @@
+{
+  "_comment": "Pregnancy episodes. Obstetric care is the single largest reason for hospitalisation in any commercially insured population, so a dataset with no deliveries has a visibly wrong inpatient case mix and cannot support maternal-health, teratogenicity or drug-safety-in-pregnancy work at all. An episode is a structured cadence - prenatal visits on a schedule that intensifies toward term, screening labs in defined gestational windows, a delivery encounter, and postpartum follow-up - which is exactly the shape phenotype algorithms key on. The maternal conditions themselves live in conditions.json flagged assigned_by=pregnancy, so they get vocabulary entries, source codes and legacy codes from the same machinery as every other condition.",
+
+  "fertility": {
+    "_comment": "Annual probability that an eligible woman starts a pregnancy, by age band. Roughly tracks US general fertility rates, deliberately a little low at the extremes so small cohorts do not produce implausible outliers.",
+    "age_rates": {
+      "15-19": 0.014,
+      "20-24": 0.062,
+      "25-29": 0.093,
+      "30-34": 0.098,
+      "35-39": 0.055,
+      "40-44": 0.013,
+      "45-49": 0.001
+    },
+    "min_interpregnancy_days": 300,
+    "max_episodes_per_patient": 3
+  },
+
+  "outcomes": [
+    {"key": "live_birth", "share": 0.84, "gestation_weeks_mean": 39.1, "gestation_weeks_sd": 1.9, "min_weeks": 22},
+    {"key": "spontaneous_abortion", "share": 0.13, "gestation_weeks_mean": 9.5, "gestation_weeks_sd": 3.0, "min_weeks": 4},
+    {"key": "stillbirth", "share": 0.006, "gestation_weeks_mean": 30.0, "gestation_weeks_sd": 6.0, "min_weeks": 20},
+    {"key": "ectopic", "share": 0.019, "gestation_weeks_mean": 7.5, "gestation_weeks_sd": 2.0, "min_weeks": 5},
+    {"key": "elective_termination", "share": 0.005, "gestation_weeks_mean": 9.0, "gestation_weeks_sd": 3.0, "min_weeks": 4}
+  ],
+
+  "prenatal_schedule": {
+    "_comment": "Gestational weeks at which a routine prenatal visit is expected. The accelerating cadence toward term (monthly, then fortnightly, then weekly) is the standard schedule and is a strong, recognisable signal in encounter data.",
+    "weeks": [8, 12, 16, 20, 24, 28, 30, 32, 34, 36, 37, 38, 39, 40],
+    "visit_type": "office",
+    "p_attend": 0.86,
+    "_p_attend_comment": "Incomplete prenatal care is real and clinically meaningful; a 100% attendance rate would be the anomaly."
+  },
+
+  "screening": [
+    {"key": "hemoglobin", "week": 10, "p": 0.90},
+    {"key": "tsh", "week": 10, "p": 0.42},
+    {"key": "glucose", "week": 26, "p": 0.88, "_comment": "Gestational diabetes screening window, 24-28 weeks."},
+    {"key": "hemoglobin", "week": 28, "p": 0.81},
+    {"key": "urine_acr", "week": 30, "p": 0.35}
+  ],
+
+  "procedures": [
+    {"key": "obstetric_ultrasound", "week": 12, "p": 0.91},
+    {"key": "obstetric_ultrasound", "week": 20, "p": 0.94},
+    {"key": "obstetric_ultrasound", "week": 32, "p": 0.46},
+    {"key": "vaginal_delivery", "at_delivery": true, "outcome": "live_birth", "share": 0.68},
+    {"key": "cesarean_delivery", "at_delivery": true, "outcome": "live_birth", "share": 0.32}
+  ],
+
+  "delivery": {
+    "visit_type": "inpatient",
+    "los_vaginal_mean": 2.1,
+    "los_cesarean_mean": 3.4,
+    "los_sd": 0.8,
+    "condition": "delivery_encounter",
+    "gestational_age_observation": 4051245
+  },
+
+  "postpartum": {
+    "visit_type": "office",
+    "weeks_after": [2, 6],
+    "p_attend": [0.34, 0.79]
+  },
+
+  "complications": [
+    {
+      "condition": "gestational_diabetes",
+      "p": 0.079,
+      "onset_week_mean": 26,
+      "onset_week_sd": 2.5,
+      "requires_outcome": ["live_birth", "stillbirth"],
+      "risk_multipliers": {"obesity": 2.1, "prediabetes": 2.6, "hypertension": 1.4},
+      "age_multipliers": {"15-19": 0.4, "20-24": 0.6, "25-29": 0.9, "30-34": 1.2, "35-39": 1.9, "40-44": 2.6, "45-49": 3.0},
+      "labs": ["glucose", "hba1c"],
+      "treatment": {"drug": "insulin_glargine", "p_treated": 0.21}
+    },
+    {
+      "condition": "preeclampsia",
+      "p": 0.048,
+      "onset_week_mean": 34,
+      "onset_week_sd": 3.5,
+      "requires_outcome": ["live_birth", "stillbirth"],
+      "risk_multipliers": {"hypertension": 3.2, "obesity": 1.7, "ckd": 2.8, "t2dm": 1.9},
+      "age_multipliers": {"15-19": 1.3, "20-24": 0.9, "25-29": 0.9, "30-34": 1.0, "35-39": 1.6, "40-44": 2.2, "45-49": 2.5},
+      "labs": ["creatinine", "alt", "platelets", "urine_acr"],
+      "forces_early_delivery_weeks": 2.0
+    },
+    {
+      "condition": "preterm_labor",
+      "p": 0.101,
+      "onset_week_mean": 33,
+      "onset_week_sd": 2.8,
+      "requires_outcome": ["live_birth"],
+      "risk_multipliers": {"preeclampsia": 3.4, "smoking": 1.5, "hypertension": 1.6},
+      "forces_early_delivery_weeks": 5.0,
+      "visit_type": "emergency"
+    },
+    {
+      "condition": "postpartum_hemorrhage",
+      "p": 0.043,
+      "at_delivery": true,
+      "requires_outcome": ["live_birth", "stillbirth"],
+      "risk_multipliers": {"preeclampsia": 1.9, "anemia": 1.4},
+      "labs": ["hemoglobin"]
+    }
+  ],
+
+  "newborn": {
+    "_comment": "Newborns are drawn from the existing cohort rather than minted as extra people, so --patients N still yields exactly N persons. Any person whose birth date falls inside the observation window is a linkage candidate: the generator finds an eligible woman aged 15-49 with no competing delivery and back-fits a pregnancy episode ending on that birth date. The pair is recorded in fact_relationship, which is where OMOP expects mother-child links. Deliveries with no in-cohort infant are still emitted at the population fertility rate - most real mothers' children are not enrolled in the same plan.",
+    "p_linked_to_mother": 0.62,
+    "fact_relationship": {
+      "domain_concept_id": 56,
+      "relationship_concept_id_parent_to_child": 44818821,
+      "relationship_concept_id_child_to_parent": 44818784
+    },
+    "birth_encounter": {
+      "visit_type": "inpatient",
+      "los_mean": 2.3,
+      "los_sd": 0.9,
+      "condition": "newborn_encounter",
+      "p_nicu": 0.09,
+      "nicu_los_mean": 11.0
+    },
+    "well_child_visits_months": [0.5, 1, 2, 4, 6, 9, 12, 15, 18, 24, 30, 36],
+    "p_attend_well_child": 0.81
+  }
+}

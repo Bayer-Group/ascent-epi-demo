@@ -1,0 +1,19 @@
+[
+ {
+  "database": "SYNTHETIC_EHR_OMOP",
+  "schema": "CDM",
+  "is_omop": true,
+  "is_synthetic": true,
+  "metadata_file": "SYNTHETIC_EHR_OMOP.CDM.1k.metadata.json",
+  "mschema_file": "SYNTHETIC_EHR_OMOP.CDM.1k.mschema.txt"
+ },
+ {
+  "database": "SYNTHETIC_CLAIMS",
+  "schema": "DATA_202601",
+  "is_omop": false,
+  "is_synthetic": true,
+  "metadata_file": "SYNTHETIC_CLAIMS.DATA_202601.1k.metadata.json",
+  "mschema_file": "SYNTHETIC_CLAIMS.DATA_202601.1k.mschema.txt",
+  "is_with_dots": true
+ }
+]

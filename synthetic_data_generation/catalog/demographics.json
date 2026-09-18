@@ -1,0 +1,250 @@
+{
+  "_comment": "Structural OMOP concept ids (gender, race, ethnicity, type concepts, units) are the REAL OMOP-generated ids. These are freely usable and recognised by every downstream OMOP tool; the 'keep it fictitious' constraint applies to clinical code systems, not to CDM plumbing. Every id used here is emitted as a row in the concept table from catalog/standard_concepts.json, so the canonical join person JOIN concept ON gender_concept_id = concept_id resolves. It previously did not: the ids were referenced but never inserted, so every demographic join returned nothing.",
+
+  "gender": [
+    {"concept_id": 8532, "name": "FEMALE", "source_value": "F", "share": 0.508},
+    {"concept_id": 8507, "name": "MALE", "source_value": "M", "share": 0.492}
+  ],
+
+  "race": [
+    {"concept_id": 8527, "name": "White", "source_value": "WHITE", "share": 0.601},
+    {"concept_id": 8516, "name": "Black or African American", "source_value": "BLACK", "share": 0.134},
+    {"concept_id": 8515, "name": "Asian", "source_value": "ASIAN", "share": 0.061},
+    {"concept_id": 8657, "name": "American Indian or Alaska Native", "source_value": "AI/AN", "share": 0.013},
+    {"concept_id": 8557, "name": "Native Hawaiian or Other Pacific Islander", "source_value": "NH/PI", "share": 0.003},
+    {"concept_id": 0, "name": "No matching concept", "source_value": "UNK", "share": 0.188}
+  ],
+  "_race_comment": "Unknown race maps to concept_id 0, the OMOP 'No matching concept' sentinel, which is what real ETLs do with an unmappable value. It is not a Race-vocabulary concept and pretending otherwise would make missingness invisible to anyone profiling the data.",
+
+  "ethnicity": [
+    {"concept_id": 38003563, "name": "Hispanic or Latino", "source_value": "HISPANIC", "share": 0.188},
+    {"concept_id": 38003564, "name": "Not Hispanic or Latino", "source_value": "NOT HISPANIC", "share": 0.812}
+  ],
+
+  "age_bands": [
+    {"band": "0-17", "min": 0, "max": 17, "share": 0.222},
+    {"band": "18-44", "min": 18, "max": 44, "share": 0.360},
+    {"band": "45-64", "min": 45, "max": 64, "share": 0.248},
+    {"band": "65-79", "min": 65, "max": 79, "share": 0.129},
+    {"band": "80+", "min": 80, "max": 95, "share": 0.041}
+  ],
+  "_age_bands_comment": "Coarse bands, used only to look up per-condition age_multipliers and to calibrate a per-band prevalence intercept. They are NOT the sampling distribution - see age_pyramid.",
+
+  "age_pyramid": {
+    "_comment": "The actual sampling distribution for patient age. Ages were previously drawn by picking one of the five coarse bands and then drawing uniformly inside it, which produced a flat slab of 27 identically-likely ages across 18-44 and an implausible cliff at each band edge. Real age distributions are smooth and, crucially, an EHR or claims extract is not a census: it over-represents whoever uses healthcare. share is the US Census 2020 population share; utilization is the relative annual encounter rate for that band. The sampler draws proportional to share x utilization, then uniformly within the 5-year band, which yields the correct three-humped shape - an infant bump from well-child visits, a trough through the healthy twenties, and a heavy tail after 65.",
+    "bands": [
+      {"min": 0,   "max": 4,   "share": 0.0590, "utilization": 2.60},
+      {"min": 5,   "max": 9,   "share": 0.0600, "utilization": 1.00},
+      {"min": 10,  "max": 14,  "share": 0.0640, "utilization": 0.90},
+      {"min": 15,  "max": 19,  "share": 0.0650, "utilization": 1.00},
+      {"min": 20,  "max": 24,  "share": 0.0660, "utilization": 1.00},
+      {"min": 25,  "max": 29,  "share": 0.0700, "utilization": 1.20},
+      {"min": 30,  "max": 34,  "share": 0.0680, "utilization": 1.30},
+      {"min": 35,  "max": 39,  "share": 0.0650, "utilization": 1.30},
+      {"min": 40,  "max": 44,  "share": 0.0610, "utilization": 1.30},
+      {"min": 45,  "max": 49,  "share": 0.0620, "utilization": 1.50},
+      {"min": 50,  "max": 54,  "share": 0.0640, "utilization": 1.70},
+      {"min": 55,  "max": 59,  "share": 0.0670, "utilization": 2.00},
+      {"min": 60,  "max": 64,  "share": 0.0640, "utilization": 2.30},
+      {"min": 65,  "max": 69,  "share": 0.0550, "utilization": 2.70},
+      {"min": 70,  "max": 74,  "share": 0.0450, "utilization": 3.10},
+      {"min": 75,  "max": 79,  "share": 0.0310, "utilization": 3.60},
+      {"min": 80,  "max": 84,  "share": 0.0200, "utilization": 4.20},
+      {"min": 85,  "max": 89,  "share": 0.0120, "utilization": 4.80},
+      {"min": 90,  "max": 94,  "share": 0.0050, "utilization": 5.20},
+      {"min": 95,  "max": 99,  "share": 0.0015, "utilization": 5.40},
+      {"min": 100, "max": 104, "share": 0.0003, "utilization": 5.40}
+    ],
+    "sex_utilization": {
+      "_comment": "Women of reproductive age consult substantially more than men of the same age, driven by obstetric and contraceptive care. Without this the sex ratio inside 20-44 comes out at parity, which no real ambulatory extract shows.",
+      "female": {"15-49": 1.35, "default": 1.05},
+      "male": {"default": 1.0}
+    }
+  },
+
+  "type_concepts": {
+    "observation_period": 44814724,
+    "visit": 32817,
+    "condition": 32020,
+    "drug": 32818,
+    "measurement": 32817,
+    "procedure": 32817,
+    "observation": 32817,
+    "death": 32817,
+    "payer_plan_period": 32869,
+    "condition_status_inpatient_primary": 32902,
+    "condition_status_outpatient": 32893
+  },
+
+  "units": [
+    {"unit": "%", "concept_id": 8554},
+    {"unit": "mg/dL", "concept_id": 8840},
+    {"unit": "mmol/L", "concept_id": 8753},
+    {"unit": "g/dL", "concept_id": 8713},
+    {"unit": "U/L", "concept_id": 8645},
+    {"unit": "ng/mL", "concept_id": 8842},
+    {"unit": "ng/dL", "concept_id": 8817},
+    {"unit": "pg/mL", "concept_id": 8845},
+    {"unit": "mIU/L", "concept_id": 8859},
+    {"unit": "mg/L", "concept_id": 8751},
+    {"unit": "mm/h", "concept_id": 8752},
+    {"unit": "10*3/uL", "concept_id": 8848},
+    {"unit": "mL/min/1.73m2", "concept_id": 8795},
+    {"unit": "mm[Hg]", "concept_id": 8876},
+    {"unit": "kg/m2", "concept_id": 9531},
+    {"unit": "mg/g", "concept_id": 8723},
+    {"unit": "{INR}", "concept_id": 8523},
+    {"unit": "wk", "concept_id": 9483}
+  ],
+
+  "locations": [
+    {"location_id": 1, "city": "Northgate", "state": "OH", "zip": "43001", "county": "Northgate County"},
+    {"location_id": 2, "city": "Riverbend", "state": "OH", "zip": "43107", "county": "Riverbend County"},
+    {"location_id": 3, "city": "Lakeside", "state": "MI", "zip": "48221", "county": "Lakeside County"},
+    {"location_id": 4, "city": "Pinehurst", "state": "MI", "zip": "48334", "county": "Pinehurst County"},
+    {"location_id": 5, "city": "Summit Valley", "state": "PA", "zip": "15012", "county": "Summit County"},
+    {"location_id": 6, "city": "Fairmont", "state": "OH", "zip": "43055", "county": "Northgate County"},
+    {"location_id": 7, "city": "Westbrook", "state": "MI", "zip": "48198", "county": "Lakeside County"},
+    {"location_id": 8, "city": "Elmridge", "state": "PA", "zip": "15068", "county": "Summit County"}
+  ],
+  "_locations_comment": "Fictitious place names paired with real state abbreviations and plausible-format ZIPs. Populating the location table matters because geographic variation is a standard RWE covariate and a NULL location column silently disables every such analysis.",
+
+  "payers": [
+    {
+      "key": "commercial", "name": "Commercial PPO", "concept_id": 32810, "plan_source_value": "COMM-PPO",
+      "share": 0.49, "paid_ratio": 0.72, "copay_mean": 32.0,
+      "age_shares": {"0-17": 0.62, "18-44": 0.63, "45-64": 0.66, "65-79": 0.09, "80+": 0.04}
+    },
+    {
+      "key": "medicare", "name": "Medicare Part A/B", "concept_id": 32812, "plan_source_value": "MCR-AB",
+      "share": 0.19, "paid_ratio": 0.80, "copay_mean": 18.0,
+      "age_shares": {"0-17": 0.00, "18-44": 0.02, "45-64": 0.07, "65-79": 0.83, "80+": 0.90}
+    },
+    {
+      "key": "medicaid", "name": "Medicaid Managed Care", "concept_id": 32811, "plan_source_value": "MCD-MC",
+      "share": 0.21, "paid_ratio": 0.88, "copay_mean": 3.0,
+      "age_shares": {"0-17": 0.34, "18-44": 0.24, "45-64": 0.16, "65-79": 0.05, "80+": 0.05}
+    },
+    {
+      "key": "self_pay", "name": "Self-pay", "concept_id": 32813, "plan_source_value": "SELF",
+      "share": 0.11, "paid_ratio": 0.0, "copay_mean": 0.0,
+      "age_shares": {"0-17": 0.04, "18-44": 0.11, "45-64": 0.11, "65-79": 0.03, "80+": 0.01}
+    }
+  ],
+  "_payers_comment": "age_shares override the marginal share and are renormalised per band; Medicare eligibility at 65 is the single sharpest discontinuity in US healthcare data and any tool that has never seen it will mis-handle real Medicare cohorts. Coverage is emitted as payer_plan_period rows, with churn: commercial plans lapse and switch at open enrolment, which creates the coverage gaps that make continuous-enrolment criteria bite.",
+
+  "coverage": {
+    "_comment": "How enrolment spells behave. Real coverage is not one unbroken span per patient: people change jobs, plans reset in January, Medicaid redetermination drops people mid-year. Spell boundaries clustering on 1 January is a real and recognisable artifact.",
+    "mean_spell_years": {"commercial": 3.1, "medicare": 9.0, "medicaid": 2.2, "self_pay": 1.4},
+    "p_january_boundary": 0.63,
+    "p_gap_after_spell": {"commercial": 0.18, "medicare": 0.02, "medicaid": 0.31, "self_pay": 0.45},
+    "gap_days_mean": 95,
+    "_active_comment": "Share of each payer's members still enrolled on the extract date. An extract's population is drawn from whoever the payer covers now, so most of it must reach the extract date; spells built forward from an early start and abandoned at the first lapse left the file with almost no data in its final years, which is the one period an analyst is most likely to query.",
+    "p_active_at_extract": {"commercial": 0.62, "medicare": 0.88, "medicaid": 0.55, "self_pay": 0.34}
+  },
+
+  "cost": {
+    "_comment": "Charge distributions are lognormal in reality, spanning three orders of magnitude for the same visit type. total_charge_mean is the geometric mean in dollars; sigma is the lognormal shape parameter. paid = charge x payer paid_ratio x (1 +/- contract noise), which reproduces the charge/allowed/paid spread that makes cost analysis non-trivial.",
+    "visit_charge": {
+      "office": {"mean": 185.0, "sigma": 0.55},
+      "outpatient": {"mean": 460.0, "sigma": 0.85},
+      "telehealth": {"mean": 95.0, "sigma": 0.45},
+      "emergency": {"mean": 1850.0, "sigma": 0.95},
+      "inpatient": {"mean": 14200.0, "sigma": 1.05},
+      "icu": {"mean": 42000.0, "sigma": 1.10},
+      "observation_stay": {"mean": 3100.0, "sigma": 0.85},
+      "home_health": {"mean": 165.0, "sigma": 0.50}
+    },
+    "drug_charge": {"mean": 78.0, "sigma": 1.30},
+    "procedure_charge": {"mean": 620.0, "sigma": 1.15},
+    "measurement_charge": {"mean": 42.0, "sigma": 0.70},
+    "contract_noise_sd": 0.12
+  },
+
+  "care_sites": [
+    {"care_site_id": 1, "name": "Northgate General Hospital", "place_of_service": "Inpatient Hospital", "facility": "NGH", "location_id": 1},
+    {"care_site_id": 2, "name": "Northgate Cardiology Clinic", "place_of_service": "Office", "facility": "NGH", "location_id": 1},
+    {"care_site_id": 3, "name": "Riverbend Community Medical Center", "place_of_service": "Inpatient Hospital", "facility": "RBM", "location_id": 2},
+    {"care_site_id": 4, "name": "Riverbend Family Practice", "place_of_service": "Office", "facility": "RBM", "location_id": 2},
+    {"care_site_id": 5, "name": "Lakeside Regional Health", "place_of_service": "Inpatient Hospital", "facility": "LSR", "location_id": 3},
+    {"care_site_id": 6, "name": "Lakeside Endocrinology Associates", "place_of_service": "Office", "facility": "LSR", "location_id": 3},
+    {"care_site_id": 7, "name": "Pinehurst Ambulatory Care", "place_of_service": "Outpatient Clinic", "facility": "PAC", "location_id": 4},
+    {"care_site_id": 8, "name": "Summit Valley Oncology Institute", "place_of_service": "Outpatient Clinic", "facility": "SVO", "location_id": 5}
+  ],
+
+  "facilities": [
+    {
+      "code": "NGH", "name": "Northgate Health System", "ehr_vendor": "Meridian EHR", "share": 0.30,
+      "date_format": "%Y-%m-%d", "lab_dialect": "standard_code", "null_rate_pkg_code": 0.08,
+      "null_rate_lab_code": 0.15, "duplicate_rate": 0.012, "unit_case": "mixed",
+      "specialty": "tertiary_cardiac", "location_id": 1,
+      "case_mix": {"g_cardiovascular": 1.55, "g_ischemic_heart": 1.70, "g_renal": 1.15, "g_neoplasm": 0.75},
+      "coding_style": {"codes_per_encounter": 3.4, "p_unspecified_code": 0.31, "p_primary_first": 0.92}
+    },
+    {
+      "code": "RBM", "name": "Riverbend Medical Group", "ehr_vendor": "CareStack", "share": 0.25,
+      "date_format": "%m/%d/%Y", "lab_dialect": "local_mnemonic", "null_rate_pkg_code": 0.22,
+      "null_rate_lab_code": 0.38, "duplicate_rate": 0.021, "unit_case": "lower",
+      "specialty": "primary_care", "location_id": 2,
+      "case_mix": {"g_endocrine": 1.20, "g_mental": 1.35, "g_musculoskeletal": 1.25, "g_neoplasm": 0.45, "g_maternal": 1.40},
+      "coding_style": {"codes_per_encounter": 1.9, "p_unspecified_code": 0.58, "p_primary_first": 0.71}
+    },
+    {
+      "code": "LSR", "name": "Lakeside Regional Network", "ehr_vendor": "Meridian EHR", "share": 0.20,
+      "date_format": "%d-%b-%Y", "lab_dialect": "standard_code", "null_rate_pkg_code": 0.11,
+      "null_rate_lab_code": 0.19, "duplicate_rate": 0.008, "unit_case": "upper",
+      "specialty": "endocrine_renal", "location_id": 3,
+      "case_mix": {"g_endocrine": 1.75, "g_diabetes": 1.95, "g_renal": 1.65, "g_neoplasm": 0.70},
+      "coding_style": {"codes_per_encounter": 2.8, "p_unspecified_code": 0.24, "p_primary_first": 0.88}
+    },
+    {
+      "code": "PAC", "name": "Pinehurst Ambulatory Partners", "ehr_vendor": "ClinicOne", "share": 0.15,
+      "date_format": "epoch", "lab_dialect": "local_mnemonic", "null_rate_pkg_code": 0.31,
+      "null_rate_lab_code": 0.44, "duplicate_rate": 0.017, "unit_case": "mixed",
+      "specialty": "ambulatory_general", "location_id": 4,
+      "case_mix": {"g_respiratory": 1.30, "g_musculoskeletal": 1.20, "g_infectious": 1.25, "g_neoplasm": 0.40},
+      "coding_style": {"codes_per_encounter": 1.6, "p_unspecified_code": 0.66, "p_primary_first": 0.64}
+    },
+    {
+      "code": "SVO", "name": "Summit Valley Oncology", "ehr_vendor": "OncoTrack", "share": 0.10,
+      "date_format": "%Y-%m-%d", "lab_dialect": "standard_code", "null_rate_pkg_code": 0.06,
+      "null_rate_lab_code": 0.09, "duplicate_rate": 0.005, "unit_case": "mixed",
+      "specialty": "oncology", "location_id": 5,
+      "case_mix": {"g_neoplasm": 6.20, "g_mental": 1.20, "g_maternal": 0.05, "g_perinatal": 0.05},
+      "coding_style": {"codes_per_encounter": 4.1, "p_unspecified_code": 0.14, "p_primary_first": 0.95}
+    }
+  ],
+  "_facilities_comment": "case_mix multiplies the chance a patient with a condition in that grouper attends this facility, so an oncology institute's population really is enriched for cancer and its inpatient mix differs from a primary-care group's. coding_style drives per-facility documentation habits: how many diagnosis codes land on an encounter, how often the unspecified variant is chosen over a specific one, and how reliably the primary diagnosis is sequenced first. These are the idiosyncrasies that make multi-site harmonisation hard, and a dataset where every site codes identically cannot exercise that.",
+
+  "network": {
+    "_comment": "Patients were previously bound to exactly one facility for life, with the facility code baked into the MRN, so cross-site record linkage - the central problem in multi-site RWD - was impossible to exercise. Now a patient has a home facility and leaks a share of encounters to others: emergencies go wherever is nearest, oncology and cardiac referrals go to the specialist centre.",
+    "p_out_of_network": 0.11,
+    "p_out_of_network_emergency": 0.27,
+    "referral_targets": {
+      "g_neoplasm": {"SVO": 0.72, "NGH": 0.18, "LSR": 0.10},
+      "g_ischemic_heart": {"NGH": 0.78, "LSR": 0.14, "RBM": 0.08},
+      "g_renal": {"LSR": 0.66, "NGH": 0.24, "RBM": 0.10}
+    },
+    "p_relocate_per_year": 0.018
+  },
+
+  "given_names_female": ["Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Karen", "Sarah", "Nancy", "Lisa", "Margaret", "Sandra", "Ashley", "Emily", "Donna", "Michelle", "Carol", "Amanda"],
+  "given_names_male": ["James", "Robert", "John", "Michael", "David", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua"],
+  "family_names": ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson"],
+
+  "provider_specialties": [
+    "Family Practice", "Internal Medicine", "Cardiology", "Endocrinology", "Nephrology",
+    "Pulmonology", "Oncology", "Neurology", "Psychiatry", "Emergency Medicine",
+    "Gastroenterology", "Orthopedics", "Rheumatology", "Infectious Disease", "Geriatrics",
+    "Obstetrics and Gynecology", "Pediatrics"
+  ],
+
+  "facility_specialty_mix": {
+    "_comment": "Which specialties staff each facility. A tertiary cardiac centre with a family-practice-heavy provider roster is an obvious inconsistency, and provider specialty is a common cohort filter.",
+    "tertiary_cardiac": {"Cardiology": 0.34, "Internal Medicine": 0.22, "Emergency Medicine": 0.16, "Nephrology": 0.08, "Pulmonology": 0.07, "Neurology": 0.06, "Family Practice": 0.07},
+    "primary_care": {"Family Practice": 0.42, "Internal Medicine": 0.24, "Pediatrics": 0.12, "Obstetrics and Gynecology": 0.10, "Psychiatry": 0.06, "Geriatrics": 0.06},
+    "endocrine_renal": {"Endocrinology": 0.31, "Nephrology": 0.27, "Internal Medicine": 0.20, "Family Practice": 0.12, "Cardiology": 0.10},
+    "ambulatory_general": {"Family Practice": 0.36, "Internal Medicine": 0.20, "Orthopedics": 0.12, "Gastroenterology": 0.09, "Rheumatology": 0.08, "Pulmonology": 0.08, "Pediatrics": 0.07},
+    "oncology": {"Oncology": 0.68, "Internal Medicine": 0.14, "Psychiatry": 0.08, "Infectious Disease": 0.06, "Emergency Medicine": 0.04}
+  }
+}

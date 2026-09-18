@@ -1,0 +1,140 @@
+# librechat/Dockerfile, plus the CA handling a TLS-intercepting network needs.
+#
+# Selected by docker-compose.tls-proxy.yml through `build.dockerfile`, which
+# also supplies the CA as a build secret. Nothing references this file on a
+# normal connection, and `docker compose build` without that overlay never
+# reads it.
+#
+# Two files rather than one because the alternative -- a single Dockerfile
+# carrying `--mount=type=secret` guards that no-op for everyone outside a
+# corporate network -- puts a problem most readers do not have in the middle of
+# the build every reader has to understand. The cost is that they can drift.
+# This file tracks librechat/Dockerfile line for line apart from its header and
+# the two blocks marked TLS INTERCEPTION below, and it is worth keeping so:
+#
+#     diff librechat/Dockerfile librechat/Dockerfile.tls-proxy
+#
+# should show this header and those two blocks, and nothing else.
+#
+# Why the CA is needed at build time at all, when the overlay already mounts it
+# at runtime: interception breaks the build itself, long before any container
+# starts. The runtime mount cannot help a build that never produced an image.
+
+
+# LibreChat, built from upstream source with one local patch.
+#
+# The published image cannot be used as-is: the two defaults this demo needs --
+# skills on, MCP servers selected -- live in the React bundle, not in
+# librechat.yaml or any environment variable. There is no configuration route
+# to them, so the client has to be rebuilt.
+#
+# Upstream is pinned to a commit rather than a tag or `latest`. The patch below
+# carries file context, so a moving base would eventually fail to apply -- and
+#
+# This is the build everyone gets. A sibling, librechat/Dockerfile.tls-proxy,
+# is this file plus the CA handling a TLS-intercepting corporate network needs
+# at build time, and docker-compose.tls-proxy.yml selects it. The two are kept
+# line-for-line identical apart from that; a change here belongs there too.
+ARG LIBRECHAT_COMMIT=16e4d1419107a31c00fa23442ef07688e64d6366
+
+FROM alpine/git:2.49.1 AS source
+ARG LIBRECHAT_COMMIT
+WORKDIR /src
+# Fetching the single commit rather than cloning: the full history is ~1 GB and
+# nothing here reads it.
+RUN git init -q . \
+ && git remote add origin https://github.com/danny-avila/LibreChat.git \
+ && git fetch -q --depth 1 origin "${LIBRECHAT_COMMIT}" \
+ && git checkout -q FETCH_HEAD
+COPY badge-defaults.patch terms-notice.patch temporary-chat.patch /tmp/
+# `git apply` fails loudly on drift. That matters more than it looks: a patch
+# that silently no-ops produces a working image with none of the defaults, and
+# the only symptom is a demo that opens with its tools off -- or, for the terms
+# notice, one that never appears at all.
+RUN git apply --verbose /tmp/badge-defaults.patch \
+ && git apply --verbose /tmp/terms-notice.patch \
+ && git apply --verbose /tmp/temporary-chat.patch
+
+
+FROM node:24.16.0-alpine AS node
+
+# --- TLS INTERCEPTION -------------------------------------------------------
+# apk fetches its indexes over HTTPS, so a network that re-signs
+# dl-cdn.alpinelinux.org with a private CA stops the build dead here: the base
+# image trusts public roots only, and apk refuses a stale index rather than
+# carrying on. github.com in the stage above is served by a public CA even on
+# an intercepted network, which is why that stage needs nothing.
+#
+# A build secret rather than a COPY, so the CA stays out of git and out of the
+# build context. Appended rather than overwritten: dropping the public roots
+# would break every other TLS call in the build.
+#
+# The guard is not decoration. Building this file without the overlay -- `-f`
+# by hand, or a stale COMPOSE_FILE -- leaves the mount absent, and the build
+# then behaves exactly like librechat/Dockerfile instead of failing on a
+# missing path.
+RUN --mount=type=secret,id=ca_bundle \
+    if [ -s /run/secrets/ca_bundle ]; then \
+      cat /run/secrets/ca_bundle >> /etc/ssl/certs/ca-certificates.crt; \
+    fi \
+ && apk upgrade --no-cache \
+ && apk add --no-cache jemalloc python3 py3-pip uv
+# --- end TLS INTERCEPTION ---------------------------------------------------
+
+ENV LD_PRELOAD=/usr/lib/libjemalloc.so.2
+
+# `uv` for MCP servers launched over stdio. Unused by this stack, which reaches
+# its server over HTTP, but removing it would diverge from upstream's runtime
+# for no gain.
+COPY --from=ghcr.io/astral-sh/uv:0.9.5-python3.12-alpine /usr/local/bin/uv /usr/local/bin/uvx /bin/
+
+ARG NODE_MAX_OLD_SPACE_SIZE=6144
+
+RUN mkdir -p /app && chown node:node /app
+WORKDIR /app
+USER node
+
+# Manifests first, so a change to the patch does not re-run `npm ci`.
+COPY --from=source --chown=node:node /src/package.json /src/package-lock.json ./
+COPY --from=source --chown=node:node /src/api/package.json ./api/package.json
+COPY --from=source --chown=node:node /src/client/package.json ./client/package.json
+COPY --from=source --chown=node:node /src/packages/data-provider/package.json ./packages/data-provider/package.json
+COPY --from=source --chown=node:node /src/packages/data-schemas/package.json ./packages/data-schemas/package.json
+COPY --from=source --chown=node:node /src/packages/api/package.json ./packages/api/package.json
+
+# --- TLS INTERCEPTION -------------------------------------------------------
+# The trust store patched above does not cover this step: Node ignores the
+# system bundle in favour of its own compiled-in roots and reads
+# NODE_EXTRA_CA_CERTS to be told about anything else -- the same reason
+# docker-compose.tls-proxy.yml sets that variable at runtime.
+#
+# It matters for one package. The lockfile resolves everything from
+# registry.npmjs.org, which is publicly signed, except xlsx, which comes from
+# cdn.sheetjs.com -- and an intercepting proxy re-signs that like anything else.
+# The failure arrives ~30 minutes in, after the retries below have each waited
+# out their timeout, and reads UNABLE_TO_VERIFY_LEAF_SIGNATURE.
+#
+# mode=0444 because this runs as `node`: a build secret is root-owned 0400 by
+# default, so the guard below would read it as absent and skip silently.
+RUN --mount=type=secret,id=ca_bundle,mode=0444 \
+    touch .env \
+ && mkdir -p /app/client/public/images /app/logs /app/uploads /app/skill /app/data \
+ && chmod 1777 /app/data \
+ && npm config set fetch-retry-maxtimeout 600000 \
+ && npm config set fetch-retries 5 \
+ && npm config set fetch-retry-mintimeout 15000 \
+ && if [ -s /run/secrets/ca_bundle ]; then \
+      export NODE_EXTRA_CA_CERTS=/run/secrets/ca_bundle; \
+    fi \
+ && npm ci --no-audit
+# --- end TLS INTERCEPTION ---------------------------------------------------
+
+COPY --from=source --chown=node:node /src/ ./
+
+RUN NODE_OPTIONS="--max-old-space-size=${NODE_MAX_OLD_SPACE_SIZE}" npm run frontend \
+ && npm prune --production \
+ && npm cache clean --force
+
+EXPOSE 3080
+ENV HOST=0.0.0.0
+CMD ["npm", "run", "backend"]

@@ -1,0 +1,5597 @@
+{
+  "meta": {
+    "seed": 42,
+    "n_patients": 1000,
+    "cdm_version": "5.4",
+    "observation_window": [
+      "2010-01-01",
+      "2026-01-31"
+    ],
+    "messiness": "realistic",
+    "catalog_hash": "0dca3f0b48292f5d"
+  },
+  "injected_errors": {
+    "orphan_visit_reference": 52,
+    "records_outside_observation_period": 108,
+    "off_label_prescribing": 356,
+    "implausible_but_real_lab": 212,
+    "duplicate_encounter": 99,
+    "transposed_date_digits": 209
+  },
+  "demographics": {
+    "n_patients": 1000,
+    "n_deaths": 161,
+    "by_sex": {
+      "F": 495,
+      "M": 505
+    },
+    "by_race": {
+      "AI/AN": 10,
+      "ASIAN": 61,
+      "BLACK": 136,
+      "NH/PI": 2,
+      "UNK": 181,
+      "WHITE": 610
+    },
+    "age_pyramid": {
+      "0-17": 169,
+      "18-44": 264,
+      "45-64": 263,
+      "65-79": 211,
+      "80+": 93
+    },
+    "reference_date": "2026-01-31",
+    "reference_year": 2026,
+    "person_years": 4427.8
+  },
+  "prevalence": {
+    "afib": {
+      "name": "Atrial fibrillation",
+      "standard_concept_id": 20001000,
+      "codes": {
+        "DXCODE": [
+          "Q48.0",
+          "Q48.1",
+          "Q48.2",
+          "Q48.9"
+        ],
+        "DXCODE9": [
+          "R27.0",
+          "R27.1",
+          "R27.2",
+          "R27.9"
+        ]
+      },
+      "n_patients": 19,
+      "denominator": 1000,
+      "observed_rate": 0.019,
+      "ci95": [
+        0.0122,
+        0.02948
+      ],
+      "target_rate": 0.02,
+      "by_sex": {
+        "F": 10,
+        "M": 9
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 1,
+          "denominator": 264,
+          "rate": 0.00379
+        },
+        "45-64": {
+          "n": 2,
+          "denominator": 263,
+          "rate": 0.0076
+        },
+        "65-79": {
+          "n": 11,
+          "denominator": 211,
+          "rate": 0.05213
+        },
+        "80+": {
+          "n": 5,
+          "denominator": 93,
+          "rate": 0.05376
+        }
+      },
+      "monotonic_age": true,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: AF affects ~2% of US adults"
+    },
+    "aki": {
+      "name": "Acute kidney injury",
+      "standard_concept_id": 20001001,
+      "codes": {
+        "DXCODE": [
+          "Q61.0",
+          "Q61.9"
+        ],
+        "DXCODE9": [
+          "R86.0",
+          "R86.9"
+        ]
+      },
+      "n_patients": 8,
+      "denominator": 1000,
+      "observed_rate": 0.008,
+      "ci95": [
+        0.00406,
+        0.01571
+      ],
+      "target_rate": 0.028,
+      "by_sex": {
+        "F": 4,
+        "M": 4
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 2,
+          "denominator": 264,
+          "rate": 0.00758
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 5,
+          "denominator": 211,
+          "rate": 0.0237
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "AKI complicates 10-15% of US hospitalizations; population-level prevalence modelled lower"
+    },
+    "amyloidosis": {
+      "name": "Amyloidosis",
+      "standard_concept_id": 20001002,
+      "codes": {
+        "DXCODE": [
+          "Q22.0",
+          "Q22.1"
+        ],
+        "DXCODE9": [
+          "R13.0",
+          "R13.1"
+        ]
+      },
+      "n_patients": 2,
+      "denominator": 1000,
+      "observed_rate": 0.002,
+      "ci95": [
+        0.00055,
+        0.00726
+      ],
+      "target_rate": 0.0025,
+      "by_sex": {
+        "F": 1,
+        "M": 1
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 2,
+          "denominator": 211,
+          "rate": 0.00948
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": true,
+      "reference": "Quock et al., Blood Adv 2018: US AL amyloidosis prevalence ~40 per 100,000"
+    },
+    "anemia": {
+      "name": "Anemia",
+      "standard_concept_id": 20001003,
+      "codes": {
+        "DXCODE": [
+          "Q20.0",
+          "Q20.1",
+          "Q20.9"
+        ],
+        "DXCODE9": [
+          "R80.0",
+          "R80.1",
+          "R80.9"
+        ]
+      },
+      "n_patients": 65,
+      "denominator": 1000,
+      "observed_rate": 0.065,
+      "ci95": [
+        0.05132,
+        0.08201
+      ],
+      "target_rate": 0.098,
+      "by_sex": {
+        "F": 28,
+        "M": 37
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 5,
+          "denominator": 169,
+          "rate": 0.02959
+        },
+        "18-44": {
+          "n": 11,
+          "denominator": 264,
+          "rate": 0.04167
+        },
+        "45-64": {
+          "n": 14,
+          "denominator": 263,
+          "rate": 0.05323
+        },
+        "65-79": {
+          "n": 21,
+          "denominator": 211,
+          "rate": 0.09953
+        },
+        "80+": {
+          "n": 14,
+          "denominator": 93,
+          "rate": 0.15054
+        }
+      },
+      "monotonic_age": true,
+      "reference": "NHANES: anemia prevalence rises sharply after age 65"
+    },
+    "anxiety": {
+      "name": "Generalized anxiety disorder",
+      "standard_concept_id": 20001004,
+      "codes": {
+        "DXCODE": [
+          "Q92.0",
+          "Q92.1",
+          "Q92.2"
+        ],
+        "DXCODE9": [
+          "R07.0",
+          "R07.1",
+          "R07.2"
+        ]
+      },
+      "n_patients": 62,
+      "denominator": 1000,
+      "observed_rate": 0.062,
+      "ci95": [
+        0.04866,
+        0.07869
+      ],
+      "target_rate": 0.072,
+      "by_sex": {
+        "F": 33,
+        "M": 29
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 1,
+          "denominator": 169,
+          "rate": 0.00592
+        },
+        "18-44": {
+          "n": 26,
+          "denominator": 264,
+          "rate": 0.09848
+        },
+        "45-64": {
+          "n": 25,
+          "denominator": 263,
+          "rate": 0.09506
+        },
+        "65-79": {
+          "n": 10,
+          "denominator": 211,
+          "rate": 0.04739
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "NIMH: any anxiety disorder in ~7% of US adults in the past year"
+    },
+    "asthma": {
+      "name": "Asthma",
+      "standard_concept_id": 20001005,
+      "codes": {
+        "DXCODE": [
+          "Q71.0",
+          "Q71.2",
+          "Q71.3",
+          "Q71.9"
+        ],
+        "DXCODE9": [
+          "R42.0",
+          "R42.2",
+          "R42.3",
+          "R42.9"
+        ]
+      },
+      "n_patients": 72,
+      "denominator": 1000,
+      "observed_rate": 0.072,
+      "ci95": [
+        0.05756,
+        0.08971
+      ],
+      "target_rate": 0.08,
+      "by_sex": {
+        "F": 35,
+        "M": 37
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 17,
+          "denominator": 169,
+          "rate": 0.10059
+        },
+        "18-44": {
+          "n": 21,
+          "denominator": 264,
+          "rate": 0.07955
+        },
+        "45-64": {
+          "n": 16,
+          "denominator": 263,
+          "rate": 0.06084
+        },
+        "65-79": {
+          "n": 12,
+          "denominator": 211,
+          "rate": 0.05687
+        },
+        "80+": {
+          "n": 6,
+          "denominator": 93,
+          "rate": 0.06452
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC National Health Interview Survey 2021: current asthma in ~8% of the US population"
+    },
+    "atopic_dermatitis": {
+      "name": "Atopic dermatitis",
+      "standard_concept_id": 20001006,
+      "codes": {
+        "DXCODE": [
+          "Q14.0",
+          "Q14.1",
+          "Q14.2",
+          "Q14.9"
+        ],
+        "DXCODE9": [
+          "R02.0",
+          "R02.1",
+          "R02.2",
+          "R02.9"
+        ]
+      },
+      "n_patients": 54,
+      "denominator": 1000,
+      "observed_rate": 0.054,
+      "ci95": [
+        0.04162,
+        0.06979
+      ],
+      "target_rate": 0.073,
+      "by_sex": {
+        "F": 24,
+        "M": 30
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 15,
+          "denominator": 169,
+          "rate": 0.08876
+        },
+        "18-44": {
+          "n": 15,
+          "denominator": 264,
+          "rate": 0.05682
+        },
+        "45-64": {
+          "n": 12,
+          "denominator": 263,
+          "rate": 0.04563
+        },
+        "65-79": {
+          "n": 10,
+          "denominator": 211,
+          "rate": 0.04739
+        },
+        "80+": {
+          "n": 2,
+          "denominator": 93,
+          "rate": 0.02151
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Chiesa Fuxench et al., J Invest Dermatol 2019: US adult atopic dermatitis prevalence 7.3%"
+    },
+    "bph": {
+      "name": "Benign prostatic hyperplasia",
+      "standard_concept_id": 20001007,
+      "codes": {
+        "DXCODE": [
+          "Q18.0",
+          "Q18.1"
+        ],
+        "DXCODE9": [
+          "R09.0",
+          "R09.1"
+        ]
+      },
+      "n_patients": 87,
+      "denominator": 1000,
+      "observed_rate": 0.087,
+      "ci95": [
+        0.07107,
+        0.10609
+      ],
+      "target_rate": 0.105,
+      "by_sex": {
+        "M": 87
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 2,
+          "denominator": 264,
+          "rate": 0.00758
+        },
+        "45-64": {
+          "n": 19,
+          "denominator": 263,
+          "rate": 0.07224
+        },
+        "65-79": {
+          "n": 40,
+          "denominator": 211,
+          "rate": 0.18957
+        },
+        "80+": {
+          "n": 26,
+          "denominator": 93,
+          "rate": 0.27957
+        }
+      },
+      "monotonic_age": true,
+      "reference": "Berry et al., J Urol 1984 / GBD 2019: BPH prevalence rises from ~8% at 40 to >50% by 80"
+    },
+    "breast_cancer": {
+      "name": "Malignant neoplasm of breast",
+      "standard_concept_id": 20001008,
+      "codes": {
+        "DXCODE": [
+          "Q11.0",
+          "Q11.9"
+        ],
+        "DXCODE9": [
+          "R63.0",
+          "R63.9"
+        ]
+      },
+      "n_patients": 23,
+      "denominator": 1000,
+      "observed_rate": 0.023,
+      "ci95": [
+        0.01537,
+        0.03428
+      ],
+      "target_rate": 0.017,
+      "by_sex": {
+        "F": 23
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 12,
+          "denominator": 263,
+          "rate": 0.04563
+        },
+        "65-79": {
+          "n": 8,
+          "denominator": 211,
+          "rate": 0.03791
+        },
+        "80+": {
+          "n": 3,
+          "denominator": 93,
+          "rate": 0.03226
+        }
+      },
+      "monotonic_age": false,
+      "reference": "SEER: female breast cancer, ~13% lifetime risk of diagnosis"
+    },
+    "cad": {
+      "name": "Coronary artery disease",
+      "standard_concept_id": 20001009,
+      "codes": {
+        "DXCODE": [
+          "Q45.1",
+          "Q45.9"
+        ],
+        "DXCODE9": [
+          "R14.1",
+          "R14.9"
+        ]
+      },
+      "n_patients": 64,
+      "denominator": 1000,
+      "observed_rate": 0.064,
+      "ci95": [
+        0.05044,
+        0.0809
+      ],
+      "target_rate": 0.072,
+      "by_sex": {
+        "F": 33,
+        "M": 31
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 2,
+          "denominator": 264,
+          "rate": 0.00758
+        },
+        "45-64": {
+          "n": 11,
+          "denominator": 263,
+          "rate": 0.04183
+        },
+        "65-79": {
+          "n": 35,
+          "denominator": 211,
+          "rate": 0.16588
+        },
+        "80+": {
+          "n": 16,
+          "denominator": 93,
+          "rate": 0.17204
+        }
+      },
+      "monotonic_age": true,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: coronary heart disease in 7.2% of US adults 20+"
+    },
+    "cardiomyopathy": {
+      "name": "Cardiomyopathy",
+      "standard_concept_id": 20001010,
+      "codes": {
+        "DXCODE": [
+          "Q19.0",
+          "Q19.1",
+          "Q19.9"
+        ],
+        "DXCODE9": [
+          "R11.0",
+          "R11.1",
+          "R11.9"
+        ]
+      },
+      "n_patients": 3,
+      "denominator": 1000,
+      "observed_rate": 0.003,
+      "ci95": [
+        0.00102,
+        0.00878
+      ],
+      "target_rate": 0.006,
+      "by_sex": {
+        "F": 1,
+        "M": 2
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 1,
+          "denominator": 264,
+          "rate": 0.00379
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 2,
+          "denominator": 93,
+          "rate": 0.02151
+        }
+      },
+      "monotonic_age": true,
+      "reference": "Maron et al., Circulation 2006 / GBD 2019: cardiomyopathy prevalence ~0.6% of adults"
+    },
+    "chronic_pain": {
+      "name": "Chronic pain syndrome",
+      "standard_concept_id": 20001011,
+      "codes": {
+        "DXCODE": [
+          "Q80.0",
+          "Q80.1",
+          "Q80.2"
+        ],
+        "DXCODE9": [
+          "R38.0",
+          "R38.1",
+          "R38.2"
+        ]
+      },
+      "n_patients": 163,
+      "denominator": 1000,
+      "observed_rate": 0.163,
+      "ci95": [
+        0.1414,
+        0.18718
+      ],
+      "target_rate": 0.2,
+      "by_sex": {
+        "F": 87,
+        "M": 76
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 25,
+          "denominator": 264,
+          "rate": 0.0947
+        },
+        "45-64": {
+          "n": 54,
+          "denominator": 263,
+          "rate": 0.20532
+        },
+        "65-79": {
+          "n": 60,
+          "denominator": 211,
+          "rate": 0.28436
+        },
+        "80+": {
+          "n": 24,
+          "denominator": 93,
+          "rate": 0.25806
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC MMWR 2023: chronic pain in ~20.9% of US adults"
+    },
+    "cirrhosis": {
+      "name": "Cirrhosis of liver",
+      "standard_concept_id": 20001012,
+      "codes": {
+        "DXCODE": [
+          "Q96.0",
+          "Q96.1",
+          "Q96.9"
+        ],
+        "DXCODE9": [
+          "R54.0",
+          "R54.1",
+          "R54.9"
+        ]
+      },
+      "n_patients": 2,
+      "denominator": 1000,
+      "observed_rate": 0.002,
+      "ci95": [
+        0.00055,
+        0.00726
+      ],
+      "target_rate": 0.006,
+      "by_sex": {
+        "M": 2
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 1,
+          "denominator": 264,
+          "rate": 0.00379
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "NIDDK: cirrhosis affects roughly 0.27% of US adults; modelled slightly higher to support subgroup analysis"
+    },
+    "ckd": {
+      "name": "Chronic kidney disease",
+      "standard_concept_id": 20001013,
+      "codes": {
+        "DXCODE": [
+          "Q60.1",
+          "Q60.2",
+          "Q60.3",
+          "Q60.4",
+          "Q60.5",
+          "Q60.6"
+        ],
+        "DXCODE9": [
+          "R85.1",
+          "R85.2",
+          "R85.3",
+          "R85.4",
+          "R85.5",
+          "R85.6"
+        ]
+      },
+      "n_patients": 111,
+      "denominator": 1000,
+      "observed_rate": 0.111,
+      "ci95": [
+        0.093,
+        0.13198
+      ],
+      "target_rate": 0.14,
+      "by_sex": {
+        "F": 55,
+        "M": 56
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 3,
+          "denominator": 264,
+          "rate": 0.01136
+        },
+        "45-64": {
+          "n": 22,
+          "denominator": 263,
+          "rate": 0.08365
+        },
+        "65-79": {
+          "n": 49,
+          "denominator": 211,
+          "rate": 0.23223
+        },
+        "80+": {
+          "n": 37,
+          "denominator": 93,
+          "rate": 0.39785
+        }
+      },
+      "monotonic_age": true,
+      "reference": "CDC Chronic Kidney Disease Surveillance System: CKD in ~14% of US adults"
+    },
+    "colorectal_cancer": {
+      "name": "Malignant neoplasm of colon",
+      "standard_concept_id": 20001014,
+      "codes": {
+        "DXCODE": [
+          "Q13.0",
+          "Q13.1",
+          "Q13.9"
+        ],
+        "DXCODE9": [
+          "R65.0",
+          "R65.1",
+          "R65.9"
+        ]
+      },
+      "n_patients": 5,
+      "denominator": 1000,
+      "observed_rate": 0.005,
+      "ci95": [
+        0.00214,
+        0.01165
+      ],
+      "target_rate": 0.009,
+      "by_sex": {
+        "F": 3,
+        "M": 2
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 2,
+          "denominator": 211,
+          "rate": 0.00948
+        },
+        "80+": {
+          "n": 3,
+          "denominator": 93,
+          "rate": 0.03226
+        }
+      },
+      "monotonic_age": true,
+      "reference": "SEER: colorectal cancer, ~4% lifetime risk of diagnosis"
+    },
+    "copd": {
+      "name": "Chronic obstructive pulmonary disease",
+      "standard_concept_id": 20001015,
+      "codes": {
+        "DXCODE": [
+          "Q70.0",
+          "Q70.1",
+          "Q70.9"
+        ],
+        "DXCODE9": [
+          "R41.0",
+          "R41.1",
+          "R41.9"
+        ]
+      },
+      "n_patients": 50,
+      "denominator": 1000,
+      "observed_rate": 0.05,
+      "ci95": [
+        0.03813,
+        0.06531
+      ],
+      "target_rate": 0.06,
+      "by_sex": {
+        "F": 26,
+        "M": 24
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 12,
+          "denominator": 263,
+          "rate": 0.04563
+        },
+        "65-79": {
+          "n": 30,
+          "denominator": 211,
+          "rate": 0.14218
+        },
+        "80+": {
+          "n": 8,
+          "denominator": 93,
+          "rate": 0.08602
+        }
+      },
+      "monotonic_age": true,
+      "reference": "CDC BRFSS 2021: COPD diagnosed in ~6% of US adults"
+    },
+    "covid19": {
+      "name": "COVID-19",
+      "standard_concept_id": 20001016,
+      "codes": {
+        "DXCODE": [
+          "Q74.0",
+          "Q74.1"
+        ]
+      },
+      "n_patients": 137,
+      "denominator": 1000,
+      "observed_rate": 0.137,
+      "ci95": [
+        0.11707,
+        0.15971
+      ],
+      "target_rate": 0.22,
+      "by_sex": {
+        "F": 68,
+        "M": 69
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 28,
+          "denominator": 169,
+          "rate": 0.16568
+        },
+        "18-44": {
+          "n": 38,
+          "denominator": 264,
+          "rate": 0.14394
+        },
+        "45-64": {
+          "n": 35,
+          "denominator": 263,
+          "rate": 0.13308
+        },
+        "65-79": {
+          "n": 29,
+          "denominator": 211,
+          "rate": 0.13744
+        },
+        "80+": {
+          "n": 7,
+          "denominator": 93,
+          "rate": 0.07527
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC: cumulative reported COVID-19 cases. valid_from is enforced as a hard clamp applied after every date perturbation - an earlier build clamped before the 'surface censored onset during follow-up' step, which then re-drew the onset uniformly from the coverage window and put 305 COVID-19 diagnoses into 2010-2019."
+    },
+    "crohns_disease": {
+      "name": "Crohn disease",
+      "standard_concept_id": 20001017,
+      "codes": {
+        "DXCODE": [
+          "Q16.0",
+          "Q16.1",
+          "Q16.9"
+        ],
+        "DXCODE9": [
+          "R04.0",
+          "R04.1",
+          "R04.9"
+        ]
+      },
+      "n_patients": 2,
+      "denominator": 1000,
+      "observed_rate": 0.002,
+      "ci95": [
+        0.00055,
+        0.00726
+      ],
+      "target_rate": 0.0026,
+      "by_sex": {
+        "M": 2
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 1,
+          "denominator": 264,
+          "rate": 0.00379
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 1,
+          "denominator": 211,
+          "rate": 0.00474
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Ye et al., Inflamm Bowel Dis 2020: US Crohn disease prevalence ~0.26%"
+    },
+    "delivery_encounter": {
+      "name": "Delivery",
+      "standard_concept_id": 20001018,
+      "codes": {
+        "DXCODE": [
+          "Q97.8",
+          "Q97.9"
+        ],
+        "DXCODE9": [
+          "R91.8",
+          "R91.9"
+        ]
+      },
+      "n_patients": 25,
+      "denominator": 1000,
+      "observed_rate": 0.025,
+      "ci95": [
+        0.01699,
+        0.03665
+      ],
+      "target_rate": 0.0,
+      "by_sex": {
+        "F": 25
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 23,
+          "denominator": 264,
+          "rate": 0.08712
+        },
+        "45-64": {
+          "n": 2,
+          "denominator": 263,
+          "rate": 0.0076
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Encounter code, not a disorder; present so delivery hospitalisations are identifiable"
+    },
+    "dementia": {
+      "name": "Dementia",
+      "standard_concept_id": 20001019,
+      "codes": {
+        "DXCODE": [
+          "Q85.0",
+          "Q85.1",
+          "Q85.9"
+        ],
+        "DXCODE9": [
+          "R31.0",
+          "R31.1",
+          "R31.9"
+        ]
+      },
+      "n_patients": 23,
+      "denominator": 1000,
+      "observed_rate": 0.023,
+      "ci95": [
+        0.01537,
+        0.03428
+      ],
+      "target_rate": 0.035,
+      "by_sex": {
+        "F": 8,
+        "M": 15
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 8,
+          "denominator": 211,
+          "rate": 0.03791
+        },
+        "80+": {
+          "n": 15,
+          "denominator": 93,
+          "rate": 0.16129
+        }
+      },
+      "monotonic_age": true,
+      "reference": "Alzheimer's Association 2023: ~1 in 9 Americans aged 65+ has Alzheimer's dementia"
+    },
+    "depression": {
+      "name": "Major depressive disorder",
+      "standard_concept_id": 20001020,
+      "codes": {
+        "DXCODE": [
+          "Q91.0",
+          "Q91.2",
+          "Q91.3",
+          "Q91.9"
+        ],
+        "DXCODE9": [
+          "R06.0",
+          "R06.2",
+          "R06.3",
+          "R06.9"
+        ]
+      },
+      "n_patients": 84,
+      "denominator": 1000,
+      "observed_rate": 0.084,
+      "ci95": [
+        0.06836,
+        0.10283
+      ],
+      "target_rate": 0.083,
+      "by_sex": {
+        "F": 51,
+        "M": 33
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 37,
+          "denominator": 264,
+          "rate": 0.14015
+        },
+        "45-64": {
+          "n": 26,
+          "denominator": 263,
+          "rate": 0.09886
+        },
+        "65-79": {
+          "n": 14,
+          "denominator": 211,
+          "rate": 0.06635
+        },
+        "80+": {
+          "n": 7,
+          "denominator": 93,
+          "rate": 0.07527
+        }
+      },
+      "monotonic_age": false,
+      "reference": "NIMH 2021: major depressive episode in 8.3% of US adults"
+    },
+    "dysphagia": {
+      "name": "Dysphagia",
+      "standard_concept_id": 20001021,
+      "codes": {
+        "DXCODE": [
+          "Q24.0",
+          "Q24.1",
+          "Q24.9"
+        ],
+        "DXCODE9": [
+          "R16.0",
+          "R16.1",
+          "R16.9"
+        ]
+      },
+      "n_patients": 20,
+      "denominator": 1000,
+      "observed_rate": 0.02,
+      "ci95": [
+        0.01298,
+        0.03069
+      ],
+      "target_rate": 0.03,
+      "by_sex": {
+        "F": 8,
+        "M": 12
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 3,
+          "denominator": 264,
+          "rate": 0.01136
+        },
+        "45-64": {
+          "n": 6,
+          "denominator": 263,
+          "rate": 0.02281
+        },
+        "65-79": {
+          "n": 8,
+          "denominator": 211,
+          "rate": 0.03791
+        },
+        "80+": {
+          "n": 3,
+          "denominator": 93,
+          "rate": 0.03226
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Common post-stroke and age-related; ~3% adult prevalence rising sharply after 65"
+    },
+    "endometriosis": {
+      "name": "Endometriosis",
+      "standard_concept_id": 20001022,
+      "codes": {
+        "DXCODE": [
+          "Q17.0",
+          "Q17.1",
+          "Q17.2",
+          "Q17.9"
+        ],
+        "DXCODE9": [
+          "R08.0",
+          "R08.1",
+          "R08.2",
+          "R08.9"
+        ]
+      },
+      "n_patients": 48,
+      "denominator": 1000,
+      "observed_rate": 0.048,
+      "ci95": [
+        0.03639,
+        0.06307
+      ],
+      "target_rate": 0.062,
+      "by_sex": {
+        "F": 48
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 39,
+          "denominator": 264,
+          "rate": 0.14773
+        },
+        "45-64": {
+          "n": 9,
+          "denominator": 263,
+          "rate": 0.03422
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Zondervan et al., N Engl J Med 2020: endometriosis affects ~6-10% of reproductive-age women"
+    },
+    "gerd": {
+      "name": "Gastro-esophageal reflux disease",
+      "standard_concept_id": 20001023,
+      "codes": {
+        "DXCODE": [
+          "Q95.0",
+          "Q95.1"
+        ],
+        "DXCODE9": [
+          "R53.0",
+          "R53.1"
+        ]
+      },
+      "n_patients": 185,
+      "denominator": 1000,
+      "observed_rate": 0.185,
+      "ci95": [
+        0.16215,
+        0.21026
+      ],
+      "target_rate": 0.2,
+      "by_sex": {
+        "F": 87,
+        "M": 98
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 1,
+          "denominator": 169,
+          "rate": 0.00592
+        },
+        "18-44": {
+          "n": 44,
+          "denominator": 264,
+          "rate": 0.16667
+        },
+        "45-64": {
+          "n": 59,
+          "denominator": 263,
+          "rate": 0.22433
+        },
+        "65-79": {
+          "n": 54,
+          "denominator": 211,
+          "rate": 0.25592
+        },
+        "80+": {
+          "n": 27,
+          "denominator": 93,
+          "rate": 0.29032
+        }
+      },
+      "monotonic_age": false,
+      "reference": "NIDDK: GERD symptoms reported by ~20% of the US population"
+    },
+    "gestational_diabetes": {
+      "name": "Gestational diabetes mellitus",
+      "standard_concept_id": 20001024,
+      "codes": {
+        "DXCODE": [
+          "Q97.0",
+          "Q97.1"
+        ],
+        "DXCODE9": [
+          "R91.0",
+          "R91.1"
+        ]
+      },
+      "n_patients": 5,
+      "denominator": 1000,
+      "observed_rate": 0.005,
+      "ci95": [
+        0.00214,
+        0.01165
+      ],
+      "target_rate": 0.0,
+      "by_sex": {
+        "F": 5
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 4,
+          "denominator": 264,
+          "rate": 0.01515
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC: gestational diabetes complicates roughly 8% of US pregnancies"
+    },
+    "heart_failure": {
+      "name": "Heart failure",
+      "standard_concept_id": 20001025,
+      "codes": {
+        "DXCODE": [
+          "Q50.2",
+          "Q50.3",
+          "Q50.4",
+          "Q50.9"
+        ],
+        "DXCODE9": [
+          "R28.2",
+          "R28.3",
+          "R28.4",
+          "R28.9"
+        ]
+      },
+      "n_patients": 17,
+      "denominator": 1000,
+      "observed_rate": 0.017,
+      "ci95": [
+        0.01064,
+        0.02706
+      ],
+      "target_rate": 0.023,
+      "by_sex": {
+        "F": 9,
+        "M": 8
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 12,
+          "denominator": 211,
+          "rate": 0.05687
+        },
+        "80+": {
+          "n": 4,
+          "denominator": 93,
+          "rate": 0.04301
+        }
+      },
+      "monotonic_age": true,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: ~6.7 million US adults with heart failure"
+    },
+    "hookworm": {
+      "name": "Hookworm disease",
+      "standard_concept_id": 20001026,
+      "codes": {
+        "DXCODE": [
+          "Q23.0",
+          "Q23.9"
+        ],
+        "DXCODE9": [
+          "R15.0",
+          "R15.9"
+        ]
+      },
+      "n_patients": 1,
+      "denominator": 1000,
+      "observed_rate": 0.001,
+      "ci95": [
+        0.00018,
+        0.00564
+      ],
+      "target_rate": 0.0015,
+      "by_sex": {
+        "M": 1
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 1,
+          "denominator": 169,
+          "rate": 0.00592
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Starr & Montgomery, Am J Trop Med Hyg 2011: hookworm is rare in the US, well under 0.1%"
+    },
+    "hyperlipidemia": {
+      "name": "Hyperlipidemia",
+      "standard_concept_id": 20001027,
+      "codes": {
+        "DXCODE": [
+          "Q31.0",
+          "Q31.2",
+          "Q31.9"
+        ],
+        "DXCODE9": [
+          "R72.0",
+          "R72.2",
+          "R72.9"
+        ]
+      },
+      "n_patients": 337,
+      "denominator": 1000,
+      "observed_rate": 0.337,
+      "ci95": [
+        0.30838,
+        0.36687
+      ],
+      "target_rate": 0.38,
+      "by_sex": {
+        "F": 172,
+        "M": 165
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 50,
+          "denominator": 264,
+          "rate": 0.18939
+        },
+        "45-64": {
+          "n": 126,
+          "denominator": 263,
+          "rate": 0.47909
+        },
+        "65-79": {
+          "n": 127,
+          "denominator": 211,
+          "rate": 0.6019
+        },
+        "80+": {
+          "n": 34,
+          "denominator": 93,
+          "rate": 0.36559
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC NHANES 2017-2020: US adults with high total cholesterol or on lipid-lowering therapy"
+    },
+    "hypertension": {
+      "name": "Essential hypertension",
+      "standard_concept_id": 20001028,
+      "codes": {
+        "DXCODE": [
+          "Q40.0",
+          "Q40.1",
+          "Q40.9"
+        ],
+        "DXCODE9": [
+          "R01.0",
+          "R01.1",
+          "R01.9"
+        ]
+      },
+      "n_patients": 432,
+      "denominator": 1000,
+      "observed_rate": 0.432,
+      "ci95": [
+        0.40162,
+        0.4629
+      ],
+      "target_rate": 0.47,
+      "by_sex": {
+        "F": 213,
+        "M": 219
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 54,
+          "denominator": 264,
+          "rate": 0.20455
+        },
+        "45-64": {
+          "n": 155,
+          "denominator": 263,
+          "rate": 0.58935
+        },
+        "65-79": {
+          "n": 147,
+          "denominator": 211,
+          "rate": 0.69668
+        },
+        "80+": {
+          "n": 76,
+          "denominator": 93,
+          "rate": 0.8172
+        }
+      },
+      "monotonic_age": true,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: US adult hypertension 47.3%"
+    },
+    "hypothyroidism": {
+      "name": "Hypothyroidism",
+      "standard_concept_id": 20001029,
+      "codes": {
+        "DXCODE": [
+          "Q32.0",
+          "Q32.1"
+        ],
+        "DXCODE9": [
+          "R73.0",
+          "R73.1"
+        ]
+      },
+      "n_patients": 40,
+      "denominator": 1000,
+      "observed_rate": 0.04,
+      "ci95": [
+        0.02951,
+        0.05401
+      ],
+      "target_rate": 0.048,
+      "by_sex": {
+        "F": 26,
+        "M": 14
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 10,
+          "denominator": 264,
+          "rate": 0.03788
+        },
+        "45-64": {
+          "n": 16,
+          "denominator": 263,
+          "rate": 0.06084
+        },
+        "65-79": {
+          "n": 9,
+          "denominator": 211,
+          "rate": 0.04265
+        },
+        "80+": {
+          "n": 5,
+          "denominator": 93,
+          "rate": 0.05376
+        }
+      },
+      "monotonic_age": false,
+      "reference": "NIDDK: hypothyroidism affects roughly 4.6% of the US population aged 12 and over"
+    },
+    "lung_cancer": {
+      "name": "Malignant neoplasm of lung",
+      "standard_concept_id": 20001030,
+      "codes": {
+        "DXCODE": [
+          "Q10.0",
+          "Q10.1",
+          "Q10.9"
+        ],
+        "DXCODE9": [
+          "R62.0",
+          "R62.1",
+          "R62.9"
+        ]
+      },
+      "n_patients": 3,
+      "denominator": 1000,
+      "observed_rate": 0.003,
+      "ci95": [
+        0.00102,
+        0.00878
+      ],
+      "target_rate": 0.005,
+      "by_sex": {
+        "F": 1,
+        "M": 2
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 2,
+          "denominator": 211,
+          "rate": 0.00948
+        },
+        "80+": {
+          "n": 1,
+          "denominator": 93,
+          "rate": 0.01075
+        }
+      },
+      "monotonic_age": false,
+      "reference": "SEER: lung and bronchus cancer, ~6.5% lifetime risk of diagnosis"
+    },
+    "mi": {
+      "name": "Acute myocardial infarction",
+      "standard_concept_id": 20001031,
+      "codes": {
+        "DXCODE": [
+          "Q44.0",
+          "Q44.1",
+          "Q44.2",
+          "Q44.9"
+        ],
+        "DXCODE9": [
+          "R10.0",
+          "R10.1",
+          "R10.2",
+          "R10.9"
+        ]
+      },
+      "n_patients": 17,
+      "denominator": 1000,
+      "observed_rate": 0.017,
+      "ci95": [
+        0.01064,
+        0.02706
+      ],
+      "target_rate": 0.031,
+      "by_sex": {
+        "F": 10,
+        "M": 7
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 3,
+          "denominator": 263,
+          "rate": 0.01141
+        },
+        "65-79": {
+          "n": 9,
+          "denominator": 211,
+          "rate": 0.04265
+        },
+        "80+": {
+          "n": 5,
+          "denominator": 93,
+          "rate": 0.05376
+        }
+      },
+      "monotonic_age": false,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: MI prevalence 3.1% in US adults 20+"
+    },
+    "newborn_encounter": {
+      "name": "Single liveborn infant, born in hospital",
+      "standard_concept_id": 20001032,
+      "codes": {
+        "DXCODE": [
+          "Q98.0",
+          "Q98.1"
+        ],
+        "DXCODE9": [
+          "R92.0",
+          "R92.1"
+        ]
+      },
+      "n_patients": 75,
+      "denominator": 1000,
+      "observed_rate": 0.075,
+      "ci95": [
+        0.06025,
+        0.093
+      ],
+      "target_rate": 0.0,
+      "by_sex": {
+        "F": 36,
+        "M": 39
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 75,
+          "denominator": 169,
+          "rate": 0.44379
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Birth-admission code; the anchor for mother-child linkage in fact_relationship"
+    },
+    "obesity": {
+      "name": "Obesity",
+      "standard_concept_id": 20001033,
+      "codes": {
+        "DXCODE": [
+          "Q30.0",
+          "Q30.1",
+          "Q30.2"
+        ],
+        "DXCODE9": [
+          "R78.0",
+          "R78.1",
+          "R78.2"
+        ]
+      },
+      "n_patients": 362,
+      "denominator": 1000,
+      "observed_rate": 0.362,
+      "ci95": [
+        0.33279,
+        0.39226
+      ],
+      "target_rate": 0.42,
+      "by_sex": {
+        "F": 189,
+        "M": 173
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 6,
+          "denominator": 169,
+          "rate": 0.0355
+        },
+        "18-44": {
+          "n": 90,
+          "denominator": 264,
+          "rate": 0.34091
+        },
+        "45-64": {
+          "n": 133,
+          "denominator": 263,
+          "rate": 0.5057
+        },
+        "65-79": {
+          "n": 106,
+          "denominator": 211,
+          "rate": 0.50237
+        },
+        "80+": {
+          "n": 27,
+          "denominator": 93,
+          "rate": 0.29032
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC NHANES 2017-2020: US adult obesity prevalence 41.9%"
+    },
+    "osteoarthritis": {
+      "name": "Osteoarthritis",
+      "standard_concept_id": 20001034,
+      "codes": {
+        "DXCODE": [
+          "Q81.0",
+          "Q81.1",
+          "Q81.9"
+        ],
+        "DXCODE9": [
+          "R39.0",
+          "R39.1",
+          "R39.9"
+        ]
+      },
+      "n_patients": 135,
+      "denominator": 1000,
+      "observed_rate": 0.135,
+      "ci95": [
+        0.11521,
+        0.15758
+      ],
+      "target_rate": 0.14,
+      "by_sex": {
+        "F": 61,
+        "M": 74
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 4,
+          "denominator": 264,
+          "rate": 0.01515
+        },
+        "45-64": {
+          "n": 50,
+          "denominator": 263,
+          "rate": 0.19011
+        },
+        "65-79": {
+          "n": 50,
+          "denominator": 211,
+          "rate": 0.23697
+        },
+        "80+": {
+          "n": 31,
+          "denominator": 93,
+          "rate": 0.33333
+        }
+      },
+      "monotonic_age": true,
+      "reference": "CDC: doctor-diagnosed arthritis affects ~1 in 4 US adults; osteoarthritis is the most common form"
+    },
+    "osteoporosis": {
+      "name": "Osteoporosis",
+      "standard_concept_id": 20001035,
+      "codes": {
+        "DXCODE": [
+          "Q82.0",
+          "Q82.1"
+        ],
+        "DXCODE9": [
+          "R40.0",
+          "R40.1"
+        ]
+      },
+      "n_patients": 90,
+      "denominator": 1000,
+      "observed_rate": 0.09,
+      "ci95": [
+        0.0738,
+        0.10934
+      ],
+      "target_rate": 0.125,
+      "by_sex": {
+        "F": 90
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 15,
+          "denominator": 263,
+          "rate": 0.05703
+        },
+        "65-79": {
+          "n": 44,
+          "denominator": 211,
+          "rate": 0.20853
+        },
+        "80+": {
+          "n": 31,
+          "denominator": 93,
+          "rate": 0.33333
+        }
+      },
+      "monotonic_age": true,
+      "reference": "CDC NHANES 2017-2018: osteoporosis in 12.6% of US adults 50 and over"
+    },
+    "pneumonia": {
+      "name": "Pneumonia",
+      "standard_concept_id": 20001036,
+      "codes": {
+        "DXCODE": [
+          "Q72.0",
+          "Q72.1",
+          "Q72.9"
+        ],
+        "DXCODE9": [
+          "R43.0",
+          "R43.1",
+          "R43.9"
+        ]
+      },
+      "n_patients": 23,
+      "denominator": 1000,
+      "observed_rate": 0.023,
+      "ci95": [
+        0.01537,
+        0.03428
+      ],
+      "target_rate": 0.04,
+      "by_sex": {
+        "F": 11,
+        "M": 12
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 3,
+          "denominator": 169,
+          "rate": 0.01775
+        },
+        "18-44": {
+          "n": 4,
+          "denominator": 264,
+          "rate": 0.01515
+        },
+        "45-64": {
+          "n": 3,
+          "denominator": 263,
+          "rate": 0.01141
+        },
+        "65-79": {
+          "n": 8,
+          "denominator": 211,
+          "rate": 0.03791
+        },
+        "80+": {
+          "n": 5,
+          "denominator": 93,
+          "rate": 0.05376
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC: pneumonia is a leading cause of US hospitalization, incidence highest at the extremes of age"
+    },
+    "postpartum_hemorrhage": {
+      "name": "Postpartum hemorrhage",
+      "standard_concept_id": 20001037,
+      "codes": {
+        "DXCODE": [
+          "Q97.5"
+        ],
+        "DXCODE9": [
+          "R91.5"
+        ]
+      },
+      "n_patients": 1,
+      "denominator": 1000,
+      "observed_rate": 0.001,
+      "ci95": [
+        0.00018,
+        0.00564
+      ],
+      "target_rate": 0.0,
+      "by_sex": {
+        "F": 1
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 1,
+          "denominator": 264,
+          "rate": 0.00379
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC: postpartum hemorrhage complicates roughly 4% of deliveries"
+    },
+    "prediabetes": {
+      "name": "Prediabetes",
+      "standard_concept_id": 20001038,
+      "codes": {
+        "DXCODE": [
+          "Q41.7",
+          "Q41.8"
+        ],
+        "DXCODE9": [
+          "R90.7",
+          "R90.8"
+        ]
+      },
+      "n_patients": 278,
+      "denominator": 1000,
+      "observed_rate": 0.278,
+      "ci95": [
+        0.25112,
+        0.30658
+      ],
+      "target_rate": 0.3,
+      "by_sex": {
+        "F": 139,
+        "M": 139
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 43,
+          "denominator": 264,
+          "rate": 0.16288
+        },
+        "45-64": {
+          "n": 105,
+          "denominator": 263,
+          "rate": 0.39924
+        },
+        "65-79": {
+          "n": 97,
+          "denominator": 211,
+          "rate": 0.45972
+        },
+        "80+": {
+          "n": 33,
+          "denominator": 93,
+          "rate": 0.35484
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC National Diabetes Statistics Report 2022: prediabetes in 38% of US adults (modelled lower to avoid overlap with diagnosed T2DM)"
+    },
+    "preeclampsia": {
+      "name": "Pre-eclampsia",
+      "standard_concept_id": 20001039,
+      "codes": {
+        "DXCODE": [
+          "Q97.2",
+          "Q97.3"
+        ],
+        "DXCODE9": [
+          "R91.2",
+          "R91.3"
+        ]
+      },
+      "n_patients": 3,
+      "denominator": 1000,
+      "observed_rate": 0.003,
+      "ci95": [
+        0.00102,
+        0.00878
+      ],
+      "target_rate": 0.0,
+      "by_sex": {
+        "F": 3
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 2,
+          "denominator": 264,
+          "rate": 0.00758
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "ACOG: hypertensive disorders of pregnancy affect 5-8% of pregnancies"
+    },
+    "preterm_labor": {
+      "name": "Preterm labor",
+      "standard_concept_id": 20001040,
+      "codes": {
+        "DXCODE": [
+          "Q97.4"
+        ],
+        "DXCODE9": [
+          "R91.4"
+        ]
+      },
+      "n_patients": 4,
+      "denominator": 1000,
+      "observed_rate": 0.004,
+      "ci95": [
+        0.00156,
+        0.01024
+      ],
+      "target_rate": 0.0,
+      "by_sex": {
+        "F": 4
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 3,
+          "denominator": 264,
+          "rate": 0.01136
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC: US preterm birth rate approximately 10%"
+    },
+    "prostate_cancer": {
+      "name": "Malignant neoplasm of prostate",
+      "standard_concept_id": 20001041,
+      "codes": {
+        "DXCODE": [
+          "Q12.0"
+        ],
+        "DXCODE9": [
+          "R64.0"
+        ]
+      },
+      "n_patients": 26,
+      "denominator": 1000,
+      "observed_rate": 0.026,
+      "ci95": [
+        0.0178,
+        0.03782
+      ],
+      "target_rate": 0.021,
+      "by_sex": {
+        "M": 26
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 3,
+          "denominator": 263,
+          "rate": 0.01141
+        },
+        "65-79": {
+          "n": 11,
+          "denominator": 211,
+          "rate": 0.05213
+        },
+        "80+": {
+          "n": 12,
+          "denominator": 93,
+          "rate": 0.12903
+        }
+      },
+      "monotonic_age": true,
+      "reference": "SEER: prostate cancer, ~12.9% lifetime risk of diagnosis among men"
+    },
+    "pulmonary_embolism": {
+      "name": "Pulmonary embolism",
+      "standard_concept_id": 20001042,
+      "codes": {
+        "DXCODE": [
+          "Q25.0",
+          "Q25.1",
+          "Q25.9"
+        ],
+        "DXCODE9": [
+          "R17.0",
+          "R17.1",
+          "R17.9"
+        ]
+      },
+      "n_patients": 10,
+      "denominator": 1000,
+      "observed_rate": 0.01,
+      "ci95": [
+        0.00544,
+        0.01831
+      ],
+      "target_rate": 0.012,
+      "by_sex": {
+        "F": 3,
+        "M": 7
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 1,
+          "denominator": 264,
+          "rate": 0.00379
+        },
+        "45-64": {
+          "n": 3,
+          "denominator": 263,
+          "rate": 0.01141
+        },
+        "65-79": {
+          "n": 6,
+          "denominator": 211,
+          "rate": 0.02844
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "US incidence ~1-2 per 1000/yr; cumulative prevalence ~1% in an adult claims window"
+    },
+    "sepsis": {
+      "name": "Sepsis",
+      "standard_concept_id": 20001043,
+      "codes": {
+        "DXCODE": [
+          "Q73.0",
+          "Q73.1"
+        ],
+        "DXCODE9": [
+          "R44.0",
+          "R44.1"
+        ]
+      },
+      "n_patients": 8,
+      "denominator": 1000,
+      "observed_rate": 0.008,
+      "ci95": [
+        0.00406,
+        0.01571
+      ],
+      "target_rate": 0.012,
+      "by_sex": {
+        "F": 3,
+        "M": 5
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 1,
+          "denominator": 264,
+          "rate": 0.00379
+        },
+        "45-64": {
+          "n": 3,
+          "denominator": 263,
+          "rate": 0.01141
+        },
+        "65-79": {
+          "n": 2,
+          "denominator": 211,
+          "rate": 0.00948
+        },
+        "80+": {
+          "n": 2,
+          "denominator": 93,
+          "rate": 0.02151
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC: at least 1.7 million US adults develop sepsis annually"
+    },
+    "smoking": {
+      "name": "Tobacco use disorder",
+      "standard_concept_id": 20001044,
+      "codes": {
+        "DXCODE": [
+          "Q90.0",
+          "Q90.1",
+          "Q90.2"
+        ],
+        "DXCODE9": [
+          "R05.0",
+          "R05.1",
+          "R05.2"
+        ]
+      },
+      "n_patients": 163,
+      "denominator": 1000,
+      "observed_rate": 0.163,
+      "ci95": [
+        0.1414,
+        0.18718
+      ],
+      "target_rate": 0.19,
+      "by_sex": {
+        "F": 92,
+        "M": 71
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 61,
+          "denominator": 264,
+          "rate": 0.23106
+        },
+        "45-64": {
+          "n": 57,
+          "denominator": 263,
+          "rate": 0.21673
+        },
+        "65-79": {
+          "n": 34,
+          "denominator": 211,
+          "rate": 0.16114
+        },
+        "80+": {
+          "n": 11,
+          "denominator": 93,
+          "rate": 0.11828
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC: US adult cigarette smoking, current and former use combined"
+    },
+    "stroke": {
+      "name": "Cerebral infarction",
+      "standard_concept_id": 20001045,
+      "codes": {
+        "DXCODE": [
+          "Q52.0",
+          "Q52.1",
+          "Q52.9"
+        ],
+        "DXCODE9": [
+          "R34.0",
+          "R34.1",
+          "R34.9"
+        ]
+      },
+      "n_patients": 10,
+      "denominator": 1000,
+      "observed_rate": 0.01,
+      "ci95": [
+        0.00544,
+        0.01831
+      ],
+      "target_rate": 0.031,
+      "by_sex": {
+        "F": 3,
+        "M": 7
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 4,
+          "denominator": 211,
+          "rate": 0.01896
+        },
+        "80+": {
+          "n": 5,
+          "denominator": 93,
+          "rate": 0.05376
+        }
+      },
+      "monotonic_age": false,
+      "reference": "AHA Heart Disease and Stroke Statistics 2023: stroke prevalence 3.1% in US adults 20+"
+    },
+    "t1dm": {
+      "name": "Type 1 diabetes mellitus",
+      "standard_concept_id": 20001046,
+      "codes": {
+        "DXCODE": [
+          "Q41.1",
+          "Q41.11"
+        ],
+        "DXCODE9": [
+          "R90.1",
+          "R90.11"
+        ]
+      },
+      "n_patients": 8,
+      "denominator": 1000,
+      "observed_rate": 0.008,
+      "ci95": [
+        0.00406,
+        0.01571
+      ],
+      "target_rate": 0.005,
+      "by_sex": {
+        "F": 6,
+        "M": 2
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 1,
+          "denominator": 169,
+          "rate": 0.00592
+        },
+        "18-44": {
+          "n": 2,
+          "denominator": 264,
+          "rate": 0.00758
+        },
+        "45-64": {
+          "n": 4,
+          "denominator": 263,
+          "rate": 0.01521
+        },
+        "65-79": {
+          "n": 1,
+          "denominator": 211,
+          "rate": 0.00474
+        },
+        "80+": {
+          "n": 0,
+          "denominator": 93,
+          "rate": 0.0
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC National Diabetes Statistics Report 2022: type 1 accounts for ~5-10% of diagnosed diabetes"
+    },
+    "t2dm": {
+      "name": "Type 2 diabetes mellitus",
+      "standard_concept_id": 20001047,
+      "codes": {
+        "DXCODE": [
+          "Q41.0",
+          "Q41.2",
+          "Q41.3",
+          "Q41.4",
+          "Q41.5",
+          "Q41.6"
+        ],
+        "DXCODE9": [
+          "R90.0",
+          "R90.2",
+          "R90.3",
+          "R90.4",
+          "R90.5",
+          "R90.6"
+        ]
+      },
+      "n_patients": 109,
+      "denominator": 1000,
+      "observed_rate": 0.109,
+      "ci95": [
+        0.09116,
+        0.12983
+      ],
+      "target_rate": 0.114,
+      "by_sex": {
+        "F": 54,
+        "M": 55
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 7,
+          "denominator": 264,
+          "rate": 0.02652
+        },
+        "45-64": {
+          "n": 37,
+          "denominator": 263,
+          "rate": 0.14068
+        },
+        "65-79": {
+          "n": 49,
+          "denominator": 211,
+          "rate": 0.23223
+        },
+        "80+": {
+          "n": 16,
+          "denominator": 93,
+          "rate": 0.17204
+        }
+      },
+      "monotonic_age": false,
+      "reference": "CDC National Diabetes Statistics Report 2022: diagnosed diabetes in 11.3% of US population"
+    },
+    "tia": {
+      "name": "Transient ischemic attack",
+      "standard_concept_id": 20001048,
+      "codes": {
+        "DXCODE": [
+          "Q21.0",
+          "Q21.1",
+          "Q21.9"
+        ],
+        "DXCODE9": [
+          "R12.0",
+          "R12.1",
+          "R12.9"
+        ]
+      },
+      "n_patients": 15,
+      "denominator": 1000,
+      "observed_rate": 0.015,
+      "ci95": [
+        0.00911,
+        0.0246
+      ],
+      "target_rate": 0.023,
+      "by_sex": {
+        "F": 8,
+        "M": 7
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 1,
+          "denominator": 263,
+          "rate": 0.0038
+        },
+        "65-79": {
+          "n": 12,
+          "denominator": 211,
+          "rate": 0.05687
+        },
+        "80+": {
+          "n": 2,
+          "denominator": 93,
+          "rate": 0.02151
+        }
+      },
+      "monotonic_age": true,
+      "reference": "Kleindorfer et al., Stroke 2005: US TIA prevalence ~2.3% of adults"
+    },
+    "ulcerative_colitis": {
+      "name": "Ulcerative colitis",
+      "standard_concept_id": 20001049,
+      "codes": {
+        "DXCODE": [
+          "Q15.0",
+          "Q15.1",
+          "Q15.9"
+        ],
+        "DXCODE9": [
+          "R03.0",
+          "R03.1",
+          "R03.9"
+        ]
+      },
+      "n_patients": 1,
+      "denominator": 1000,
+      "observed_rate": 0.001,
+      "ci95": [
+        0.00018,
+        0.00564
+      ],
+      "target_rate": 0.0034,
+      "by_sex": {
+        "F": 1
+      },
+      "by_age_band": {
+        "0-17": {
+          "n": 0,
+          "denominator": 169,
+          "rate": 0.0
+        },
+        "18-44": {
+          "n": 0,
+          "denominator": 264,
+          "rate": 0.0
+        },
+        "45-64": {
+          "n": 0,
+          "denominator": 263,
+          "rate": 0.0
+        },
+        "65-79": {
+          "n": 0,
+          "denominator": 211,
+          "rate": 0.0
+        },
+        "80+": {
+          "n": 1,
+          "denominator": 93,
+          "rate": 0.01075
+        }
+      },
+      "monotonic_age": false,
+      "reference": "Ye et al., Inflamm Bowel Dis 2020: US ulcerative colitis prevalence ~0.34%"
+    }
+  },
+  "incidence": {
+    "afib": {
+      "name": "Atrial fibrillation",
+      "n_incident_cases": 7,
+      "n_prevalent_excluded": 10,
+      "person_years_at_risk": 3478.6,
+      "rate_per_1000_py": 2.012,
+      "washout_days": 365
+    },
+    "aki": {
+      "name": "Acute kidney injury",
+      "n_incident_cases": 6,
+      "n_prevalent_excluded": 2,
+      "person_years_at_risk": 3511.7,
+      "rate_per_1000_py": 1.709,
+      "washout_days": 365
+    },
+    "amyloidosis": {
+      "name": "Amyloidosis",
+      "n_incident_cases": 1,
+      "n_prevalent_excluded": 1,
+      "person_years_at_risk": 3534.6,
+      "rate_per_1000_py": 0.283,
+      "washout_days": 365
+    },
+    "anemia": {
+      "name": "Anemia",
+      "n_incident_cases": 23,
+      "n_prevalent_excluded": 35,
+      "person_years_at_risk": 3250.5,
+      "rate_per_1000_py": 7.076,
+      "washout_days": 365
+    },
+    "anxiety": {
+      "name": "Generalized anxiety disorder",
+      "n_incident_cases": 14,
+      "n_prevalent_excluded": 38,
+      "person_years_at_risk": 3335.6,
+      "rate_per_1000_py": 4.197,
+      "washout_days": 365
+    },
+    "asthma": {
+      "name": "Asthma",
+      "n_incident_cases": 17,
+      "n_prevalent_excluded": 46,
+      "person_years_at_risk": 3336.1,
+      "rate_per_1000_py": 5.096,
+      "washout_days": 365
+    },
+    "atopic_dermatitis": {
+      "name": "Atopic dermatitis",
+      "n_incident_cases": 16,
+      "n_prevalent_excluded": 30,
+      "person_years_at_risk": 3336.9,
+      "rate_per_1000_py": 4.795,
+      "washout_days": 365
+    },
+    "bph": {
+      "name": "Benign prostatic hyperplasia",
+      "n_incident_cases": 35,
+      "n_prevalent_excluded": 43,
+      "person_years_at_risk": 3128.0,
+      "rate_per_1000_py": 11.189,
+      "washout_days": 365
+    },
+    "breast_cancer": {
+      "name": "Malignant neoplasm of breast",
+      "n_incident_cases": 6,
+      "n_prevalent_excluded": 15,
+      "person_years_at_risk": 3450.1,
+      "rate_per_1000_py": 1.739,
+      "washout_days": 365
+    },
+    "cad": {
+      "name": "Coronary artery disease",
+      "n_incident_cases": 17,
+      "n_prevalent_excluded": 34,
+      "person_years_at_risk": 3299.7,
+      "rate_per_1000_py": 5.152,
+      "washout_days": 365
+    },
+    "cardiomyopathy": {
+      "name": "Cardiomyopathy",
+      "n_incident_cases": 0,
+      "n_prevalent_excluded": 3,
+      "person_years_at_risk": 3539.2,
+      "rate_per_1000_py": 0.0,
+      "washout_days": 365
+    },
+    "chronic_pain": {
+      "name": "Chronic pain syndrome",
+      "n_incident_cases": 45,
+      "n_prevalent_excluded": 106,
+      "person_years_at_risk": 2896.3,
+      "rate_per_1000_py": 15.537,
+      "washout_days": 365
+    },
+    "cirrhosis": {
+      "name": "Cirrhosis of liver",
+      "n_incident_cases": 0,
+      "n_prevalent_excluded": 2,
+      "person_years_at_risk": 3542.5,
+      "rate_per_1000_py": 0.0,
+      "washout_days": 365
+    },
+    "ckd": {
+      "name": "Chronic kidney disease",
+      "n_incident_cases": 29,
+      "n_prevalent_excluded": 66,
+      "person_years_at_risk": 3127.5,
+      "rate_per_1000_py": 9.273,
+      "washout_days": 365
+    },
+    "colorectal_cancer": {
+      "name": "Malignant neoplasm of colon",
+      "n_incident_cases": 2,
+      "n_prevalent_excluded": 2,
+      "person_years_at_risk": 3520.9,
+      "rate_per_1000_py": 0.568,
+      "washout_days": 365
+    },
+    "copd": {
+      "name": "Chronic obstructive pulmonary disease",
+      "n_incident_cases": 12,
+      "n_prevalent_excluded": 31,
+      "person_years_at_risk": 3338.7,
+      "rate_per_1000_py": 3.594,
+      "washout_days": 365
+    },
+    "covid19": {
+      "name": "COVID-19",
+      "n_incident_cases": 90,
+      "n_prevalent_excluded": 33,
+      "person_years_at_risk": 3304.4,
+      "rate_per_1000_py": 27.236,
+      "washout_days": 365
+    },
+    "crohns_disease": {
+      "name": "Crohn disease",
+      "n_incident_cases": 0,
+      "n_prevalent_excluded": 2,
+      "person_years_at_risk": 3529.0,
+      "rate_per_1000_py": 0.0,
+      "washout_days": 365
+    },
+    "delivery_encounter": {
+      "name": "Delivery",
+      "n_incident_cases": 17,
+      "n_prevalent_excluded": 7,
+      "person_years_at_risk": 3463.4,
+      "rate_per_1000_py": 4.909,
+      "washout_days": 365
+    },
+    "dementia": {
+      "name": "Dementia",
+      "n_incident_cases": 14,
+      "n_prevalent_excluded": 5,
+      "person_years_at_risk": 3487.8,
+      "rate_per_1000_py": 4.014,
+      "washout_days": 365
+    },
+    "depression": {
+      "name": "Major depressive disorder",
+      "n_incident_cases": 9,
+      "n_prevalent_excluded": 67,
+      "person_years_at_risk": 3305.0,
+      "rate_per_1000_py": 2.723,
+      "washout_days": 365
+    },
+    "dysphagia": {
+      "name": "Dysphagia",
+      "n_incident_cases": 7,
+      "n_prevalent_excluded": 10,
+      "person_years_at_risk": 3485.1,
+      "rate_per_1000_py": 2.009,
+      "washout_days": 365
+    },
+    "endometriosis": {
+      "name": "Endometriosis",
+      "n_incident_cases": 20,
+      "n_prevalent_excluded": 21,
+      "person_years_at_risk": 3442.6,
+      "rate_per_1000_py": 5.81,
+      "washout_days": 365
+    },
+    "gerd": {
+      "name": "Gastro-esophageal reflux disease",
+      "n_incident_cases": 51,
+      "n_prevalent_excluded": 112,
+      "person_years_at_risk": 2908.8,
+      "rate_per_1000_py": 17.533,
+      "washout_days": 365
+    },
+    "gestational_diabetes": {
+      "name": "Gestational diabetes mellitus",
+      "n_incident_cases": 4,
+      "n_prevalent_excluded": 0,
+      "person_years_at_risk": 3531.6,
+      "rate_per_1000_py": 1.133,
+      "washout_days": 365
+    },
+    "heart_failure": {
+      "name": "Heart failure",
+      "n_incident_cases": 5,
+      "n_prevalent_excluded": 9,
+      "person_years_at_risk": 3482.9,
+      "rate_per_1000_py": 1.436,
+      "washout_days": 365
+    },
+    "hookworm": {
+      "name": "Hookworm disease",
+      "n_incident_cases": 0,
+      "n_prevalent_excluded": 1,
+      "person_years_at_risk": 3543.7,
+      "rate_per_1000_py": 0.0,
+      "washout_days": 365
+    },
+    "hyperlipidemia": {
+      "name": "Hyperlipidemia",
+      "n_incident_cases": 67,
+      "n_prevalent_excluded": 211,
+      "person_years_at_risk": 2398.7,
+      "rate_per_1000_py": 27.932,
+      "washout_days": 365
+    },
+    "hypertension": {
+      "name": "Essential hypertension",
+      "n_incident_cases": 57,
+      "n_prevalent_excluded": 306,
+      "person_years_at_risk": 1946.9,
+      "rate_per_1000_py": 29.278,
+      "washout_days": 365
+    },
+    "hypothyroidism": {
+      "name": "Hypothyroidism",
+      "n_incident_cases": 14,
+      "n_prevalent_excluded": 21,
+      "person_years_at_risk": 3438.0,
+      "rate_per_1000_py": 4.072,
+      "washout_days": 365
+    },
+    "lung_cancer": {
+      "name": "Malignant neoplasm of lung",
+      "n_incident_cases": 1,
+      "n_prevalent_excluded": 1,
+      "person_years_at_risk": 3535.8,
+      "rate_per_1000_py": 0.283,
+      "washout_days": 365
+    },
+    "mi": {
+      "name": "Acute myocardial infarction",
+      "n_incident_cases": 10,
+      "n_prevalent_excluded": 5,
+      "person_years_at_risk": 3491.2,
+      "rate_per_1000_py": 2.864,
+      "washout_days": 365
+    },
+    "newborn_encounter": {
+      "name": "Single liveborn infant, born in hospital",
+      "n_incident_cases": 0,
+      "n_prevalent_excluded": 67,
+      "person_years_at_risk": 3141.5,
+      "rate_per_1000_py": 0.0,
+      "washout_days": 365
+    },
+    "obesity": {
+      "name": "Obesity",
+      "n_incident_cases": 52,
+      "n_prevalent_excluded": 260,
+      "person_years_at_risk": 2286.3,
+      "rate_per_1000_py": 22.745,
+      "washout_days": 365
+    },
+    "osteoarthritis": {
+      "name": "Osteoarthritis",
+      "n_incident_cases": 65,
+      "n_prevalent_excluded": 58,
+      "person_years_at_risk": 3009.9,
+      "rate_per_1000_py": 21.595,
+      "washout_days": 365
+    },
+    "osteoporosis": {
+      "name": "Osteoporosis",
+      "n_incident_cases": 37,
+      "n_prevalent_excluded": 45,
+      "person_years_at_risk": 3236.2,
+      "rate_per_1000_py": 11.433,
+      "washout_days": 365
+    },
+    "pneumonia": {
+      "name": "Pneumonia",
+      "n_incident_cases": 15,
+      "n_prevalent_excluded": 8,
+      "person_years_at_risk": 3438.4,
+      "rate_per_1000_py": 4.362,
+      "washout_days": 365
+    },
+    "postpartum_hemorrhage": {
+      "name": "Postpartum hemorrhage",
+      "n_incident_cases": 1,
+      "n_prevalent_excluded": 0,
+      "person_years_at_risk": 3544.5,
+      "rate_per_1000_py": 0.282,
+      "washout_days": 365
+    },
+    "prediabetes": {
+      "name": "Prediabetes",
+      "n_incident_cases": 55,
+      "n_prevalent_excluded": 178,
+      "person_years_at_risk": 2573.6,
+      "rate_per_1000_py": 21.371,
+      "washout_days": 365
+    },
+    "preeclampsia": {
+      "name": "Pre-eclampsia",
+      "n_incident_cases": 2,
+      "n_prevalent_excluded": 0,
+      "person_years_at_risk": 3533.1,
+      "rate_per_1000_py": 0.566,
+      "washout_days": 365
+    },
+    "preterm_labor": {
+      "name": "Preterm labor",
+      "n_incident_cases": 3,
+      "n_prevalent_excluded": 0,
+      "person_years_at_risk": 3530.5,
+      "rate_per_1000_py": 0.85,
+      "washout_days": 365
+    },
+    "prostate_cancer": {
+      "name": "Malignant neoplasm of prostate",
+      "n_incident_cases": 13,
+      "n_prevalent_excluded": 11,
+      "person_years_at_risk": 3441.2,
+      "rate_per_1000_py": 3.778,
+      "washout_days": 365
+    },
+    "pulmonary_embolism": {
+      "name": "Pulmonary embolism",
+      "n_incident_cases": 4,
+      "n_prevalent_excluded": 5,
+      "person_years_at_risk": 3504.8,
+      "rate_per_1000_py": 1.141,
+      "washout_days": 365
+    },
+    "sepsis": {
+      "name": "Sepsis",
+      "n_incident_cases": 5,
+      "n_prevalent_excluded": 3,
+      "person_years_at_risk": 3512.1,
+      "rate_per_1000_py": 1.424,
+      "washout_days": 365
+    },
+    "smoking": {
+      "name": "Tobacco use disorder",
+      "n_incident_cases": 26,
+      "n_prevalent_excluded": 121,
+      "person_years_at_risk": 3003.4,
+      "rate_per_1000_py": 8.657,
+      "washout_days": 365
+    },
+    "stroke": {
+      "name": "Cerebral infarction",
+      "n_incident_cases": 4,
+      "n_prevalent_excluded": 5,
+      "person_years_at_risk": 3526.0,
+      "rate_per_1000_py": 1.134,
+      "washout_days": 365
+    },
+    "t1dm": {
+      "name": "Type 1 diabetes mellitus",
+      "n_incident_cases": 2,
+      "n_prevalent_excluded": 5,
+      "person_years_at_risk": 3519.7,
+      "rate_per_1000_py": 0.568,
+      "washout_days": 365
+    },
+    "t2dm": {
+      "name": "Type 2 diabetes mellitus",
+      "n_incident_cases": 25,
+      "n_prevalent_excluded": 59,
+      "person_years_at_risk": 3192.5,
+      "rate_per_1000_py": 7.831,
+      "washout_days": 365
+    },
+    "tia": {
+      "name": "Transient ischemic attack",
+      "n_incident_cases": 9,
+      "n_prevalent_excluded": 6,
+      "person_years_at_risk": 3465.6,
+      "rate_per_1000_py": 2.597,
+      "washout_days": 365
+    },
+    "ulcerative_colitis": {
+      "name": "Ulcerative colitis",
+      "n_incident_cases": 1,
+      "n_prevalent_excluded": 0,
+      "person_years_at_risk": 3544.7,
+      "rate_per_1000_py": 0.282,
+      "washout_days": 365
+    }
+  },
+  "treatment": {
+    "afib": {
+      "name": "Atrial fibrillation",
+      "n_diagnosed": 19,
+      "n_untreated": 1,
+      "pct_untreated": 0.0526,
+      "by_drug": {
+        "apixaban_5": {
+          "drug_name": "Apixaban 5 MG Oral Tablet",
+          "n_treated": 8,
+          "pct_of_diagnosed": 0.4211,
+          "target_p_treated": 0.47,
+          "n_exposed_without_diagnosis": 9
+        },
+        "metoprolol_50": {
+          "drug_name": "Metoprolol Succinate 50 MG Extended Release Oral Tablet",
+          "n_treated": 14,
+          "pct_of_diagnosed": 0.7368,
+          "target_p_treated": 0.44,
+          "n_exposed_without_diagnosis": 108
+        },
+        "rivaroxaban_20": {
+          "drug_name": "Rivaroxaban 20 MG Oral Tablet",
+          "n_treated": 5,
+          "pct_of_diagnosed": 0.2632,
+          "target_p_treated": 0.21,
+          "n_exposed_without_diagnosis": 2
+        },
+        "warfarin_5": {
+          "drug_name": "Warfarin Sodium 5 MG Oral Tablet",
+          "n_treated": 3,
+          "pct_of_diagnosed": 0.1579,
+          "target_p_treated": 0.16,
+          "n_exposed_without_diagnosis": 6
+        },
+        "heparin_5000": {
+          "drug_name": "Heparin Sodium 5000 UNT/ML Injectable Solution",
+          "n_treated": 0,
+          "pct_of_diagnosed": 0.0,
+          "target_p_treated": 0.1,
+          "n_exposed_without_diagnosis": 8
+        }
+      }
+    },
+    "anemia": {
+      "name": "Anemia",
+      "n_diagnosed": 65,
+      "n_untreated": 21,
+      "pct_untreated": 0.3231,
+      "by_drug": {
+        "ferrous_sulfate_325": {
+          "drug_name": "Ferrous Sulfate 325 MG Oral Tablet",
+          "n_treated": 36,
+          "pct_of_diagnosed": 0.5538,
+          "target_p_treated": 0.51,
+          "n_exposed_without_diagnosis": 16
+        },
+        "vitamin_b12_inj": {
+          "drug_name": "Cyanocobalamin 1000 MCG/ML Injectable Solution",
+          "n_treated": 13,
+          "pct_of_diagnosed": 0.2,
+          "target_p_treated": 0.14,
+          "n_exposed_without_diagnosis": 7
+        },
+        "darbepoetin_40": {
+          "drug_name": "Darbepoetin Alfa 40 MCG/ML Injectable Solution",
+          "n_treated": 6,
+          "pct_of_diagnosed": 0.0923,
+          "target_p_treated": 0.07,
+          "n_exposed_without_diagnosis": 18
+        }
+      }
+    },
+    "anxiety": {
+      "name": "Generalized anxiety disorder",
+      "n_diagnosed": 62,
+      "n_untreated": 13,
+      "pct_untreated": 0.2097,
+      "by_drug": {
+        "sertraline_50": {
+          "drug_name": "Sertraline 50 MG Oral Tablet",
+          "n_treated": 30,
+          "pct_of_diagnosed": 0.4839,
+          "target_p_treated": 0.33,
+          "n_exposed_without_diagnosis": 27
+        },
+        "escitalopram_10": {
+          "drug_name": "Escitalopram 10 MG Oral Tablet",
+          "n_treated": 28,
+          "pct_of_diagnosed": 0.4516,
+          "target_p_treated": 0.28,
+          "n_exposed_without_diagnosis": 24
+        },
+        "alprazolam_05": {
+          "drug_name": "Alprazolam 0.5 MG Oral Tablet",
+          "n_treated": 13,
+          "pct_of_diagnosed": 0.2097,
+          "target_p_treated": 0.19,
+          "n_exposed_without_diagnosis": 11
+        }
+      }
+    },
+    "asthma": {
+      "name": "Asthma",
+      "n_diagnosed": 72,
+      "n_untreated": 3,
+      "pct_untreated": 0.0417,
+      "by_drug": {
+        "albuterol_inhaler": {
+          "drug_name": "Albuterol Sulfate 90 MCG/ACTUAT Metered Dose Inhaler",
+          "n_treated": 61,
+          "pct_of_diagnosed": 0.8472,
+          "target_p_treated": 0.84,
+          "n_exposed_without_diagnosis": 48
+        },
+        "fluticasone_inhaler": {
+          "drug_name": "Fluticasone Propionate 110 MCG/ACTUAT Metered Dose Inhaler",
+          "n_treated": 30,
+          "pct_of_diagnosed": 0.4167,
+          "target_p_treated": 0.47,
+          "n_exposed_without_diagnosis": 12
+        },
+        "montelukast_10": {
+          "drug_name": "Montelukast 10 MG Oral Tablet",
+          "n_treated": 21,
+          "pct_of_diagnosed": 0.2917,
+          "target_p_treated": 0.26,
+          "n_exposed_without_diagnosis": 8
+        },
+        "pseudoephedrine_30": {
+          "drug_name": "Pseudoephedrine 30 MG Oral Tablet",
+          "n_treated": 9,
+          "pct_of_diagnosed": 0.125,
+          "target_p_treated": 0.16,
+          "n_exposed_without_diagnosis": 11
+        }
+      }
+    },
+    "atopic_dermatitis": {
+      "name": "Atopic dermatitis",
+      "n_diagnosed": 54,
+      "n_untreated": 51,
+      "pct_untreated": 0.9444,
+      "by_drug": {
+        "itraconazole_100": {
+          "drug_name": "Itraconazole 100 MG Oral Capsule",
+          "n_treated": 3,
+          "pct_of_diagnosed": 0.0556,
+          "target_p_treated": 0.05,
+          "n_exposed_without_diagnosis": 7
+        }
+      }
+    },
+    "bph": {
+      "name": "Benign prostatic hyperplasia",
+      "n_diagnosed": 87,
+      "n_untreated": 44,
+      "pct_untreated": 0.5057,
+      "by_drug": {
+        "tamsulosin_04": {
+          "drug_name": "Tamsulosin 0.4 MG Oral Capsule",
+          "n_treated": 43,
+          "pct_of_diagnosed": 0.4943,
+          "target_p_treated": 0.55,
+          "n_exposed_without_diagnosis": 12
+        }
+      }
+    },
+    "breast_cancer": {
+      "name": "Malignant neoplasm of breast",
+      "n_diagnosed": 23,
+      "n_untreated": 9,
+      "pct_untreated": 0.3913,
+      "by_drug": {
+        "tamoxifen_20": {
+          "drug_name": "Tamoxifen Citrate 20 MG Oral Tablet",
+          "n_treated": 11,
+          "pct_of_diagnosed": 0.4783,
+          "target_p_treated": 0.48,
+          "n_exposed_without_diagnosis": 7
+        },
+        "anastrozole_1": {
+          "drug_name": "Anastrozole 1 MG Oral Tablet",
+          "n_treated": 6,
+          "pct_of_diagnosed": 0.2609,
+          "target_p_treated": 0.36,
+          "n_exposed_without_diagnosis": 3
+        }
+      }
+    },
+    "cad": {
+      "name": "Coronary artery disease",
+      "n_diagnosed": 64,
+      "n_untreated": 0,
+      "pct_untreated": 0.0,
+      "by_drug": {
+        "atorvastatin_40": {
+          "drug_name": "Atorvastatin 40 MG Oral Tablet",
+          "n_treated": 55,
+          "pct_of_diagnosed": 0.8594,
+          "target_p_treated": 0.74,
+          "n_exposed_without_diagnosis": 159
+        },
+        "aspirin_81": {
+          "drug_name": "Aspirin 81 MG Delayed Release Oral Tablet",
+          "n_treated": 46,
+          "pct_of_diagnosed": 0.7188,
+          "target_p_treated": 0.68,
+          "n_exposed_without_diagnosis": 28
+        },
+        "metoprolol_50": {
+          "drug_name": "Metoprolol Succinate 50 MG Extended Release Oral Tablet",
+          "n_treated": 36,
+          "pct_of_diagnosed": 0.5625,
+          "target_p_treated": 0.41,
+          "n_exposed_without_diagnosis": 86
+        },
+        "clopidogrel_75": {
+          "drug_name": "Clopidogrel 75 MG Oral Tablet",
+          "n_treated": 34,
+          "pct_of_diagnosed": 0.5312,
+          "target_p_treated": 0.27,
+          "n_exposed_without_diagnosis": 20
+        }
+      }
+    },
+    "cardiomyopathy": {
+      "name": "Cardiomyopathy",
+      "n_diagnosed": 3,
+      "n_untreated": 3,
+      "pct_untreated": 1.0,
+      "by_drug": {
+        "vericiguat_10": {
+          "drug_name": "Vericiguat 10 MG Oral Tablet",
+          "n_treated": 0,
+          "pct_of_diagnosed": 0.0,
+          "target_p_treated": 0.06,
+          "n_exposed_without_diagnosis": 8
+        }
+      }
+    },
+    "chronic_pain": {
+      "name": "Chronic pain syndrome",
+      "n_diagnosed": 163,
+      "n_untreated": 32,
+      "pct_untreated": 0.1963,
+      "by_drug": {
+        "ibuprofen_600": {
+          "drug_name": "Ibuprofen 600 MG Oral Tablet",
+          "n_treated": 91,
+          "pct_of_diagnosed": 0.5583,
+          "target_p_treated": 0.44,
+          "n_exposed_without_diagnosis": 54
+        },
+        "naproxen_500": {
+          "drug_name": "Naproxen 500 MG Oral Tablet",
+          "n_treated": 64,
+          "pct_of_diagnosed": 0.3926,
+          "target_p_treated": 0.28,
+          "n_exposed_without_diagnosis": 43
+        },
+        "gabapentin_300": {
+          "drug_name": "Gabapentin 300 MG Oral Capsule",
+          "n_treated": 33,
+          "pct_of_diagnosed": 0.2025,
+          "target_p_treated": 0.24,
+          "n_exposed_without_diagnosis": 11
+        },
+        "tramadol_50": {
+          "drug_name": "Tramadol Hydrochloride 50 MG Oral Tablet",
+          "n_treated": 24,
+          "pct_of_diagnosed": 0.1472,
+          "target_p_treated": 0.16,
+          "n_exposed_without_diagnosis": 4
+        },
+        "oxycodone_5": {
+          "drug_name": "Oxycodone Hydrochloride 5 MG Oral Tablet",
+          "n_treated": 11,
+          "pct_of_diagnosed": 0.0675,
+          "target_p_treated": 0.08,
+          "n_exposed_without_diagnosis": 9
+        }
+      }
+    },
+    "cirrhosis": {
+      "name": "Cirrhosis of liver",
+      "n_diagnosed": 2,
+      "n_untreated": 1,
+      "pct_untreated": 0.5,
+      "by_drug": {
+        "furosemide_40": {
+          "drug_name": "Furosemide 40 MG Oral Tablet",
+          "n_treated": 0,
+          "pct_of_diagnosed": 0.0,
+          "target_p_treated": 0.34,
+          "n_exposed_without_diagnosis": 38
+        },
+        "spironolactone_25": {
+          "drug_name": "Spironolactone 25 MG Oral Tablet",
+          "n_treated": 1,
+          "pct_of_diagnosed": 0.5,
+          "target_p_treated": 0.41,
+          "n_exposed_without_diagnosis": 8
+        }
+      }
+    },
+    "ckd": {
+      "name": "Chronic kidney disease",
+      "n_diagnosed": 111,
+      "n_untreated": 30,
+      "pct_untreated": 0.2703,
+      "by_drug": {
+        "lisinopril_10": {
+          "drug_name": "Lisinopril 10 MG Oral Tablet",
+          "n_treated": 64,
+          "pct_of_diagnosed": 0.5766,
+          "target_p_treated": 0.34,
+          "n_exposed_without_diagnosis": 172
+        },
+        "furosemide_40": {
+          "drug_name": "Furosemide 40 MG Oral Tablet",
+          "n_treated": 28,
+          "pct_of_diagnosed": 0.2523,
+          "target_p_treated": 0.22,
+          "n_exposed_without_diagnosis": 10
+        },
+        "darbepoetin_40": {
+          "drug_name": "Darbepoetin Alfa 40 MCG/ML Injectable Solution",
+          "n_treated": 14,
+          "pct_of_diagnosed": 0.1261,
+          "target_p_treated": 0.12,
+          "n_exposed_without_diagnosis": 10
+        }
+      }
+    },
+    "colorectal_cancer": {
+      "name": "Malignant neoplasm of colon",
+      "n_diagnosed": 5,
+      "n_untreated": 2,
+      "pct_untreated": 0.4,
+      "by_drug": {
+        "oxaliplatin_inj": {
+          "drug_name": "Oxaliplatin 100 MG Injectable Solution",
+          "n_treated": 2,
+          "pct_of_diagnosed": 0.4,
+          "target_p_treated": 0.42,
+          "n_exposed_without_diagnosis": 6
+        },
+        "capecitabine_500": {
+          "drug_name": "Capecitabine 500 MG Oral Tablet",
+          "n_treated": 2,
+          "pct_of_diagnosed": 0.4,
+          "target_p_treated": 0.35,
+          "n_exposed_without_diagnosis": 8
+        }
+      }
+    },
+    "copd": {
+      "name": "Chronic obstructive pulmonary disease",
+      "n_diagnosed": 50,
+      "n_untreated": 2,
+      "pct_untreated": 0.04,
+      "by_drug": {
+        "albuterol_inhaler": {
+          "drug_name": "Albuterol Sulfate 90 MCG/ACTUAT Metered Dose Inhaler",
+          "n_treated": 39,
+          "pct_of_diagnosed": 0.78,
+          "target_p_treated": 0.78,
+          "n_exposed_without_diagnosis": 70
+        },
+        "tiotropium_inhaler": {
+          "drug_name": "Tiotropium Bromide 18 MCG Inhalation Powder",
+          "n_treated": 18,
+          "pct_of_diagnosed": 0.36,
+          "target_p_treated": 0.41,
+          "n_exposed_without_diagnosis": 5
+        },
+        "fluticasone_salmeterol": {
+          "drug_name": "Fluticasone 250 MCG / Salmeterol 50 MCG Inhalation Powder",
+          "n_treated": 19,
+          "pct_of_diagnosed": 0.38,
+          "target_p_treated": 0.36,
+          "n_exposed_without_diagnosis": 2
+        },
+        "prednisone_20": {
+          "drug_name": "Prednisone 20 MG Oral Tablet",
+          "n_treated": 8,
+          "pct_of_diagnosed": 0.16,
+          "target_p_treated": 0.29,
+          "n_exposed_without_diagnosis": 7
+        },
+        "pseudoephedrine_30": {
+          "drug_name": "Pseudoephedrine 30 MG Oral Tablet",
+          "n_treated": 3,
+          "pct_of_diagnosed": 0.06,
+          "target_p_treated": 0.05,
+          "n_exposed_without_diagnosis": 17
+        }
+      }
+    },
+    "covid19": {
+      "name": "COVID-19",
+      "n_diagnosed": 137,
+      "n_untreated": 92,
+      "pct_untreated": 0.6715,
+      "by_drug": {
+        "dexamethasone_6": {
+          "drug_name": "Dexamethasone 6 MG Oral Tablet",
+          "n_treated": 29,
+          "pct_of_diagnosed": 0.2117,
+          "target_p_treated": 0.18,
+          "n_exposed_without_diagnosis": 14
+        },
+        "remdesivir_inj": {
+          "drug_name": "Remdesivir 100 MG Injectable Solution",
+          "n_treated": 18,
+          "pct_of_diagnosed": 0.1314,
+          "target_p_treated": 0.11,
+          "n_exposed_without_diagnosis": 9
+        }
+      }
+    },
+    "dementia": {
+      "name": "Dementia",
+      "n_diagnosed": 23,
+      "n_untreated": 11,
+      "pct_untreated": 0.4783,
+      "by_drug": {
+        "donepezil_10": {
+          "drug_name": "Donepezil Hydrochloride 10 MG Oral Tablet",
+          "n_treated": 9,
+          "pct_of_diagnosed": 0.3913,
+          "target_p_treated": 0.44,
+          "n_exposed_without_diagnosis": 8
+        },
+        "memantine_10": {
+          "drug_name": "Memantine Hydrochloride 10 MG Oral Tablet",
+          "n_treated": 6,
+          "pct_of_diagnosed": 0.2609,
+          "target_p_treated": 0.26,
+          "n_exposed_without_diagnosis": 5
+        }
+      }
+    },
+    "depression": {
+      "name": "Major depressive disorder",
+      "n_diagnosed": 84,
+      "n_untreated": 20,
+      "pct_untreated": 0.2381,
+      "by_drug": {
+        "sertraline_50": {
+          "drug_name": "Sertraline 50 MG Oral Tablet",
+          "n_treated": 35,
+          "pct_of_diagnosed": 0.4167,
+          "target_p_treated": 0.41,
+          "n_exposed_without_diagnosis": 22
+        },
+        "escitalopram_10": {
+          "drug_name": "Escitalopram 10 MG Oral Tablet",
+          "n_treated": 33,
+          "pct_of_diagnosed": 0.3929,
+          "target_p_treated": 0.29,
+          "n_exposed_without_diagnosis": 19
+        },
+        "fluoxetine_20": {
+          "drug_name": "Fluoxetine 20 MG Oral Capsule",
+          "n_treated": 14,
+          "pct_of_diagnosed": 0.1667,
+          "target_p_treated": 0.2,
+          "n_exposed_without_diagnosis": 5
+        },
+        "bupropion_150": {
+          "drug_name": "Bupropion Hydrochloride 150 MG Extended Release Oral Tablet",
+          "n_treated": 13,
+          "pct_of_diagnosed": 0.1548,
+          "target_p_treated": 0.17,
+          "n_exposed_without_diagnosis": 17
+        },
+        "venlafaxine_75": {
+          "drug_name": "Venlafaxine 75 MG Extended Release Oral Capsule",
+          "n_treated": 8,
+          "pct_of_diagnosed": 0.0952,
+          "target_p_treated": 0.12,
+          "n_exposed_without_diagnosis": 9
+        },
+        "zoloft_50": {
+          "drug_name": "Zoloft 50 MG Oral Tablet",
+          "n_treated": 25,
+          "pct_of_diagnosed": 0.2976,
+          "target_p_treated": 0.18,
+          "n_exposed_without_diagnosis": 4
+        }
+      }
+    },
+    "endometriosis": {
+      "name": "Endometriosis",
+      "n_diagnosed": 48,
+      "n_untreated": 39,
+      "pct_untreated": 0.8125,
+      "by_drug": {
+        "estradiol_1": {
+          "drug_name": "Estradiol 1 MG Oral Tablet",
+          "n_treated": 9,
+          "pct_of_diagnosed": 0.1875,
+          "target_p_treated": 0.22,
+          "n_exposed_without_diagnosis": 10
+        }
+      }
+    },
+    "gerd": {
+      "name": "Gastro-esophageal reflux disease",
+      "n_diagnosed": 185,
+      "n_untreated": 54,
+      "pct_untreated": 0.2919,
+      "by_drug": {
+        "omeprazole_20": {
+          "drug_name": "Omeprazole 20 MG Delayed Release Oral Capsule",
+          "n_treated": 96,
+          "pct_of_diagnosed": 0.5189,
+          "target_p_treated": 0.52,
+          "n_exposed_without_diagnosis": 16
+        },
+        "pantoprazole_40": {
+          "drug_name": "Pantoprazole 40 MG Delayed Release Oral Tablet",
+          "n_treated": 45,
+          "pct_of_diagnosed": 0.2432,
+          "target_p_treated": 0.27,
+          "n_exposed_without_diagnosis": 13
+        },
+        "famotidine_20": {
+          "drug_name": "Famotidine 20 MG Oral Tablet",
+          "n_treated": 30,
+          "pct_of_diagnosed": 0.1622,
+          "target_p_treated": 0.18,
+          "n_exposed_without_diagnosis": 13
+        }
+      }
+    },
+    "heart_failure": {
+      "name": "Heart failure",
+      "n_diagnosed": 17,
+      "n_untreated": 1,
+      "pct_untreated": 0.0588,
+      "by_drug": {
+        "furosemide_40": {
+          "drug_name": "Furosemide 40 MG Oral Tablet",
+          "n_treated": 11,
+          "pct_of_diagnosed": 0.6471,
+          "target_p_treated": 0.71,
+          "n_exposed_without_diagnosis": 27
+        },
+        "metoprolol_50": {
+          "drug_name": "Metoprolol Succinate 50 MG Extended Release Oral Tablet",
+          "n_treated": 12,
+          "pct_of_diagnosed": 0.7059,
+          "target_p_treated": 0.58,
+          "n_exposed_without_diagnosis": 110
+        },
+        "lisinopril_10": {
+          "drug_name": "Lisinopril 10 MG Oral Tablet",
+          "n_treated": 12,
+          "pct_of_diagnosed": 0.7059,
+          "target_p_treated": 0.49,
+          "n_exposed_without_diagnosis": 224
+        },
+        "spironolactone_25": {
+          "drug_name": "Spironolactone 25 MG Oral Tablet",
+          "n_treated": 5,
+          "pct_of_diagnosed": 0.2941,
+          "target_p_treated": 0.28,
+          "n_exposed_without_diagnosis": 4
+        },
+        "vericiguat_10": {
+          "drug_name": "Vericiguat 10 MG Oral Tablet",
+          "n_treated": 2,
+          "pct_of_diagnosed": 0.1176,
+          "target_p_treated": 0.08,
+          "n_exposed_without_diagnosis": 6
+        }
+      }
+    },
+    "hyperlipidemia": {
+      "name": "Hyperlipidemia",
+      "n_diagnosed": 337,
+      "n_untreated": 86,
+      "pct_untreated": 0.2552,
+      "by_drug": {
+        "atorvastatin_40": {
+          "drug_name": "Atorvastatin 40 MG Oral Tablet",
+          "n_treated": 180,
+          "pct_of_diagnosed": 0.5341,
+          "target_p_treated": 0.47,
+          "n_exposed_without_diagnosis": 34
+        },
+        "rosuvastatin_20": {
+          "drug_name": "Rosuvastatin 20 MG Oral Tablet",
+          "n_treated": 82,
+          "pct_of_diagnosed": 0.2433,
+          "target_p_treated": 0.26,
+          "n_exposed_without_diagnosis": 7
+        },
+        "simvastatin_20": {
+          "drug_name": "Simvastatin 20 MG Oral Tablet",
+          "n_treated": 49,
+          "pct_of_diagnosed": 0.1454,
+          "target_p_treated": 0.16,
+          "n_exposed_without_diagnosis": 5
+        },
+        "ezetimibe_10": {
+          "drug_name": "Ezetimibe 10 MG Oral Tablet",
+          "n_treated": 36,
+          "pct_of_diagnosed": 0.1068,
+          "target_p_treated": 0.09,
+          "n_exposed_without_diagnosis": 4
+        },
+        "lovastatin_20": {
+          "drug_name": "Lovastatin 20 MG Oral Tablet",
+          "n_treated": 48,
+          "pct_of_diagnosed": 0.1424,
+          "target_p_treated": 0.14,
+          "n_exposed_without_diagnosis": 10
+        }
+      }
+    },
+    "hypertension": {
+      "name": "Essential hypertension",
+      "n_diagnosed": 432,
+      "n_untreated": 58,
+      "pct_untreated": 0.1343,
+      "by_drug": {
+        "lisinopril_10": {
+          "drug_name": "Lisinopril 10 MG Oral Tablet",
+          "n_treated": 216,
+          "pct_of_diagnosed": 0.5,
+          "target_p_treated": 0.44,
+          "n_exposed_without_diagnosis": 20
+        },
+        "amlodipine_5": {
+          "drug_name": "Amlodipine 5 MG Oral Tablet",
+          "n_treated": 143,
+          "pct_of_diagnosed": 0.331,
+          "target_p_treated": 0.3,
+          "n_exposed_without_diagnosis": 7
+        },
+        "hydrochlorothiazide_25": {
+          "drug_name": "Hydrochlorothiazide 25 MG Oral Tablet",
+          "n_treated": 110,
+          "pct_of_diagnosed": 0.2546,
+          "target_p_treated": 0.24,
+          "n_exposed_without_diagnosis": 10
+        },
+        "losartan_50": {
+          "drug_name": "Losartan 50 MG Oral Tablet",
+          "n_treated": 98,
+          "pct_of_diagnosed": 0.2269,
+          "target_p_treated": 0.2,
+          "n_exposed_without_diagnosis": 5
+        },
+        "metoprolol_50": {
+          "drug_name": "Metoprolol Succinate 50 MG Extended Release Oral Tablet",
+          "n_treated": 107,
+          "pct_of_diagnosed": 0.2477,
+          "target_p_treated": 0.18,
+          "n_exposed_without_diagnosis": 15
+        }
+      }
+    },
+    "hypothyroidism": {
+      "name": "Hypothyroidism",
+      "n_diagnosed": 40,
+      "n_untreated": 3,
+      "pct_untreated": 0.075,
+      "by_drug": {
+        "levothyroxine_50": {
+          "drug_name": "Levothyroxine Sodium 50 MCG Oral Tablet",
+          "n_treated": 37,
+          "pct_of_diagnosed": 0.925,
+          "target_p_treated": 0.88,
+          "n_exposed_without_diagnosis": 11
+        }
+      }
+    },
+    "lung_cancer": {
+      "name": "Malignant neoplasm of lung",
+      "n_diagnosed": 3,
+      "n_untreated": 2,
+      "pct_untreated": 0.6667,
+      "by_drug": {
+        "cisplatin_inj": {
+          "drug_name": "Cisplatin 50 MG Injectable Solution",
+          "n_treated": 0,
+          "pct_of_diagnosed": 0.0,
+          "target_p_treated": 0.44,
+          "n_exposed_without_diagnosis": 4
+        },
+        "pembrolizumab_inj": {
+          "drug_name": "Pembrolizumab 100 MG Injectable Solution",
+          "n_treated": 1,
+          "pct_of_diagnosed": 0.3333,
+          "target_p_treated": 0.31,
+          "n_exposed_without_diagnosis": 5
+        }
+      }
+    },
+    "mi": {
+      "name": "Acute myocardial infarction",
+      "n_diagnosed": 17,
+      "n_untreated": 0,
+      "pct_untreated": 0.0,
+      "by_drug": {
+        "aspirin_81": {
+          "drug_name": "Aspirin 81 MG Delayed Release Oral Tablet",
+          "n_treated": 17,
+          "pct_of_diagnosed": 1.0,
+          "target_p_treated": 0.86,
+          "n_exposed_without_diagnosis": 57
+        },
+        "atorvastatin_40": {
+          "drug_name": "Atorvastatin 40 MG Oral Tablet",
+          "n_treated": 16,
+          "pct_of_diagnosed": 0.9412,
+          "target_p_treated": 0.82,
+          "n_exposed_without_diagnosis": 198
+        },
+        "clopidogrel_75": {
+          "drug_name": "Clopidogrel 75 MG Oral Tablet",
+          "n_treated": 11,
+          "pct_of_diagnosed": 0.6471,
+          "target_p_treated": 0.61,
+          "n_exposed_without_diagnosis": 43
+        },
+        "metoprolol_50": {
+          "drug_name": "Metoprolol Succinate 50 MG Extended Release Oral Tablet",
+          "n_treated": 14,
+          "pct_of_diagnosed": 0.8235,
+          "target_p_treated": 0.57,
+          "n_exposed_without_diagnosis": 108
+        }
+      }
+    },
+    "osteoarthritis": {
+      "name": "Osteoarthritis",
+      "n_diagnosed": 135,
+      "n_untreated": 27,
+      "pct_untreated": 0.2,
+      "by_drug": {
+        "ibuprofen_600": {
+          "drug_name": "Ibuprofen 600 MG Oral Tablet",
+          "n_treated": 78,
+          "pct_of_diagnosed": 0.5778,
+          "target_p_treated": 0.46,
+          "n_exposed_without_diagnosis": 67
+        },
+        "naproxen_500": {
+          "drug_name": "Naproxen 500 MG Oral Tablet",
+          "n_treated": 53,
+          "pct_of_diagnosed": 0.3926,
+          "target_p_treated": 0.31,
+          "n_exposed_without_diagnosis": 54
+        },
+        "celecoxib_200": {
+          "drug_name": "Celecoxib 200 MG Oral Capsule",
+          "n_treated": 11,
+          "pct_of_diagnosed": 0.0815,
+          "target_p_treated": 0.14,
+          "n_exposed_without_diagnosis": 3
+        },
+        "naproxen_sodium_550": {
+          "drug_name": "Naproxen Sodium 550 MG Oral Tablet",
+          "n_treated": 25,
+          "pct_of_diagnosed": 0.1852,
+          "target_p_treated": 0.16,
+          "n_exposed_without_diagnosis": 8
+        }
+      }
+    },
+    "osteoporosis": {
+      "name": "Osteoporosis",
+      "n_diagnosed": 90,
+      "n_untreated": 26,
+      "pct_untreated": 0.2889,
+      "by_drug": {
+        "alendronate_70": {
+          "drug_name": "Alendronate Sodium 70 MG Oral Tablet",
+          "n_treated": 31,
+          "pct_of_diagnosed": 0.3444,
+          "target_p_treated": 0.38,
+          "n_exposed_without_diagnosis": 2
+        },
+        "vitamin_d_1000": {
+          "drug_name": "Cholecalciferol 1000 UNT Oral Tablet",
+          "n_treated": 49,
+          "pct_of_diagnosed": 0.5444,
+          "target_p_treated": 0.52,
+          "n_exposed_without_diagnosis": 12
+        }
+      }
+    },
+    "pneumonia": {
+      "name": "Pneumonia",
+      "n_diagnosed": 23,
+      "n_untreated": 3,
+      "pct_untreated": 0.1304,
+      "by_drug": {
+        "azithromycin_250": {
+          "drug_name": "Azithromycin 250 MG Oral Tablet",
+          "n_treated": 17,
+          "pct_of_diagnosed": 0.7391,
+          "target_p_treated": 0.57,
+          "n_exposed_without_diagnosis": 10
+        },
+        "amoxicillin_500": {
+          "drug_name": "Amoxicillin 500 MG Oral Capsule",
+          "n_treated": 8,
+          "pct_of_diagnosed": 0.3478,
+          "target_p_treated": 0.42,
+          "n_exposed_without_diagnosis": 9
+        },
+        "levofloxacin_500": {
+          "drug_name": "Levofloxacin 500 MG Oral Tablet",
+          "n_treated": 3,
+          "pct_of_diagnosed": 0.1304,
+          "target_p_treated": 0.24,
+          "n_exposed_without_diagnosis": 6
+        },
+        "pseudoephedrine_30": {
+          "drug_name": "Pseudoephedrine 30 MG Oral Tablet",
+          "n_treated": 1,
+          "pct_of_diagnosed": 0.0435,
+          "target_p_treated": 0.2,
+          "n_exposed_without_diagnosis": 19
+        }
+      }
+    },
+    "prostate_cancer": {
+      "name": "Malignant neoplasm of prostate",
+      "n_diagnosed": 26,
+      "n_untreated": 9,
+      "pct_untreated": 0.3462,
+      "by_drug": {
+        "leuprolide_inj": {
+          "drug_name": "Leuprolide Acetate 22.5 MG Injectable Suspension",
+          "n_treated": 13,
+          "pct_of_diagnosed": 0.5,
+          "target_p_treated": 0.39,
+          "n_exposed_without_diagnosis": 1
+        },
+        "bicalutamide_50": {
+          "drug_name": "Bicalutamide 50 MG Oral Tablet",
+          "n_treated": 10,
+          "pct_of_diagnosed": 0.3846,
+          "target_p_treated": 0.27,
+          "n_exposed_without_diagnosis": 4
+        }
+      }
+    },
+    "sepsis": {
+      "name": "Sepsis",
+      "n_diagnosed": 8,
+      "n_untreated": 5,
+      "pct_untreated": 0.625,
+      "by_drug": {
+        "vancomycin_inj": {
+          "drug_name": "Vancomycin 1000 MG Injectable Solution",
+          "n_treated": 3,
+          "pct_of_diagnosed": 0.375,
+          "target_p_treated": 0.62,
+          "n_exposed_without_diagnosis": 11
+        },
+        "piperacillin_tazobactam": {
+          "drug_name": "Piperacillin 4000 MG / Tazobactam 500 MG Injectable Solution",
+          "n_treated": 1,
+          "pct_of_diagnosed": 0.125,
+          "target_p_treated": 0.58,
+          "n_exposed_without_diagnosis": 10
+        }
+      }
+    },
+    "smoking": {
+      "name": "Tobacco use disorder",
+      "n_diagnosed": 163,
+      "n_untreated": 126,
+      "pct_untreated": 0.773,
+      "by_drug": {
+        "varenicline_1": {
+          "drug_name": "Varenicline 1 MG Oral Tablet",
+          "n_treated": 18,
+          "pct_of_diagnosed": 0.1104,
+          "target_p_treated": 0.12,
+          "n_exposed_without_diagnosis": 5
+        },
+        "bupropion_150": {
+          "drug_name": "Bupropion Hydrochloride 150 MG Extended Release Oral Tablet",
+          "n_treated": 20,
+          "pct_of_diagnosed": 0.1227,
+          "target_p_treated": 0.09,
+          "n_exposed_without_diagnosis": 10
+        }
+      }
+    },
+    "stroke": {
+      "name": "Cerebral infarction",
+      "n_diagnosed": 10,
+      "n_untreated": 0,
+      "pct_untreated": 0.0,
+      "by_drug": {
+        "aspirin_81": {
+          "drug_name": "Aspirin 81 MG Delayed Release Oral Tablet",
+          "n_treated": 8,
+          "pct_of_diagnosed": 0.8,
+          "target_p_treated": 0.74,
+          "n_exposed_without_diagnosis": 66
+        },
+        "atorvastatin_40": {
+          "drug_name": "Atorvastatin 40 MG Oral Tablet",
+          "n_treated": 8,
+          "pct_of_diagnosed": 0.8,
+          "target_p_treated": 0.66,
+          "n_exposed_without_diagnosis": 206
+        },
+        "clopidogrel_75": {
+          "drug_name": "Clopidogrel 75 MG Oral Tablet",
+          "n_treated": 5,
+          "pct_of_diagnosed": 0.5,
+          "target_p_treated": 0.34,
+          "n_exposed_without_diagnosis": 49
+        },
+        "alteplase_100": {
+          "drug_name": "Alteplase 100 MG Injection",
+          "n_treated": 0,
+          "pct_of_diagnosed": 0.0,
+          "target_p_treated": 0.09,
+          "n_exposed_without_diagnosis": 6
+        },
+        "tenecteplase_50": {
+          "drug_name": "Tenecteplase 50 MG Injection",
+          "n_treated": 0,
+          "pct_of_diagnosed": 0.0,
+          "target_p_treated": 0.05,
+          "n_exposed_without_diagnosis": 4
+        }
+      }
+    },
+    "t1dm": {
+      "name": "Type 1 diabetes mellitus",
+      "n_diagnosed": 8,
+      "n_untreated": 0,
+      "pct_untreated": 0.0,
+      "by_drug": {
+        "insulin_glargine": {
+          "drug_name": "Insulin Glargine 100 UNT/ML Injectable Solution",
+          "n_treated": 8,
+          "pct_of_diagnosed": 1.0,
+          "target_p_treated": 0.93,
+          "n_exposed_without_diagnosis": 23
+        },
+        "insulin_lispro": {
+          "drug_name": "Insulin Lispro 100 UNT/ML Injectable Solution",
+          "n_treated": 7,
+          "pct_of_diagnosed": 0.875,
+          "target_p_treated": 0.81,
+          "n_exposed_without_diagnosis": 5
+        }
+      }
+    },
+    "t2dm": {
+      "name": "Type 2 diabetes mellitus",
+      "n_diagnosed": 109,
+      "n_untreated": 17,
+      "pct_untreated": 0.156,
+      "by_drug": {
+        "metformin_500": {
+          "drug_name": "Metformin Hydrochloride 500 MG Oral Tablet",
+          "n_treated": 63,
+          "pct_of_diagnosed": 0.578,
+          "target_p_treated": 0.62,
+          "n_exposed_without_diagnosis": 10
+        },
+        "metformin_1000": {
+          "drug_name": "Metformin Hydrochloride 1000 MG Oral Tablet",
+          "n_treated": 40,
+          "pct_of_diagnosed": 0.367,
+          "target_p_treated": 0.34,
+          "n_exposed_without_diagnosis": 4
+        },
+        "sitagliptin_100": {
+          "drug_name": "Sitagliptin 100 MG Oral Tablet",
+          "n_treated": 13,
+          "pct_of_diagnosed": 0.1193,
+          "target_p_treated": 0.19,
+          "n_exposed_without_diagnosis": 3
+        },
+        "empagliflozin_10": {
+          "drug_name": "Empagliflozin 10 MG Oral Tablet",
+          "n_treated": 9,
+          "pct_of_diagnosed": 0.0826,
+          "target_p_treated": 0.17,
+          "n_exposed_without_diagnosis": 3
+        },
+        "glipizide_5": {
+          "drug_name": "Glipizide 5 MG Oral Tablet",
+          "n_treated": 15,
+          "pct_of_diagnosed": 0.1376,
+          "target_p_treated": 0.15,
+          "n_exposed_without_diagnosis": 3
+        },
+        "insulin_glargine": {
+          "drug_name": "Insulin Glargine 100 UNT/ML Injectable Solution",
+          "n_treated": 16,
+          "pct_of_diagnosed": 0.1468,
+          "target_p_treated": 0.13,
+          "n_exposed_without_diagnosis": 15
+        }
+      }
+    },
+    "tia": {
+      "name": "Transient ischemic attack",
+      "n_diagnosed": 15,
+      "n_untreated": 15,
+      "pct_untreated": 1.0,
+      "by_drug": {
+        "heparin_5000": {
+          "drug_name": "Heparin Sodium 5000 UNT/ML Injectable Solution",
+          "n_treated": 0,
+          "pct_of_diagnosed": 0.0,
+          "target_p_treated": 0.14,
+          "n_exposed_without_diagnosis": 8
+        }
+      }
+    }
+  },
+  "labs": {
+    "albumin": {
+      "name": "Albumin",
+      "unit": "g/dL",
+      "n_results": 3331,
+      "n_ordered_no_result": 106,
+      "pct_unresulted": 0.0308,
+      "mean": 3.697,
+      "p05": 2.9,
+      "p50": 3.7,
+      "p95": 4.5,
+      "min": 1.6,
+      "max": 6.5,
+      "reference_range": [
+        3.5,
+        5.0
+      ],
+      "plausible_range": [
+        0.8,
+        6.5
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0045,
+      "pct_below_range": 0.3161
+    },
+    "alkaline_phosphatase": {
+      "name": "Alkaline phosphatase",
+      "unit": "U/L",
+      "n_results": 745,
+      "n_ordered_no_result": 20,
+      "pct_unresulted": 0.0261,
+      "mean": 124.097,
+      "p05": 56.0,
+      "p50": 113.0,
+      "p95": 222.0,
+      "min": 26.0,
+      "max": 510.0,
+      "reference_range": [
+        44,
+        147
+      ],
+      "plausible_range": [
+        10,
+        3000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.2711,
+      "pct_below_range": 0.0107
+    },
+    "alt": {
+      "name": "Alanine aminotransferase",
+      "unit": "U/L",
+      "n_results": 6917,
+      "n_ordered_no_result": 202,
+      "pct_unresulted": 0.0284,
+      "mean": 35.693,
+      "p05": 13.0,
+      "p50": 29.0,
+      "p95": 66.0,
+      "min": 3.0,
+      "max": 6000.0,
+      "reference_range": [
+        7,
+        56
+      ],
+      "plausible_range": [
+        3,
+        6000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0905,
+      "pct_below_range": 0.0017
+    },
+    "ast": {
+      "name": "Aspartate aminotransferase",
+      "unit": "U/L",
+      "n_results": 37,
+      "n_ordered_no_result": 1,
+      "pct_unresulted": 0.0263,
+      "mean": 88.919,
+      "p05": 29.0,
+      "p50": 75.0,
+      "p95": 193.0,
+      "min": 29.0,
+      "max": 197.0,
+      "reference_range": [
+        10,
+        40
+      ],
+      "plausible_range": [
+        5,
+        8000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.7838,
+      "pct_below_range": 0.0
+    },
+    "bilirubin": {
+      "name": "Bilirubin total",
+      "unit": "mg/dL",
+      "n_results": 247,
+      "n_ordered_no_result": 7,
+      "pct_unresulted": 0.0276,
+      "mean": 1.08,
+      "p05": 0.3,
+      "p50": 0.7,
+      "p95": 3.3,
+      "min": 0.2,
+      "max": 7.0,
+      "reference_range": [
+        0.2,
+        1.2
+      ],
+      "plausible_range": [
+        0.1,
+        45.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.1943,
+      "pct_below_range": 0.0
+    },
+    "bmi": {
+      "name": "Body mass index (BMI)",
+      "unit": "kg/m2",
+      "n_results": 14701,
+      "n_ordered_no_result": 405,
+      "pct_unresulted": 0.0268,
+      "mean": 32.876,
+      "p05": 22.7,
+      "p50": 33.0,
+      "p95": 43.1,
+      "min": 10.0,
+      "max": 90.0,
+      "reference_range": [
+        18.5,
+        24.9
+      ],
+      "plausible_range": [
+        10.0,
+        90.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.8886,
+      "pct_below_range": 0.0065
+    },
+    "bnp": {
+      "name": "Natriuretic peptide B",
+      "unit": "pg/mL",
+      "n_results": 631,
+      "n_ordered_no_result": 18,
+      "pct_unresulted": 0.0277,
+      "mean": 641.209,
+      "p05": 39.0,
+      "p50": 363.0,
+      "p95": 1545.0,
+      "min": 8.0,
+      "max": 35000.0,
+      "reference_range": [
+        0,
+        100
+      ],
+      "plausible_range": [
+        5,
+        35000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.8843,
+      "pct_below_range": 0.0
+    },
+    "calcium": {
+      "name": "Calcium",
+      "unit": "mg/dL",
+      "n_results": 2085,
+      "n_ordered_no_result": 63,
+      "pct_unresulted": 0.0293,
+      "mean": 9.259,
+      "p05": 8.2,
+      "p50": 9.3,
+      "p95": 10.2,
+      "min": 4.0,
+      "max": 18.0,
+      "reference_range": [
+        8.6,
+        10.2
+      ],
+      "plausible_range": [
+        4.0,
+        18.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0408,
+      "pct_below_range": 0.1305
+    },
+    "cea": {
+      "name": "Carcinoembryonic Ag",
+      "unit": "ng/mL",
+      "n_results": 210,
+      "n_ordered_no_result": 4,
+      "pct_unresulted": 0.0187,
+      "mean": 55.422,
+      "p05": 0.6,
+      "p50": 4.4,
+      "p95": 24.2,
+      "min": 0.2,
+      "max": 10000.0,
+      "reference_range": [
+        0.0,
+        3.0
+      ],
+      "plausible_range": [
+        0.2,
+        10000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.6095,
+      "pct_below_range": 0.0
+    },
+    "creatinine": {
+      "name": "Creatinine",
+      "unit": "mg/dL",
+      "n_results": 13333,
+      "n_ordered_no_result": 348,
+      "pct_unresulted": 0.0254,
+      "mean": 1.349,
+      "p05": 0.68,
+      "p50": 1.06,
+      "p95": 2.92,
+      "min": 0.15,
+      "max": 25.0,
+      "reference_range": [
+        0.6,
+        1.3
+      ],
+      "plausible_range": [
+        0.15,
+        25.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.3123,
+      "pct_below_range": 0.0109
+    },
+    "crp": {
+      "name": "C reactive protein",
+      "unit": "mg/L",
+      "n_results": 5175,
+      "n_ordered_no_result": 142,
+      "pct_unresulted": 0.0267,
+      "mean": 5.745,
+      "p05": 1.2,
+      "p50": 4.0,
+      "p95": 12.5,
+      "min": 0.1,
+      "max": 218.6,
+      "reference_range": [
+        0,
+        5
+      ],
+      "plausible_range": [
+        0.1,
+        500
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.3615,
+      "pct_below_range": 0.0
+    },
+    "dbp": {
+      "name": "Diastolic blood pressure",
+      "unit": "mm[Hg]",
+      "n_results": 19954,
+      "n_ordered_no_result": 563,
+      "pct_unresulted": 0.0274,
+      "mean": 78.456,
+      "p05": 63.0,
+      "p50": 78.0,
+      "p95": 95.0,
+      "min": 25.0,
+      "max": 160.0,
+      "reference_range": [
+        60,
+        80
+      ],
+      "plausible_range": [
+        25,
+        160
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.403,
+      "pct_below_range": 0.0213
+    },
+    "egfr": {
+      "name": "Glomerular filtration rate estimated",
+      "unit": "mL/min/1.73m2",
+      "n_results": 5456,
+      "n_ordered_no_result": 156,
+      "pct_unresulted": 0.0278,
+      "mean": 52.074,
+      "p05": 16.0,
+      "p50": 47.0,
+      "p95": 102.0,
+      "min": 2.0,
+      "max": 150.0,
+      "reference_range": [
+        60,
+        120
+      ],
+      "plausible_range": [
+        2,
+        150
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0064,
+      "pct_below_range": 0.631
+    },
+    "esr": {
+      "name": "Erythrocyte sedimentation rate",
+      "unit": "mm/h",
+      "n_results": 3582,
+      "n_ordered_no_result": 112,
+      "pct_unresulted": 0.0303,
+      "mean": 23.374,
+      "p05": 8.0,
+      "p50": 20.0,
+      "p95": 48.0,
+      "min": 1.0,
+      "max": 134.0,
+      "reference_range": [
+        0,
+        20
+      ],
+      "plausible_range": [
+        1,
+        150
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.4966,
+      "pct_below_range": 0.0
+    },
+    "ferritin": {
+      "name": "Ferritin",
+      "unit": "ng/mL",
+      "n_results": 2454,
+      "n_ordered_no_result": 72,
+      "pct_unresulted": 0.0285,
+      "mean": 58.546,
+      "p05": 9.0,
+      "p50": 43.0,
+      "p95": 166.0,
+      "min": 1.0,
+      "max": 518.0,
+      "reference_range": [
+        24,
+        336
+      ],
+      "plausible_range": [
+        1,
+        20000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0024,
+      "pct_below_range": 0.2514
+    },
+    "free_t4": {
+      "name": "Thyroxine free",
+      "unit": "ng/dL",
+      "n_results": 640,
+      "n_ordered_no_result": 19,
+      "pct_unresulted": 0.0288,
+      "mean": 1.237,
+      "p05": 0.81,
+      "p50": 1.25,
+      "p95": 1.63,
+      "min": 0.05,
+      "max": 1.97,
+      "reference_range": [
+        0.8,
+        1.8
+      ],
+      "plausible_range": [
+        0.05,
+        12.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0109,
+      "pct_below_range": 0.0437
+    },
+    "glucose": {
+      "name": "Glucose",
+      "unit": "mg/dL",
+      "n_results": 11047,
+      "n_ordered_no_result": 330,
+      "pct_unresulted": 0.029,
+      "mean": 117.763,
+      "p05": 78.0,
+      "p50": 110.0,
+      "p95": 189.0,
+      "min": 15.0,
+      "max": 1200.0,
+      "reference_range": [
+        70,
+        99
+      ],
+      "plausible_range": [
+        15,
+        1200
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.7054,
+      "pct_below_range": 0.022
+    },
+    "hba1c": {
+      "name": "Hemoglobin A1c",
+      "unit": "%",
+      "n_results": 7466,
+      "n_ordered_no_result": 214,
+      "pct_unresulted": 0.0279,
+      "mean": 6.557,
+      "p05": 5.1,
+      "p50": 6.2,
+      "p95": 8.8,
+      "min": 3.5,
+      "max": 20.0,
+      "reference_range": [
+        4.0,
+        5.6
+      ],
+      "plausible_range": [
+        3.5,
+        20.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.7865,
+      "pct_below_range": 0.0011
+    },
+    "hdl": {
+      "name": "Cholesterol in HDL",
+      "unit": "mg/dL",
+      "n_results": 11309,
+      "n_ordered_no_result": 321,
+      "pct_unresulted": 0.0276,
+      "mean": 43.319,
+      "p05": 23.0,
+      "p50": 43.0,
+      "p95": 64.0,
+      "min": 5.0,
+      "max": 150.0,
+      "reference_range": [
+        40,
+        90
+      ],
+      "plausible_range": [
+        5,
+        150
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0004,
+      "pct_below_range": 0.3863
+    },
+    "hematocrit": {
+      "name": "Hematocrit of Blood",
+      "unit": "%",
+      "n_results": 1996,
+      "n_ordered_no_result": 66,
+      "pct_unresulted": 0.032,
+      "mean": 30.784,
+      "p05": 24.0,
+      "p50": 31.0,
+      "p95": 38.0,
+      "min": 8.0,
+      "max": 70.0,
+      "reference_range": [
+        36,
+        50
+      ],
+      "plausible_range": [
+        8,
+        70
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0005,
+      "pct_below_range": 0.8848
+    },
+    "hemoglobin": {
+      "name": "Hemoglobin",
+      "unit": "g/dL",
+      "n_results": 7846,
+      "n_ordered_no_result": 201,
+      "pct_unresulted": 0.025,
+      "mean": 12.323,
+      "p05": 9.1,
+      "p50": 12.3,
+      "p95": 15.6,
+      "min": 2.0,
+      "max": 24.0,
+      "reference_range": [
+        12.0,
+        17.0
+      ],
+      "plausible_range": [
+        2.0,
+        24.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0052,
+      "pct_below_range": 0.442
+    },
+    "inr": {
+      "name": "INR",
+      "unit": "{INR}",
+      "n_results": 1396,
+      "n_ordered_no_result": 51,
+      "pct_unresulted": 0.0352,
+      "mean": 1.555,
+      "p05": 0.8,
+      "p50": 1.2,
+      "p95": 2.9,
+      "min": 0.5,
+      "max": 12.0,
+      "reference_range": [
+        0.8,
+        1.2
+      ],
+      "plausible_range": [
+        0.5,
+        12.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.4713,
+      "pct_below_range": 0.0222
+    },
+    "lactate": {
+      "name": "Lactate",
+      "unit": "mmol/L",
+      "n_results": 1242,
+      "n_ordered_no_result": 46,
+      "pct_unresulted": 0.0357,
+      "mean": 1.399,
+      "p05": 0.7,
+      "p50": 1.3,
+      "p95": 2.4,
+      "min": 0.4,
+      "max": 30.0,
+      "reference_range": [
+        0.5,
+        2.2
+      ],
+      "plausible_range": [
+        0.2,
+        30.0
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0636,
+      "pct_below_range": 0.0032
+    },
+    "ldl": {
+      "name": "Cholesterol in LDL",
+      "unit": "mg/dL",
+      "n_results": 12440,
+      "n_ordered_no_result": 346,
+      "pct_unresulted": 0.0271,
+      "mean": 109.263,
+      "p05": 54.0,
+      "p50": 105.0,
+      "p95": 181.0,
+      "min": 10.0,
+      "max": 500.0,
+      "reference_range": [
+        0,
+        100
+      ],
+      "plausible_range": [
+        10,
+        500
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.5504,
+      "pct_below_range": 0.0
+    },
+    "lvef": {
+      "name": "Left ventricular ejection fraction",
+      "unit": "%",
+      "n_results": 1014,
+      "n_ordered_no_result": 29,
+      "pct_unresulted": 0.0278,
+      "mean": 46.878,
+      "p05": 23.0,
+      "p50": 47.0,
+      "p95": 69.0,
+      "min": 10.0,
+      "max": 80.0,
+      "reference_range": [
+        55,
+        70
+      ],
+      "plausible_range": [
+        10,
+        80
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0345,
+      "pct_below_range": 0.6469
+    },
+    "platelets": {
+      "name": "Platelets",
+      "unit": "10*3/uL",
+      "n_results": 3941,
+      "n_ordered_no_result": 92,
+      "pct_unresulted": 0.0228,
+      "mean": 245.403,
+      "p05": 137.0,
+      "p50": 245.0,
+      "p95": 348.0,
+      "min": 2.0,
+      "max": 2000.0,
+      "reference_range": [
+        150,
+        400
+      ],
+      "plausible_range": [
+        2,
+        2000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0076,
+      "pct_below_range": 0.0713
+    },
+    "potassium": {
+      "name": "Potassium",
+      "unit": "mmol/L",
+      "n_results": 10681,
+      "n_ordered_no_result": 320,
+      "pct_unresulted": 0.0291,
+      "mean": 4.424,
+      "p05": 3.6,
+      "p50": 4.4,
+      "p95": 5.5,
+      "min": 1.5,
+      "max": 9.5,
+      "reference_range": [
+        3.5,
+        5.1
+      ],
+      "plausible_range": [
+        1.5,
+        9.5
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.115,
+      "pct_below_range": 0.0242
+    },
+    "psa": {
+      "name": "Prostate specific Ag",
+      "unit": "ng/mL",
+      "n_results": 2574,
+      "n_ordered_no_result": 62,
+      "pct_unresulted": 0.0235,
+      "mean": 11.537,
+      "p05": 0.5,
+      "p50": 1.7,
+      "p95": 26.0,
+      "min": 0.1,
+      "max": 5000.0,
+      "reference_range": [
+        0.0,
+        4.0
+      ],
+      "plausible_range": [
+        0.05,
+        5000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.2382,
+      "pct_below_range": 0.0
+    },
+    "sbp": {
+      "name": "Systolic blood pressure",
+      "unit": "mm[Hg]",
+      "n_results": 19940,
+      "n_ordered_no_result": 595,
+      "pct_unresulted": 0.029,
+      "mean": 131.342,
+      "p05": 105.0,
+      "p50": 131.0,
+      "p95": 160.0,
+      "min": 50.0,
+      "max": 260.0,
+      "reference_range": [
+        90,
+        120
+      ],
+      "plausible_range": [
+        50,
+        260
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.7319,
+      "pct_below_range": 0.0026
+    },
+    "sodium": {
+      "name": "Sodium",
+      "unit": "mmol/L",
+      "n_results": 9184,
+      "n_ordered_no_result": 255,
+      "pct_unresulted": 0.027,
+      "mean": 139.734,
+      "p05": 134.0,
+      "p50": 140.0,
+      "p95": 145.0,
+      "min": 100.0,
+      "max": 190.0,
+      "reference_range": [
+        136,
+        145
+      ],
+      "plausible_range": [
+        100,
+        190
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0299,
+      "pct_below_range": 0.089
+    },
+    "total_cholesterol": {
+      "name": "Cholesterol",
+      "unit": "mg/dL",
+      "n_results": 7403,
+      "n_ordered_no_result": 195,
+      "pct_unresulted": 0.0257,
+      "mean": 196.989,
+      "p05": 138.0,
+      "p50": 194.0,
+      "p95": 265.0,
+      "min": 50.0,
+      "max": 700.0,
+      "reference_range": [
+        0,
+        200
+      ],
+      "plausible_range": [
+        50,
+        700
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.4367,
+      "pct_below_range": 0.0
+    },
+    "triglycerides": {
+      "name": "Triglyceride",
+      "unit": "mg/dL",
+      "n_results": 10634,
+      "n_ordered_no_result": 296,
+      "pct_unresulted": 0.0271,
+      "mean": 183.749,
+      "p05": 74.0,
+      "p50": 162.0,
+      "p95": 364.0,
+      "min": 20.0,
+      "max": 5000.0,
+      "reference_range": [
+        0,
+        150
+      ],
+      "plausible_range": [
+        20,
+        5000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.5602,
+      "pct_below_range": 0.0
+    },
+    "troponin": {
+      "name": "Troponin I cardiac",
+      "unit": "ng/mL",
+      "n_results": 2145,
+      "n_ordered_no_result": 56,
+      "pct_unresulted": 0.0254,
+      "mean": 0.116,
+      "p05": 0.01,
+      "p50": 0.02,
+      "p95": 0.06,
+      "min": 0.01,
+      "max": 100.0,
+      "reference_range": [
+        0.0,
+        0.04
+      ],
+      "plausible_range": [
+        0.01,
+        100
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0797,
+      "pct_below_range": 0.0
+    },
+    "tsh": {
+      "name": "Thyrotropin",
+      "unit": "mIU/L",
+      "n_results": 3884,
+      "n_ordered_no_result": 100,
+      "pct_unresulted": 0.0251,
+      "mean": 2.435,
+      "p05": 0.89,
+      "p50": 1.95,
+      "p95": 4.66,
+      "min": 0.01,
+      "max": 150.0,
+      "reference_range": [
+        0.4,
+        4.5
+      ],
+      "plausible_range": [
+        0.005,
+        150
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0538,
+      "pct_below_range": 0.001
+    },
+    "urea_nitrogen": {
+      "name": "Urea nitrogen",
+      "unit": "mg/dL",
+      "n_results": 358,
+      "n_ordered_no_result": 7,
+      "pct_unresulted": 0.0192,
+      "mean": 21.492,
+      "p05": 6.0,
+      "p50": 16.0,
+      "p95": 56.0,
+      "min": 2.0,
+      "max": 78.0,
+      "reference_range": [
+        7,
+        20
+      ],
+      "plausible_range": [
+        2,
+        200
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.3631,
+      "pct_below_range": 0.0642
+    },
+    "urine_acr": {
+      "name": "Albumin/Creatinine",
+      "unit": "mg/g",
+      "n_results": 4774,
+      "n_ordered_no_result": 143,
+      "pct_unresulted": 0.0291,
+      "mean": 276.107,
+      "p05": 15.0,
+      "p50": 142.0,
+      "p95": 846.0,
+      "min": 1.0,
+      "max": 25000.0,
+      "reference_range": [
+        0,
+        30
+      ],
+      "plausible_range": [
+        1,
+        25000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.8682,
+      "pct_below_range": 0.0
+    },
+    "vitamin_b12": {
+      "name": "Cobalamin",
+      "unit": "pg/mL",
+      "n_results": 2510,
+      "n_ordered_no_result": 68,
+      "pct_unresulted": 0.0264,
+      "mean": 293.285,
+      "p05": 104.0,
+      "p50": 259.0,
+      "p95": 596.0,
+      "min": 30.0,
+      "max": 1351.0,
+      "reference_range": [
+        232,
+        1245
+      ],
+      "plausible_range": [
+        30,
+        3000
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0012,
+      "pct_below_range": 0.4211
+    },
+    "vitamin_d": {
+      "name": "25-hydroxyvitamin D3",
+      "unit": "ng/mL",
+      "n_results": 2075,
+      "n_ordered_no_result": 73,
+      "pct_unresulted": 0.034,
+      "mean": 33.61,
+      "p05": 11.0,
+      "p50": 34.0,
+      "p95": 56.0,
+      "min": 3.0,
+      "max": 200.0,
+      "reference_range": [
+        30,
+        100
+      ],
+      "plausible_range": [
+        3,
+        200
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0005,
+      "pct_below_range": 0.3923
+    },
+    "wbc": {
+      "name": "Leukocytes",
+      "unit": "10*3/uL",
+      "n_results": 5305,
+      "n_ordered_no_result": 157,
+      "pct_unresulted": 0.0287,
+      "mean": 7.344,
+      "p05": 4.2,
+      "p50": 6.9,
+      "p95": 11.1,
+      "min": 0.1,
+      "max": 300.0,
+      "reference_range": [
+        4.5,
+        11.0
+      ],
+      "plausible_range": [
+        0.1,
+        300
+      ],
+      "n_outside_plausible": 0,
+      "pct_above_range": 0.0509,
+      "pct_below_range": 0.0703
+    }
+  },
+  "cohorts": [
+    {
+      "id": "t2dm_metformin_uncontrolled",
+      "question": "How many adults with type 2 diabetes are on metformin and still have an HbA1c above 8%?",
+      "attrition": [
+        {
+          "step": "Any type 2 diabetes diagnosis",
+          "n": 109
+        },
+        {
+          "step": "At least 2 diagnoses >=30 days apart",
+          "n": 89
+        },
+        {
+          "step": "Age 18 or older at index",
+          "n": 88
+        },
+        {
+          "step": "At least 365 days of prior observation",
+          "n": 19
+        },
+        {
+          "step": "Metformin exposure after index",
+          "n": 13
+        },
+        {
+          "step": "HbA1c > 8% within 90 days of exposure",
+          "n": 6
+        }
+      ],
+      "expected_n": 6
+    },
+    {
+      "id": "hf_reduced_ef_on_beta_blocker",
+      "question": "How many heart failure patients are receiving a beta blocker?",
+      "attrition": [
+        {
+          "step": "Any heart failure diagnosis",
+          "n": 17
+        },
+        {
+          "step": "At least 2 diagnoses >=30 days apart",
+          "n": 13
+        },
+        {
+          "step": "At least 180 days of prior observation",
+          "n": 7
+        },
+        {
+          "step": "Metoprolol exposure",
+          "n": 4
+        }
+      ],
+      "expected_n": 4
+    },
+    {
+      "id": "afib_anticoagulated_elderly",
+      "question": "Among patients 65 and older with atrial fibrillation, how many are on a direct oral anticoagulant?",
+      "attrition": [
+        {
+          "step": "Any atrial fibrillation diagnosis",
+          "n": 19
+        },
+        {
+          "step": "Age 65 or older at index",
+          "n": 10
+        },
+        {
+          "step": "At least 365 days of prior observation",
+          "n": 3
+        },
+        {
+          "step": "Apixaban or rivaroxaban exposure",
+          "n": 3
+        }
+      ],
+      "expected_n": 3
+    },
+    {
+      "id": "ckd_stage3plus_with_diabetes",
+      "question": "How many patients have both chronic kidney disease and type 2 diabetes with an eGFR below 60?",
+      "attrition": [
+        {
+          "step": "Any chronic kidney disease diagnosis",
+          "n": 111
+        },
+        {
+          "step": "Any type 2 diabetes diagnosis",
+          "n": 43
+        },
+        {
+          "step": "At least 365 days of prior observation",
+          "n": 8
+        },
+        {
+          "step": "eGFR < 60 mL/min/1.73m2",
+          "n": 8
+        }
+      ],
+      "expected_n": 8
+    },
+    {
+      "id": "statin_use_after_mi",
+      "question": "What proportion of patients who had a myocardial infarction were started on a statin?",
+      "attrition": [
+        {
+          "step": "Any myocardial infarction diagnosis",
+          "n": 17
+        },
+        {
+          "step": "At least 90 days of prior observation",
+          "n": 14
+        },
+        {
+          "step": "Statin exposure after the MI",
+          "n": 11
+        }
+      ],
+      "expected_n": 11
+    },
+    {
+      "id": "copd_smokers_on_inhaler",
+      "question": "How many COPD patients with a tobacco use history are on an inhaled bronchodilator?",
+      "attrition": [
+        {
+          "step": "Any COPD diagnosis",
+          "n": 50
+        },
+        {
+          "step": "Any tobacco use disorder diagnosis",
+          "n": 25
+        },
+        {
+          "step": "At least 180 days of prior observation",
+          "n": 8
+        },
+        {
+          "step": "Albuterol or tiotropium exposure",
+          "n": 8
+        }
+      ],
+      "expected_n": 8
+    },
+    {
+      "id": "untreated_hypertension",
+      "question": "How many hypertensive patients have no record of antihypertensive therapy?",
+      "attrition": [
+        {
+          "step": "Any hypertension diagnosis",
+          "n": 432
+        },
+        {
+          "step": "At least 2 diagnoses >=30 days apart",
+          "n": 384
+        },
+        {
+          "step": "At least 365 days of prior observation",
+          "n": 46
+        },
+        {
+          "step": "No lisinopril, amlodipine, losartan, HCTZ or metoprolol",
+          "n": 7
+        }
+      ],
+      "expected_n": 7
+    },
+    {
+      "id": "breast_cancer_endocrine_therapy",
+      "question": "How many women with breast cancer received endocrine therapy?",
+      "attrition": [
+        {
+          "step": "Any breast cancer diagnosis",
+          "n": 23
+        },
+        {
+          "step": "Female",
+          "n": 23
+        },
+        {
+          "step": "At least 180 days of prior observation",
+          "n": 10
+        },
+        {
+          "step": "Tamoxifen or anastrozole exposure",
+          "n": 5
+        }
+      ],
+      "expected_n": 5
+    },
+    {
+      "id": "aki_following_sepsis",
+      "question": "How many patients developed acute kidney injury after an episode of sepsis?",
+      "attrition": [
+        {
+          "step": "Any sepsis diagnosis",
+          "n": 8
+        },
+        {
+          "step": "Acute kidney injury within 30 days after sepsis",
+          "n": 0
+        }
+      ],
+      "expected_n": 0
+    },
+    {
+      "id": "depression_ssri_initiation",
+      "question": "How many patients with major depressive disorder started an SSRI?",
+      "attrition": [
+        {
+          "step": "Any major depressive disorder diagnosis",
+          "n": 84
+        },
+        {
+          "step": "At least 180 days of prior observation",
+          "n": 20
+        },
+        {
+          "step": "Sertraline, escitalopram or fluoxetine exposure",
+          "n": 15
+        }
+      ],
+      "expected_n": 15
+    },
+    {
+      "id": "anemia_in_ckd",
+      "question": "How many chronic kidney disease patients have anemia with hemoglobin below 11?",
+      "attrition": [
+        {
+          "step": "Any chronic kidney disease diagnosis",
+          "n": 111
+        },
+        {
+          "step": "Any anemia diagnosis",
+          "n": 21
+        },
+        {
+          "step": "Hemoglobin < 11 g/dL",
+          "n": 19
+        }
+      ],
+      "expected_n": 19
+    },
+    {
+      "id": "elderly_polypharmacy_opioid",
+      "question": "How many patients 65 and older with chronic pain are receiving opioid therapy?",
+      "attrition": [
+        {
+          "step": "Any chronic pain syndrome diagnosis",
+          "n": 163
+        },
+        {
+          "step": "Age 65 or older at index",
+          "n": 42
+        },
+        {
+          "step": "At least 365 days of prior observation",
+          "n": 7
+        },
+        {
+          "step": "Tramadol or oxycodone exposure",
+          "n": 2
+        }
+      ],
+      "expected_n": 2
+    }
+  ],
+  "known_quirks": {
+    "undercoded_obesity": {
+      "n_patients_bmi_ge_30": 668,
+      "n_also_coded": 352,
+      "n_uncoded": 316,
+      "pct_uncoded": 0.4731
+    },
+    "observation_period_gaps": {
+      "n_patients": 1000,
+      "n_patients_with_gap": 153,
+      "n_gaps": 196,
+      "median_gap_days": 69,
+      "total_gap_days": 19987
+    },
+    "cause_of_death_mix": {
+      "Death from natural causes": 55,
+      "Coronary artery disease": 15,
+      "Accidental death": 13,
+      "Chronic obstructive pulmonary disease": 9,
+      "Acute myocardial infarction": 9,
+      "Malignant neoplasm of prostate": 8,
+      "Dementia": 8,
+      "Pneumonia": 6,
+      "Type 2 diabetes mellitus": 5,
+      "Malignant neoplasm of breast": 5,
+      "COVID-19": 4,
+      "Heart failure": 3,
+      "Chronic kidney disease": 3,
+      "Cerebral infarction": 3,
+      "Sepsis": 2,
+      "Osteoporosis": 2,
+      "Malignant neoplasm of lung": 2,
+      "Malignant neoplasm of colon": 2,
+      "Acute kidney injury": 2,
+      "Type 1 diabetes mellitus": 1,
+      "Obesity": 1,
+      "Cirrhosis of liver": 1,
+      "Cardiomyopathy": 1,
+      "Atrial fibrillation": 1
+    },
+    "unresulted_measurements": {
+      "n_measurements": 226923,
+      "n_null_values": 6261,
+      "pct_null": 0.0276
+    }
+  },
+  "source_db_artifacts": {
+    "n_patient_master_rows": 2327,
+    "n_patients": 1000,
+    "n_distinct_mrns": 2327,
+    "n_patients_at_multiple_facilities": 668,
+    "duplicate_dx_rows": 572,
+    "dx_rows": 50849,
+    "med_rows": 24356,
+    "lab_rows": 229615,
+    "coverage_rows": 1196,
+    "social_hx_rows": 9441,
+    "lab_rows_ordered_not_resulted": 6335,
+    "pct_pkg_code_null": 14.3,
+    "pct_std_lab_code_null": 22.76,
+    "unmapped_lab_rows_by_test": {
+      "Systolic blood pressure": 4890,
+      "Diastolic blood pressure": 4825,
+      "Body mass index (BMI)": 3552,
+      "Creatinine": 3018,
+      "Cholesterol in LDL": 2944,
+      "Glucose": 2684,
+      "Cholesterol in HDL": 2681,
+      "Triglyceride": 2507,
+      "Potassium": 2485,
+      "Sodium": 2118
+    },
+    "dx_code_systems": {
+      "D10": 9909,
+      "DX10": 30260,
+      "DX9": 10680
+    },
+    "facility_date_formats": {
+      "NGH": "%Y-%m-%d",
+      "RBM": "%m/%d/%Y",
+      "LSR": "%d-%b-%Y",
+      "PAC": "epoch",
+      "SVO": "%Y-%m-%d"
+    },
+    "facility_specialties": {
+      "NGH": "tertiary_cardiac",
+      "RBM": "primary_care",
+      "LSR": "endocrine_renal",
+      "PAC": "ambulatory_general",
+      "SVO": "oncology"
+    },
+    "note": "Counts here differ from the OMOP database by design: duplicate rows, null codes, per-facility date formats and the legacy/current code-system cutover are injected deliberately. A correct non-OMOP pipeline must reconcile to the OMOP cohort counts above.",
+    "birth_date_agreement": {
+      "rows_checked": 2327,
+      "rows_unresolved": 0,
+      "rows_mismatched": 1,
+      "expectation": "equals the transposed_date_digits rows that landed on a birth date"
+    }
+  }
+}

@@ -1,0 +1,164 @@
+# Optional overlay for networks that terminate TLS on the way out.
+#
+# Nothing here is needed on a normal connection, and none of it is loaded unless
+# you ask for it. If `docker compose up` works, ignore this file.
+#
+# THE PROBLEM
+#
+# Some networks -- most corporate ones -- run a proxy that decrypts outbound
+# HTTPS and re-signs it with a private CA. Your machine trusts that CA because
+# IT installed it in the system trust store, so curl and pip work in your
+# shell. Containers carry only the public root CAs their base image ships, so
+# the same download fails inside Docker and nowhere else. On first start that
+# lands on `coder-init`, which pulls the sentence-transformer models, and
+# because the rest of the stack waits for it to *complete* the whole `up`
+# aborts. It looks like a dead network:
+#
+#     requests.exceptions.SSLError: ... [SSL: CERTIFICATE_VERIFY_FAILED]
+#       certificate verify failed: unable to get local issuer certificate
+#
+#     ConnectionError: Network error: Request middleware error: error sending
+#       request for url (https://model-cdn.example/...)
+#
+# Interception is usually per-host, so testing huggingface.co proves nothing
+# about the CDN host that actually serves the weights. Check the failing host:
+#
+#     openssl s_client \
+#       -connect "${TLS_HOST:?Set TLS_HOST to the failing hostname}:443" \
+#       -servername "$TLS_HOST" </dev/null 2>/dev/null | openssl x509 -noout -issuer
+#
+# A public CA means this file is not your problem. Your employer's name means it
+# is.
+#
+# THE FIX
+#
+# Build one bundle holding the public roots *and* your proxy's CA, then mount it
+# over the container's bundle. Start from a real image's bundle rather than
+# hand-rolling one -- drop the public roots and every other TLS call breaks:
+#
+#     mkdir -p certs
+#     docker run --rm python:3.12-slim cat /etc/ssl/certs/ca-certificates.crt > certs/ca-bundle.crt
+#
+# then append your CA in PEM form. macOS, once you know its common name (the
+# `issuer` line above):
+#
+#     security find-certificate -a -c "<CA common name>" -p \
+#       /Library/Keychains/System.keychain >> certs/ca-bundle.crt
+#
+# Linux, wherever your distro or IT put it:
+#
+#     cat /usr/local/share/ca-certificates/<your-ca>.crt >> certs/ca-bundle.crt
+#
+# Append every CA in the chain, not just the leaf's issuer -- a proxy that sends
+# only its leaf certificate needs the intermediate and the root present locally
+# for a chain to be built at all. Then:
+#
+#     docker compose -f docker-compose.yml -f docker-compose.tls-proxy.yml up
+#
+# Or opt in once, in your .env, and keep typing plain `docker compose up`:
+#
+#     COMPOSE_FILE=docker-compose.yml:docker-compose.tls-proxy.yml
+#
+# certs/ is gitignored. Keep it that way: which CA you need is a property of the
+# network you happen to be on, and a committed one would ask every user of this
+# repo to trust a man-in-the-middle certificate for a network they are not on.
+#
+# For the pulled images no rebuild is involved, on purpose: they stay identical
+# to everyone else's, so this cannot drift into "works only on my machine".
+#
+# The chat image also needs build-time trust: a proxy that intercepts the
+# Alpine registry or cdn.sheetjs.com breaks `docker compose
+# build` itself, and a bundle mounted at runtime is too late to help -- there is
+# no image to run. So this overlay also swaps that build onto a second
+# Dockerfile, librechat/Dockerfile.tls-proxy, and hands it the same bundle as a
+# build secret. See the `librechat` entry below.
+#
+# Two Dockerfiles rather than one with the CA handling always present: the
+# default build stays free of guards for a problem most people do not have.
+# They are kept line-for-line identical apart from the CA blocks, so
+# `diff librechat/Dockerfile librechat/Dockerfile.tls-proxy` shows exactly what
+# this overlay adds.
+#
+# A secret, not a COPY: nothing is committed and nothing enters the build
+# context.
+
+x-tls-proxy: &tls-proxy
+  environment:
+    # Both, and neither is redundant. requests ignores the system trust store in
+    # favour of certifi's own bundle, which cannot know about a private CA, and
+    # reads REQUESTS_CA_BUNDLE to be told otherwise; SSL_CERT_FILE is what the
+    # stdlib ssl module, httpx and urllib honour. HuggingFace downloads go
+    # through requests, the rest of the stack does not.
+    REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
+    SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+    # hf_xet, the Rust downloader huggingface_hub prefers for Xet-backed repos
+    # (the BAAI/bge-* models are), has its own HTTP stack and its own compiled-in
+    # trust store. It reads neither variable above, so the mounted bundle never
+    # reaches it and the download fails anyway -- reported as the opaque
+    # "Request middleware error" quoted above. This routes the transfer through
+    # requests, which honours the bundle and names the host when something else
+    # is wrong. Costs throughput on the first pull, once.
+    HF_HUB_DISABLE_XET: "1"
+  volumes:
+    # Over the top of the image's own bundle, so curl, openssl and anything else
+    # in the container agree with Python. Compose merges volumes by target, so
+    # this replaces just this one mount and leaves /models and /data alone.
+    #
+    # Long syntax for create_host_path: false. Docker's default is to create a
+    # missing bind source as an empty *directory*, which here would mount a
+    # directory over the trust store and break TLS more thoroughly than the
+    # problem this file exists to fix. This fails with "bind source path does not
+    # exist" instead, which names the file you have not built yet.
+    - type: bind
+      source: ./certs/ca-bundle.crt
+      target: /etc/ssl/certs/ca-certificates.crt
+      read_only: true
+      bind:
+        create_host_path: false
+
+# The three services that talk to HuggingFace. postgres, redis and qdrant are
+# pulled images that never leave the compose network, so they need nothing.
+# Backend and coder images are also built locally. These entries configure
+# their runtime trust only, not Python dependency downloads during the build.
+# LibreChat is Node, not Python, so none of the variables above reach it. Node
+# carries its own compiled-in trust store and reads NODE_EXTRA_CA_CERTS to be
+# told about anything else. Without it the chat UI starts perfectly and then
+# fails every LLM call with UNABLE_TO_VERIFY_LEAF_SIGNATURE -- which reads like
+# a bad API key rather than a proxy, and sends you to the wrong place.
+x-tls-proxy-node: &tls-proxy-node
+  environment:
+    NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
+  volumes:
+    - type: bind
+      source: ./certs/ca-bundle.crt
+      target: /etc/ssl/certs/ca-certificates.crt
+      read_only: true
+      bind:
+        create_host_path: false
+
+services:
+  coder-init: *tls-proxy
+  medical-coder: *tls-proxy
+  backend: *tls-proxy
+  # Talks to the LLM provider directly, so it is intercepted like everything
+  # else. chat-init runs the same image and reaches LibreChat's API, so it gets
+  # the same trust store rather than diverging from the thing it configures.
+  librechat:
+    <<: *tls-proxy-node
+    # The chat image is built here, and both `apk` and `npm ci` fetch over
+    # HTTPS -- so on an intercepted network the build fails before any of the
+    # runtime trust above can matter. Hence the second Dockerfile, and the
+    # bundle passed to it as a build secret.
+    #
+    # `context` is repeated because Compose merges `build` key by key rather
+    # than replacing it, and a `build` block naming only `dockerfile` is not
+    # valid on its own.
+    build:
+      context: ./librechat
+      dockerfile: Dockerfile.tls-proxy
+      secrets: [ca_bundle]
+  chat-init: *tls-proxy-node
+
+secrets:
+  ca_bundle:
+    file: ./certs/ca-bundle.crt

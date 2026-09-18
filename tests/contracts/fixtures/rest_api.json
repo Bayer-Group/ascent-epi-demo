@@ -1,0 +1,41 @@
+{
+  "GET /.well-known/oauth-protected-resource/mcp": {
+    "params": [],
+    "request": {},
+    "responses": {
+      "200": {}
+    }
+  },
+  "GET /.well-known/oauth-protected-resource/mcp/ascent-experimental": {
+    "params": [],
+    "request": {},
+    "responses": {
+      "200": {}
+    }
+  },
+  "GET /.well-known/oauth-protected-resource/mcp/ascent-mcp-v1": {
+    "params": [],
+    "request": {},
+    "responses": {
+      "200": {}
+    }
+  },
+  "GET /api/public/health": {
+    "params": [],
+    "request": {},
+    "responses": {
+      "200": {
+        "const": "ok",
+        "title": "Response Health Api Public Health Get",
+        "type": "string"
+      }
+    }
+  },
+  "GET /mcp/health": {
+    "params": [],
+    "request": {},
+    "responses": {
+      "200": {}
+    }
+  }
+}

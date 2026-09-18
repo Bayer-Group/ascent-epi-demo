@@ -1,0 +1,14 @@
+{
+  "_comment": "Visit types mirror the small closed set real OMOP uses (~10), not a combinatorial explosion of department names. Department is a property of the care site, not of the visit concept.",
+
+  "visits": [
+    {"key": "outpatient", "name": "Outpatient Visit", "std_code": "3600001", "source_code": "HOSP-101", "inpatient": false},
+    {"key": "office", "name": "Office Visit", "std_code": "3600002", "source_code": "HOSP-102", "inpatient": false},
+    {"key": "telehealth", "name": "Telehealth Visit", "std_code": "3600003", "source_code": "HOSP-103", "inpatient": false},
+    {"key": "emergency", "name": "Emergency Room Visit", "std_code": "3600004", "source_code": "HOSP-104", "inpatient": false},
+    {"key": "inpatient", "name": "Inpatient Hospital Stay", "std_code": "3600005", "source_code": "HOSP-105", "inpatient": true, "los_mean": 4.5},
+    {"key": "icu", "name": "Intensive Care Unit Stay", "std_code": "3600006", "source_code": "HOSP-106", "inpatient": true, "los_mean": 7.0},
+    {"key": "observation_stay", "name": "Observation Stay", "std_code": "3600007", "source_code": "HOSP-107", "inpatient": true, "los_mean": 1.5},
+    {"key": "home_health", "name": "Home Health Visit", "std_code": "3600008", "source_code": "HOSP-108", "inpatient": false}
+  ]
+}

@@ -1,0 +1,11144 @@
+{
+ "database_name": "SYNTHETIC_EHR_OMOP",
+ "schema_name": "CDM",
+ "tables": [
+  {
+   "name": "care_site",
+   "row_count": 8,
+   "columns_count": 6,
+   "columns": [
+    {
+     "name": "care_site_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "1",
+       1
+      ],
+      [
+       "2",
+       1
+      ],
+      [
+       "3",
+       1
+      ],
+      [
+       "4",
+       1
+      ],
+      [
+       "5",
+       1
+      ],
+      [
+       "6",
+       1
+      ],
+      [
+       "7",
+       1
+      ],
+      [
+       "8",
+       1
+      ]
+     ],
+     "description": "care site key; person and visit_occurrence reference it"
+    },
+    {
+     "name": "care_site_name",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "Lakeside Endocrinology Associates",
+       1
+      ],
+      [
+       "Lakeside Regional Health",
+       1
+      ],
+      [
+       "Northgate Cardiology Clinic",
+       1
+      ],
+      [
+       "Northgate General Hospital",
+       1
+      ],
+      [
+       "Pinehurst Ambulatory Care",
+       1
+      ],
+      [
+       "Riverbend Community Medical Center",
+       1
+      ],
+      [
+       "Riverbend Family Practice",
+       1
+      ],
+      [
+       "Summit Valley Oncology Institute",
+       1
+      ]
+     ],
+     "description": "name of the facility or department"
+    },
+    {
+     "name": "place_of_service_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3,
+     "top_values": [
+      [
+       "8717",
+       3
+      ],
+      [
+       "8940",
+       3
+      ],
+      [
+       "8756",
+       2
+      ]
+     ],
+     "description": "standard concept for the place of service"
+    },
+    {
+     "name": "location_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "1",
+       2
+      ],
+      [
+       "2",
+       2
+      ],
+      [
+       "3",
+       2
+      ],
+      [
+       "4",
+       1
+      ],
+      [
+       "5",
+       1
+      ]
+     ],
+     "description": "geographic location; joins location.location_id"
+    },
+    {
+     "name": "care_site_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "LSR",
+       2
+      ],
+      [
+       "NGH",
+       2
+      ],
+      [
+       "RBM",
+       2
+      ],
+      [
+       "PAC",
+       1
+      ],
+      [
+       "SVO",
+       1
+      ]
+     ],
+     "description": "care site identifier as it appeared in the source system"
+    },
+    {
+     "name": "place_of_service_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3,
+     "top_values": [
+      [
+       "Inpatient Hospital",
+       3
+      ],
+      [
+       "Office",
+       3
+      ],
+      [
+       "Outpatient Clinic",
+       2
+      ]
+     ],
+     "description": "place of service as it appeared in the source system"
+    }
+   ]
+  },
+  {
+   "name": "cdm_source",
+   "row_count": 1,
+   "columns_count": 11,
+   "columns": [
+    {
+     "name": "cdm_source_name",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "Synthetic RWE Demo Database",
+       1
+      ]
+     ],
+     "description": "name of the source database"
+    },
+    {
+     "name": "cdm_source_abbreviation",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "SYNTH-RWE",
+       1
+      ]
+     ],
+     "description": "short name of the source database"
+    },
+    {
+     "name": "cdm_holder",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "Medical Coder demo",
+       1
+      ]
+     ],
+     "description": "organisation that holds the data"
+    },
+    {
+     "name": "source_description",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "Fictitious patient-level data generated from a hand-authored clinical catalog (seed=42). All patients, codes and vocabularies are invented.",
+       1
+      ]
+     ],
+     "description": "description of the source data"
+    },
+    {
+     "name": "source_documentation_reference",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "synthetic_data_generation/catalog",
+       1
+      ]
+     ],
+     "description": "where the source is documented"
+    },
+    {
+     "name": "cdm_etl_reference",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "synthetic_data_generation/generate.py",
+       1
+      ]
+     ],
+     "description": "where the ETL is documented"
+    },
+    {
+     "name": "source_release_date",
+     "data_type": "DATE",
+     "nullable": true,
+     "null_count": 1,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "date the source data was released"
+    },
+    {
+     "name": "cdm_release_date",
+     "data_type": "DATE",
+     "nullable": true,
+     "null_count": 1,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "date this CDM instance was released"
+    },
+    {
+     "name": "cdm_version",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "5.4",
+       1
+      ]
+     ],
+     "description": "OMOP CDM version"
+    },
+    {
+     "name": "cdm_version_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1
+      ]
+     ],
+     "description": "standard concept for the CDM version"
+    },
+    {
+     "name": "vocabulary_version",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "SIM v1.0",
+       1
+      ]
+     ],
+     "description": "version of the vocabulary bundled with this instance"
+    }
+   ]
+  },
+  {
+   "name": "concept",
+   "row_count": 5255,
+   "columns_count": 10,
+   "columns": [
+    {
+     "name": "concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5255,
+     "top_values": [
+      [
+       "0",
+       1
+      ],
+      [
+       "19000000",
+       1
+      ],
+      [
+       "19000001",
+       1
+      ],
+      [
+       "19000002",
+       1
+      ],
+      [
+       "19000003",
+       1
+      ],
+      [
+       "19000004",
+       1
+      ],
+      [
+       "19000005",
+       1
+      ],
+      [
+       "19000006",
+       1
+      ],
+      [
+       "19000007",
+       1
+      ],
+      [
+       "19000008",
+       1
+      ],
+      [
+       "19000009",
+       1
+      ],
+      [
+       "19000010",
+       1
+      ],
+      [
+       "19000011",
+       1
+      ],
+      [
+       "19000012",
+       1
+      ],
+      [
+       "19000013",
+       1
+      ],
+      [
+       "19000014",
+       1
+      ],
+      [
+       "19000015",
+       1
+      ],
+      [
+       "19000016",
+       1
+      ],
+      [
+       "19000017",
+       1
+      ],
+      [
+       "19000018",
+       1
+      ]
+     ],
+     "description": "concept key referenced by every *_concept_id column; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing"
+    },
+    {
+     "name": "concept_name",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2755,
+     "top_values": [
+      [
+       "Chronic pain syndrome",
+       3
+      ],
+      [
+       "Generalized anxiety disorder",
+       3
+      ],
+      [
+       "Malignant neoplasm of prostate",
+       3
+      ],
+      [
+       "Postpartum hemorrhage",
+       3
+      ],
+      [
+       "Prediabetes",
+       3
+      ],
+      [
+       "25-hydroxyvitamin D3",
+       2
+      ],
+      [
+       "25-hydroxyvitamin D3, serum, immunoassay",
+       2
+      ],
+      [
+       "Acute kidney failure with tubular necrosis",
+       2
+      ],
+      [
+       "Acute kidney failure, unspecified",
+       2
+      ],
+      [
+       "Acute kidney injury initial encounter",
+       2
+      ],
+      [
+       "Acute kidney injury postrenal",
+       2
+      ],
+      [
+       "Acute kidney injury postrenal, mild",
+       2
+      ],
+      [
+       "Acute kidney injury postrenal, moderate",
+       2
+      ],
+      [
+       "Acute kidney injury postrenal, severe",
+       2
+      ],
+      [
+       "Acute kidney injury prerenal",
+       2
+      ],
+      [
+       "Acute kidney injury prerenal, mild",
+       2
+      ],
+      [
+       "Acute kidney injury prerenal, moderate",
+       2
+      ],
+      [
+       "Acute kidney injury prerenal, severe",
+       2
+      ],
+      [
+       "Acute kidney injury sequela",
+       2
+      ],
+      [
+       "Acute kidney injury subsequent encounter",
+       2
+      ]
+     ],
+     "description": "human-readable name of the concept"
+    },
+    {
+     "name": "domain_id",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 18,
+     "top_values": [
+      [
+       "Drug",
+       3008
+      ],
+      [
+       "Condition",
+       1450
+      ],
+      [
+       "Procedure",
+       476
+      ],
+      [
+       "Measurement",
+       210
+      ],
+      [
+       "Unit",
+       21
+      ],
+      [
+       "Visit",
+       20
+      ],
+      [
+       "Provider",
+       17
+      ],
+      [
+       "Meas Value",
+       12
+      ],
+      [
+       "Type Concept",
+       9
+      ],
+      [
+       "Observation",
+       6
+      ],
+      [
+       "Race",
+       5
+      ],
+      [
+       "Route",
+       5
+      ],
+      [
+       "Metadata",
+       4
+      ],
+      [
+       "Payer",
+       4
+      ],
+      [
+       "Place of Service",
+       3
+      ],
+      [
+       "Ethnicity",
+       2
+      ],
+      [
+       "Gender",
+       2
+      ],
+      [
+       "Currency",
+       1
+      ]
+     ],
+     "description": "domain the concept belongs to, such as Condition, Drug or Measurement"
+    },
+    {
+     "name": "vocabulary_id",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 20,
+     "top_values": [
+      [
+       "PHARMLEX",
+       1543
+      ],
+      [
+       "DRUGPKG",
+       1465
+      ],
+      [
+       "MEDLEX",
+       873
+      ],
+      [
+       "DXCODE",
+       692
+      ],
+      [
+       "PXCODE",
+       233
+      ],
+      [
+       "DXCODE9",
+       138
+      ],
+      [
+       "LABLEX",
+       111
+      ],
+      [
+       "LABLOCAL",
+       99
+      ],
+      [
+       "UCUM",
+       21
+      ],
+      [
+       "SNOMED",
+       20
+      ],
+      [
+       "Specialty",
+       17
+      ],
+      [
+       "ENCTYPE",
+       8
+      ],
+      [
+       "Type Concept",
+       8
+      ],
+      [
+       "None",
+       6
+      ],
+      [
+       "Race",
+       5
+      ],
+      [
+       "Route",
+       5
+      ],
+      [
+       "Payer",
+       4
+      ],
+      [
+       "Place of Service",
+       3
+      ],
+      [
+       "Ethnicity",
+       2
+      ],
+      [
+       "Gender",
+       2
+      ]
+     ],
+     "description": "vocabulary the concept comes from; these are simulated vocabularies (MEDLEX, DXCODE, LABLEX, PHARMLEX, DRUGPKG), not SNOMED, ICD or RxNorm"
+    },
+    {
+     "name": "concept_class_id",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 28,
+     "top_values": [
+      [
+       "Drug Product",
+       1465
+      ],
+      [
+       "Package Code",
+       1465
+      ],
+      [
+       "Diagnosis Code",
+       830
+      ],
+      [
+       "Disorder",
+       618
+      ],
+      [
+       "Procedure",
+       233
+      ],
+      [
+       "Procedure Code",
+       233
+      ],
+      [
+       "Lab Test",
+       99
+      ],
+      [
+       "Local Lab Code",
+       99
+      ],
+      [
+       "Substance",
+       77
+      ],
+      [
+       "Unit",
+       21
+      ],
+      [
+       "Specialty",
+       17
+      ],
+      [
+       "Clinical Finding",
+       14
+      ],
+      [
+       "Lab Test Group",
+       12
+      ],
+      [
+       "Procedure Group",
+       10
+      ],
+      [
+       "Type Concept",
+       8
+      ],
+      [
+       "Visit",
+       8
+      ],
+      [
+       "Visit Code",
+       8
+      ],
+      [
+       "Observable Entity",
+       6
+      ],
+      [
+       "Metadata",
+       5
+      ],
+      [
+       "Race",
+       5
+      ]
+     ],
+     "description": "class of the concept within its vocabulary"
+    },
+    {
+     "name": "standard_concept",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 2636,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "",
+       2636
+      ],
+      [
+       "S",
+       2619
+      ]
+     ],
+     "description": "'S' marks a standard concept of this database's simulated vocabularies; blank means non-standard, map it through concept_relationship first"
+    },
+    {
+     "name": "concept_code",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5255,
+     "top_values": [
+      [
+       "%",
+       1
+      ],
+      [
+       "1",
+       1
+      ],
+      [
+       "10*3/uL",
+       1
+      ],
+      [
+       "11",
+       1
+      ],
+      [
+       "2",
+       1
+      ],
+      [
+       "21",
+       1
+      ],
+      [
+       "22",
+       1
+      ],
+      [
+       "3",
+       1
+      ],
+      [
+       "3000001",
+       1
+      ],
+      [
+       "3000010",
+       1
+      ],
+      [
+       "3000011",
+       1
+      ],
+      [
+       "3000020",
+       1
+      ],
+      [
+       "3000021",
+       1
+      ],
+      [
+       "3000022",
+       1
+      ],
+      [
+       "3000030",
+       1
+      ],
+      [
+       "3000040",
+       1
+      ],
+      [
+       "3000050",
+       1
+      ],
+      [
+       "3000060",
+       1
+      ],
+      [
+       "3000070",
+       1
+      ],
+      [
+       "3000080",
+       1
+      ]
+     ],
+     "description": "code as it appears in its source vocabulary"
+    },
+    {
+     "name": "valid_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "MIN: 2000-01-01",
+       1
+      ],
+      [
+       "MAX: 2020-05-01",
+       1
+      ]
+     ],
+     "description": "date the concept became valid"
+    },
+    {
+     "name": "valid_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "MIN: 2015-09-30",
+       1
+      ],
+      [
+       "MAX: 2099-12-31",
+       1
+      ]
+     ],
+     "description": "date the concept stopped being valid; 2099-12-31 means still valid"
+    },
+    {
+     "name": "invalid_reason",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 5255,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "",
+       5255
+      ]
+     ],
+     "description": "why the concept was retired; blank for valid concepts"
+    }
+   ]
+  },
+  {
+   "name": "concept_ancestor",
+   "row_count": 8496,
+   "columns_count": 4,
+   "columns": [
+    {
+     "name": "ancestor_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2619,
+     "top_values": [
+      [
+       "19000000",
+       1543
+      ],
+      [
+       "20000000",
+       618
+      ],
+      [
+       "19000013",
+       243
+      ],
+      [
+       "19000001",
+       111
+      ],
+      [
+       "20000001",
+       110
+      ],
+      [
+       "20000011",
+       104
+      ],
+      [
+       "20000004",
+       85
+      ],
+      [
+       "19000003",
+       83
+      ],
+      [
+       "20000006",
+       63
+      ],
+      [
+       "20000010",
+       63
+      ],
+      [
+       "19000017",
+       62
+      ],
+      [
+       "19000020",
+       60
+      ],
+      [
+       "20000003",
+       49
+      ],
+      [
+       "20000009",
+       48
+      ],
+      [
+       "20000007",
+       38
+      ],
+      [
+       "20000014",
+       34
+      ],
+      [
+       "20000005",
+       33
+      ],
+      [
+       "19000015",
+       31
+      ],
+      [
+       "20000015",
+       27
+      ],
+      [
+       "20001008",
+       27
+      ]
+     ],
+     "description": "the more general concept -- join here to include a concept and everything beneath it"
+    },
+    {
+     "name": "descendant_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2619,
+     "top_values": [
+      [
+       "20006152",
+       5
+      ],
+      [
+       "20006153",
+       5
+      ],
+      [
+       "20006154",
+       5
+      ],
+      [
+       "20006155",
+       5
+      ],
+      [
+       "20006156",
+       5
+      ],
+      [
+       "20006157",
+       5
+      ],
+      [
+       "20006158",
+       5
+      ],
+      [
+       "20006159",
+       5
+      ],
+      [
+       "20006160",
+       5
+      ],
+      [
+       "20006161",
+       5
+      ],
+      [
+       "20006162",
+       5
+      ],
+      [
+       "20006163",
+       5
+      ],
+      [
+       "20006164",
+       5
+      ],
+      [
+       "20006165",
+       5
+      ],
+      [
+       "20006166",
+       5
+      ],
+      [
+       "20006167",
+       5
+      ],
+      [
+       "20006388",
+       5
+      ],
+      [
+       "20006389",
+       5
+      ],
+      [
+       "20006390",
+       5
+      ],
+      [
+       "20006391",
+       5
+      ]
+     ],
+     "description": "the more specific concept"
+    },
+    {
+     "name": "min_levels_of_separation",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "0",
+       2619
+      ],
+      [
+       "1",
+       2522
+      ],
+      [
+       "2",
+       2406
+      ],
+      [
+       "3",
+       808
+      ],
+      [
+       "4",
+       141
+      ]
+     ],
+     "description": "shortest hop count between ancestor and descendant"
+    },
+    {
+     "name": "max_levels_of_separation",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "0",
+       2619
+      ],
+      [
+       "1",
+       2522
+      ],
+      [
+       "2",
+       2406
+      ],
+      [
+       "3",
+       808
+      ],
+      [
+       "4",
+       141
+      ]
+     ],
+     "description": "longest hop count between ancestor and descendant"
+    }
+   ]
+  },
+  {
+   "name": "concept_relationship",
+   "row_count": 10314,
+   "columns_count": 6,
+   "columns": [
+    {
+     "name": "concept_id_1",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5162,
+     "top_values": [
+      [
+       "19000000",
+       77
+      ],
+      [
+       "20001014",
+       33
+      ],
+      [
+       "20001030",
+       33
+      ],
+      [
+       "20001034",
+       33
+      ],
+      [
+       "20001047",
+       33
+      ],
+      [
+       "20001008",
+       31
+      ],
+      [
+       "20001031",
+       28
+      ],
+      [
+       "20001036",
+       27
+      ],
+      [
+       "20001045",
+       27
+      ],
+      [
+       "20001013",
+       25
+      ],
+      [
+       "20001020",
+       25
+      ],
+      [
+       "20001025",
+       25
+      ],
+      [
+       "20001001",
+       24
+      ],
+      [
+       "20001003",
+       24
+      ],
+      [
+       "20001011",
+       24
+      ],
+      [
+       "20001041",
+       24
+      ],
+      [
+       "20001043",
+       24
+      ],
+      [
+       "20001004",
+       23
+      ],
+      [
+       "20001012",
+       23
+      ],
+      [
+       "20001019",
+       23
+      ]
+     ],
+     "description": "source concept of the relationship"
+    },
+    {
+     "name": "concept_id_2",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5162,
+     "top_values": [
+      [
+       "19000000",
+       77
+      ],
+      [
+       "20001014",
+       33
+      ],
+      [
+       "20001030",
+       33
+      ],
+      [
+       "20001034",
+       33
+      ],
+      [
+       "20001047",
+       33
+      ],
+      [
+       "20001008",
+       31
+      ],
+      [
+       "20001031",
+       28
+      ],
+      [
+       "20001036",
+       27
+      ],
+      [
+       "20001045",
+       27
+      ],
+      [
+       "20001013",
+       25
+      ],
+      [
+       "20001020",
+       25
+      ],
+      [
+       "20001025",
+       25
+      ],
+      [
+       "20001001",
+       24
+      ],
+      [
+       "20001003",
+       24
+      ],
+      [
+       "20001011",
+       24
+      ],
+      [
+       "20001041",
+       24
+      ],
+      [
+       "20001043",
+       24
+      ],
+      [
+       "20001004",
+       23
+      ],
+      [
+       "20001012",
+       23
+      ],
+      [
+       "20001019",
+       23
+      ]
+     ],
+     "description": "target concept of the relationship"
+    },
+    {
+     "name": "relationship_id",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "Mapped from",
+       2635
+      ],
+      [
+       "Maps to",
+       2635
+      ],
+      [
+       "Is a",
+       2522
+      ],
+      [
+       "Subsumes",
+       2522
+      ]
+     ],
+     "description": "kind of relationship; 'Maps to' converts a non-standard concept to its standard one"
+    },
+    {
+     "name": "valid_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "MIN: 2000-01-01",
+       1
+      ],
+      [
+       "MAX: 2000-01-01",
+       1
+      ]
+     ],
+     "description": "date the relationship became valid"
+    },
+    {
+     "name": "valid_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "MIN: 2099-12-31",
+       1
+      ],
+      [
+       "MAX: 2099-12-31",
+       1
+      ]
+     ],
+     "description": "date the relationship stopped being valid"
+    },
+    {
+     "name": "invalid_reason",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 10314,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "",
+       10314
+      ]
+     ],
+     "description": "why the relationship was retired; blank when valid"
+    }
+   ]
+  },
+  {
+   "name": "condition_era",
+   "row_count": 34089,
+   "columns_count": 6,
+   "columns": [
+    {
+     "name": "condition_era_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 34089,
+     "top_values": [],
+     "description": "surrogate key of the era"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 892,
+     "top_values": [
+      [
+       "875",
+       426
+      ],
+      [
+       "476",
+       397
+      ],
+      [
+       "652",
+       360
+      ],
+      [
+       "219",
+       355
+      ],
+      [
+       "209",
+       353
+      ],
+      [
+       "405",
+       331
+      ],
+      [
+       "670",
+       312
+      ],
+      [
+       "82",
+       300
+      ],
+      [
+       "664",
+       299
+      ],
+      [
+       "545",
+       288
+      ],
+      [
+       "771",
+       281
+      ],
+      [
+       "99",
+       278
+      ],
+      [
+       "859",
+       259
+      ],
+      [
+       "623",
+       255
+      ],
+      [
+       "186",
+       247
+      ],
+      [
+       "347",
+       245
+      ],
+      [
+       "414",
+       244
+      ],
+      [
+       "939",
+       243
+      ],
+      [
+       "790",
+       228
+      ],
+      [
+       "40",
+       224
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "condition_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 50,
+     "top_values": [
+      [
+       "20001028",
+       5951
+      ],
+      [
+       "20001033",
+       4644
+      ],
+      [
+       "20001027",
+       4214
+      ],
+      [
+       "20001038",
+       3298
+      ],
+      [
+       "20001011",
+       1700
+      ],
+      [
+       "20001013",
+       1398
+      ],
+      [
+       "20001044",
+       1333
+      ],
+      [
+       "20001023",
+       1311
+      ],
+      [
+       "20001047",
+       1248
+      ],
+      [
+       "20001034",
+       1188
+      ],
+      [
+       "20001007",
+       829
+      ],
+      [
+       "20001020",
+       725
+      ],
+      [
+       "20001009",
+       662
+      ],
+      [
+       "20001035",
+       627
+      ],
+      [
+       "20001015",
+       617
+      ],
+      [
+       "20001005",
+       548
+      ],
+      [
+       "20001004",
+       522
+      ],
+      [
+       "20001003",
+       481
+      ],
+      [
+       "20001006",
+       318
+      ],
+      [
+       "20001041",
+       268
+      ]
+     ],
+     "description": "standard concept for the condition the era covers"
+    },
+    {
+     "name": "condition_era_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5377,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "start of the continuous period of the condition"
+    },
+    {
+     "name": "condition_era_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5378,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "end of the continuous period of the condition"
+    },
+    {
+     "name": "condition_occurrence_count",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 14,
+     "top_values": [
+      [
+       "1",
+       24120
+      ],
+      [
+       "2",
+       6422
+      ],
+      [
+       "3",
+       2120
+      ],
+      [
+       "4",
+       794
+      ],
+      [
+       "5",
+       331
+      ],
+      [
+       "6",
+       152
+      ],
+      [
+       "7",
+       74
+      ],
+      [
+       "8",
+       36
+      ],
+      [
+       "9",
+       18
+      ],
+      [
+       "10",
+       14
+      ],
+      [
+       "11",
+       3
+      ],
+      [
+       "12",
+       3
+      ],
+      [
+       "16",
+       1
+      ],
+      [
+       "17",
+       1
+      ]
+     ],
+     "description": "number of condition_occurrence records collapsed into this era"
+    }
+   ]
+  },
+  {
+   "name": "condition_occurrence",
+   "row_count": 50277,
+   "columns_count": 16,
+   "columns": [
+    {
+     "name": "condition_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 50277,
+     "top_values": [],
+     "description": "surrogate key of the diagnosis record"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 892,
+     "top_values": [
+      [
+       "875",
+       1013
+      ],
+      [
+       "476",
+       879
+      ],
+      [
+       "209",
+       587
+      ],
+      [
+       "405",
+       587
+      ],
+      [
+       "82",
+       586
+      ],
+      [
+       "664",
+       575
+      ],
+      [
+       "652",
+       543
+      ],
+      [
+       "219",
+       535
+      ],
+      [
+       "771",
+       500
+      ],
+      [
+       "545",
+       474
+      ],
+      [
+       "670",
+       470
+      ],
+      [
+       "939",
+       439
+      ],
+      [
+       "623",
+       434
+      ],
+      [
+       "859",
+       416
+      ],
+      [
+       "347",
+       403
+      ],
+      [
+       "857",
+       401
+      ],
+      [
+       "644",
+       378
+      ],
+      [
+       "414",
+       362
+      ],
+      [
+       "770",
+       356
+      ],
+      [
+       "790",
+       354
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "condition_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 50,
+     "top_values": [
+      [
+       "20001028",
+       9512
+      ],
+      [
+       "20001033",
+       7456
+      ],
+      [
+       "20001027",
+       6725
+      ],
+      [
+       "20001038",
+       5033
+      ],
+      [
+       "20001011",
+       2295
+      ],
+      [
+       "20001013",
+       2119
+      ],
+      [
+       "20001047",
+       1922
+      ],
+      [
+       "20001044",
+       1760
+      ],
+      [
+       "20001023",
+       1587
+      ],
+      [
+       "20001034",
+       1539
+      ],
+      [
+       "20001007",
+       1033
+      ],
+      [
+       "20001020",
+       995
+      ],
+      [
+       "20001009",
+       968
+      ],
+      [
+       "20001015",
+       891
+      ],
+      [
+       "20001035",
+       790
+      ],
+      [
+       "20001005",
+       718
+      ],
+      [
+       "20001004",
+       680
+      ],
+      [
+       "20001003",
+       565
+      ],
+      [
+       "20001041",
+       379
+      ],
+      [
+       "20001006",
+       367
+      ]
+     ],
+     "description": "concept for the diagnosis -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing"
+    },
+    {
+     "name": "condition_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5512,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "date the condition was first recorded"
+    },
+    {
+     "name": "condition_start_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5512,
+     "top_values": [
+      [
+       "2025-09-18 09:00:00",
+       47
+      ],
+      [
+       "2025-03-16 09:00:00",
+       38
+      ],
+      [
+       "2025-04-03 09:00:00",
+       37
+      ],
+      [
+       "2025-09-21 09:00:00",
+       34
+      ],
+      [
+       "2023-09-05 09:00:00",
+       33
+      ],
+      [
+       "2024-05-11 09:00:00",
+       33
+      ],
+      [
+       "2023-02-13 09:00:00",
+       32
+      ],
+      [
+       "2025-06-02 09:00:00",
+       32
+      ],
+      [
+       "2024-08-18 09:00:00",
+       31
+      ],
+      [
+       "2025-02-15 09:00:00",
+       31
+      ],
+      [
+       "2025-04-28 09:00:00",
+       31
+      ],
+      [
+       "2025-06-17 09:00:00",
+       31
+      ],
+      [
+       "2025-10-27 09:00:00",
+       31
+      ],
+      [
+       "2023-04-16 09:00:00",
+       30
+      ],
+      [
+       "2024-06-09 09:00:00",
+       30
+      ],
+      [
+       "2025-02-01 09:00:00",
+       30
+      ],
+      [
+       "2025-03-03 09:00:00",
+       30
+      ],
+      [
+       "2025-06-03 09:00:00",
+       30
+      ],
+      [
+       "2025-06-18 09:00:00",
+       30
+      ],
+      [
+       "2025-10-25 09:00:00",
+       30
+      ]
+     ],
+     "description": "timestamp the condition was first recorded"
+    },
+    {
+     "name": "condition_end_date",
+     "data_type": "DATE",
+     "nullable": true,
+     "null_count": 49665,
+     "empty_count": 0,
+     "distinct_count": 543,
+     "top_values": [
+      [
+       "MIN: 2010-03-17",
+       1
+      ],
+      [
+       "MAX: 2026-01-28",
+       1
+      ]
+     ],
+     "description": "date the condition resolved; NULL if ongoing"
+    },
+    {
+     "name": "condition_end_datetime",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 49665,
+     "empty_count": 0,
+     "distinct_count": 543,
+     "top_values": [
+      [
+       "2014-11-22 17:00:00",
+       4
+      ],
+      [
+       "2015-06-05 17:00:00",
+       4
+      ],
+      [
+       "2018-08-23 17:00:00",
+       4
+      ],
+      [
+       "2014-03-09 17:00:00",
+       3
+      ],
+      [
+       "2020-07-07 17:00:00",
+       3
+      ],
+      [
+       "2023-06-15 17:00:00",
+       3
+      ],
+      [
+       "2025-04-28 17:00:00",
+       3
+      ],
+      [
+       "2025-09-08 17:00:00",
+       3
+      ],
+      [
+       "2010-04-17 17:00:00",
+       2
+      ],
+      [
+       "2011-03-02 17:00:00",
+       2
+      ],
+      [
+       "2013-12-29 17:00:00",
+       2
+      ],
+      [
+       "2014-11-14 17:00:00",
+       2
+      ],
+      [
+       "2015-01-24 17:00:00",
+       2
+      ],
+      [
+       "2015-01-26 17:00:00",
+       2
+      ],
+      [
+       "2015-01-31 17:00:00",
+       2
+      ],
+      [
+       "2016-04-28 17:00:00",
+       2
+      ],
+      [
+       "2018-05-28 17:00:00",
+       2
+      ],
+      [
+       "2020-03-15 17:00:00",
+       2
+      ],
+      [
+       "2020-03-28 17:00:00",
+       2
+      ],
+      [
+       "2020-04-05 17:00:00",
+       2
+      ]
+     ],
+     "description": "timestamp the condition resolved; NULL if ongoing"
+    },
+    {
+     "name": "condition_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "32020",
+       50277
+      ]
+     ],
+     "description": "provenance of the diagnosis record"
+    },
+    {
+     "name": "condition_status_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "32893",
+       28567
+      ],
+      [
+       "32902",
+       21710
+      ]
+     ],
+     "description": "status such as admitting, final, or problem-list"
+    },
+    {
+     "name": "stop_reason",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 50277,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "why the condition stopped being recorded"
+    },
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 50277,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "provider who recorded the record; joins provider.provider_id"
+    },
+    {
+     "name": "visit_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 52,
+     "empty_count": 0,
+     "distinct_count": 21704,
+     "top_values": [],
+     "description": "visit this record belongs to; joins visit_occurrence.visit_occurrence_id"
+    },
+    {
+     "name": "visit_detail_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 50277,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "sub-visit detail; never populated in this dataset, do not join on it"
+    },
+    {
+     "name": "condition_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 253,
+     "top_values": [
+      [
+       "Q40.0",
+       4217
+      ],
+      [
+       "Q30.0",
+       3354
+      ],
+      [
+       "Q31.0",
+       2925
+      ],
+      [
+       "Q41.8",
+       2663
+      ],
+      [
+       "Q40.1",
+       1698
+      ],
+      [
+       "Q40.9",
+       1634
+      ],
+      [
+       "Q41.7",
+       1388
+      ],
+      [
+       "Q30.2",
+       1307
+      ],
+      [
+       "Q30.1",
+       1294
+      ],
+      [
+       "Q31.9",
+       1181
+      ],
+      [
+       "Q31.2",
+       1153
+      ],
+      [
+       "R01.0",
+       1126
+      ],
+      [
+       "Q80.0",
+       981
+      ],
+      [
+       "Q95.0",
+       861
+      ],
+      [
+       "R78.0",
+       828
+      ],
+      [
+       "R72.0",
+       810
+      ],
+      [
+       "Q90.0",
+       788
+      ],
+      [
+       "Q41.0",
+       696
+      ],
+      [
+       "Q60.1",
+       648
+      ],
+      [
+       "R90.8",
+       644
+      ]
+     ],
+     "description": "diagnosis code as it appeared in the source system"
+    },
+    {
+     "name": "condition_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 253,
+     "top_values": [
+      [
+       "21002800",
+       4217
+      ],
+      [
+       "21003300",
+       3354
+      ],
+      [
+       "21002700",
+       2925
+      ],
+      [
+       "21003800",
+       2663
+      ],
+      [
+       "21002801",
+       1698
+      ],
+      [
+       "21002802",
+       1634
+      ],
+      [
+       "21003801",
+       1388
+      ],
+      [
+       "21003302",
+       1307
+      ],
+      [
+       "21003301",
+       1294
+      ],
+      [
+       "21002702",
+       1181
+      ],
+      [
+       "21002701",
+       1153
+      ],
+      [
+       "21002850",
+       1126
+      ],
+      [
+       "21001100",
+       981
+      ],
+      [
+       "21002300",
+       861
+      ],
+      [
+       "21003350",
+       828
+      ],
+      [
+       "21002750",
+       810
+      ],
+      [
+       "21004400",
+       788
+      ],
+      [
+       "21004700",
+       696
+      ],
+      [
+       "21001300",
+       648
+      ],
+      [
+       "21003850",
+       644
+      ]
+     ],
+     "description": "source concept for the diagnosis"
+    },
+    {
+     "name": "condition_status_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 50277,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "condition status as it appeared in the source system"
+    }
+   ]
+  },
+  {
+   "name": "cost",
+   "row_count": 291679,
+   "columns_count": 22,
+   "columns": [
+    {
+     "name": "cost_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 291679,
+     "top_values": [],
+     "description": "surrogate key of the cost record"
+    },
+    {
+     "name": "cost_event_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 226923,
+     "top_values": [],
+     "description": "identifier of the record this cost is about, in the domain named by cost_domain_id"
+    },
+    {
+     "name": "cost_domain_id",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "Measurement",
+       226923
+      ],
+      [
+       "Visit",
+       24606
+      ],
+      [
+       "Drug",
+       24062
+      ],
+      [
+       "Procedure",
+       16088
+      ]
+     ],
+     "description": "which table cost_event_id points at, such as Drug or Visit"
+    },
+    {
+     "name": "cost_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "5032",
+       291679
+      ]
+     ],
+     "description": "provenance of the cost record"
+    },
+    {
+     "name": "currency_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "44818668",
+       291679
+      ]
+     ],
+     "description": "standard concept for the currency of the amounts"
+    },
+    {
+     "name": "total_charge",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 51112,
+     "top_values": [],
+     "description": "amount charged by the provider"
+    },
+    {
+     "name": "total_cost",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 291679,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "cost to the provider of delivering the service"
+    },
+    {
+     "name": "total_paid",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 44950,
+     "top_values": [],
+     "description": "total amount paid from all sources"
+    },
+    {
+     "name": "paid_by_payer",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 44391,
+     "top_values": [],
+     "description": "amount paid by the insurer"
+    },
+    {
+     "name": "paid_by_patient",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5777,
+     "top_values": [
+      [
+       "0.0",
+       268280
+      ],
+      [
+       "0.31",
+       25
+      ],
+      [
+       "0.26",
+       22
+      ],
+      [
+       "0.22",
+       21
+      ],
+      [
+       "0.24",
+       21
+      ],
+      [
+       "0.77",
+       21
+      ],
+      [
+       "5.32",
+       21
+      ],
+      [
+       "0.3",
+       20
+      ],
+      [
+       "0.4",
+       20
+      ],
+      [
+       "0.45",
+       20
+      ],
+      [
+       "0.01",
+       19
+      ],
+      [
+       "0.2",
+       19
+      ],
+      [
+       "0.52",
+       19
+      ],
+      [
+       "0.73",
+       19
+      ],
+      [
+       "0.9",
+       19
+      ],
+      [
+       "0.92",
+       19
+      ],
+      [
+       "0.94",
+       19
+      ],
+      [
+       "1.42",
+       19
+      ],
+      [
+       "1.43",
+       19
+      ],
+      [
+       "1.5",
+       19
+      ]
+     ],
+     "description": "total amount paid out of pocket by the patient"
+    },
+    {
+     "name": "paid_patient_copay",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5777,
+     "top_values": [
+      [
+       "0.0",
+       268280
+      ],
+      [
+       "0.31",
+       25
+      ],
+      [
+       "0.26",
+       22
+      ],
+      [
+       "0.22",
+       21
+      ],
+      [
+       "0.24",
+       21
+      ],
+      [
+       "0.77",
+       21
+      ],
+      [
+       "5.32",
+       21
+      ],
+      [
+       "0.3",
+       20
+      ],
+      [
+       "0.4",
+       20
+      ],
+      [
+       "0.45",
+       20
+      ],
+      [
+       "0.01",
+       19
+      ],
+      [
+       "0.2",
+       19
+      ],
+      [
+       "0.52",
+       19
+      ],
+      [
+       "0.73",
+       19
+      ],
+      [
+       "0.9",
+       19
+      ],
+      [
+       "0.92",
+       19
+      ],
+      [
+       "0.94",
+       19
+      ],
+      [
+       "1.42",
+       19
+      ],
+      [
+       "1.43",
+       19
+      ],
+      [
+       "1.5",
+       19
+      ]
+     ],
+     "description": "patient copay portion"
+    },
+    {
+     "name": "paid_patient_coinsurance",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0.0",
+       291679
+      ]
+     ],
+     "description": "patient coinsurance portion"
+    },
+    {
+     "name": "paid_patient_deductible",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0.0",
+       291679
+      ]
+     ],
+     "description": "patient deductible portion"
+    },
+    {
+     "name": "paid_by_primary",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 291679,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "amount paid by the primary insurer when coverage is coordinated"
+    },
+    {
+     "name": "paid_ingredient_cost",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 291679,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "drug ingredient portion of the amount paid"
+    },
+    {
+     "name": "paid_dispensing_fee",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 291679,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "dispensing-fee portion of the amount paid"
+    },
+    {
+     "name": "payer_plan_period_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 108,
+     "empty_count": 0,
+     "distinct_count": 1196,
+     "top_values": [
+      [
+       "1050",
+       7017
+      ],
+      [
+       "588",
+       5541
+      ],
+      [
+       "925",
+       4014
+      ],
+      [
+       "806",
+       3800
+      ],
+      [
+       "101",
+       3632
+      ],
+      [
+       "266",
+       3311
+      ],
+      [
+       "276",
+       3217
+      ],
+      [
+       "223",
+       3204
+      ],
+      [
+       "501",
+       3132
+      ],
+      [
+       "791",
+       2611
+      ],
+      [
+       "1124",
+       2557
+      ],
+      [
+       "814",
+       2508
+      ],
+      [
+       "758",
+       2486
+      ],
+      [
+       "924",
+       2371
+      ],
+      [
+       "690",
+       2362
+      ],
+      [
+       "224",
+       2279
+      ],
+      [
+       "1032",
+       2273
+      ],
+      [
+       "666",
+       2241
+      ],
+      [
+       "154",
+       2234
+      ],
+      [
+       "80",
+       2060
+      ]
+     ],
+     "description": "coverage period this cost falls in; joins payer_plan_period"
+    },
+    {
+     "name": "amount_allowed",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 44950,
+     "top_values": [],
+     "description": "amount the payer contract allows for the service"
+    },
+    {
+     "name": "revenue_code_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       291679
+      ]
+     ],
+     "description": "standard concept for the revenue code"
+    },
+    {
+     "name": "revenue_code_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 291679,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "revenue code as it appeared in the source system"
+    },
+    {
+     "name": "drg_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       291679
+      ]
+     ],
+     "description": "standard concept for the diagnosis-related group"
+    },
+    {
+     "name": "drg_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 291679,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "DRG as it appeared in the source system"
+    }
+   ]
+  },
+  {
+   "name": "death",
+   "row_count": 161,
+   "columns_count": 7,
+   "columns": [
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 161,
+     "top_values": [
+      [
+       "118",
+       1
+      ],
+      [
+       "121",
+       1
+      ],
+      [
+       "126",
+       1
+      ],
+      [
+       "128",
+       1
+      ],
+      [
+       "131",
+       1
+      ],
+      [
+       "139",
+       1
+      ],
+      [
+       "140",
+       1
+      ],
+      [
+       "157",
+       1
+      ],
+      [
+       "159",
+       1
+      ],
+      [
+       "177",
+       1
+      ],
+      [
+       "178",
+       1
+      ],
+      [
+       "190",
+       1
+      ],
+      [
+       "201",
+       1
+      ],
+      [
+       "204",
+       1
+      ],
+      [
+       "208",
+       1
+      ],
+      [
+       "218",
+       1
+      ],
+      [
+       "221",
+       1
+      ],
+      [
+       "222",
+       1
+      ],
+      [
+       "228",
+       1
+      ],
+      [
+       "229",
+       1
+      ]
+     ],
+     "description": "patient key of the deceased person; presence of a row means the person died"
+    },
+    {
+     "name": "death_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 159,
+     "top_values": [
+      [
+       "MIN: 2010-04-09",
+       1
+      ],
+      [
+       "MAX: 2026-12-10",
+       1
+      ]
+     ],
+     "description": "date of death"
+    },
+    {
+     "name": "death_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 159,
+     "top_values": [
+      [
+       "2016-07-21 00:00:00",
+       2
+      ],
+      [
+       "2026-07-15 00:00:00",
+       2
+      ],
+      [
+       "2010-04-09 00:00:00",
+       1
+      ],
+      [
+       "2010-06-21 00:00:00",
+       1
+      ],
+      [
+       "2010-10-13 00:00:00",
+       1
+      ],
+      [
+       "2010-12-14 00:00:00",
+       1
+      ],
+      [
+       "2011-01-18 00:00:00",
+       1
+      ],
+      [
+       "2011-05-04 00:00:00",
+       1
+      ],
+      [
+       "2011-05-08 00:00:00",
+       1
+      ],
+      [
+       "2011-06-06 00:00:00",
+       1
+      ],
+      [
+       "2011-07-17 00:00:00",
+       1
+      ],
+      [
+       "2011-10-02 00:00:00",
+       1
+      ],
+      [
+       "2011-10-26 00:00:00",
+       1
+      ],
+      [
+       "2012-05-25 00:00:00",
+       1
+      ],
+      [
+       "2012-07-17 00:00:00",
+       1
+      ],
+      [
+       "2012-12-07 00:00:00",
+       1
+      ],
+      [
+       "2012-12-15 00:00:00",
+       1
+      ],
+      [
+       "2013-01-22 00:00:00",
+       1
+      ],
+      [
+       "2013-02-24 00:00:00",
+       1
+      ],
+      [
+       "2013-03-12 00:00:00",
+       1
+      ]
+     ],
+     "description": "timestamp of death"
+    },
+    {
+     "name": "death_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "32817",
+       161
+      ]
+     ],
+     "description": "provenance of the death record"
+    },
+    {
+     "name": "cause_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24,
+     "top_values": [
+      [
+       "4306655",
+       55
+      ],
+      [
+       "20001009",
+       15
+      ],
+      [
+       "4145711",
+       13
+      ],
+      [
+       "20001015",
+       9
+      ],
+      [
+       "20001031",
+       9
+      ],
+      [
+       "20001019",
+       8
+      ],
+      [
+       "20001041",
+       8
+      ],
+      [
+       "20001036",
+       6
+      ],
+      [
+       "20001008",
+       5
+      ],
+      [
+       "20001047",
+       5
+      ],
+      [
+       "20001016",
+       4
+      ],
+      [
+       "20001013",
+       3
+      ],
+      [
+       "20001025",
+       3
+      ],
+      [
+       "20001045",
+       3
+      ],
+      [
+       "20001001",
+       2
+      ],
+      [
+       "20001014",
+       2
+      ],
+      [
+       "20001030",
+       2
+      ],
+      [
+       "20001035",
+       2
+      ],
+      [
+       "20001043",
+       2
+      ],
+      [
+       "20001000",
+       1
+      ]
+     ],
+     "description": "standard concept for the cause of death"
+    },
+    {
+     "name": "cause_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24,
+     "top_values": [
+      [
+       "natural",
+       55
+      ],
+      [
+       "Q45.1",
+       15
+      ],
+      [
+       "accidental",
+       13
+      ],
+      [
+       "Q44.0",
+       9
+      ],
+      [
+       "Q70.0",
+       9
+      ],
+      [
+       "Q12.0",
+       8
+      ],
+      [
+       "Q85.0",
+       8
+      ],
+      [
+       "Q72.0",
+       6
+      ],
+      [
+       "Q11.0",
+       5
+      ],
+      [
+       "Q41.0",
+       5
+      ],
+      [
+       "Q74.0",
+       4
+      ],
+      [
+       "Q50.2",
+       3
+      ],
+      [
+       "Q52.0",
+       3
+      ],
+      [
+       "Q60.1",
+       3
+      ],
+      [
+       "Q10.0",
+       2
+      ],
+      [
+       "Q13.0",
+       2
+      ],
+      [
+       "Q61.0",
+       2
+      ],
+      [
+       "Q73.0",
+       2
+      ],
+      [
+       "Q82.0",
+       2
+      ],
+      [
+       "Q19.0",
+       1
+      ]
+     ],
+     "description": "cause of death as it appeared in the source system"
+    },
+    {
+     "name": "cause_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       161
+      ]
+     ],
+     "description": "source concept for the cause of death; 0 when unmapped"
+    }
+   ]
+  },
+  {
+   "name": "drug_era",
+   "row_count": 11220,
+   "columns_count": 7,
+   "columns": [
+    {
+     "name": "drug_era_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 11220,
+     "top_values": [],
+     "description": "surrogate key of the era"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 749,
+     "top_values": [
+      [
+       "771",
+       77
+      ],
+      [
+       "412",
+       74
+      ],
+      [
+       "66",
+       74
+      ],
+      [
+       "160",
+       69
+      ],
+      [
+       "179",
+       66
+      ],
+      [
+       "944",
+       65
+      ],
+      [
+       "178",
+       64
+      ],
+      [
+       "395",
+       63
+      ],
+      [
+       "409",
+       63
+      ],
+      [
+       "999",
+       63
+      ],
+      [
+       "860",
+       62
+      ],
+      [
+       "701",
+       58
+      ],
+      [
+       "795",
+       58
+      ],
+      [
+       "846",
+       58
+      ],
+      [
+       "335",
+       57
+      ],
+      [
+       "652",
+       57
+      ],
+      [
+       "939",
+       57
+      ],
+      [
+       "248",
+       56
+      ],
+      [
+       "450",
+       56
+      ],
+      [
+       "581",
+       56
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "drug_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 79,
+     "top_values": [
+      [
+       "22001041",
+       881
+      ],
+      [
+       "22001009",
+       731
+      ],
+      [
+       "22001034",
+       690
+      ],
+      [
+       "22001004",
+       493
+      ],
+      [
+       "22001049",
+       480
+      ],
+      [
+       "22001047",
+       453
+      ],
+      [
+       "22001033",
+       445
+      ],
+      [
+       "22001000",
+       416
+      ],
+      [
+       "22001042",
+       407
+      ],
+      [
+       "22001051",
+       356
+      ],
+      [
+       "22001061",
+       275
+      ],
+      [
+       "22001025",
+       214
+      ],
+      [
+       "22001008",
+       210
+      ],
+      [
+       "22001046",
+       208
+      ],
+      [
+       "22001067",
+       204
+      ],
+      [
+       "22001043",
+       194
+      ],
+      [
+       "22001062",
+       184
+      ],
+      [
+       "22001054",
+       183
+      ],
+      [
+       "22001050",
+       179
+      ],
+      [
+       "22001063",
+       176
+      ]
+     ],
+     "description": "concept for the drug the era covers"
+    },
+    {
+     "name": "drug_era_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3999,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "start of the continuous period of exposure"
+    },
+    {
+     "name": "drug_era_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4426,
+     "top_values": [
+      [
+       "MIN: 2010-01-21",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "end of the continuous period of exposure"
+    },
+    {
+     "name": "drug_exposure_count",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 32,
+     "top_values": [
+      [
+       "1",
+       6189
+      ],
+      [
+       "2",
+       2302
+      ],
+      [
+       "3",
+       1100
+      ],
+      [
+       "4",
+       613
+      ],
+      [
+       "5",
+       363
+      ],
+      [
+       "6",
+       211
+      ],
+      [
+       "7",
+       133
+      ],
+      [
+       "8",
+       88
+      ],
+      [
+       "9",
+       65
+      ],
+      [
+       "10",
+       44
+      ],
+      [
+       "11",
+       28
+      ],
+      [
+       "12",
+       16
+      ],
+      [
+       "13",
+       16
+      ],
+      [
+       "14",
+       9
+      ],
+      [
+       "16",
+       5
+      ],
+      [
+       "18",
+       5
+      ],
+      [
+       "20",
+       5
+      ],
+      [
+       "15",
+       4
+      ],
+      [
+       "26",
+       4
+      ],
+      [
+       "19",
+       3
+      ]
+     ],
+     "description": "number of drug_exposure records collapsed into this era"
+    },
+    {
+     "name": "gap_days",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       11220
+      ]
+     ],
+     "description": "days of permissible gap inside the era"
+    }
+   ]
+  },
+  {
+   "name": "drug_exposure",
+   "row_count": 24062,
+   "columns_count": 23,
+   "columns": [
+    {
+     "name": "drug_exposure_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24062,
+     "top_values": [],
+     "description": "surrogate key of the drug record"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 749,
+     "top_values": [
+      [
+       "771",
+       254
+      ],
+      [
+       "727",
+       230
+      ],
+      [
+       "795",
+       209
+      ],
+      [
+       "875",
+       209
+      ],
+      [
+       "19",
+       205
+      ],
+      [
+       "160",
+       196
+      ],
+      [
+       "405",
+       191
+      ],
+      [
+       "126",
+       188
+      ],
+      [
+       "178",
+       185
+      ],
+      [
+       "939",
+       181
+      ],
+      [
+       "412",
+       180
+      ],
+      [
+       "66",
+       171
+      ],
+      [
+       "39",
+       169
+      ],
+      [
+       "770",
+       169
+      ],
+      [
+       "476",
+       163
+      ],
+      [
+       "857",
+       162
+      ],
+      [
+       "179",
+       156
+      ],
+      [
+       "803",
+       155
+      ],
+      [
+       "853",
+       155
+      ],
+      [
+       "709",
+       152
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "drug_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 79,
+     "top_values": [
+      [
+       "22001041",
+       2035
+      ],
+      [
+       "22001009",
+       1908
+      ],
+      [
+       "22001034",
+       1261
+      ],
+      [
+       "22001047",
+       1085
+      ],
+      [
+       "22001004",
+       1033
+      ],
+      [
+       "22001033",
+       925
+      ],
+      [
+       "22001049",
+       897
+      ],
+      [
+       "22001042",
+       807
+      ],
+      [
+       "22001000",
+       804
+      ],
+      [
+       "22001051",
+       791
+      ],
+      [
+       "22001008",
+       762
+      ],
+      [
+       "22001046",
+       563
+      ],
+      [
+       "22001061",
+       535
+      ],
+      [
+       "22001025",
+       505
+      ],
+      [
+       "22001076",
+       477
+      ],
+      [
+       "22001054",
+       418
+      ],
+      [
+       "22001062",
+       417
+      ],
+      [
+       "22001021",
+       391
+      ],
+      [
+       "22001043",
+       390
+      ],
+      [
+       "22001016",
+       378
+      ]
+     ],
+     "description": "concept for the drug -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing"
+    },
+    {
+     "name": "drug_exposure_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5045,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "date the exposure began"
+    },
+    {
+     "name": "drug_exposure_start_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5045,
+     "top_values": [
+      [
+       "2020-02-23 09:00:00",
+       33
+      ],
+      [
+       "2015-01-02 09:00:00",
+       31
+      ],
+      [
+       "2026-01-11 09:00:00",
+       28
+      ],
+      [
+       "2024-08-11 09:00:00",
+       27
+      ],
+      [
+       "2022-03-03 09:00:00",
+       26
+      ],
+      [
+       "2010-02-05 09:00:00",
+       25
+      ],
+      [
+       "2017-01-22 09:00:00",
+       25
+      ],
+      [
+       "2020-01-22 09:00:00",
+       25
+      ],
+      [
+       "2024-01-18 09:00:00",
+       24
+      ],
+      [
+       "2025-03-16 09:00:00",
+       22
+      ],
+      [
+       "2016-03-01 09:00:00",
+       21
+      ],
+      [
+       "2024-01-23 09:00:00",
+       21
+      ],
+      [
+       "2010-02-25 09:00:00",
+       20
+      ],
+      [
+       "2019-08-18 09:00:00",
+       20
+      ],
+      [
+       "2010-01-05 09:00:00",
+       19
+      ],
+      [
+       "2013-09-20 09:00:00",
+       19
+      ],
+      [
+       "2019-10-20 09:00:00",
+       19
+      ],
+      [
+       "2024-03-09 09:00:00",
+       19
+      ],
+      [
+       "2024-10-16 09:00:00",
+       19
+      ],
+      [
+       "2025-02-20 09:00:00",
+       19
+      ]
+     ],
+     "description": "timestamp the exposure began"
+    },
+    {
+     "name": "drug_exposure_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5370,
+     "top_values": [
+      [
+       "MIN: 2010-01-21",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "date the exposure ended"
+    },
+    {
+     "name": "drug_exposure_end_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5370,
+     "top_values": [
+      [
+       "2026-01-31 09:00:00",
+       370
+      ],
+      [
+       "2016-01-05 09:00:00",
+       28
+      ],
+      [
+       "2021-01-03 09:00:00",
+       28
+      ],
+      [
+       "2020-12-12 09:00:00",
+       23
+      ],
+      [
+       "2015-02-01 09:00:00",
+       22
+      ],
+      [
+       "2025-04-15 09:00:00",
+       22
+      ],
+      [
+       "2015-03-22 09:00:00",
+       21
+      ],
+      [
+       "2016-12-21 09:00:00",
+       19
+      ],
+      [
+       "2020-02-03 09:00:00",
+       19
+      ],
+      [
+       "2020-03-24 09:00:00",
+       19
+      ],
+      [
+       "2024-09-10 09:00:00",
+       19
+      ],
+      [
+       "2020-10-27 09:00:00",
+       18
+      ],
+      [
+       "2025-07-02 09:00:00",
+       18
+      ],
+      [
+       "2013-02-18 09:00:00",
+       17
+      ],
+      [
+       "2013-06-16 09:00:00",
+       17
+      ],
+      [
+       "2015-05-03 09:00:00",
+       17
+      ],
+      [
+       "2017-02-21 09:00:00",
+       17
+      ],
+      [
+       "2019-06-08 09:00:00",
+       17
+      ],
+      [
+       "2024-05-23 09:00:00",
+       17
+      ],
+      [
+       "2024-11-08 09:00:00",
+       17
+      ]
+     ],
+     "description": "timestamp the exposure ended"
+    },
+    {
+     "name": "verbatim_end_date",
+     "data_type": "DATE",
+     "nullable": true,
+     "null_count": 24062,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "end date exactly as given in the source system"
+    },
+    {
+     "name": "drug_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "32818",
+       24062
+      ]
+     ],
+     "description": "provenance: prescription written, dispensed, or administered"
+    },
+    {
+     "name": "stop_reason",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 24062,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "why the drug was stopped"
+    },
+    {
+     "name": "refills",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "3",
+       6067
+      ],
+      [
+       "2",
+       6048
+      ],
+      [
+       "1",
+       6000
+      ],
+      [
+       "0",
+       5947
+      ]
+     ],
+     "description": "number of refills authorised"
+    },
+    {
+     "name": "quantity",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 10,
+     "top_values": [
+      [
+       "30.0",
+       13019
+      ],
+      [
+       "90.0",
+       9803
+      ],
+      [
+       "10.0",
+       356
+      ],
+      [
+       "5.0",
+       319
+      ],
+      [
+       "7.0",
+       209
+      ],
+      [
+       "14.0",
+       196
+      ],
+      [
+       "28.0",
+       92
+      ],
+      [
+       "21.0",
+       46
+      ],
+      [
+       "1.0",
+       18
+      ],
+      [
+       "3.0",
+       4
+      ]
+     ],
+     "description": "quantity dispensed"
+    },
+    {
+     "name": "days_supply",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 10,
+     "top_values": [
+      [
+       "30",
+       13019
+      ],
+      [
+       "90",
+       9803
+      ],
+      [
+       "10",
+       356
+      ],
+      [
+       "5",
+       319
+      ],
+      [
+       "7",
+       209
+      ],
+      [
+       "14",
+       196
+      ],
+      [
+       "28",
+       92
+      ],
+      [
+       "21",
+       46
+      ],
+      [
+       "1",
+       18
+      ],
+      [
+       "3",
+       4
+      ]
+     ],
+     "description": "days the dispensed quantity is expected to last"
+    },
+    {
+     "name": "sig",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 50,
+     "top_values": [
+      [
+       "Take as directed (10 mg Oral Tablet)",
+       3127
+      ],
+      [
+       "Take as directed (40 mg Oral Tablet)",
+       2165
+      ],
+      [
+       "Take as directed (500 mg Oral Tablet)",
+       1499
+      ],
+      [
+       "Take as directed (50 mg Oral Tablet)",
+       1461
+      ],
+      [
+       "Take as directed (20 mg Oral Tablet)",
+       1400
+      ],
+      [
+       "Take as directed (5 mg Oral Tablet)",
+       1376
+      ],
+      [
+       "Take as directed (600 mg Oral Tablet)",
+       1261
+      ],
+      [
+       "Take as directed (50 mg Extended Release Oral Tablet)",
+       1085
+      ],
+      [
+       "Take as directed (25 mg Oral Tablet)",
+       972
+      ],
+      [
+       "Take as directed (90 mcg/actuation Metered Dose Inhaler)",
+       804
+      ],
+      [
+       "Take as directed (20 mg Delayed Release Oral Capsule)",
+       791
+      ],
+      [
+       "Take as directed (81 mg Delayed Release Oral Tablet)",
+       762
+      ],
+      [
+       "Take as directed (325 mg Oral Tablet)",
+       505
+      ],
+      [
+       "Take as directed (1000 unit Oral Tablet)",
+       477
+      ],
+      [
+       "Take as directed (40 mg Delayed Release Oral Tablet)",
+       418
+      ],
+      [
+       "Take as directed (20 MG Oral Tablet)",
+       390
+      ],
+      [
+       "Take as directed (75 mg Oral Tablet)",
+       378
+      ],
+      [
+       "Take as directed (300 mg Oral Capsule)",
+       370
+      ],
+      [
+       "Take as directed (0.4 mg Oral Capsule)",
+       362
+      ],
+      [
+       "Take as directed (1000 mg Oral Tablet)",
+       350
+      ]
+     ],
+     "description": "free-text directions for use"
+    },
+    {
+     "name": "route_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "4132161",
+       21742
+      ],
+      [
+       "4139962",
+       1396
+      ],
+      [
+       "4142048",
+       445
+      ],
+      [
+       "4302612",
+       299
+      ],
+      [
+       "4171047",
+       180
+      ]
+     ],
+     "description": "standard concept for route of administration"
+    },
+    {
+     "name": "lot_number",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 24062,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "manufacturing lot number"
+    },
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 24062,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "prescribing provider; joins provider.provider_id"
+    },
+    {
+     "name": "visit_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 12899,
+     "top_values": [],
+     "description": "visit this record belongs to; joins visit_occurrence.visit_occurrence_id"
+    },
+    {
+     "name": "visit_detail_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 24062,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "sub-visit detail; never populated in this dataset, do not join on it"
+    },
+    {
+     "name": "drug_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 79,
+     "top_values": [
+      [
+       "99999-1001-30",
+       2035
+      ],
+      [
+       "99999-1010-30",
+       1908
+      ],
+      [
+       "99999-1060-30",
+       1261
+      ],
+      [
+       "99999-1005-30",
+       1085
+      ],
+      [
+       "99999-1002-30",
+       1033
+      ],
+      [
+       "99999-1003-30",
+       925
+      ],
+      [
+       "99999-1061-30",
+       897
+      ],
+      [
+       "99999-1004-30",
+       807
+      ],
+      [
+       "99999-1040-01",
+       804
+      ],
+      [
+       "99999-1080-30",
+       791
+      ],
+      [
+       "99999-1030-90",
+       762
+      ],
+      [
+       "99999-1020-60",
+       563
+      ],
+      [
+       "99999-1011-30",
+       535
+      ],
+      [
+       "99999-1093-90",
+       505
+      ],
+      [
+       "99999-1092-90",
+       477
+      ],
+      [
+       "99999-1081-30",
+       418
+      ],
+      [
+       "99999-1070-30",
+       417
+      ],
+      [
+       "99999-1071-30",
+       391
+      ],
+      [
+       "99999-1125-30",
+       390
+      ],
+      [
+       "99999-1031-30",
+       378
+      ]
+     ],
+     "description": "drug code as it appeared in the source system"
+    },
+    {
+     "name": "drug_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 79,
+     "top_values": [
+      [
+       "23000041",
+       2035
+      ],
+      [
+       "23000009",
+       1908
+      ],
+      [
+       "23000034",
+       1261
+      ],
+      [
+       "23000047",
+       1085
+      ],
+      [
+       "23000004",
+       1033
+      ],
+      [
+       "23000033",
+       925
+      ],
+      [
+       "23000049",
+       897
+      ],
+      [
+       "23000042",
+       807
+      ],
+      [
+       "23000000",
+       804
+      ],
+      [
+       "23000051",
+       791
+      ],
+      [
+       "23000008",
+       762
+      ],
+      [
+       "23000046",
+       563
+      ],
+      [
+       "23000061",
+       535
+      ],
+      [
+       "23000025",
+       505
+      ],
+      [
+       "23000076",
+       477
+      ],
+      [
+       "23000054",
+       418
+      ],
+      [
+       "23000062",
+       417
+      ],
+      [
+       "23000021",
+       391
+      ],
+      [
+       "23000043",
+       390
+      ],
+      [
+       "23000016",
+       378
+      ]
+     ],
+     "description": "source concept for the drug"
+    },
+    {
+     "name": "route_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "oral",
+       21742
+      ],
+      [
+       "inhalation",
+       1396
+      ],
+      [
+       "subcutaneous",
+       445
+      ],
+      [
+       "intramuscular",
+       299
+      ],
+      [
+       "intravenous",
+       180
+      ]
+     ],
+     "description": "route as it appeared in the source system"
+    },
+    {
+     "name": "dose_unit_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 24062,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "dose unit as it appeared in the source system"
+    }
+   ]
+  },
+  {
+   "name": "fact_relationship",
+   "row_count": 150,
+   "columns_count": 5,
+   "columns": [
+    {
+     "name": "domain_concept_id_1",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "56",
+       150
+      ]
+     ],
+     "description": "which table fact_id_1 points at"
+    },
+    {
+     "name": "fact_id_1",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 138,
+     "top_values": [
+      [
+       "349",
+       3
+      ],
+      [
+       "119",
+       2
+      ],
+      [
+       "173",
+       2
+      ],
+      [
+       "246",
+       2
+      ],
+      [
+       "257",
+       2
+      ],
+      [
+       "271",
+       2
+      ],
+      [
+       "299",
+       2
+      ],
+      [
+       "399",
+       2
+      ],
+      [
+       "470",
+       2
+      ],
+      [
+       "662",
+       2
+      ],
+      [
+       "907",
+       2
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "105",
+       1
+      ],
+      [
+       "111",
+       1
+      ],
+      [
+       "115",
+       1
+      ],
+      [
+       "134",
+       1
+      ],
+      [
+       "143",
+       1
+      ],
+      [
+       "170",
+       1
+      ],
+      [
+       "174",
+       1
+      ],
+      [
+       "181",
+       1
+      ]
+     ],
+     "description": "identifier of the first record in the relationship"
+    },
+    {
+     "name": "domain_concept_id_2",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "56",
+       150
+      ]
+     ],
+     "description": "which table fact_id_2 points at"
+    },
+    {
+     "name": "fact_id_2",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 138,
+     "top_values": [
+      [
+       "349",
+       3
+      ],
+      [
+       "119",
+       2
+      ],
+      [
+       "173",
+       2
+      ],
+      [
+       "246",
+       2
+      ],
+      [
+       "257",
+       2
+      ],
+      [
+       "271",
+       2
+      ],
+      [
+       "299",
+       2
+      ],
+      [
+       "399",
+       2
+      ],
+      [
+       "470",
+       2
+      ],
+      [
+       "662",
+       2
+      ],
+      [
+       "907",
+       2
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "105",
+       1
+      ],
+      [
+       "111",
+       1
+      ],
+      [
+       "115",
+       1
+      ],
+      [
+       "134",
+       1
+      ],
+      [
+       "143",
+       1
+      ],
+      [
+       "170",
+       1
+      ],
+      [
+       "174",
+       1
+      ],
+      [
+       "181",
+       1
+      ]
+     ],
+     "description": "identifier of the second record in the relationship"
+    },
+    {
+     "name": "relationship_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "44818784",
+       75
+      ],
+      [
+       "44818821",
+       75
+      ]
+     ],
+     "description": "standard concept for the kind of relationship"
+    }
+   ]
+  },
+  {
+   "name": "location",
+   "row_count": 8,
+   "columns_count": 12,
+   "columns": [
+    {
+     "name": "location_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "1",
+       1
+      ],
+      [
+       "2",
+       1
+      ],
+      [
+       "3",
+       1
+      ],
+      [
+       "4",
+       1
+      ],
+      [
+       "5",
+       1
+      ],
+      [
+       "6",
+       1
+      ],
+      [
+       "7",
+       1
+      ],
+      [
+       "8",
+       1
+      ]
+     ],
+     "description": "location key; person, care_site and provider reference it"
+    },
+    {
+     "name": "address_1",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 8,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "first address line"
+    },
+    {
+     "name": "address_2",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 8,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "second address line"
+    },
+    {
+     "name": "city",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "Elmridge",
+       1
+      ],
+      [
+       "Fairmont",
+       1
+      ],
+      [
+       "Lakeside",
+       1
+      ],
+      [
+       "Northgate",
+       1
+      ],
+      [
+       "Pinehurst",
+       1
+      ],
+      [
+       "Riverbend",
+       1
+      ],
+      [
+       "Summit Valley",
+       1
+      ],
+      [
+       "Westbrook",
+       1
+      ]
+     ],
+     "description": "city"
+    },
+    {
+     "name": "state",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3,
+     "top_values": [
+      [
+       "MI",
+       3
+      ],
+      [
+       "OH",
+       3
+      ],
+      [
+       "PA",
+       2
+      ]
+     ],
+     "description": "two-letter state code"
+    },
+    {
+     "name": "zip",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "15012",
+       1
+      ],
+      [
+       "15068",
+       1
+      ],
+      [
+       "43001",
+       1
+      ],
+      [
+       "43055",
+       1
+      ],
+      [
+       "43107",
+       1
+      ],
+      [
+       "48198",
+       1
+      ],
+      [
+       "48221",
+       1
+      ],
+      [
+       "48334",
+       1
+      ]
+     ],
+     "description": "postal code"
+    },
+    {
+     "name": "county",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "Lakeside County",
+       2
+      ],
+      [
+       "Northgate County",
+       2
+      ],
+      [
+       "Summit County",
+       2
+      ],
+      [
+       "Pinehurst County",
+       1
+      ],
+      [
+       "Riverbend County",
+       1
+      ]
+     ],
+     "description": "county"
+    },
+    {
+     "name": "location_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "LOC001",
+       1
+      ],
+      [
+       "LOC002",
+       1
+      ],
+      [
+       "LOC003",
+       1
+      ],
+      [
+       "LOC004",
+       1
+      ],
+      [
+       "LOC005",
+       1
+      ],
+      [
+       "LOC006",
+       1
+      ],
+      [
+       "LOC007",
+       1
+      ],
+      [
+       "LOC008",
+       1
+      ]
+     ],
+     "description": "address as it appeared in the source system"
+    },
+    {
+     "name": "country_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       8
+      ]
+     ],
+     "description": "standard concept for the country"
+    },
+    {
+     "name": "country_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "US",
+       8
+      ]
+     ],
+     "description": "country as it appeared in the source system"
+    },
+    {
+     "name": "latitude",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 8,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "latitude of the location"
+    },
+    {
+     "name": "longitude",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 8,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "longitude of the location"
+    }
+   ]
+  },
+  {
+   "name": "measurement",
+   "row_count": 226923,
+   "columns_count": 23,
+   "columns": [
+    {
+     "name": "measurement_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 226923,
+     "top_values": [],
+     "description": "surrogate key of the measurement record"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 996,
+     "top_values": [
+      [
+       "875",
+       5951
+      ],
+      [
+       "476",
+       4425
+      ],
+      [
+       "771",
+       3271
+      ],
+      [
+       "664",
+       3176
+      ],
+      [
+       "82",
+       3045
+      ],
+      [
+       "209",
+       2732
+      ],
+      [
+       "219",
+       2712
+      ],
+      [
+       "178",
+       2650
+      ],
+      [
+       "405",
+       2500
+      ],
+      [
+       "652",
+       2157
+      ],
+      [
+       "670",
+       2070
+      ],
+      [
+       "623",
+       1965
+      ],
+      [
+       "859",
+       1963
+      ],
+      [
+       "567",
+       1959
+      ],
+      [
+       "939",
+       1951
+      ],
+      [
+       "545",
+       1927
+      ],
+      [
+       "179",
+       1892
+      ],
+      [
+       "770",
+       1880
+      ],
+      [
+       "644",
+       1754
+      ],
+      [
+       "126",
+       1746
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "measurement_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 39,
+     "top_values": [
+      [
+       "24000028",
+       20535
+      ],
+      [
+       "24000011",
+       20517
+      ],
+      [
+       "24000005",
+       15106
+      ],
+      [
+       "24000009",
+       13681
+      ],
+      [
+       "24000023",
+       12786
+      ],
+      [
+       "24000018",
+       11630
+      ],
+      [
+       "24000016",
+       11377
+      ],
+      [
+       "24000026",
+       11001
+      ],
+      [
+       "24000031",
+       10930
+      ],
+      [
+       "24000029",
+       9439
+      ],
+      [
+       "24000020",
+       8047
+      ],
+      [
+       "24000017",
+       7680
+      ],
+      [
+       "24000030",
+       7598
+      ],
+      [
+       "24000002",
+       7119
+      ],
+      [
+       "24000012",
+       5612
+      ],
+      [
+       "24000038",
+       5462
+      ],
+      [
+       "24000010",
+       5317
+      ],
+      [
+       "24000035",
+       4917
+      ],
+      [
+       "24000025",
+       4033
+      ],
+      [
+       "24000033",
+       3984
+      ]
+     ],
+     "description": "concept for what was measured -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing"
+    },
+    {
+     "name": "measurement_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5592,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "date the measurement was taken"
+    },
+    {
+     "name": "measurement_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5592,
+     "top_values": [
+      [
+       "2025-09-18 10:00:00",
+       207
+      ],
+      [
+       "2025-03-03 10:00:00",
+       171
+      ],
+      [
+       "2025-02-01 10:00:00",
+       162
+      ],
+      [
+       "2025-01-23 10:00:00",
+       158
+      ],
+      [
+       "2025-04-03 10:00:00",
+       158
+      ],
+      [
+       "2025-09-22 10:00:00",
+       156
+      ],
+      [
+       "2023-09-05 10:00:00",
+       151
+      ],
+      [
+       "2024-07-15 10:00:00",
+       150
+      ],
+      [
+       "2024-12-04 10:00:00",
+       148
+      ],
+      [
+       "2025-09-27 10:00:00",
+       147
+      ],
+      [
+       "2025-10-16 10:00:00",
+       147
+      ],
+      [
+       "2020-11-18 10:00:00",
+       146
+      ],
+      [
+       "2025-06-02 10:00:00",
+       146
+      ],
+      [
+       "2025-06-18 10:00:00",
+       146
+      ],
+      [
+       "2023-05-13 10:00:00",
+       144
+      ],
+      [
+       "2024-06-21 10:00:00",
+       144
+      ],
+      [
+       "2025-03-16 10:00:00",
+       144
+      ],
+      [
+       "2023-09-24 10:00:00",
+       143
+      ],
+      [
+       "2025-07-25 10:00:00",
+       142
+      ],
+      [
+       "2024-03-09 10:00:00",
+       141
+      ]
+     ],
+     "description": "timestamp the measurement was taken"
+    },
+    {
+     "name": "measurement_time",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "10:00:00",
+       226923
+      ]
+     ],
+     "description": "time of day the measurement was taken"
+    },
+    {
+     "name": "measurement_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "32817",
+       226923
+      ]
+     ],
+     "description": "provenance: lab result, vital sign, or derived value"
+    },
+    {
+     "name": "operator_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       226923
+      ]
+     ],
+     "description": "comparison operator when the value is not exact, such as < or >"
+    },
+    {
+     "name": "value_as_number",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 6261,
+     "empty_count": 0,
+     "distinct_count": 2223,
+     "top_values": [
+      [
+       "140.0",
+       1828
+      ],
+      [
+       "139.0",
+       1768
+      ],
+      [
+       "141.0",
+       1691
+      ],
+      [
+       "138.0",
+       1612
+      ],
+      [
+       "142.0",
+       1549
+      ],
+      [
+       "137.0",
+       1434
+      ],
+      [
+       "143.0",
+       1308
+      ],
+      [
+       "136.0",
+       1244
+      ],
+      [
+       "4.2",
+       1150
+      ],
+      [
+       "80.0",
+       1147
+      ],
+      [
+       "4.1",
+       1144
+      ],
+      [
+       "76.0",
+       1133
+      ],
+      [
+       "79.0",
+       1120
+      ],
+      [
+       "81.0",
+       1120
+      ],
+      [
+       "78.0",
+       1112
+      ],
+      [
+       "82.0",
+       1091
+      ],
+      [
+       "77.0",
+       1088
+      ],
+      [
+       "4.0",
+       1084
+      ],
+      [
+       "4.3",
+       1070
+      ],
+      [
+       "33.0",
+       1062
+      ]
+     ],
+     "description": "numeric result -- the column to aggregate for lab and vital values"
+    },
+    {
+     "name": "value_as_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       226923
+      ]
+     ],
+     "description": "categorical result expressed as a standard concept"
+    },
+    {
+     "name": "unit_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 17,
+     "top_values": [
+      [
+       "8840",
+       70769
+      ],
+      [
+       "8876",
+       41052
+      ],
+      [
+       "8753",
+       21728
+      ],
+      [
+       "9531",
+       15106
+      ],
+      [
+       "8713",
+       11484
+      ],
+      [
+       "8554",
+       10785
+      ],
+      [
+       "8842",
+       9725
+      ],
+      [
+       "8848",
+       9495
+      ],
+      [
+       "8645",
+       7922
+      ],
+      [
+       "8795",
+       5612
+      ],
+      [
+       "8751",
+       5317
+      ],
+      [
+       "8723",
+       4917
+      ],
+      [
+       "8859",
+       3984
+      ],
+      [
+       "8752",
+       3694
+      ],
+      [
+       "8845",
+       3227
+      ],
+      [
+       "8523",
+       1447
+      ],
+      [
+       "8817",
+       659
+      ]
+     ],
+     "description": "standard concept for the unit of value_as_number"
+    },
+    {
+     "name": "range_low",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 26,
+     "top_values": [
+      [
+       "0.0",
+       50942
+      ],
+      [
+       "60.0",
+       26129
+      ],
+      [
+       "90.0",
+       20535
+      ],
+      [
+       "18.5",
+       15106
+      ],
+      [
+       "3.5",
+       14438
+      ],
+      [
+       "0.6",
+       13681
+      ],
+      [
+       "40.0",
+       11630
+      ],
+      [
+       "70.0",
+       11377
+      ],
+      [
+       "136.0",
+       9439
+      ],
+      [
+       "12.0",
+       8047
+      ],
+      [
+       "4.0",
+       7680
+      ],
+      [
+       "7.0",
+       7484
+      ],
+      [
+       "4.5",
+       5462
+      ],
+      [
+       "150.0",
+       4033
+      ],
+      [
+       "0.4",
+       3984
+      ],
+      [
+       "232.0",
+       2578
+      ],
+      [
+       "24.0",
+       2526
+      ],
+      [
+       "30.0",
+       2148
+      ],
+      [
+       "8.6",
+       2148
+      ],
+      [
+       "0.8",
+       2106
+      ]
+     ],
+     "description": "lower bound of the reference range"
+    },
+    {
+     "name": "range_high",
+     "data_type": "DOUBLE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 33,
+     "top_values": [
+      [
+       "120.0",
+       26147
+      ],
+      [
+       "80.0",
+       20517
+      ],
+      [
+       "100.0",
+       15583
+      ],
+      [
+       "24.9",
+       15106
+      ],
+      [
+       "1.3",
+       13681
+      ],
+      [
+       "90.0",
+       11630
+      ],
+      [
+       "99.0",
+       11377
+      ],
+      [
+       "5.1",
+       11001
+      ],
+      [
+       "150.0",
+       10930
+      ],
+      [
+       "145.0",
+       9439
+      ],
+      [
+       "5.0",
+       8754
+      ],
+      [
+       "17.0",
+       8047
+      ],
+      [
+       "5.6",
+       7680
+      ],
+      [
+       "200.0",
+       7598
+      ],
+      [
+       "56.0",
+       7119
+      ],
+      [
+       "11.0",
+       5462
+      ],
+      [
+       "30.0",
+       4917
+      ],
+      [
+       "20.0",
+       4059
+      ],
+      [
+       "400.0",
+       4033
+      ],
+      [
+       "4.5",
+       3984
+      ]
+     ],
+     "description": "upper bound of the reference range"
+    },
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 226923,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "provider who recorded the record; joins provider.provider_id"
+    },
+    {
+     "name": "visit_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24272,
+     "top_values": [],
+     "description": "visit this record belongs to; joins visit_occurrence.visit_occurrence_id"
+    },
+    {
+     "name": "visit_detail_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 226923,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "sub-visit detail; never populated in this dataset, do not join on it"
+    },
+    {
+     "name": "measurement_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 39,
+     "top_values": [
+      [
+       "LC100706",
+       20535
+      ],
+      [
+       "LC100714",
+       20517
+      ],
+      [
+       "LC100722",
+       15106
+      ],
+      [
+       "LC100037",
+       13681
+      ],
+      [
+       "LC100110",
+       12786
+      ],
+      [
+       "LC100128",
+       11630
+      ],
+      [
+       "LC100029",
+       11377
+      ],
+      [
+       "LC100060",
+       11001
+      ],
+      [
+       "LC100136",
+       10930
+      ],
+      [
+       "LC100078",
+       9439
+      ],
+      [
+       "LC100300",
+       8047
+      ],
+      [
+       "LC100011",
+       7680
+      ],
+      [
+       "LC100102",
+       7598
+      ],
+      [
+       "LC100201",
+       7119
+      ],
+      [
+       "LC100045",
+       5612
+      ],
+      [
+       "LC100326",
+       5462
+      ],
+      [
+       "LC100524",
+       5317
+      ],
+      [
+       "LC100623",
+       4917
+      ],
+      [
+       "LC100334",
+       4033
+      ],
+      [
+       "LC100409",
+       3984
+      ]
+     ],
+     "description": "measurement code as it appeared in the source system"
+    },
+    {
+     "name": "measurement_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 39,
+     "top_values": [
+      [
+       "25000028",
+       20535
+      ],
+      [
+       "25000011",
+       20517
+      ],
+      [
+       "25000005",
+       15106
+      ],
+      [
+       "25000009",
+       13681
+      ],
+      [
+       "25000023",
+       12786
+      ],
+      [
+       "25000018",
+       11630
+      ],
+      [
+       "25000016",
+       11377
+      ],
+      [
+       "25000026",
+       11001
+      ],
+      [
+       "25000031",
+       10930
+      ],
+      [
+       "25000029",
+       9439
+      ],
+      [
+       "25000020",
+       8047
+      ],
+      [
+       "25000017",
+       7680
+      ],
+      [
+       "25000030",
+       7598
+      ],
+      [
+       "25000002",
+       7119
+      ],
+      [
+       "25000012",
+       5612
+      ],
+      [
+       "25000038",
+       5462
+      ],
+      [
+       "25000010",
+       5317
+      ],
+      [
+       "25000035",
+       4917
+      ],
+      [
+       "25000025",
+       4033
+      ],
+      [
+       "25000033",
+       3984
+      ]
+     ],
+     "description": "source concept for the measurement"
+    },
+    {
+     "name": "unit_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 17,
+     "top_values": [
+      [
+       "mg/dL",
+       70769
+      ],
+      [
+       "mm[Hg]",
+       41052
+      ],
+      [
+       "mmol/L",
+       21728
+      ],
+      [
+       "kg/m2",
+       15106
+      ],
+      [
+       "g/dL",
+       11484
+      ],
+      [
+       "%",
+       10785
+      ],
+      [
+       "ng/mL",
+       9725
+      ],
+      [
+       "10*3/uL",
+       9495
+      ],
+      [
+       "U/L",
+       7922
+      ],
+      [
+       "mL/min/1.73m2",
+       5612
+      ],
+      [
+       "mg/L",
+       5317
+      ],
+      [
+       "mg/g",
+       4917
+      ],
+      [
+       "mIU/L",
+       3984
+      ],
+      [
+       "mm/h",
+       3694
+      ],
+      [
+       "pg/mL",
+       3227
+      ],
+      [
+       "{INR}",
+       1447
+      ],
+      [
+       "ng/dL",
+       659
+      ]
+     ],
+     "description": "unit as it appeared in the source system"
+    },
+    {
+     "name": "unit_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       226923
+      ]
+     ],
+     "description": "source concept for the unit; 0 when unmapped"
+    },
+    {
+     "name": "value_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 6261,
+     "empty_count": 0,
+     "distinct_count": 2246,
+     "top_values": [
+      [
+       "140.0",
+       1828
+      ],
+      [
+       "139.0",
+       1768
+      ],
+      [
+       "141.0",
+       1691
+      ],
+      [
+       "138.0",
+       1612
+      ],
+      [
+       "142.0",
+       1549
+      ],
+      [
+       "137.0",
+       1434
+      ],
+      [
+       "143.0",
+       1308
+      ],
+      [
+       "136.0",
+       1244
+      ],
+      [
+       "4.2",
+       1150
+      ],
+      [
+       "80.0",
+       1145
+      ],
+      [
+       "4.1",
+       1144
+      ],
+      [
+       "76.0",
+       1133
+      ],
+      [
+       "79.0",
+       1120
+      ],
+      [
+       "81.0",
+       1120
+      ],
+      [
+       "78.0",
+       1112
+      ],
+      [
+       "82.0",
+       1091
+      ],
+      [
+       "77.0",
+       1088
+      ],
+      [
+       "4.0",
+       1084
+      ],
+      [
+       "4.3",
+       1070
+      ],
+      [
+       "33.0",
+       1062
+      ]
+     ],
+     "description": "result exactly as it appeared in the source system"
+    },
+    {
+     "name": "measurement_event_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 226923,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "identifier of the record this measurement is about"
+    },
+    {
+     "name": "meas_event_field_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       226923
+      ]
+     ],
+     "description": "which table and field measurement_event_id points at"
+    }
+   ]
+  },
+  {
+   "name": "observation",
+   "row_count": 9441,
+   "columns_count": 21,
+   "columns": [
+    {
+     "name": "observation_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 9441,
+     "top_values": [
+      [
+       "1",
+       1
+      ],
+      [
+       "10",
+       1
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "1000",
+       1
+      ],
+      [
+       "1001",
+       1
+      ],
+      [
+       "1002",
+       1
+      ],
+      [
+       "1003",
+       1
+      ],
+      [
+       "1004",
+       1
+      ],
+      [
+       "1005",
+       1
+      ],
+      [
+       "1006",
+       1
+      ],
+      [
+       "1007",
+       1
+      ],
+      [
+       "1008",
+       1
+      ],
+      [
+       "1009",
+       1
+      ],
+      [
+       "101",
+       1
+      ],
+      [
+       "1010",
+       1
+      ],
+      [
+       "1011",
+       1
+      ],
+      [
+       "1012",
+       1
+      ],
+      [
+       "1013",
+       1
+      ],
+      [
+       "1014",
+       1
+      ],
+      [
+       "1015",
+       1
+      ]
+     ],
+     "description": "surrogate key of the observation record"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 842,
+     "top_values": [
+      [
+       "545",
+       48
+      ],
+      [
+       "652",
+       47
+      ],
+      [
+       "400",
+       46
+      ],
+      [
+       "875",
+       46
+      ],
+      [
+       "219",
+       44
+      ],
+      [
+       "405",
+       44
+      ],
+      [
+       "476",
+       44
+      ],
+      [
+       "179",
+       43
+      ],
+      [
+       "670",
+       43
+      ],
+      [
+       "20",
+       42
+      ],
+      [
+       "209",
+       42
+      ],
+      [
+       "99",
+       42
+      ],
+      [
+       "567",
+       41
+      ],
+      [
+       "617",
+       41
+      ],
+      [
+       "66",
+       40
+      ],
+      [
+       "186",
+       39
+      ],
+      [
+       "664",
+       39
+      ],
+      [
+       "409",
+       38
+      ],
+      [
+       "623",
+       38
+      ],
+      [
+       "356",
+       37
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "observation_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 6,
+     "top_values": [
+      [
+       "4041306",
+       2974
+      ],
+      [
+       "4238768",
+       2899
+      ],
+      [
+       "4058671",
+       2071
+      ],
+      [
+       "4167217",
+       910
+      ],
+      [
+       "4023190",
+       560
+      ],
+      [
+       "4051245",
+       27
+      ]
+     ],
+     "description": "standard concept for what was observed"
+    },
+    {
+     "name": "observation_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3904,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "date of the observation"
+    },
+    {
+     "name": "observation_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 3904,
+     "top_values": [
+      [
+       "2026-01-17 09:00:00",
+       17
+      ],
+      [
+       "2021-01-08 09:00:00",
+       14
+      ],
+      [
+       "2025-09-21 09:00:00",
+       13
+      ],
+      [
+       "2024-03-19 09:00:00",
+       12
+      ],
+      [
+       "2025-01-13 09:00:00",
+       12
+      ],
+      [
+       "2024-01-05 09:00:00",
+       11
+      ],
+      [
+       "2025-01-20 09:00:00",
+       11
+      ],
+      [
+       "2025-03-01 09:00:00",
+       11
+      ],
+      [
+       "2025-04-08 09:00:00",
+       11
+      ],
+      [
+       "2025-05-22 09:00:00",
+       11
+      ],
+      [
+       "2025-09-18 09:00:00",
+       11
+      ],
+      [
+       "2010-01-05 09:00:00",
+       10
+      ],
+      [
+       "2011-07-09 09:00:00",
+       10
+      ],
+      [
+       "2018-08-06 09:00:00",
+       10
+      ],
+      [
+       "2024-03-12 09:00:00",
+       10
+      ],
+      [
+       "2025-06-03 09:00:00",
+       10
+      ],
+      [
+       "2025-10-06 09:00:00",
+       10
+      ],
+      [
+       "2010-02-25 09:00:00",
+       9
+      ],
+      [
+       "2014-03-07 09:00:00",
+       9
+      ],
+      [
+       "2017-08-22 09:00:00",
+       9
+      ]
+     ],
+     "description": "timestamp of the observation"
+    },
+    {
+     "name": "observation_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "32817",
+       9441
+      ]
+     ],
+     "description": "provenance of the observation record"
+    },
+    {
+     "name": "value_as_number",
+     "data_type": "DOUBLE",
+     "nullable": true,
+     "null_count": 9414,
+     "empty_count": 0,
+     "distinct_count": 24,
+     "top_values": [
+      [
+       "38.6",
+       3
+      ],
+      [
+       "41.0",
+       2
+      ],
+      [
+       "29.7",
+       1
+      ],
+      [
+       "30.9",
+       1
+      ],
+      [
+       "31.7",
+       1
+      ],
+      [
+       "33.1",
+       1
+      ],
+      [
+       "33.7",
+       1
+      ],
+      [
+       "35.7",
+       1
+      ],
+      [
+       "35.8",
+       1
+      ],
+      [
+       "36.2",
+       1
+      ],
+      [
+       "36.7",
+       1
+      ],
+      [
+       "36.8",
+       1
+      ],
+      [
+       "37.3",
+       1
+      ],
+      [
+       "37.4",
+       1
+      ],
+      [
+       "38.1",
+       1
+      ],
+      [
+       "38.2",
+       1
+      ],
+      [
+       "38.7",
+       1
+      ],
+      [
+       "39.0",
+       1
+      ],
+      [
+       "39.2",
+       1
+      ],
+      [
+       "40.0",
+       1
+      ]
+     ],
+     "description": "numeric value of the observation"
+    },
+    {
+     "name": "value_as_string",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 27,
+     "empty_count": 0,
+     "distinct_count": 20,
+     "top_values": [
+      [
+       "Occasional drinker",
+       1726
+      ],
+      [
+       "Never smoker",
+       1436
+      ],
+      [
+       "Employed",
+       1182
+      ],
+      [
+       "Never drinker",
+       909
+      ],
+      [
+       "Former smoker",
+       793
+      ],
+      [
+       "Current every day smoker",
+       745
+      ],
+      [
+       "Retired",
+       700
+      ],
+      [
+       "High school graduate",
+       309
+      ],
+      [
+       "Heavy drinker",
+       264
+      ],
+      [
+       "Family history of Essential hypertension",
+       254
+      ],
+      [
+       "College graduate or higher",
+       200
+      ],
+      [
+       "Unemployed",
+       189
+      ],
+      [
+       "Family history of Type 2 diabetes mellitus",
+       186
+      ],
+      [
+       "Family history of Coronary artery disease",
+       141
+      ],
+      [
+       "Family history of Cerebral infarction",
+       93
+      ],
+      [
+       "Family history of Dementia",
+       75
+      ],
+      [
+       "Family history of Malignant neoplasm of breast",
+       66
+      ],
+      [
+       "Family history of Malignant neoplasm of prostate",
+       54
+      ],
+      [
+       "Less than high school",
+       51
+      ],
+      [
+       "Family history of Malignant neoplasm of colon",
+       41
+      ]
+     ],
+     "description": "free-text value of the observation"
+    },
+    {
+     "name": "value_as_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 21,
+     "top_values": [
+      [
+       "45883458",
+       1726
+      ],
+      [
+       "45878118",
+       1436
+      ],
+      [
+       "45879990",
+       1182
+      ],
+      [
+       "45877994",
+       909
+      ],
+      [
+       "45879404",
+       793
+      ],
+      [
+       "45884037",
+       745
+      ],
+      [
+       "45876384",
+       700
+      ],
+      [
+       "45882071",
+       309
+      ],
+      [
+       "45881667",
+       264
+      ],
+      [
+       "20001028",
+       254
+      ],
+      [
+       "45884672",
+       200
+      ],
+      [
+       "45883021",
+       189
+      ],
+      [
+       "20001047",
+       186
+      ],
+      [
+       "20001009",
+       141
+      ],
+      [
+       "20001045",
+       93
+      ],
+      [
+       "20001019",
+       75
+      ],
+      [
+       "20001008",
+       66
+      ],
+      [
+       "20001041",
+       54
+      ],
+      [
+       "45880924",
+       51
+      ],
+      [
+       "20001014",
+       41
+      ]
+     ],
+     "description": "categorical value expressed as a standard concept"
+    },
+    {
+     "name": "qualifier_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       9441
+      ]
+     ],
+     "description": "standard concept qualifying the observation"
+    },
+    {
+     "name": "unit_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       9441
+      ]
+     ],
+     "description": "standard concept for the unit of value_as_number"
+    },
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 9441,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "provider who recorded the record; joins provider.provider_id"
+    },
+    {
+     "name": "visit_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 7194,
+     "top_values": [
+      [
+       "2119",
+       7
+      ],
+      [
+       "8390",
+       7
+      ],
+      [
+       "15219",
+       6
+      ],
+      [
+       "21087",
+       6
+      ],
+      [
+       "258",
+       6
+      ],
+      [
+       "8823",
+       6
+      ],
+      [
+       "9687",
+       6
+      ],
+      [
+       "11405",
+       5
+      ],
+      [
+       "12125",
+       5
+      ],
+      [
+       "1219",
+       5
+      ],
+      [
+       "13021",
+       5
+      ],
+      [
+       "13346",
+       5
+      ],
+      [
+       "13378",
+       5
+      ],
+      [
+       "13874",
+       5
+      ],
+      [
+       "14214",
+       5
+      ],
+      [
+       "14597",
+       5
+      ],
+      [
+       "15530",
+       5
+      ],
+      [
+       "15803",
+       5
+      ],
+      [
+       "15950",
+       5
+      ],
+      [
+       "16582",
+       5
+      ]
+     ],
+     "description": "visit this record belongs to; joins visit_occurrence.visit_occurrence_id"
+    },
+    {
+     "name": "visit_detail_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 9441,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "sub-visit detail; never populated in this dataset, do not join on it"
+    },
+    {
+     "name": "observation_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 6,
+     "top_values": [
+      [
+       "OBS-SMK",
+       2974
+      ],
+      [
+       "OBS-ETH",
+       2899
+      ],
+      [
+       "OBS-EMP",
+       2071
+      ],
+      [
+       "OBS-FHX",
+       910
+      ],
+      [
+       "OBS-EDU",
+       560
+      ],
+      [
+       "OBS-GA",
+       27
+      ]
+     ],
+     "description": "observation code as it appeared in the source system"
+    },
+    {
+     "name": "observation_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       9441
+      ]
+     ],
+     "description": "source concept for the observation"
+    },
+    {
+     "name": "unit_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 9441,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "unit as it appeared in the source system"
+    },
+    {
+     "name": "qualifier_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 9441,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "qualifier as it appeared in the source system"
+    },
+    {
+     "name": "value_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 27,
+     "empty_count": 0,
+     "distinct_count": 20,
+     "top_values": [
+      [
+       "Occasional drinker",
+       1726
+      ],
+      [
+       "Never smoker",
+       1436
+      ],
+      [
+       "Employed",
+       1182
+      ],
+      [
+       "Never drinker",
+       909
+      ],
+      [
+       "Former smoker",
+       793
+      ],
+      [
+       "Current every day smoker",
+       745
+      ],
+      [
+       "Retired",
+       700
+      ],
+      [
+       "High school graduate",
+       309
+      ],
+      [
+       "Heavy drinker",
+       264
+      ],
+      [
+       "Family history of Essential hypertension",
+       254
+      ],
+      [
+       "College graduate or higher",
+       200
+      ],
+      [
+       "Unemployed",
+       189
+      ],
+      [
+       "Family history of Type 2 diabetes mellitus",
+       186
+      ],
+      [
+       "Family history of Coronary artery disease",
+       141
+      ],
+      [
+       "Family history of Cerebral infarction",
+       93
+      ],
+      [
+       "Family history of Dementia",
+       75
+      ],
+      [
+       "Family history of Malignant neoplasm of breast",
+       66
+      ],
+      [
+       "Family history of Malignant neoplasm of prostate",
+       54
+      ],
+      [
+       "Less than high school",
+       51
+      ],
+      [
+       "Family history of Malignant neoplasm of colon",
+       41
+      ]
+     ],
+     "description": "value exactly as it appeared in the source system"
+    },
+    {
+     "name": "observation_event_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 9441,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "identifier of the record this observation is about"
+    },
+    {
+     "name": "obs_event_field_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       9441
+      ]
+     ],
+     "description": "which table and field observation_event_id points at"
+    }
+   ]
+  },
+  {
+   "name": "observation_period",
+   "row_count": 1196,
+   "columns_count": 5,
+   "columns": [
+    {
+     "name": "observation_period_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1196,
+     "top_values": [
+      [
+       "1",
+       1
+      ],
+      [
+       "10",
+       1
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "1000",
+       1
+      ],
+      [
+       "1001",
+       1
+      ],
+      [
+       "1002",
+       1
+      ],
+      [
+       "1003",
+       1
+      ],
+      [
+       "1004",
+       1
+      ],
+      [
+       "1005",
+       1
+      ],
+      [
+       "1006",
+       1
+      ],
+      [
+       "1007",
+       1
+      ],
+      [
+       "1008",
+       1
+      ],
+      [
+       "1009",
+       1
+      ],
+      [
+       "101",
+       1
+      ],
+      [
+       "1010",
+       1
+      ],
+      [
+       "1011",
+       1
+      ],
+      [
+       "1012",
+       1
+      ],
+      [
+       "1013",
+       1
+      ],
+      [
+       "1014",
+       1
+      ],
+      [
+       "1015",
+       1
+      ]
+     ],
+     "description": "surrogate key of the period"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "163",
+       4
+      ],
+      [
+       "205",
+       4
+      ],
+      [
+       "344",
+       4
+      ],
+      [
+       "411",
+       4
+      ],
+      [
+       "598",
+       4
+      ],
+      [
+       "71",
+       4
+      ],
+      [
+       "854",
+       4
+      ],
+      [
+       "12",
+       3
+      ],
+      [
+       "124",
+       3
+      ],
+      [
+       "152",
+       3
+      ],
+      [
+       "158",
+       3
+      ],
+      [
+       "161",
+       3
+      ],
+      [
+       "183",
+       3
+      ],
+      [
+       "187",
+       3
+      ],
+      [
+       "198",
+       3
+      ],
+      [
+       "2",
+       3
+      ],
+      [
+       "285",
+       3
+      ],
+      [
+       "286",
+       3
+      ],
+      [
+       "305",
+       3
+      ],
+      [
+       "34",
+       3
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "observation_period_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 452,
+     "top_values": [
+      [
+       "MIN: 2010-01-01",
+       1
+      ],
+      [
+       "MAX: 2026-01-01",
+       1
+      ]
+     ],
+     "description": "first date the person is observable; data before this is absent, not negative"
+    },
+    {
+     "name": "observation_period_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 574,
+     "top_values": [
+      [
+       "MIN: 2010-01-21",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "last date the person is observable"
+    },
+    {
+     "name": "period_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "44814724",
+       1196
+      ]
+     ],
+     "description": "provenance of the period record"
+    }
+   ]
+  },
+  {
+   "name": "payer_plan_period",
+   "row_count": 1196,
+   "columns_count": 17,
+   "columns": [
+    {
+     "name": "payer_plan_period_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1196,
+     "top_values": [
+      [
+       "1",
+       1
+      ],
+      [
+       "10",
+       1
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "1000",
+       1
+      ],
+      [
+       "1001",
+       1
+      ],
+      [
+       "1002",
+       1
+      ],
+      [
+       "1003",
+       1
+      ],
+      [
+       "1004",
+       1
+      ],
+      [
+       "1005",
+       1
+      ],
+      [
+       "1006",
+       1
+      ],
+      [
+       "1007",
+       1
+      ],
+      [
+       "1008",
+       1
+      ],
+      [
+       "1009",
+       1
+      ],
+      [
+       "101",
+       1
+      ],
+      [
+       "1010",
+       1
+      ],
+      [
+       "1011",
+       1
+      ],
+      [
+       "1012",
+       1
+      ],
+      [
+       "1013",
+       1
+      ],
+      [
+       "1014",
+       1
+      ],
+      [
+       "1015",
+       1
+      ]
+     ],
+     "description": "surrogate key of the coverage period"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "163",
+       4
+      ],
+      [
+       "205",
+       4
+      ],
+      [
+       "344",
+       4
+      ],
+      [
+       "411",
+       4
+      ],
+      [
+       "598",
+       4
+      ],
+      [
+       "71",
+       4
+      ],
+      [
+       "854",
+       4
+      ],
+      [
+       "12",
+       3
+      ],
+      [
+       "124",
+       3
+      ],
+      [
+       "152",
+       3
+      ],
+      [
+       "158",
+       3
+      ],
+      [
+       "161",
+       3
+      ],
+      [
+       "183",
+       3
+      ],
+      [
+       "187",
+       3
+      ],
+      [
+       "198",
+       3
+      ],
+      [
+       "2",
+       3
+      ],
+      [
+       "285",
+       3
+      ],
+      [
+       "286",
+       3
+      ],
+      [
+       "305",
+       3
+      ],
+      [
+       "34",
+       3
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "payer_plan_period_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 452,
+     "top_values": [
+      [
+       "MIN: 2010-01-01",
+       1
+      ],
+      [
+       "MAX: 2026-01-01",
+       1
+      ]
+     ],
+     "description": "first date of continuous insurance coverage"
+    },
+    {
+     "name": "payer_plan_period_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 574,
+     "top_values": [
+      [
+       "MIN: 2010-01-21",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "last date of continuous insurance coverage"
+    },
+    {
+     "name": "payer_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "32810",
+       564
+      ],
+      [
+       "32812",
+       287
+      ],
+      [
+       "32811",
+       211
+      ],
+      [
+       "32813",
+       134
+      ]
+     ],
+     "description": "standard concept for the payer"
+    },
+    {
+     "name": "payer_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "commercial",
+       564
+      ],
+      [
+       "medicare",
+       287
+      ],
+      [
+       "medicaid",
+       211
+      ],
+      [
+       "self_pay",
+       134
+      ]
+     ],
+     "description": "payer as it appeared in the source system"
+    },
+    {
+     "name": "payer_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1196
+      ]
+     ],
+     "description": "source concept for the payer; 0 when unmapped"
+    },
+    {
+     "name": "plan_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1196
+      ]
+     ],
+     "description": "standard concept for the benefit plan"
+    },
+    {
+     "name": "plan_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4,
+     "top_values": [
+      [
+       "COMM-PPO",
+       564
+      ],
+      [
+       "MCR-AB",
+       287
+      ],
+      [
+       "MCD-MC",
+       211
+      ],
+      [
+       "SELF",
+       134
+      ]
+     ],
+     "description": "plan as it appeared in the source system"
+    },
+    {
+     "name": "plan_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1196
+      ]
+     ],
+     "description": "source concept for the plan; 0 when unmapped"
+    },
+    {
+     "name": "sponsor_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1196
+      ]
+     ],
+     "description": "standard concept for the plan sponsor"
+    },
+    {
+     "name": "sponsor_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 1196,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "sponsor as it appeared in the source system"
+    },
+    {
+     "name": "sponsor_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1196
+      ]
+     ],
+     "description": "source concept for the sponsor; 0 when unmapped"
+    },
+    {
+     "name": "family_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "M100000497",
+       4
+      ],
+      [
+       "M100001141",
+       4
+      ],
+      [
+       "M100001435",
+       4
+      ],
+      [
+       "M100002408",
+       4
+      ],
+      [
+       "M100002877",
+       4
+      ],
+      [
+       "M100004186",
+       4
+      ],
+      [
+       "M100005978",
+       4
+      ],
+      [
+       "M100000014",
+       3
+      ],
+      [
+       "M100000084",
+       3
+      ],
+      [
+       "M100000238",
+       3
+      ],
+      [
+       "M100000868",
+       3
+      ],
+      [
+       "M100001064",
+       3
+      ],
+      [
+       "M100001106",
+       3
+      ],
+      [
+       "M100001127",
+       3
+      ],
+      [
+       "M100001281",
+       3
+      ],
+      [
+       "M100001309",
+       3
+      ],
+      [
+       "M100001386",
+       3
+      ],
+      [
+       "M100001995",
+       3
+      ],
+      [
+       "M100002002",
+       3
+      ],
+      [
+       "M100002135",
+       3
+      ]
+     ],
+     "description": "family identifier as it appeared in the source system"
+    },
+    {
+     "name": "stop_reason_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1196
+      ]
+     ],
+     "description": "standard concept for why coverage ended"
+    },
+    {
+     "name": "stop_reason_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 1196,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "reason coverage ended as it appeared in the source system"
+    },
+    {
+     "name": "stop_reason_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1196
+      ]
+     ],
+     "description": "source concept for the stop reason; 0 when unmapped"
+    }
+   ]
+  },
+  {
+   "name": "person",
+   "row_count": 1000,
+   "columns_count": 18,
+   "columns": [
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "1",
+       1
+      ],
+      [
+       "10",
+       1
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "1000",
+       1
+      ],
+      [
+       "101",
+       1
+      ],
+      [
+       "102",
+       1
+      ],
+      [
+       "103",
+       1
+      ],
+      [
+       "104",
+       1
+      ],
+      [
+       "105",
+       1
+      ],
+      [
+       "106",
+       1
+      ],
+      [
+       "107",
+       1
+      ],
+      [
+       "108",
+       1
+      ],
+      [
+       "109",
+       1
+      ],
+      [
+       "11",
+       1
+      ],
+      [
+       "110",
+       1
+      ],
+      [
+       "111",
+       1
+      ],
+      [
+       "112",
+       1
+      ],
+      [
+       "113",
+       1
+      ],
+      [
+       "114",
+       1
+      ],
+      [
+       "115",
+       1
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) is the correct patient count for this database"
+    },
+    {
+     "name": "gender_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "8507",
+       505
+      ],
+      [
+       "8532",
+       495
+      ]
+     ],
+     "description": "standard concept for gender: 8507 male, 8532 female"
+    },
+    {
+     "name": "year_of_birth",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 99,
+     "top_values": [
+      [
+       "1962",
+       23
+      ],
+      [
+       "2022",
+       21
+      ],
+      [
+       "1957",
+       20
+      ],
+      [
+       "1954",
+       18
+      ],
+      [
+       "1960",
+       18
+      ],
+      [
+       "1980",
+       18
+      ],
+      [
+       "2023",
+       18
+      ],
+      [
+       "1955",
+       17
+      ],
+      [
+       "1958",
+       17
+      ],
+      [
+       "1973",
+       17
+      ],
+      [
+       "1974",
+       17
+      ],
+      [
+       "1994",
+       17
+      ],
+      [
+       "2025",
+       17
+      ],
+      [
+       "1963",
+       16
+      ],
+      [
+       "1989",
+       16
+      ],
+      [
+       "1991",
+       16
+      ],
+      [
+       "1948",
+       15
+      ],
+      [
+       "1949",
+       15
+      ],
+      [
+       "1967",
+       15
+      ],
+      [
+       "1977",
+       15
+      ]
+     ],
+     "description": "birth year; use with a query date to derive age"
+    },
+    {
+     "name": "month_of_birth",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 12,
+     "top_values": [
+      [
+       "12",
+       94
+      ],
+      [
+       "4",
+       93
+      ],
+      [
+       "7",
+       93
+      ],
+      [
+       "9",
+       88
+      ],
+      [
+       "11",
+       86
+      ],
+      [
+       "8",
+       84
+      ],
+      [
+       "5",
+       83
+      ],
+      [
+       "6",
+       80
+      ],
+      [
+       "2",
+       79
+      ],
+      [
+       "3",
+       79
+      ],
+      [
+       "1",
+       77
+      ],
+      [
+       "10",
+       64
+      ]
+     ],
+     "description": "birth month, 1-12"
+    },
+    {
+     "name": "day_of_birth",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 28,
+     "top_values": [
+      [
+       "8",
+       53
+      ],
+      [
+       "20",
+       46
+      ],
+      [
+       "13",
+       45
+      ],
+      [
+       "6",
+       44
+      ],
+      [
+       "14",
+       42
+      ],
+      [
+       "4",
+       40
+      ],
+      [
+       "7",
+       39
+      ],
+      [
+       "10",
+       38
+      ],
+      [
+       "1",
+       37
+      ],
+      [
+       "22",
+       35
+      ],
+      [
+       "25",
+       35
+      ],
+      [
+       "28",
+       35
+      ],
+      [
+       "5",
+       35
+      ],
+      [
+       "9",
+       35
+      ],
+      [
+       "12",
+       34
+      ],
+      [
+       "18",
+       34
+      ],
+      [
+       "24",
+       34
+      ],
+      [
+       "3",
+       34
+      ],
+      [
+       "15",
+       33
+      ],
+      [
+       "16",
+       32
+      ]
+     ],
+     "description": "day of month of birth"
+    },
+    {
+     "name": "birth_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 978,
+     "top_values": [
+      [
+       "2022-04-07 00:00:00",
+       3
+      ],
+      [
+       "1941-04-14 00:00:00",
+       2
+      ],
+      [
+       "1948-08-10 00:00:00",
+       2
+      ],
+      [
+       "1949-01-20 00:00:00",
+       2
+      ],
+      [
+       "1952-02-08 00:00:00",
+       2
+      ],
+      [
+       "1955-06-13 00:00:00",
+       2
+      ],
+      [
+       "1958-04-08 00:00:00",
+       2
+      ],
+      [
+       "1958-09-03 00:00:00",
+       2
+      ],
+      [
+       "1969-08-01 00:00:00",
+       2
+      ],
+      [
+       "1972-03-28 00:00:00",
+       2
+      ],
+      [
+       "1973-03-08 00:00:00",
+       2
+      ],
+      [
+       "1973-04-23 00:00:00",
+       2
+      ],
+      [
+       "1980-02-22 00:00:00",
+       2
+      ],
+      [
+       "1980-04-26 00:00:00",
+       2
+      ],
+      [
+       "1981-04-08 00:00:00",
+       2
+      ],
+      [
+       "1989-04-14 00:00:00",
+       2
+      ],
+      [
+       "1989-09-02 00:00:00",
+       2
+      ],
+      [
+       "1990-11-08 00:00:00",
+       2
+      ],
+      [
+       "1994-07-21 00:00:00",
+       2
+      ],
+      [
+       "2020-03-14 00:00:00",
+       2
+      ]
+     ],
+     "description": "full birth timestamp when known"
+    },
+    {
+     "name": "race_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 6,
+     "top_values": [
+      [
+       "8527",
+       610
+      ],
+      [
+       "0",
+       181
+      ],
+      [
+       "8516",
+       136
+      ],
+      [
+       "8515",
+       61
+      ],
+      [
+       "8657",
+       10
+      ],
+      [
+       "8557",
+       2
+      ]
+     ],
+     "description": "standard concept for race"
+    },
+    {
+     "name": "ethnicity_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "38003564",
+       786
+      ],
+      [
+       "38003563",
+       214
+      ]
+     ],
+     "description": "standard concept for ethnicity: 38003563 Hispanic, 38003564 not Hispanic"
+    },
+    {
+     "name": "location_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "3",
+       138
+      ],
+      [
+       "7",
+       133
+      ],
+      [
+       "2",
+       130
+      ],
+      [
+       "6",
+       126
+      ],
+      [
+       "5",
+       122
+      ],
+      [
+       "8",
+       119
+      ],
+      [
+       "4",
+       118
+      ],
+      [
+       "1",
+       114
+      ]
+     ],
+     "description": "geographic location; joins location.location_id"
+    },
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 1000,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "primary care provider; joins provider.provider_id"
+    },
+    {
+     "name": "care_site_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5,
+     "top_values": [
+      [
+       "1",
+       274
+      ],
+      [
+       "5",
+       260
+      ],
+      [
+       "3",
+       259
+      ],
+      [
+       "7",
+       112
+      ],
+      [
+       "8",
+       95
+      ]
+     ],
+     "description": "care site; joins care_site.care_site_id"
+    },
+    {
+     "name": "person_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "LSR0000001",
+       1
+      ],
+      [
+       "LSR0000003",
+       1
+      ],
+      [
+       "LSR0000005",
+       1
+      ],
+      [
+       "LSR0000009",
+       1
+      ],
+      [
+       "LSR0000012",
+       1
+      ],
+      [
+       "LSR0000015",
+       1
+      ],
+      [
+       "LSR0000017",
+       1
+      ],
+      [
+       "LSR0000022",
+       1
+      ],
+      [
+       "LSR0000024",
+       1
+      ],
+      [
+       "LSR0000026",
+       1
+      ],
+      [
+       "LSR0000034",
+       1
+      ],
+      [
+       "LSR0000037",
+       1
+      ],
+      [
+       "LSR0000040",
+       1
+      ],
+      [
+       "LSR0000041",
+       1
+      ],
+      [
+       "LSR0000047",
+       1
+      ],
+      [
+       "LSR0000051",
+       1
+      ],
+      [
+       "LSR0000069",
+       1
+      ],
+      [
+       "LSR0000070",
+       1
+      ],
+      [
+       "LSR0000071",
+       1
+      ],
+      [
+       "LSR0000072",
+       1
+      ]
+     ],
+     "description": "patient identifier as it appeared in the source system"
+    },
+    {
+     "name": "gender_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "M",
+       505
+      ],
+      [
+       "F",
+       495
+      ]
+     ],
+     "description": "gender as it appeared in the source system"
+    },
+    {
+     "name": "gender_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1000
+      ]
+     ],
+     "description": "source concept for gender; 0 when unmapped"
+    },
+    {
+     "name": "race_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 6,
+     "top_values": [
+      [
+       "WHITE",
+       610
+      ],
+      [
+       "UNK",
+       181
+      ],
+      [
+       "BLACK",
+       136
+      ],
+      [
+       "ASIAN",
+       61
+      ],
+      [
+       "AI/AN",
+       10
+      ],
+      [
+       "NH/PI",
+       2
+      ]
+     ],
+     "description": "race as it appeared in the source system"
+    },
+    {
+     "name": "race_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1000
+      ]
+     ],
+     "description": "source concept for race; 0 when unmapped"
+    },
+    {
+     "name": "ethnicity_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 2,
+     "top_values": [
+      [
+       "NOT HISPANIC",
+       786
+      ],
+      [
+       "HISPANIC",
+       214
+      ]
+     ],
+     "description": "ethnicity as it appeared in the source system"
+    },
+    {
+     "name": "ethnicity_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       1000
+      ]
+     ],
+     "description": "source concept for ethnicity; 0 when unmapped"
+    }
+   ]
+  },
+  {
+   "name": "procedure_occurrence",
+   "row_count": 16088,
+   "columns_count": 16,
+   "columns": [
+    {
+     "name": "procedure_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 16088,
+     "top_values": [],
+     "description": "surrogate key of the procedure record"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 580,
+     "top_values": [
+      [
+       "476",
+       661
+      ],
+      [
+       "875",
+       507
+      ],
+      [
+       "82",
+       343
+      ],
+      [
+       "771",
+       321
+      ],
+      [
+       "664",
+       309
+      ],
+      [
+       "939",
+       307
+      ],
+      [
+       "209",
+       290
+      ],
+      [
+       "706",
+       239
+      ],
+      [
+       "178",
+       237
+      ],
+      [
+       "623",
+       234
+      ],
+      [
+       "857",
+       234
+      ],
+      [
+       "405",
+       232
+      ],
+      [
+       "126",
+       209
+      ],
+      [
+       "219",
+       206
+      ],
+      [
+       "770",
+       201
+      ],
+      [
+       "670",
+       194
+      ],
+      [
+       "567",
+       168
+      ],
+      [
+       "644",
+       152
+      ],
+      [
+       "552",
+       136
+      ],
+      [
+       "727",
+       133
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "procedure_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 37,
+     "top_values": [
+      [
+       "26000035",
+       1592
+      ],
+      [
+       "26000008",
+       1490
+      ],
+      [
+       "26000023",
+       1239
+      ],
+      [
+       "26000022",
+       1158
+      ],
+      [
+       "26000017",
+       1036
+      ],
+      [
+       "26000032",
+       977
+      ],
+      [
+       "26000018",
+       964
+      ],
+      [
+       "26000020",
+       911
+      ],
+      [
+       "26000033",
+       904
+      ],
+      [
+       "26000012",
+       814
+      ],
+      [
+       "26000016",
+       718
+      ],
+      [
+       "26000034",
+       618
+      ],
+      [
+       "26000013",
+       508
+      ],
+      [
+       "26000019",
+       377
+      ],
+      [
+       "26000015",
+       302
+      ],
+      [
+       "26000027",
+       285
+      ],
+      [
+       "26000025",
+       268
+      ],
+      [
+       "26000002",
+       265
+      ],
+      [
+       "26000026",
+       264
+      ],
+      [
+       "26000030",
+       238
+      ]
+     ],
+     "description": "concept for the procedure -- filter on this, not on the source value; concept ids in this database are generated, not real OMOP ids -- resolve every code through the concept table; a real-world id such as 320128 matches nothing"
+    },
+    {
+     "name": "procedure_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4491,
+     "top_values": [
+      [
+       "MIN: 2010-01-05",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "date the procedure was performed"
+    },
+    {
+     "name": "procedure_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4491,
+     "top_values": [
+      [
+       "2020-11-18 11:00:00",
+       18
+      ],
+      [
+       "2024-05-31 11:00:00",
+       18
+      ],
+      [
+       "2015-01-22 11:00:00",
+       16
+      ],
+      [
+       "2020-02-23 11:00:00",
+       16
+      ],
+      [
+       "2020-08-30 11:00:00",
+       16
+      ],
+      [
+       "2021-01-08 11:00:00",
+       16
+      ],
+      [
+       "2024-07-15 11:00:00",
+       16
+      ],
+      [
+       "2025-05-10 11:00:00",
+       16
+      ],
+      [
+       "2015-01-02 11:00:00",
+       15
+      ],
+      [
+       "2017-04-06 11:00:00",
+       15
+      ],
+      [
+       "2019-03-08 11:00:00",
+       15
+      ],
+      [
+       "2020-07-03 11:00:00",
+       15
+      ],
+      [
+       "2020-10-07 11:00:00",
+       15
+      ],
+      [
+       "2014-10-14 11:00:00",
+       14
+      ],
+      [
+       "2015-02-10 11:00:00",
+       14
+      ],
+      [
+       "2020-01-17 11:00:00",
+       14
+      ],
+      [
+       "2022-05-30 11:00:00",
+       14
+      ],
+      [
+       "2023-02-02 11:00:00",
+       14
+      ],
+      [
+       "2023-04-10 11:00:00",
+       14
+      ],
+      [
+       "2025-02-15 11:00:00",
+       14
+      ]
+     ],
+     "description": "timestamp the procedure was performed"
+    },
+    {
+     "name": "procedure_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4491,
+     "top_values": [
+      [
+       "MIN: 2010-01-05",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "end date for procedures spanning more than a day"
+    },
+    {
+     "name": "procedure_end_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 4491,
+     "top_values": [
+      [
+       "2020-11-18 11:30:00",
+       18
+      ],
+      [
+       "2024-05-31 11:30:00",
+       18
+      ],
+      [
+       "2015-01-22 11:30:00",
+       16
+      ],
+      [
+       "2020-02-23 11:30:00",
+       16
+      ],
+      [
+       "2020-08-30 11:30:00",
+       16
+      ],
+      [
+       "2021-01-08 11:30:00",
+       16
+      ],
+      [
+       "2024-07-15 11:30:00",
+       16
+      ],
+      [
+       "2025-05-10 11:30:00",
+       16
+      ],
+      [
+       "2015-01-02 11:30:00",
+       15
+      ],
+      [
+       "2017-04-06 11:30:00",
+       15
+      ],
+      [
+       "2019-03-08 11:30:00",
+       15
+      ],
+      [
+       "2020-07-03 11:30:00",
+       15
+      ],
+      [
+       "2020-10-07 11:30:00",
+       15
+      ],
+      [
+       "2014-10-14 11:30:00",
+       14
+      ],
+      [
+       "2015-02-10 11:30:00",
+       14
+      ],
+      [
+       "2020-01-17 11:30:00",
+       14
+      ],
+      [
+       "2022-05-30 11:30:00",
+       14
+      ],
+      [
+       "2023-02-02 11:30:00",
+       14
+      ],
+      [
+       "2023-04-10 11:30:00",
+       14
+      ],
+      [
+       "2025-02-15 11:30:00",
+       14
+      ]
+     ],
+     "description": "end timestamp for procedures spanning more than a day"
+    },
+    {
+     "name": "procedure_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "32817",
+       16088
+      ]
+     ],
+     "description": "provenance of the procedure record"
+    },
+    {
+     "name": "modifier_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       16088
+      ]
+     ],
+     "description": "standard concept for the procedure modifier"
+    },
+    {
+     "name": "quantity",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "1",
+       16088
+      ]
+     ],
+     "description": "number of times the procedure was performed"
+    },
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 16088,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "provider who recorded the record; joins provider.provider_id"
+    },
+    {
+     "name": "visit_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 9926,
+     "top_values": [
+      [
+       "24446",
+       9
+      ],
+      [
+       "11704",
+       8
+      ],
+      [
+       "12848",
+       8
+      ],
+      [
+       "18363",
+       8
+      ],
+      [
+       "18374",
+       8
+      ],
+      [
+       "11705",
+       7
+      ],
+      [
+       "11711",
+       7
+      ],
+      [
+       "12367",
+       7
+      ],
+      [
+       "12387",
+       7
+      ],
+      [
+       "12428",
+       7
+      ],
+      [
+       "12471",
+       7
+      ],
+      [
+       "18122",
+       7
+      ],
+      [
+       "18360",
+       7
+      ],
+      [
+       "22269",
+       7
+      ],
+      [
+       "22291",
+       7
+      ],
+      [
+       "23459",
+       7
+      ],
+      [
+       "24447",
+       7
+      ],
+      [
+       "3445",
+       7
+      ],
+      [
+       "8755",
+       7
+      ],
+      [
+       "11706",
+       6
+      ]
+     ],
+     "description": "visit this record belongs to; joins visit_occurrence.visit_occurrence_id"
+    },
+    {
+     "name": "visit_detail_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 16088,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "sub-visit detail; never populated in this dataset, do not join on it"
+    },
+    {
+     "name": "procedure_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 37,
+     "top_values": [
+      [
+       "END3001",
+       1592
+      ],
+      [
+       "IMG2001",
+       1490
+      ],
+      [
+       "IMG2007",
+       1239
+      ],
+      [
+       "MSK7001",
+       1158
+      ],
+      [
+       "REN5001",
+       1036
+      ],
+      [
+       "LAB8003",
+       977
+      ],
+      [
+       "CAR1001",
+       964
+      ],
+      [
+       "LAB8004",
+       911
+      ],
+      [
+       "PUL6001",
+       904
+      ],
+      [
+       "CAR1004",
+       814
+      ],
+      [
+       "IMG2009",
+       718
+      ],
+      [
+       "CAR1003",
+       618
+      ],
+      [
+       "LAB8002",
+       508
+      ],
+      [
+       "CAR1002",
+       377
+      ],
+      [
+       "IMG2003",
+       302
+      ],
+      [
+       "IMG2004",
+       285
+      ],
+      [
+       "IMG2008",
+       268
+      ],
+      [
+       "ONC4002",
+       265
+      ],
+      [
+       "ONC4005",
+       264
+      ],
+      [
+       "ONC4003",
+       238
+      ]
+     ],
+     "description": "procedure code as it appeared in the source system"
+    },
+    {
+     "name": "procedure_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 37,
+     "top_values": [
+      [
+       "27000035",
+       1592
+      ],
+      [
+       "27000008",
+       1490
+      ],
+      [
+       "27000023",
+       1239
+      ],
+      [
+       "27000022",
+       1158
+      ],
+      [
+       "27000017",
+       1036
+      ],
+      [
+       "27000032",
+       977
+      ],
+      [
+       "27000018",
+       964
+      ],
+      [
+       "27000020",
+       911
+      ],
+      [
+       "27000033",
+       904
+      ],
+      [
+       "27000012",
+       814
+      ],
+      [
+       "27000016",
+       718
+      ],
+      [
+       "27000034",
+       618
+      ],
+      [
+       "27000013",
+       508
+      ],
+      [
+       "27000019",
+       377
+      ],
+      [
+       "27000015",
+       302
+      ],
+      [
+       "27000027",
+       285
+      ],
+      [
+       "27000025",
+       268
+      ],
+      [
+       "27000002",
+       265
+      ],
+      [
+       "27000026",
+       264
+      ],
+      [
+       "27000030",
+       238
+      ]
+     ],
+     "description": "source concept for the procedure"
+    },
+    {
+     "name": "modifier_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 16088,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "modifier as it appeared in the source system"
+    }
+   ]
+  },
+  {
+   "name": "provider",
+   "row_count": 200,
+   "columns_count": 13,
+   "columns": [
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 200,
+     "top_values": [
+      [
+       "1",
+       1
+      ],
+      [
+       "10",
+       1
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "101",
+       1
+      ],
+      [
+       "102",
+       1
+      ],
+      [
+       "103",
+       1
+      ],
+      [
+       "104",
+       1
+      ],
+      [
+       "105",
+       1
+      ],
+      [
+       "106",
+       1
+      ],
+      [
+       "107",
+       1
+      ],
+      [
+       "108",
+       1
+      ],
+      [
+       "109",
+       1
+      ],
+      [
+       "11",
+       1
+      ],
+      [
+       "110",
+       1
+      ],
+      [
+       "111",
+       1
+      ],
+      [
+       "112",
+       1
+      ],
+      [
+       "113",
+       1
+      ],
+      [
+       "114",
+       1
+      ],
+      [
+       "115",
+       1
+      ],
+      [
+       "116",
+       1
+      ]
+     ],
+     "description": "provider key; clinical tables reference it"
+    },
+    {
+     "name": "provider_name",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 200,
+     "top_values": [
+      [
+       "Provider 001",
+       1
+      ],
+      [
+       "Provider 002",
+       1
+      ],
+      [
+       "Provider 003",
+       1
+      ],
+      [
+       "Provider 004",
+       1
+      ],
+      [
+       "Provider 005",
+       1
+      ],
+      [
+       "Provider 006",
+       1
+      ],
+      [
+       "Provider 007",
+       1
+      ],
+      [
+       "Provider 008",
+       1
+      ],
+      [
+       "Provider 009",
+       1
+      ],
+      [
+       "Provider 010",
+       1
+      ],
+      [
+       "Provider 011",
+       1
+      ],
+      [
+       "Provider 012",
+       1
+      ],
+      [
+       "Provider 013",
+       1
+      ],
+      [
+       "Provider 014",
+       1
+      ],
+      [
+       "Provider 015",
+       1
+      ],
+      [
+       "Provider 016",
+       1
+      ],
+      [
+       "Provider 017",
+       1
+      ],
+      [
+       "Provider 018",
+       1
+      ],
+      [
+       "Provider 019",
+       1
+      ],
+      [
+       "Provider 020",
+       1
+      ]
+     ],
+     "description": "provider name"
+    },
+    {
+     "name": "npi",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 200,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "National Provider Identifier"
+    },
+    {
+     "name": "dea",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 200,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "Drug Enforcement Administration number"
+    },
+    {
+     "name": "specialty_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 16,
+     "top_values": [
+      [
+       "38004446",
+       46
+      ],
+      [
+       "38004456",
+       32
+      ],
+      [
+       "38004451",
+       20
+      ],
+      [
+       "38004485",
+       18
+      ],
+      [
+       "38004473",
+       16
+      ],
+      [
+       "38004479",
+       15
+      ],
+      [
+       "38004510",
+       10
+      ],
+      [
+       "38004472",
+       9
+      ],
+      [
+       "38004477",
+       8
+      ],
+      [
+       "38004465",
+       6
+      ],
+      [
+       "38004478",
+       5
+      ],
+      [
+       "38004491",
+       4
+      ],
+      [
+       "38004458",
+       3
+      ],
+      [
+       "38004461",
+       3
+      ],
+      [
+       "38004496",
+       3
+      ],
+      [
+       "38004484",
+       2
+      ]
+     ],
+     "description": "standard concept for the provider specialty"
+    },
+    {
+     "name": "care_site_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "2",
+       35
+      ],
+      [
+       "4",
+       30
+      ],
+      [
+       "7",
+       30
+      ],
+      [
+       "1",
+       25
+      ],
+      [
+       "3",
+       20
+      ],
+      [
+       "5",
+       20
+      ],
+      [
+       "6",
+       20
+      ],
+      [
+       "8",
+       20
+      ]
+     ],
+     "description": "care site; joins care_site.care_site_id"
+    },
+    {
+     "name": "year_of_birth",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 200,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "provider year of birth"
+    },
+    {
+     "name": "gender_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       200
+      ]
+     ],
+     "description": "standard concept for provider gender"
+    },
+    {
+     "name": "provider_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 200,
+     "top_values": [
+      [
+       "PRV0001",
+       1
+      ],
+      [
+       "PRV0002",
+       1
+      ],
+      [
+       "PRV0003",
+       1
+      ],
+      [
+       "PRV0004",
+       1
+      ],
+      [
+       "PRV0005",
+       1
+      ],
+      [
+       "PRV0006",
+       1
+      ],
+      [
+       "PRV0007",
+       1
+      ],
+      [
+       "PRV0008",
+       1
+      ],
+      [
+       "PRV0009",
+       1
+      ],
+      [
+       "PRV0010",
+       1
+      ],
+      [
+       "PRV0011",
+       1
+      ],
+      [
+       "PRV0012",
+       1
+      ],
+      [
+       "PRV0013",
+       1
+      ],
+      [
+       "PRV0014",
+       1
+      ],
+      [
+       "PRV0015",
+       1
+      ],
+      [
+       "PRV0016",
+       1
+      ],
+      [
+       "PRV0017",
+       1
+      ],
+      [
+       "PRV0018",
+       1
+      ],
+      [
+       "PRV0019",
+       1
+      ],
+      [
+       "PRV0020",
+       1
+      ]
+     ],
+     "description": "provider identifier as it appeared in the source system"
+    },
+    {
+     "name": "specialty_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 16,
+     "top_values": [
+      [
+       "Family Practice",
+       46
+      ],
+      [
+       "Internal Medicine",
+       32
+      ],
+      [
+       "Cardiology",
+       20
+      ],
+      [
+       "Endocrinology",
+       18
+      ],
+      [
+       "Oncology",
+       16
+      ],
+      [
+       "Nephrology",
+       15
+      ],
+      [
+       "Emergency Medicine",
+       10
+      ],
+      [
+       "Pulmonology",
+       9
+      ],
+      [
+       "Pediatrics",
+       8
+      ],
+      [
+       "Orthopedics",
+       6
+      ],
+      [
+       "Geriatrics",
+       5
+      ],
+      [
+       "Rheumatology",
+       4
+      ],
+      [
+       "Neurology",
+       3
+      ],
+      [
+       "Obstetrics and Gynecology",
+       3
+      ],
+      [
+       "Psychiatry",
+       3
+      ],
+      [
+       "Infectious Disease",
+       2
+      ]
+     ],
+     "description": "specialty as it appeared in the source system"
+    },
+    {
+     "name": "specialty_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       200
+      ]
+     ],
+     "description": "source concept for the specialty; 0 when unmapped"
+    },
+    {
+     "name": "gender_source_value",
+     "data_type": "VARCHAR",
+     "nullable": true,
+     "null_count": 200,
+     "empty_count": 0,
+     "distinct_count": 0,
+     "top_values": [],
+     "description": "provider gender as it appeared in the source system"
+    },
+    {
+     "name": "gender_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       200
+      ]
+     ],
+     "description": "source concept for provider gender; 0 when unmapped"
+    }
+   ]
+  },
+  {
+   "name": "visit_occurrence",
+   "row_count": 24606,
+   "columns_count": 15,
+   "columns": [
+    {
+     "name": "visit_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 24606,
+     "top_values": [],
+     "description": "visit key; clinical events reference it"
+    },
+    {
+     "name": "person_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1000,
+     "top_values": [
+      [
+       "875",
+       350
+      ],
+      [
+       "476",
+       292
+      ],
+      [
+       "405",
+       209
+      ],
+      [
+       "209",
+       198
+      ],
+      [
+       "664",
+       196
+      ],
+      [
+       "82",
+       193
+      ],
+      [
+       "219",
+       185
+      ],
+      [
+       "652",
+       184
+      ],
+      [
+       "670",
+       171
+      ],
+      [
+       "567",
+       170
+      ],
+      [
+       "623",
+       168
+      ],
+      [
+       "771",
+       168
+      ],
+      [
+       "545",
+       167
+      ],
+      [
+       "400",
+       164
+      ],
+      [
+       "617",
+       158
+      ],
+      [
+       "179",
+       145
+      ],
+      [
+       "347",
+       142
+      ],
+      [
+       "706",
+       140
+      ],
+      [
+       "859",
+       140
+      ],
+      [
+       "66",
+       139
+      ]
+     ],
+     "description": "patient key -- COUNT(DISTINCT person_id) counts people; every clinical table joins person on this"
+    },
+    {
+     "name": "visit_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "28000005",
+       9336
+      ],
+      [
+       "28000006",
+       7387
+      ],
+      [
+       "28000000",
+       3041
+      ],
+      [
+       "28000007",
+       1816
+      ],
+      [
+       "28000003",
+       1496
+      ],
+      [
+       "28000004",
+       706
+      ],
+      [
+       "28000001",
+       566
+      ],
+      [
+       "28000002",
+       258
+      ]
+     ],
+     "description": "concept for visit type, MEDLEX 28000000-28000007 such as 28000005 office, 28000003 inpatient, 28000000 emergency -- not the real OMOP 9201/9202/9203"
+    },
+    {
+     "name": "visit_start_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5594,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-01-31",
+       1
+      ]
+     ],
+     "description": "visit start (admission) date"
+    },
+    {
+     "name": "visit_start_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5594,
+     "top_values": [
+      [
+       "2025-09-18 09:00:00",
+       22
+      ],
+      [
+       "2025-06-18 09:00:00",
+       17
+      ],
+      [
+       "2025-02-01 09:00:00",
+       16
+      ],
+      [
+       "2025-04-03 09:00:00",
+       16
+      ],
+      [
+       "2025-04-29 09:00:00",
+       16
+      ],
+      [
+       "2024-05-31 09:00:00",
+       15
+      ],
+      [
+       "2024-06-21 09:00:00",
+       15
+      ],
+      [
+       "2024-11-20 09:00:00",
+       15
+      ],
+      [
+       "2024-12-04 09:00:00",
+       15
+      ],
+      [
+       "2025-03-03 09:00:00",
+       15
+      ],
+      [
+       "2025-03-16 09:00:00",
+       15
+      ],
+      [
+       "2025-06-03 09:00:00",
+       15
+      ],
+      [
+       "2025-09-22 09:00:00",
+       15
+      ],
+      [
+       "2022-04-28 09:00:00",
+       14
+      ],
+      [
+       "2023-02-13 09:00:00",
+       14
+      ],
+      [
+       "2023-04-16 09:00:00",
+       14
+      ],
+      [
+       "2023-09-05 09:00:00",
+       14
+      ],
+      [
+       "2024-03-09 09:00:00",
+       14
+      ],
+      [
+       "2024-06-09 09:00:00",
+       14
+      ],
+      [
+       "2024-09-26 09:00:00",
+       14
+      ]
+     ],
+     "description": "visit start timestamp"
+    },
+    {
+     "name": "visit_end_date",
+     "data_type": "DATE",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5581,
+     "top_values": [
+      [
+       "MIN: 2010-01-02",
+       1
+      ],
+      [
+       "MAX: 2026-02-05",
+       1
+      ]
+     ],
+     "description": "visit end (discharge) date"
+    },
+    {
+     "name": "visit_end_datetime",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 5581,
+     "top_values": [
+      [
+       "2025-09-18 17:00:00",
+       20
+      ],
+      [
+       "2025-04-29 17:00:00",
+       18
+      ],
+      [
+       "2025-04-03 17:00:00",
+       17
+      ],
+      [
+       "2025-06-03 17:00:00",
+       17
+      ],
+      [
+       "2024-01-23 17:00:00",
+       16
+      ],
+      [
+       "2025-03-03 17:00:00",
+       16
+      ],
+      [
+       "2025-03-16 17:00:00",
+       16
+      ],
+      [
+       "2025-10-25 17:00:00",
+       16
+      ],
+      [
+       "2023-04-16 17:00:00",
+       15
+      ],
+      [
+       "2024-03-09 17:00:00",
+       15
+      ],
+      [
+       "2024-05-31 17:00:00",
+       15
+      ],
+      [
+       "2024-11-20 17:00:00",
+       15
+      ],
+      [
+       "2025-01-24 17:00:00",
+       15
+      ],
+      [
+       "2025-02-01 17:00:00",
+       15
+      ],
+      [
+       "2025-06-18 17:00:00",
+       15
+      ],
+      [
+       "2025-09-22 17:00:00",
+       15
+      ],
+      [
+       "2021-11-26 17:00:00",
+       14
+      ],
+      [
+       "2022-04-28 17:00:00",
+       14
+      ],
+      [
+       "2022-11-05 17:00:00",
+       14
+      ],
+      [
+       "2023-05-13 17:00:00",
+       14
+      ]
+     ],
+     "description": "visit end timestamp"
+    },
+    {
+     "name": "visit_type_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "32817",
+       24606
+      ]
+     ],
+     "description": "provenance of the visit record"
+    },
+    {
+     "name": "provider_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 200,
+     "top_values": [
+      [
+       "131",
+       237
+      ],
+      [
+       "141",
+       232
+      ],
+      [
+       "115",
+       230
+      ],
+      [
+       "123",
+       229
+      ],
+      [
+       "128",
+       224
+      ],
+      [
+       "137",
+       217
+      ],
+      [
+       "111",
+       216
+      ],
+      [
+       "143",
+       216
+      ],
+      [
+       "134",
+       211
+      ],
+      [
+       "144",
+       211
+      ],
+      [
+       "148",
+       210
+      ],
+      [
+       "116",
+       209
+      ],
+      [
+       "132",
+       208
+      ],
+      [
+       "140",
+       206
+      ],
+      [
+       "139",
+       205
+      ],
+      [
+       "145",
+       205
+      ],
+      [
+       "142",
+       204
+      ],
+      [
+       "150",
+       204
+      ],
+      [
+       "114",
+       201
+      ],
+      [
+       "119",
+       201
+      ]
+     ],
+     "description": "provider who recorded the record; joins provider.provider_id"
+    },
+    {
+     "name": "care_site_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "6",
+       7255
+      ],
+      [
+       "2",
+       5947
+      ],
+      [
+       "4",
+       4876
+      ],
+      [
+       "8",
+       2406
+      ],
+      [
+       "7",
+       2083
+      ],
+      [
+       "5",
+       837
+      ],
+      [
+       "1",
+       611
+      ],
+      [
+       "3",
+       591
+      ]
+     ],
+     "description": "care site; joins care_site.care_site_id"
+    },
+    {
+     "name": "visit_source_value",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "HOSP-102",
+       9336
+      ],
+      [
+       "HOSP-101",
+       7387
+      ],
+      [
+       "HOSP-104",
+       3041
+      ],
+      [
+       "HOSP-103",
+       1816
+      ],
+      [
+       "HOSP-105",
+       1496
+      ],
+      [
+       "HOSP-107",
+       706
+      ],
+      [
+       "HOSP-108",
+       566
+      ],
+      [
+       "HOSP-106",
+       258
+      ]
+     ],
+     "description": "visit type as it appeared in the source system"
+    },
+    {
+     "name": "visit_source_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 8,
+     "top_values": [
+      [
+       "29000005",
+       9336
+      ],
+      [
+       "29000006",
+       7387
+      ],
+      [
+       "29000000",
+       3041
+      ],
+      [
+       "29000007",
+       1816
+      ],
+      [
+       "29000003",
+       1496
+      ],
+      [
+       "29000004",
+       706
+      ],
+      [
+       "29000001",
+       566
+      ],
+      [
+       "29000002",
+       258
+      ]
+     ],
+     "description": "source concept for the visit"
+    },
+    {
+     "name": "admitted_from_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       24606
+      ]
+     ],
+     "description": "where the patient was admitted from"
+    },
+    {
+     "name": "discharged_to_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       24606
+      ]
+     ],
+     "description": "where the patient was discharged to"
+    },
+    {
+     "name": "preceding_visit_occurrence_id",
+     "data_type": "BIGINT",
+     "nullable": true,
+     "null_count": 1000,
+     "empty_count": 0,
+     "distinct_count": 23606,
+     "top_values": [],
+     "description": "the immediately prior visit for this person"
+    }
+   ]
+  },
+  {
+   "name": "vocabulary",
+   "row_count": 20,
+   "columns_count": 5,
+   "columns": [
+    {
+     "name": "vocabulary_id",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 20,
+     "top_values": [
+      [
+       "DRUGPKG",
+       1
+      ],
+      [
+       "DXCODE",
+       1
+      ],
+      [
+       "DXCODE9",
+       1
+      ],
+      [
+       "ENCTYPE",
+       1
+      ],
+      [
+       "Ethnicity",
+       1
+      ],
+      [
+       "Gender",
+       1
+      ],
+      [
+       "LABLEX",
+       1
+      ],
+      [
+       "LABLOCAL",
+       1
+      ],
+      [
+       "MEDLEX",
+       1
+      ],
+      [
+       "None",
+       1
+      ],
+      [
+       "PHARMLEX",
+       1
+      ],
+      [
+       "PXCODE",
+       1
+      ],
+      [
+       "Payer",
+       1
+      ],
+      [
+       "Place of Service",
+       1
+      ],
+      [
+       "Race",
+       1
+      ],
+      [
+       "Route",
+       1
+      ],
+      [
+       "SNOMED",
+       1
+      ],
+      [
+       "Specialty",
+       1
+      ],
+      [
+       "Type Concept",
+       1
+      ],
+      [
+       "UCUM",
+       1
+      ]
+     ],
+     "description": "vocabulary key referenced by concept.vocabulary_id; the clinical vocabularies here are simulated, not SNOMED, ICD or RxNorm"
+    },
+    {
+     "name": "vocabulary_name",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 20,
+     "top_values": [
+      [
+       "OMOP Ethnicity",
+       1
+      ],
+      [
+       "OMOP Gender",
+       1
+      ],
+      [
+       "OMOP Payer",
+       1
+      ],
+      [
+       "OMOP Route",
+       1
+      ],
+      [
+       "OMOP Specialty",
+       1
+      ],
+      [
+       "OMOP Standardized Vocabularies",
+       1
+      ],
+      [
+       "OMOP Type Concept",
+       1
+      ],
+      [
+       "Place of Service Codes for Professional Claims",
+       1
+      ],
+      [
+       "Race and Ethnicity Code Set",
+       1
+      ],
+      [
+       "Simulated diagnosis classification",
+       1
+      ],
+      [
+       "Simulated drug package code directory",
+       1
+      ],
+      [
+       "Simulated drug terminology",
+       1
+      ],
+      [
+       "Simulated encounter type codes",
+       1
+      ],
+      [
+       "Simulated laboratory terminology",
+       1
+      ],
+      [
+       "Simulated legacy diagnosis classification",
+       1
+      ],
+      [
+       "Simulated local laboratory codes",
+       1
+      ],
+      [
+       "Simulated procedure classification",
+       1
+      ],
+      [
+       "Simulated standard clinical terminology",
+       1
+      ],
+      [
+       "Systematic Nomenclature of Medicine - Clinical Terms",
+       1
+      ],
+      [
+       "Unified Code for Units of Measure",
+       1
+      ]
+     ],
+     "description": "full name of the vocabulary"
+    },
+    {
+     "name": "vocabulary_reference",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "Synthetic - not a real vocabulary",
+       20
+      ]
+     ],
+     "description": "where the vocabulary is published"
+    },
+    {
+     "name": "vocabulary_version",
+     "data_type": "VARCHAR",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "v1.0",
+       20
+      ]
+     ],
+     "description": "version of the vocabulary in this database"
+    },
+    {
+     "name": "vocabulary_concept_id",
+     "data_type": "BIGINT",
+     "nullable": false,
+     "null_count": 0,
+     "empty_count": 0,
+     "distinct_count": 1,
+     "top_values": [
+      [
+       "0",
+       20
+      ]
+     ],
+     "description": "concept representing the vocabulary itself"
+    }
+   ]
+  }
+ ],
+ "tables_count": 22
+}

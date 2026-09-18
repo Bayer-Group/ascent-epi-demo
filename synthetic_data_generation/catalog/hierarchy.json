@@ -1,0 +1,150 @@
+{
+  "_comment": "Roll-up concepts for the domains conditions.json does not cover. Without these, concept_ancestor contained rows only for conditions and drug ingredients, so 'every lab in the renal panel' or 'any acute care visit' could not be expressed as a descendant query and every phenotype had to enumerate leaf concept ids by hand - which is exactly the portability problem synthetic data is supposed to let you rehearse. Every leaf listed in members gets an edge to its grouper; vocabulary.py then computes the full transitive closure, so an ancestor row exists for every (ancestor, descendant) pair at every distance, not just parent-child. Leaves absent from members roll up to the domain root directly.",
+
+  "Measurement": {
+    "root": "m_all",
+    "vocabulary": "LABLEX",
+    "concept_class": "Lab Test Group",
+    "groupers": [
+      {"key": "m_all", "name": "Measurement", "std_code": "LX00000"},
+      {"key": "m_chemistry", "name": "Chemistry test", "std_code": "LX00001", "parent": "m_all"},
+      {"key": "m_lipid", "name": "Lipid panel test", "std_code": "LX00002", "parent": "m_chemistry"},
+      {"key": "m_liver", "name": "Liver function test", "std_code": "LX00003", "parent": "m_chemistry"},
+      {"key": "m_renal", "name": "Renal function test", "std_code": "LX00004", "parent": "m_chemistry"},
+      {"key": "m_hematology", "name": "Hematology test", "std_code": "LX00005", "parent": "m_all"},
+      {"key": "m_endocrine", "name": "Endocrine test", "std_code": "LX00006", "parent": "m_chemistry"},
+      {"key": "m_cardiac", "name": "Cardiac marker test", "std_code": "LX00007", "parent": "m_chemistry"},
+      {"key": "m_inflammation", "name": "Inflammatory marker test", "std_code": "LX00008", "parent": "m_chemistry"},
+      {"key": "m_tumor_marker", "name": "Tumor marker test", "std_code": "LX00009", "parent": "m_chemistry"},
+      {"key": "m_urine", "name": "Urine chemistry test", "std_code": "LX00010", "parent": "m_all"},
+      {"key": "m_vital", "name": "Vital sign measurement", "std_code": "LX00011", "parent": "m_all"}
+    ],
+    "members": {
+      "glucose": "m_chemistry",
+      "potassium": "m_chemistry",
+      "sodium": "m_chemistry",
+      "calcium": "m_chemistry",
+      "creatinine": "m_renal",
+      "egfr": "m_renal",
+      "urea_nitrogen": "m_renal",
+      "total_cholesterol": "m_lipid",
+      "ldl": "m_lipid",
+      "hdl": "m_lipid",
+      "triglycerides": "m_lipid",
+      "alt": "m_liver",
+      "ast": "m_liver",
+      "albumin": "m_liver",
+      "bilirubin": "m_liver",
+      "alkaline_phosphatase": "m_liver",
+      "hemoglobin": "m_hematology",
+      "hematocrit": "m_hematology",
+      "wbc": "m_hematology",
+      "platelets": "m_hematology",
+      "ferritin": "m_hematology",
+      "vitamin_b12": "m_hematology",
+      "inr": "m_hematology",
+      "esr": "m_hematology",
+      "hba1c": "m_endocrine",
+      "tsh": "m_endocrine",
+      "free_t4": "m_endocrine",
+      "vitamin_d": "m_endocrine",
+      "troponin": "m_cardiac",
+      "bnp": "m_cardiac",
+      "crp": "m_inflammation",
+      "lactate": "m_inflammation",
+      "psa": "m_tumor_marker",
+      "cea": "m_tumor_marker",
+      "urine_acr": "m_urine",
+      "sbp": "m_vital",
+      "dbp": "m_vital",
+      "bmi": "m_vital"
+    }
+  },
+
+  "Procedure": {
+    "root": "p_all",
+    "vocabulary": "MEDLEX",
+    "concept_class": "Procedure Group",
+    "groupers": [
+      {"key": "p_all", "name": "Procedure", "std_code": "3590000"},
+      {"key": "p_cardiac", "name": "Procedure on heart", "std_code": "3590001", "parent": "p_all"},
+      {"key": "p_imaging", "name": "Diagnostic imaging procedure", "std_code": "3590002", "parent": "p_all"},
+      {"key": "p_endoscopy", "name": "Endoscopic procedure", "std_code": "3590003", "parent": "p_all"},
+      {"key": "p_oncology", "name": "Oncologic procedure", "std_code": "3590004", "parent": "p_all"},
+      {"key": "p_renal", "name": "Renal replacement procedure", "std_code": "3590005", "parent": "p_all"},
+      {"key": "p_pulmonary", "name": "Pulmonary function procedure", "std_code": "3590006", "parent": "p_all"},
+      {"key": "p_musculoskeletal", "name": "Procedure on musculoskeletal system", "std_code": "3590007", "parent": "p_all"},
+      {"key": "p_obstetric", "name": "Obstetric procedure", "std_code": "3590008", "parent": "p_all"},
+      {"key": "p_bedside", "name": "Bedside diagnostic procedure", "std_code": "3590009", "parent": "p_all"}
+    ],
+    "members": {
+      "ecg": "p_cardiac",
+      "echocardiogram": "p_cardiac",
+      "stress_test": "p_cardiac",
+      "coronary_angiography": "p_cardiac",
+      "pci": "p_cardiac",
+      "central_line": "p_cardiac",
+      "chest_xray": "p_imaging",
+      "ct_chest": "p_imaging",
+      "ct_head": "p_imaging",
+      "mri_brain": "p_imaging",
+      "abdominal_ultrasound": "p_imaging",
+      "carotid_ultrasound": "p_imaging",
+      "knee_xray": "p_imaging",
+      "mammography": "p_imaging",
+      "dexa_scan": "p_imaging",
+      "upper_endoscopy": "p_endoscopy",
+      "colonoscopy": "p_endoscopy",
+      "lung_biopsy": "p_oncology",
+      "breast_biopsy": "p_oncology",
+      "prostate_biopsy": "p_oncology",
+      "colon_biopsy": "p_oncology",
+      "mastectomy": "p_oncology",
+      "prostatectomy": "p_oncology",
+      "colectomy": "p_oncology",
+      "dialysis": "p_renal",
+      "spirometry": "p_pulmonary",
+      "joint_replacement": "p_musculoskeletal",
+      "obstetric_ultrasound": "p_obstetric",
+      "vaginal_delivery": "p_obstetric",
+      "cesarean_delivery": "p_obstetric",
+      "blood_culture": "p_bedside",
+      "covid_pcr": "p_bedside",
+      "retinal_exam": "p_bedside",
+      "foot_exam": "p_bedside"
+    }
+  },
+
+  "Visit": {
+    "root": "v_all",
+    "vocabulary": "MEDLEX",
+    "concept_class": "Visit Group",
+    "groupers": [
+      {"key": "v_all", "name": "Visit", "std_code": "3690000"},
+      {"key": "v_ambulatory", "name": "Ambulatory visit", "std_code": "3690001", "parent": "v_all"},
+      {"key": "v_acute", "name": "Acute care visit", "std_code": "3690002", "parent": "v_all"},
+      {"key": "v_non_facility", "name": "Non-facility visit", "std_code": "3690003", "parent": "v_all"}
+    ],
+    "members": {
+      "outpatient": "v_ambulatory",
+      "office": "v_ambulatory",
+      "telehealth": "v_non_facility",
+      "home_health": "v_non_facility",
+      "emergency": "v_acute",
+      "inpatient": "v_acute",
+      "icu": "v_acute",
+      "observation_stay": "v_acute"
+    }
+  },
+
+  "Drug": {
+    "_comment": "Ingredients already roll up their own products; this only adds the root above them so 'every drug' is a single descendant query. members is empty because the ingredient edges are derived, not authored.",
+    "root": "d_all",
+    "vocabulary": "PHARMLEX",
+    "concept_class": "Drug Group",
+    "groupers": [
+      {"key": "d_all", "name": "Drug product", "std_code": "9000000"}
+    ],
+    "members": {}
+  }
+}

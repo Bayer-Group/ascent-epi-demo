@@ -1,0 +1,47 @@
+title = "Ascent epidemiology demo secret scanning"
+
+# Retain every built-in rule. These exceptions only affect generic-api-key
+# and require BOTH the exact file path and a reviewed match to be present.
+# Requires Gitleaks 8.21.0+ for rule-scoped allowlists with AND conditions.
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Reviewed synthetic drug catalog identifiers, not API keys"
+condition = "AND"
+paths = ['''(^|/)synthetic_data_generation/catalog/drugs\.json$''']
+regexTarget = "match"
+# These values identify drug records consumed by the synthetic generator.
+# Do not replace this explicit list with a blanket file/directory exception.
+regexes = [
+  '''^key": "spironolactone_25"$''',
+  '''^key": "empagliflozin_10"$''',
+  '''^key": "clopidogrel_75"$''',
+  '''^key": "montelukast_10"$''',
+  '''^key": "azithromycin_250"$''',
+  '''^key": "levofloxacin_500"$''',
+  '''^key": "ibuprofen_600"$''',
+  '''^key": "escitalopram_10"$''',
+  '''^key": "fluoxetine_20"$''',
+  '''^key": "pantoprazole_40"$''',
+  '''^key": "famotidine_20"$''',
+  '''^key": "levothyroxine_50"$''',
+  '''^key": "ferrous_sulfate_325"$''',
+  '''^key": "tamoxifen_20"$''',
+  '''^key": "tamsulosin_04"$''',
+  '''^key": "vericiguat_10"$''',
+  '''^key": "itraconazole_100"$''',
+  '''^key": "darbepoetin_40"$''',
+  '''^key": "pseudoephedrine_30"$''',
+  '''^key": "naproxen_sodium_550"$''',
+]
+
+[[rules.allowlists]]
+description = "Argument names in the traceback-redaction test, not credential values"
+condition = "AND"
+paths = ['''(^|/)tests/seams/test_traceback_redaction\.py$''']
+regexTarget = "match"
+regexes = ['''^api_key", "private_key_pem_b64"$''']

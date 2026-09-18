@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "question": "What is the prevalence of type 2 diabetes?"
+    },
+    {
+      "question": "What is the prevalence of essential hypertension?"
+    },
+    {
+      "question": "What is the prevalence of chronic kidney disease?"
+    },
+    {
+      "question": "What is the prevalence of atrial fibrillation?"
+    },
+    {
+      "question": "What is the prevalence of COPD?"
+    },
+    {
+      "question": "What is the prevalence of asthma?"
+    },
+    {
+      "question": "What is the prevalence of anemia?"
+    },
+    {
+      "question": "What is the prevalence of heart failure?"
+    },
+    {
+      "question": "What is the incidence rate of atrial fibrillation per 1,000 person-years?"
+    },
+    {
+      "question": "What is the incidence rate of acute kidney injury per 1,000 person-years?"
+    },
+    {
+      "question": "What is the incidence rate of stroke per 1,000 person-years?"
+    },
+    {
+      "question": "How many patients have both chronic kidney disease and type 2 diabetes?"
+    },
+    {
+      "question": "How many patients with heart failure also have atrial fibrillation?"
+    },
+    {
+      "question": "How many patients diagnosed with sepsis later developed acute kidney injury?"
+    },
+    {
+      "question": "What is the age and sex distribution of patients with type 2 diabetes?"
+    },
+    {
+      "question": "How many patients aged 65 and older have a diagnosis of dementia?"
+    },
+    {
+      "question": "What is the prevalence of obesity by sex?"
+    },
+    {
+      "question": "Build a cohort of patients with type 2 diabetes diagnosed after 2015."
+    },
+    {
+      "question": "Build a cohort of women aged 50 and over with a breast cancer diagnosis."
+    },
+    {
+      "question": "How many patients have a recorded HbA1c measurement above 8%?"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "_comment": "Structural OMOP concepts: gender, race, ethnicity, units, type concepts, routes, specialties, places of service, payers and death causes. These are CDM plumbing rather than clinical terminology, so they use OMOP-style structural ids instead of the fictitious MEDLEX/DXCODE families. Every id referenced by a *_concept_id column anywhere in the writer MUST appear here, otherwise the canonical join (person JOIN concept ON gender_concept_id = concept_id) silently returns nothing. concept_id 0 is the OMOP 'No matching concept' sentinel and is required: the writer uses 0 for genuinely unmapped values.",
+
+  "sentinel": {
+    "concept_id": 0,
+    "concept_name": "No matching concept",
+    "domain_id": "Metadata",
+    "vocabulary_id": "None",
+    "concept_class_id": "Undefined",
+    "standard_concept": "",
+    "concept_code": "No matching concept"
+  },
+
+  "gender": [
+    {"concept_id": 8507, "concept_name": "MALE", "concept_code": "M"},
+    {"concept_id": 8532, "concept_name": "FEMALE", "concept_code": "F"}
+  ],
+
+  "race": [
+    {"concept_id": 8527, "concept_name": "White", "concept_code": "5"},
+    {"concept_id": 8516, "concept_name": "Black or African American", "concept_code": "3"},
+    {"concept_id": 8515, "concept_name": "Asian", "concept_code": "2"},
+    {"concept_id": 8657, "concept_name": "American Indian or Alaska Native", "concept_code": "1"},
+    {"concept_id": 8557, "concept_name": "Native Hawaiian or Other Pacific Islander", "concept_code": "4"}
+  ],
+
+  "ethnicity": [
+    {"concept_id": 38003563, "concept_name": "Hispanic or Latino", "concept_code": "Hispanic"},
+    {"concept_id": 38003564, "concept_name": "Not Hispanic or Latino", "concept_code": "Not Hispanic"}
+  ],
+
+  "units": [
+    {"concept_id": 8554, "concept_name": "percent", "concept_code": "%"},
+    {"concept_id": 8840, "concept_name": "milligram per deciliter", "concept_code": "mg/dL"},
+    {"concept_id": 8753, "concept_name": "millimole per liter", "concept_code": "mmol/L"},
+    {"concept_id": 8713, "concept_name": "gram per deciliter", "concept_code": "g/dL"},
+    {"concept_id": 8645, "concept_name": "unit per liter", "concept_code": "U/L"},
+    {"concept_id": 8842, "concept_name": "nanogram per milliliter", "concept_code": "ng/mL"},
+    {"concept_id": 8817, "concept_name": "nanogram per deciliter", "concept_code": "ng/dL"},
+    {"concept_id": 8845, "concept_name": "picogram per milliliter", "concept_code": "pg/mL"},
+    {"concept_id": 8859, "concept_name": "milli-international unit per liter", "concept_code": "mIU/L"},
+    {"concept_id": 8751, "concept_name": "milligram per liter", "concept_code": "mg/L"},
+    {"concept_id": 8752, "concept_name": "millimeter per hour", "concept_code": "mm/h"},
+    {"concept_id": 8848, "concept_name": "thousand per microliter", "concept_code": "10*3/uL"},
+    {"concept_id": 8795, "concept_name": "milliliter per minute per 1.73 square meter", "concept_code": "mL/min/{1.73_m2}"},
+    {"concept_id": 8876, "concept_name": "millimeter mercury column", "concept_code": "mm[Hg]"},
+    {"concept_id": 9531, "concept_name": "kilogram per square meter", "concept_code": "kg/m2"},
+    {"concept_id": 8723, "concept_name": "milligram per gram", "concept_code": "mg/g"},
+    {"concept_id": 8523, "concept_name": "international normalized ratio", "concept_code": "{INR}"},
+    {"concept_id": 8510, "concept_name": "unit", "concept_code": "U"},
+    {"concept_id": 8582, "concept_name": "centimeter", "concept_code": "cm"},
+    {"concept_id": 9529, "concept_name": "kilogram", "concept_code": "kg"},
+    {"concept_id": 9483, "concept_name": "week", "concept_code": "wk"}
+  ],
+
+  "type_concepts": [
+    {"concept_id": 44814724, "concept_name": "Period covering healthcare encounters", "concept_code": "OMOP4822459"},
+    {"concept_id": 32817, "concept_name": "EHR", "concept_code": "OMOP4976890"},
+    {"concept_id": 32020, "concept_name": "EHR encounter diagnosis", "concept_code": "OMOP5117445"},
+    {"concept_id": 32818, "concept_name": "EHR administration record", "concept_code": "OMOP4976891"},
+    {"concept_id": 32869, "concept_name": "Payer system record", "concept_code": "OMOP5117384"},
+    {"concept_id": 32902, "concept_name": "Primary diagnosis", "concept_code": "OMOP5117417"},
+    {"concept_id": 32893, "concept_name": "Secondary diagnosis", "concept_code": "OMOP5117408"},
+    {"concept_id": 32879, "concept_name": "Registry", "concept_code": "OMOP5117394"}
+  ],
+
+  "routes": [
+    {"concept_id": 4132161, "concept_name": "Oral", "concept_code": "oral", "route": "oral"},
+    {"concept_id": 4142048, "concept_name": "Subcutaneous", "concept_code": "subcutaneous", "route": "subcutaneous"},
+    {"concept_id": 4171047, "concept_name": "Intravenous", "concept_code": "intravenous", "route": "intravenous"},
+    {"concept_id": 4302612, "concept_name": "Intramuscular", "concept_code": "intramuscular", "route": "intramuscular"},
+    {"concept_id": 4139962, "concept_name": "Respiratory tract", "concept_code": "inhalation", "route": "inhalation"}
+  ],
+
+  "places_of_service": [
+    {"concept_id": 8717, "concept_name": "Inpatient Hospital", "concept_code": "21"},
+    {"concept_id": 8940, "concept_name": "Office", "concept_code": "11"},
+    {"concept_id": 8756, "concept_name": "Outpatient Clinic", "concept_code": "22"}
+  ],
+
+  "specialties": [
+    {"concept_id": 38004446, "concept_name": "Family Practice", "specialty": "Family Practice"},
+    {"concept_id": 38004456, "concept_name": "Internal Medicine", "specialty": "Internal Medicine"},
+    {"concept_id": 38004451, "concept_name": "Cardiology", "specialty": "Cardiology"},
+    {"concept_id": 38004485, "concept_name": "Endocrinology", "specialty": "Endocrinology"},
+    {"concept_id": 38004479, "concept_name": "Nephrology", "specialty": "Nephrology"},
+    {"concept_id": 38004472, "concept_name": "Pulmonology", "specialty": "Pulmonology"},
+    {"concept_id": 38004473, "concept_name": "Oncology", "specialty": "Oncology"},
+    {"concept_id": 38004458, "concept_name": "Neurology", "specialty": "Neurology"},
+    {"concept_id": 38004496, "concept_name": "Psychiatry", "specialty": "Psychiatry"},
+    {"concept_id": 38004510, "concept_name": "Emergency Medicine", "specialty": "Emergency Medicine"},
+    {"concept_id": 38004455, "concept_name": "Gastroenterology", "specialty": "Gastroenterology"},
+    {"concept_id": 38004465, "concept_name": "Orthopedics", "specialty": "Orthopedics"},
+    {"concept_id": 38004491, "concept_name": "Rheumatology", "specialty": "Rheumatology"},
+    {"concept_id": 38004484, "concept_name": "Infectious Disease", "specialty": "Infectious Disease"},
+    {"concept_id": 38004478, "concept_name": "Geriatrics", "specialty": "Geriatrics"},
+    {"concept_id": 38004461, "concept_name": "Obstetrics and Gynecology", "specialty": "Obstetrics and Gynecology"},
+    {"concept_id": 38004477, "concept_name": "Pediatrics", "specialty": "Pediatrics"}
+  ],
+
+  "payer_concepts": [
+    {"concept_id": 32810, "concept_name": "Commercial", "concept_code": "commercial"},
+    {"concept_id": 32812, "concept_name": "Medicare", "concept_code": "medicare"},
+    {"concept_id": 32811, "concept_name": "Medicaid", "concept_code": "medicaid"},
+    {"concept_id": 32813, "concept_name": "Self-pay", "concept_code": "self_pay"}
+  ],
+
+  "death_causes": [
+    {"concept_id": 4306655, "concept_name": "Death from natural causes", "concept_code": "DTH-NAT"},
+    {"concept_id": 4145711, "concept_name": "Accidental death", "concept_code": "DTH-ACC"}
+  ],
+
+  "observation_concepts": [
+    {"concept_id": 4041306, "concept_name": "Tobacco smoking status", "concept_code": "OBS-SMK", "domain_id": "Observation"},
+    {"concept_id": 4238768, "concept_name": "Alcohol intake", "concept_code": "OBS-ETH", "domain_id": "Observation"},
+    {"concept_id": 4167217, "concept_name": "Family history of clinical finding", "concept_code": "OBS-FHX", "domain_id": "Observation"},
+    {"concept_id": 4023190, "concept_name": "Highest level of education", "concept_code": "OBS-EDU", "domain_id": "Observation"},
+    {"concept_id": 4058671, "concept_name": "Employment status", "concept_code": "OBS-EMP", "domain_id": "Observation"},
+    {"concept_id": 4051245, "concept_name": "Gestational age at delivery", "concept_code": "OBS-GA", "domain_id": "Observation"}
+  ],
+
+  "observation_values": [
+    {"concept_id": 45878118, "concept_name": "Never smoker", "concept_code": "VAL-SMK-NEVER"},
+    {"concept_id": 45879404, "concept_name": "Former smoker", "concept_code": "VAL-SMK-FORMER"},
+    {"concept_id": 45884037, "concept_name": "Current every day smoker", "concept_code": "VAL-SMK-CURRENT"},
+    {"concept_id": 45877994, "concept_name": "Never drinker", "concept_code": "VAL-ETH-NEVER"},
+    {"concept_id": 45883458, "concept_name": "Occasional drinker", "concept_code": "VAL-ETH-OCC"},
+    {"concept_id": 45881667, "concept_name": "Heavy drinker", "concept_code": "VAL-ETH-HEAVY"},
+    {"concept_id": 45880924, "concept_name": "Less than high school", "concept_code": "VAL-EDU-LOW"},
+    {"concept_id": 45882071, "concept_name": "High school graduate", "concept_code": "VAL-EDU-HS"},
+    {"concept_id": 45884672, "concept_name": "College graduate or higher", "concept_code": "VAL-EDU-COLLEGE"},
+    {"concept_id": 45879990, "concept_name": "Employed", "concept_code": "VAL-EMP-YES"},
+    {"concept_id": 45883021, "concept_name": "Unemployed", "concept_code": "VAL-EMP-NO"},
+    {"concept_id": 45876384, "concept_name": "Retired", "concept_code": "VAL-EMP-RET"}
+  ],
+
+  "_metadata_comment": "Concepts the cost and fact_relationship tables reference structurally. They are Metadata-domain rather than clinical, but a cost row whose currency_concept_id resolves to nothing is as broken as a person row whose gender does not, and the mother-child links in fact_relationship are unreadable without the two relationship concepts below.",
+  "metadata_concepts": [
+    {"concept_id": 44818668, "concept_name": "US Dollar", "concept_code": "USD", "domain_id": "Currency"},
+    {"concept_id": 5032, "concept_name": "Cost record from claim", "concept_code": "OMOP5032", "domain_id": "Type Concept"},
+    {"concept_id": 56, "concept_name": "Person", "concept_code": "Person", "domain_id": "Metadata"},
+    {"concept_id": 44818821, "concept_name": "Parent to child person", "concept_code": "OMOP4822463", "domain_id": "Metadata"},
+    {"concept_id": 44818784, "concept_name": "Child to parent person", "concept_code": "OMOP4822426", "domain_id": "Metadata"}
+  ],
+
+  "relationships": [
+    {"relationship_id": "Maps to", "relationship_name": "Maps to", "is_hierarchical": 0, "defines_ancestry": 0, "reverse_relationship_id": "Mapped from"},
+    {"relationship_id": "Mapped from", "relationship_name": "Mapped from", "is_hierarchical": 0, "defines_ancestry": 0, "reverse_relationship_id": "Maps to"},
+    {"relationship_id": "Is a", "relationship_name": "Is a", "is_hierarchical": 1, "defines_ancestry": 1, "reverse_relationship_id": "Subsumes"},
+    {"relationship_id": "Subsumes", "relationship_name": "Subsumes", "is_hierarchical": 1, "defines_ancestry": 0, "reverse_relationship_id": "Is a"}
+  ],
+
+  "domains": [
+    {"domain_id": "Condition", "domain_name": "Condition"},
+    {"domain_id": "Drug", "domain_name": "Drug"},
+    {"domain_id": "Measurement", "domain_name": "Measurement"},
+    {"domain_id": "Procedure", "domain_name": "Procedure"},
+    {"domain_id": "Observation", "domain_name": "Observation"},
+    {"domain_id": "Visit", "domain_name": "Visit"},
+    {"domain_id": "Gender", "domain_name": "Gender"},
+    {"domain_id": "Race", "domain_name": "Race"},
+    {"domain_id": "Ethnicity", "domain_name": "Ethnicity"},
+    {"domain_id": "Unit", "domain_name": "Unit"},
+    {"domain_id": "Route", "domain_name": "Route"},
+    {"domain_id": "Provider", "domain_name": "Provider"},
+    {"domain_id": "Payer", "domain_name": "Payer"},
+    {"domain_id": "Type Concept", "domain_name": "Type Concept"},
+    {"domain_id": "Metadata", "domain_name": "Metadata"},
+    {"domain_id": "Currency", "domain_name": "Currency"},
+    {"domain_id": "Place of Service", "domain_name": "Place of Service"},
+    {"domain_id": "Meas Value", "domain_name": "Measurement Value"}
+  ]
+}

@@ -1,0 +1,1177 @@
+{
+  "_comment": "Fictitious drug catalog. Ingredient names are real generic drug names (not trademarks, freely usable) so the data reads as clinically plausible, but every code is invented: PHARMLEX standard codes are 6-digit, DRUGPKG source codes use the reserved 99999 labeler prefix that no real manufacturer holds.",
+  "drugs": [
+    {
+      "key": "lisinopril_10",
+      "name": "Lisinopril 10 MG Oral Tablet",
+      "ingredient": "Lisinopril",
+      "std_code": "410001",
+      "pkg_code": "99999-1001-30",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "amlodipine_5",
+      "name": "Amlodipine 5 MG Oral Tablet",
+      "ingredient": "Amlodipine",
+      "std_code": "410002",
+      "pkg_code": "99999-1002-30",
+      "dose_form": "Oral Tablet",
+      "strength": "5 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "hydrochlorothiazide_25",
+      "name": "Hydrochlorothiazide 25 MG Oral Tablet",
+      "ingredient": "Hydrochlorothiazide",
+      "std_code": "410003",
+      "pkg_code": "99999-1003-30",
+      "dose_form": "Oral Tablet",
+      "strength": "25 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "losartan_50",
+      "name": "Losartan 50 MG Oral Tablet",
+      "ingredient": "Losartan",
+      "std_code": "410004",
+      "pkg_code": "99999-1004-30",
+      "dose_form": "Oral Tablet",
+      "strength": "50 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "metoprolol_50",
+      "name": "Metoprolol Succinate 50 MG Extended Release Oral Tablet",
+      "ingredient": "Metoprolol",
+      "std_code": "410005",
+      "pkg_code": "99999-1005-30",
+      "dose_form": "Extended Release Oral Tablet",
+      "strength": "50 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "furosemide_40",
+      "name": "Furosemide 40 MG Oral Tablet",
+      "ingredient": "Furosemide",
+      "std_code": "410006",
+      "pkg_code": "99999-1006-30",
+      "dose_form": "Oral Tablet",
+      "strength": "40 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "spironolactone_25",
+      "name": "Spironolactone 25 MG Oral Tablet",
+      "ingredient": "Spironolactone",
+      "std_code": "410007",
+      "pkg_code": "99999-1007-30",
+      "dose_form": "Oral Tablet",
+      "strength": "25 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "atorvastatin_40",
+      "name": "Atorvastatin 40 MG Oral Tablet",
+      "ingredient": "Atorvastatin",
+      "std_code": "410010",
+      "pkg_code": "99999-1010-30",
+      "dose_form": "Oral Tablet",
+      "strength": "40 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "rosuvastatin_20",
+      "name": "Rosuvastatin 20 MG Oral Tablet",
+      "ingredient": "Rosuvastatin",
+      "std_code": "410011",
+      "pkg_code": "99999-1011-30",
+      "dose_form": "Oral Tablet",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "simvastatin_20",
+      "name": "Simvastatin 20 MG Oral Tablet",
+      "ingredient": "Simvastatin",
+      "std_code": "410012",
+      "pkg_code": "99999-1012-30",
+      "dose_form": "Oral Tablet",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "ezetimibe_10",
+      "name": "Ezetimibe 10 MG Oral Tablet",
+      "ingredient": "Ezetimibe",
+      "std_code": "410013",
+      "pkg_code": "99999-1013-30",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "metformin_500",
+      "name": "Metformin Hydrochloride 500 MG Oral Tablet",
+      "ingredient": "Metformin",
+      "std_code": "410020",
+      "pkg_code": "99999-1020-60",
+      "dose_form": "Oral Tablet",
+      "strength": "500 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 10
+    },
+    {
+      "key": "metformin_1000",
+      "name": "Metformin Hydrochloride 1000 MG Oral Tablet",
+      "ingredient": "Metformin",
+      "std_code": "410021",
+      "pkg_code": "99999-1021-60",
+      "dose_form": "Oral Tablet",
+      "strength": "1000 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 10
+    },
+    {
+      "key": "sitagliptin_100",
+      "name": "Sitagliptin 100 MG Oral Tablet",
+      "ingredient": "Sitagliptin",
+      "std_code": "410022",
+      "pkg_code": "99999-1022-30",
+      "dose_form": "Oral Tablet",
+      "strength": "100 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "empagliflozin_10",
+      "name": "Empagliflozin 10 MG Oral Tablet",
+      "ingredient": "Empagliflozin",
+      "std_code": "410023",
+      "pkg_code": "99999-1023-30",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18,
+      "valid_from": "2014-08-01"
+    },
+    {
+      "key": "glipizide_5",
+      "name": "Glipizide 5 MG Oral Tablet",
+      "ingredient": "Glipizide",
+      "std_code": "410024",
+      "pkg_code": "99999-1024-30",
+      "dose_form": "Oral Tablet",
+      "strength": "5 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "insulin_glargine",
+      "name": "Insulin Glargine 100 UNT/ML Injectable Solution",
+      "ingredient": "Insulin Glargine",
+      "std_code": "410025",
+      "pkg_code": "99999-1025-10",
+      "dose_form": "Injectable Solution",
+      "strength": "100 unit/mL",
+      "route": "subcutaneous",
+      "days_supply": [
+        30
+      ],
+      "age_min": 1
+    },
+    {
+      "key": "insulin_lispro",
+      "name": "Insulin Lispro 100 UNT/ML Injectable Solution",
+      "ingredient": "Insulin Lispro",
+      "std_code": "410026",
+      "pkg_code": "99999-1026-10",
+      "dose_form": "Injectable Solution",
+      "strength": "100 unit/mL",
+      "route": "subcutaneous",
+      "days_supply": [
+        30
+      ],
+      "age_min": 1
+    },
+    {
+      "key": "aspirin_81",
+      "name": "Aspirin 81 MG Delayed Release Oral Tablet",
+      "ingredient": "Aspirin",
+      "std_code": "410030",
+      "pkg_code": "99999-1030-90",
+      "dose_form": "Delayed Release Oral Tablet",
+      "strength": "81 mg",
+      "route": "oral",
+      "days_supply": [
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "clopidogrel_75",
+      "name": "Clopidogrel 75 MG Oral Tablet",
+      "ingredient": "Clopidogrel",
+      "std_code": "410031",
+      "pkg_code": "99999-1031-30",
+      "dose_form": "Oral Tablet",
+      "strength": "75 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "apixaban_5",
+      "name": "Apixaban 5 MG Oral Tablet",
+      "ingredient": "Apixaban",
+      "std_code": "410032",
+      "pkg_code": "99999-1032-60",
+      "dose_form": "Oral Tablet",
+      "strength": "5 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18,
+      "valid_from": "2013-01-01"
+    },
+    {
+      "key": "rivaroxaban_20",
+      "name": "Rivaroxaban 20 MG Oral Tablet",
+      "ingredient": "Rivaroxaban",
+      "std_code": "410033",
+      "pkg_code": "99999-1033-30",
+      "dose_form": "Oral Tablet",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18,
+      "valid_from": "2011-07-01"
+    },
+    {
+      "key": "warfarin_5",
+      "name": "Warfarin Sodium 5 MG Oral Tablet",
+      "ingredient": "Warfarin",
+      "std_code": "410034",
+      "pkg_code": "99999-1034-30",
+      "dose_form": "Oral Tablet",
+      "strength": "5 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "albuterol_inhaler",
+      "name": "Albuterol Sulfate 90 MCG/ACTUAT Metered Dose Inhaler",
+      "ingredient": "Albuterol",
+      "std_code": "410040",
+      "pkg_code": "99999-1040-01",
+      "dose_form": "Metered Dose Inhaler",
+      "strength": "90 mcg/actuation",
+      "route": "inhalation",
+      "days_supply": [
+        30
+      ],
+      "age_min": 2
+    },
+    {
+      "key": "tiotropium_inhaler",
+      "name": "Tiotropium Bromide 18 MCG Inhalation Powder",
+      "ingredient": "Tiotropium",
+      "std_code": "410041",
+      "pkg_code": "99999-1041-01",
+      "dose_form": "Inhalation Powder",
+      "strength": "18 mcg",
+      "route": "inhalation",
+      "days_supply": [
+        30
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "fluticasone_inhaler",
+      "name": "Fluticasone Propionate 110 MCG/ACTUAT Metered Dose Inhaler",
+      "ingredient": "Fluticasone",
+      "std_code": "410042",
+      "pkg_code": "99999-1042-01",
+      "dose_form": "Metered Dose Inhaler",
+      "strength": "110 mcg/actuation",
+      "route": "inhalation",
+      "days_supply": [
+        30
+      ],
+      "age_min": 4
+    },
+    {
+      "key": "fluticasone_salmeterol",
+      "name": "Fluticasone 250 MCG / Salmeterol 50 MCG Inhalation Powder",
+      "ingredient": "Fluticasone / Salmeterol",
+      "std_code": "410043",
+      "pkg_code": "99999-1043-01",
+      "dose_form": "Inhalation Powder",
+      "strength": "250/50 mcg",
+      "route": "inhalation",
+      "days_supply": [
+        30
+      ],
+      "age_min": 12
+    },
+    {
+      "key": "montelukast_10",
+      "name": "Montelukast 10 MG Oral Tablet",
+      "ingredient": "Montelukast",
+      "std_code": "410044",
+      "pkg_code": "99999-1044-30",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 6
+    },
+    {
+      "key": "prednisone_20",
+      "name": "Prednisone 20 MG Oral Tablet",
+      "ingredient": "Prednisone",
+      "std_code": "410045",
+      "pkg_code": "99999-1045-10",
+      "dose_form": "Oral Tablet",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        5,
+        10
+      ],
+      "age_min": 2
+    },
+    {
+      "key": "dexamethasone_6",
+      "name": "Dexamethasone 6 MG Oral Tablet",
+      "ingredient": "Dexamethasone",
+      "std_code": "410046",
+      "pkg_code": "99999-1046-10",
+      "dose_form": "Oral Tablet",
+      "strength": "6 mg",
+      "route": "oral",
+      "days_supply": [
+        10
+      ],
+      "age_min": 12
+    },
+    {
+      "key": "amoxicillin_500",
+      "name": "Amoxicillin 500 MG Oral Capsule",
+      "ingredient": "Amoxicillin",
+      "std_code": "410050",
+      "pkg_code": "99999-1050-21",
+      "dose_form": "Oral Capsule",
+      "strength": "500 mg",
+      "route": "oral",
+      "days_supply": [
+        7,
+        10
+      ],
+      "age_min": 0
+    },
+    {
+      "key": "azithromycin_250",
+      "name": "Azithromycin 250 MG Oral Tablet",
+      "ingredient": "Azithromycin",
+      "std_code": "410051",
+      "pkg_code": "99999-1051-06",
+      "dose_form": "Oral Tablet",
+      "strength": "250 mg",
+      "route": "oral",
+      "days_supply": [
+        5
+      ],
+      "age_min": 0
+    },
+    {
+      "key": "levofloxacin_500",
+      "name": "Levofloxacin 500 MG Oral Tablet",
+      "ingredient": "Levofloxacin",
+      "std_code": "410052",
+      "pkg_code": "99999-1052-07",
+      "dose_form": "Oral Tablet",
+      "strength": "500 mg",
+      "route": "oral",
+      "days_supply": [
+        7,
+        10
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "vancomycin_inj",
+      "name": "Vancomycin 1000 MG Injectable Solution",
+      "ingredient": "Vancomycin",
+      "std_code": "410053",
+      "pkg_code": "99999-1053-01",
+      "dose_form": "Injectable Solution",
+      "strength": "1000 mg",
+      "route": "intravenous",
+      "days_supply": [
+        7,
+        14
+      ],
+      "age_min": 0
+    },
+    {
+      "key": "piperacillin_tazobactam",
+      "name": "Piperacillin 4000 MG / Tazobactam 500 MG Injectable Solution",
+      "ingredient": "Piperacillin / Tazobactam",
+      "std_code": "410054",
+      "pkg_code": "99999-1054-01",
+      "dose_form": "Injectable Solution",
+      "strength": "4000/500 mg",
+      "route": "intravenous",
+      "days_supply": [
+        7,
+        14
+      ],
+      "age_min": 0
+    },
+    {
+      "key": "remdesivir_inj",
+      "name": "Remdesivir 100 MG Injectable Solution",
+      "ingredient": "Remdesivir",
+      "std_code": "410055",
+      "pkg_code": "99999-1055-01",
+      "dose_form": "Injectable Solution",
+      "strength": "100 mg",
+      "route": "intravenous",
+      "days_supply": [
+        5
+      ],
+      "age_min": 12,
+      "valid_from": "2020-05-01"
+    },
+    {
+      "key": "ibuprofen_600",
+      "name": "Ibuprofen 600 MG Oral Tablet",
+      "ingredient": "Ibuprofen",
+      "std_code": "410060",
+      "pkg_code": "99999-1060-30",
+      "dose_form": "Oral Tablet",
+      "strength": "600 mg",
+      "route": "oral",
+      "days_supply": [
+        30
+      ],
+      "age_min": 6
+    },
+    {
+      "key": "naproxen_500",
+      "name": "Naproxen 500 MG Oral Tablet",
+      "ingredient": "Naproxen",
+      "std_code": "410061",
+      "pkg_code": "99999-1061-30",
+      "dose_form": "Oral Tablet",
+      "strength": "500 mg",
+      "route": "oral",
+      "days_supply": [
+        30
+      ],
+      "age_min": 12
+    },
+    {
+      "key": "celecoxib_200",
+      "name": "Celecoxib 200 MG Oral Capsule",
+      "ingredient": "Celecoxib",
+      "std_code": "410062",
+      "pkg_code": "99999-1062-30",
+      "dose_form": "Oral Capsule",
+      "strength": "200 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "gabapentin_300",
+      "name": "Gabapentin 300 MG Oral Capsule",
+      "ingredient": "Gabapentin",
+      "std_code": "410063",
+      "pkg_code": "99999-1063-90",
+      "dose_form": "Oral Capsule",
+      "strength": "300 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 12
+    },
+    {
+      "key": "tramadol_50",
+      "name": "Tramadol Hydrochloride 50 MG Oral Tablet",
+      "ingredient": "Tramadol",
+      "std_code": "410064",
+      "pkg_code": "99999-1064-30",
+      "dose_form": "Oral Tablet",
+      "strength": "50 mg",
+      "route": "oral",
+      "days_supply": [
+        30
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "oxycodone_5",
+      "name": "Oxycodone Hydrochloride 5 MG Oral Tablet",
+      "ingredient": "Oxycodone",
+      "std_code": "410065",
+      "pkg_code": "99999-1065-30",
+      "dose_form": "Oral Tablet",
+      "strength": "5 mg",
+      "route": "oral",
+      "days_supply": [
+        7,
+        30
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "sertraline_50",
+      "name": "Sertraline 50 MG Oral Tablet",
+      "ingredient": "Sertraline",
+      "std_code": "410070",
+      "pkg_code": "99999-1070-30",
+      "dose_form": "Oral Tablet",
+      "strength": "50 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 6
+    },
+    {
+      "key": "escitalopram_10",
+      "name": "Escitalopram 10 MG Oral Tablet",
+      "ingredient": "Escitalopram",
+      "std_code": "410071",
+      "pkg_code": "99999-1071-30",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 12
+    },
+    {
+      "key": "fluoxetine_20",
+      "name": "Fluoxetine 20 MG Oral Capsule",
+      "ingredient": "Fluoxetine",
+      "std_code": "410072",
+      "pkg_code": "99999-1072-30",
+      "dose_form": "Oral Capsule",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 8
+    },
+    {
+      "key": "bupropion_150",
+      "name": "Bupropion Hydrochloride 150 MG Extended Release Oral Tablet",
+      "ingredient": "Bupropion",
+      "std_code": "410073",
+      "pkg_code": "99999-1073-30",
+      "dose_form": "Extended Release Oral Tablet",
+      "strength": "150 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "venlafaxine_75",
+      "name": "Venlafaxine 75 MG Extended Release Oral Capsule",
+      "ingredient": "Venlafaxine",
+      "std_code": "410074",
+      "pkg_code": "99999-1074-30",
+      "dose_form": "Extended Release Oral Capsule",
+      "strength": "75 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "alprazolam_05",
+      "name": "Alprazolam 0.5 MG Oral Tablet",
+      "ingredient": "Alprazolam",
+      "std_code": "410075",
+      "pkg_code": "99999-1075-30",
+      "dose_form": "Oral Tablet",
+      "strength": "0.5 mg",
+      "route": "oral",
+      "days_supply": [
+        30
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "varenicline_1",
+      "name": "Varenicline 1 MG Oral Tablet",
+      "ingredient": "Varenicline",
+      "std_code": "410076",
+      "pkg_code": "99999-1076-56",
+      "dose_form": "Oral Tablet",
+      "strength": "1 mg",
+      "route": "oral",
+      "days_supply": [
+        30
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "omeprazole_20",
+      "name": "Omeprazole 20 MG Delayed Release Oral Capsule",
+      "ingredient": "Omeprazole",
+      "std_code": "410080",
+      "pkg_code": "99999-1080-30",
+      "dose_form": "Delayed Release Oral Capsule",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 1
+    },
+    {
+      "key": "pantoprazole_40",
+      "name": "Pantoprazole 40 MG Delayed Release Oral Tablet",
+      "ingredient": "Pantoprazole",
+      "std_code": "410081",
+      "pkg_code": "99999-1081-30",
+      "dose_form": "Delayed Release Oral Tablet",
+      "strength": "40 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 5
+    },
+    {
+      "key": "famotidine_20",
+      "name": "Famotidine 20 MG Oral Tablet",
+      "ingredient": "Famotidine",
+      "std_code": "410082",
+      "pkg_code": "99999-1082-30",
+      "dose_form": "Oral Tablet",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 1
+    },
+    {
+      "key": "levothyroxine_50",
+      "name": "Levothyroxine Sodium 50 MCG Oral Tablet",
+      "ingredient": "Levothyroxine",
+      "std_code": "410090",
+      "pkg_code": "99999-1090-90",
+      "dose_form": "Oral Tablet",
+      "strength": "50 mcg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 0
+    },
+    {
+      "key": "alendronate_70",
+      "name": "Alendronate Sodium 70 MG Oral Tablet",
+      "ingredient": "Alendronate",
+      "std_code": "410091",
+      "pkg_code": "99999-1091-04",
+      "dose_form": "Oral Tablet",
+      "strength": "70 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 40
+    },
+    {
+      "key": "vitamin_d_1000",
+      "name": "Cholecalciferol 1000 UNT Oral Tablet",
+      "ingredient": "Cholecalciferol",
+      "std_code": "410092",
+      "pkg_code": "99999-1092-90",
+      "dose_form": "Oral Tablet",
+      "strength": "1000 unit",
+      "route": "oral",
+      "days_supply": [
+        90
+      ],
+      "age_min": 0
+    },
+    {
+      "key": "ferrous_sulfate_325",
+      "name": "Ferrous Sulfate 325 MG Oral Tablet",
+      "ingredient": "Ferrous Sulfate",
+      "std_code": "410093",
+      "pkg_code": "99999-1093-90",
+      "dose_form": "Oral Tablet",
+      "strength": "325 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 1
+    },
+    {
+      "key": "vitamin_b12_inj",
+      "name": "Cyanocobalamin 1000 MCG/ML Injectable Solution",
+      "ingredient": "Cyanocobalamin",
+      "std_code": "410094",
+      "pkg_code": "99999-1094-01",
+      "dose_form": "Injectable Solution",
+      "strength": "1000 mcg/mL",
+      "route": "intramuscular",
+      "days_supply": [
+        30
+      ],
+      "age_min": 1
+    },
+    {
+      "key": "donepezil_10",
+      "name": "Donepezil Hydrochloride 10 MG Oral Tablet",
+      "ingredient": "Donepezil",
+      "std_code": "410100",
+      "pkg_code": "99999-1100-30",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 50
+    },
+    {
+      "key": "memantine_10",
+      "name": "Memantine Hydrochloride 10 MG Oral Tablet",
+      "ingredient": "Memantine",
+      "std_code": "410101",
+      "pkg_code": "99999-1101-60",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 50
+    },
+    {
+      "key": "tamoxifen_20",
+      "name": "Tamoxifen Citrate 20 MG Oral Tablet",
+      "ingredient": "Tamoxifen",
+      "std_code": "410110",
+      "pkg_code": "99999-1110-30",
+      "dose_form": "Oral Tablet",
+      "strength": "20 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "sex": "female",
+      "age_min": 25
+    },
+    {
+      "key": "anastrozole_1",
+      "name": "Anastrozole 1 MG Oral Tablet",
+      "ingredient": "Anastrozole",
+      "std_code": "410111",
+      "pkg_code": "99999-1111-30",
+      "dose_form": "Oral Tablet",
+      "strength": "1 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "sex": "female",
+      "age_min": 40
+    },
+    {
+      "key": "leuprolide_inj",
+      "name": "Leuprolide Acetate 22.5 MG Injectable Suspension",
+      "ingredient": "Leuprolide",
+      "std_code": "410112",
+      "pkg_code": "99999-1112-01",
+      "dose_form": "Injectable Suspension",
+      "strength": "22.5 mg",
+      "route": "intramuscular",
+      "days_supply": [
+        90
+      ],
+      "sex": "male",
+      "age_min": 40
+    },
+    {
+      "key": "bicalutamide_50",
+      "name": "Bicalutamide 50 MG Oral Tablet",
+      "ingredient": "Bicalutamide",
+      "std_code": "410113",
+      "pkg_code": "99999-1113-30",
+      "dose_form": "Oral Tablet",
+      "strength": "50 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "sex": "male",
+      "age_min": 40
+    },
+    {
+      "key": "cisplatin_inj",
+      "name": "Cisplatin 50 MG Injectable Solution",
+      "ingredient": "Cisplatin",
+      "std_code": "410114",
+      "pkg_code": "99999-1114-01",
+      "dose_form": "Injectable Solution",
+      "strength": "50 mg",
+      "route": "intravenous",
+      "days_supply": [
+        21
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "pembrolizumab_inj",
+      "name": "Pembrolizumab 100 MG Injectable Solution",
+      "ingredient": "Pembrolizumab",
+      "std_code": "410115",
+      "pkg_code": "99999-1115-01",
+      "dose_form": "Injectable Solution",
+      "strength": "100 mg",
+      "route": "intravenous",
+      "days_supply": [
+        21
+      ],
+      "age_min": 18,
+      "valid_from": "2014-09-01"
+    },
+    {
+      "key": "oxaliplatin_inj",
+      "name": "Oxaliplatin 100 MG Injectable Solution",
+      "ingredient": "Oxaliplatin",
+      "std_code": "410116",
+      "pkg_code": "99999-1116-01",
+      "dose_form": "Injectable Solution",
+      "strength": "100 mg",
+      "route": "intravenous",
+      "days_supply": [
+        14
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "capecitabine_500",
+      "name": "Capecitabine 500 MG Oral Tablet",
+      "ingredient": "Capecitabine",
+      "std_code": "410117",
+      "pkg_code": "99999-1117-60",
+      "dose_form": "Oral Tablet",
+      "strength": "500 mg",
+      "route": "oral",
+      "days_supply": [
+        21
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "heparin_5000",
+      "name": "Heparin Sodium 5000 UNT/ML Injectable Solution",
+      "ingredient": "Heparin",
+      "std_code": "410118",
+      "pkg_code": "99999-1118-10",
+      "dose_form": "Injectable Solution",
+      "strength": "5000 unit/mL",
+      "route": "subcutaneous",
+      "days_supply": [
+        1,
+        3,
+        7
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "tamsulosin_04",
+      "name": "Tamsulosin 0.4 MG Oral Capsule",
+      "ingredient": "Tamsulosin",
+      "std_code": "410119",
+      "pkg_code": "99999-1119-30",
+      "dose_form": "Oral Capsule",
+      "strength": "0.4 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 40
+    },
+    {
+      "key": "vericiguat_10",
+      "name": "Vericiguat 10 MG Oral Tablet",
+      "ingredient": "Vericiguat",
+      "std_code": "410120",
+      "pkg_code": "99999-1120-30",
+      "dose_form": "Oral Tablet",
+      "strength": "10 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "itraconazole_100",
+      "name": "Itraconazole 100 MG Oral Capsule",
+      "ingredient": "Itraconazole",
+      "std_code": "410121",
+      "pkg_code": "99999-1121-28",
+      "dose_form": "Oral Capsule",
+      "strength": "100 mg",
+      "route": "oral",
+      "days_supply": [
+        7,
+        14,
+        28
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "darbepoetin_40",
+      "name": "Darbepoetin Alfa 40 MCG/ML Injectable Solution",
+      "ingredient": "Darbepoetin Alfa",
+      "std_code": "410122",
+      "pkg_code": "99999-1122-04",
+      "dose_form": "Injectable Solution",
+      "strength": "40 mcg/mL",
+      "route": "subcutaneous",
+      "days_supply": [
+        7,
+        28
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "estradiol_1",
+      "name": "Estradiol 1 MG Oral Tablet",
+      "ingredient": "Estradiol",
+      "std_code": "410123",
+      "pkg_code": "99999-1123-30",
+      "dose_form": "Oral Tablet",
+      "strength": "1 mg",
+      "route": "oral",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "pseudoephedrine_30",
+      "name": "Pseudoephedrine 30 MG Oral Tablet",
+      "ingredient": "Pseudoephedrine",
+      "strength": "30 MG",
+      "dose_form": "Oral Tablet",
+      "route": "oral",
+      "std_code": "410124",
+      "pkg_code": "99999-1124-30",
+      "days_supply": [
+        10,
+        30
+      ],
+      "age_min": 12
+    },
+    {
+      "key": "lovastatin_20",
+      "name": "Lovastatin 20 MG Oral Tablet",
+      "ingredient": "Lovastatin",
+      "strength": "20 MG",
+      "dose_form": "Oral Tablet",
+      "route": "oral",
+      "std_code": "410125",
+      "pkg_code": "99999-1125-30",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "alteplase_100",
+      "name": "Alteplase 100 MG Injection",
+      "ingredient": "Alteplase",
+      "strength": "100 MG",
+      "dose_form": "Injection",
+      "route": "intravenous",
+      "std_code": "410126",
+      "pkg_code": "99999-1126-01",
+      "days_supply": [
+        1
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "tenecteplase_50",
+      "name": "Tenecteplase 50 MG Injection",
+      "ingredient": "Tenecteplase",
+      "strength": "50 MG",
+      "dose_form": "Injection",
+      "route": "intravenous",
+      "std_code": "410127",
+      "pkg_code": "99999-1127-01",
+      "days_supply": [
+        1
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "zoloft_50",
+      "name": "Zoloft 50 MG Oral Tablet",
+      "ingredient": "Sertraline",
+      "strength": "50 MG",
+      "dose_form": "Oral Tablet",
+      "route": "oral",
+      "std_code": "410128",
+      "pkg_code": "99999-1128-30",
+      "days_supply": [
+        30,
+        90
+      ],
+      "age_min": 18
+    },
+    {
+      "key": "naproxen_sodium_550",
+      "name": "Naproxen Sodium 550 MG Oral Tablet",
+      "ingredient": "Naproxen Sodium",
+      "strength": "550 MG",
+      "dose_form": "Oral Tablet",
+      "route": "oral",
+      "std_code": "410129",
+      "pkg_code": "99999-1129-30",
+      "days_supply": [
+        14,
+        30
+      ],
+      "age_min": 18
+    }
+  ]
+}
