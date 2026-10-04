@@ -43,7 +43,7 @@ dependencies = [
     # relies on -- moving them is a separate, testable decision.
     "duckdb==1.1.3",
     "sqlglot==25.20.2",
-    "pyjwt>=2.12.1",
+    "pyjwt>=2.15.0",
     "langchain-core>=1.2.27",
     "aiocache>=0.12.3",
     "aiohttp>=3.11.11",
