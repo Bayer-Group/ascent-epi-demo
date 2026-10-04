@@ -12,7 +12,7 @@ description = "Transform free-form clinical queries into curated medical concept
 requires-python = ">=3.12,<3.13"
 dependencies = [
     # ---------- Data & ML ----------
-    "sentence-transformers==2.7.0",
+    "sentence-transformers==5.6.0",
     "torch==2.8.0",
     "pandas==2.2.3",
     "numpy==1.26.4",
