@@ -80,7 +80,7 @@ dependencies = [
     # improperly. Nothing here connects to Snowflake -- the warehouse is DuckDB --
     # but observability/otel.py imports the driver to instrument it, so the
     # package ships and may as well ship patched.
-    "snowflake-connector-python>=3.18.1",
+    "snowflake-connector-python>=4.7.3",
     "sqlalchemy>=2.0.37",
     "hypercorn>=0.17.3",
     "psycopg2-binary>=2.9.10",
