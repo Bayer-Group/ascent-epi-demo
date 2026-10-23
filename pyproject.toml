@@ -136,7 +136,7 @@ dependencies = [
 # directive (core.hooksPath) on an unrelated config write, giving RCE. This
 # extra is not installed by default and not in the image, so the alert is the
 # main cost -- but a floor is cheaper than explaining that every time.
-research = ["seaborn", "streamlit", "gitpython>=3.1.59"]
+research = ["seaborn", "streamlit", "gitpython>=3.2.1"]
 
 # Tools useful during development
 dev = [
