@@ -13,7 +13,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     # ---------- Data & ML ----------
     "sentence-transformers==2.7.0",
-    "torch==2.8.0",
+    "torch==2.13.0",
     "pandas==2.2.3",
     "numpy==1.26.4",
     "pyarrow==23.0.1",   # CVE-2026-25087 (IPC use-after-free)
