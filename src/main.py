@@ -354,7 +354,8 @@ async def on_exception(request: Request, exc: Exception):
     # project frame's arguments, and its redaction is by argument *name* -- so a
     # parameter called dsn, query or email is rendered verbatim. That is a
     # debugging aid, not something to hand to whoever provoked the error. Log it
-    # server-side always; return it only when DEBUG is explicitly on.
+    # server-side only and never return it, even with DEBUG on: the client gets
+    # the correlation and trace ids to look the traceback up in the logs.
     enhanced_tb = build_enhanced_traceback_from_exc(exc)
     logger = logging.getLogger(__name__)
     logger.error(
@@ -365,19 +366,11 @@ async def on_exception(request: Request, exc: Exception):
         enhanced_tb,
     )
 
-    if settings.DEBUG:
-        detail = {
-            "error": str(exc),
-            "traceback": enhanced_tb,
-            "correlation_id": correlation_id,
-            "trace_id": trace_id,
-        }
-    else:
-        detail = {
-            "error": "Internal server error.",
-            "correlation_id": correlation_id,
-            "trace_id": trace_id,
-        }
+    detail = {
+        "error": "Internal server error.",
+        "correlation_id": correlation_id,
+        "trace_id": trace_id,
+    }
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content=dict(detail=detail),

@@ -149,7 +149,7 @@ async def websocket_get_medical_codes_reasoning(
             await websocket.close()
             return
 
-        logger.info("WebSocket /ws/get-medical-codes-reasoning input: %r", payload)
+        logger.info("WebSocket /ws/get-medical-codes-reasoning request received")
         start_time = time.time()
 
         await send_progress("Processing request...")

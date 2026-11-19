@@ -75,11 +75,11 @@ class MedicalCoder(AscentClient):
         """
 
         payload = {"query": query, **kwargs}
-        logger.info("Payload: %s", _loggable(payload))
+        logger.info("Requesting medical codes")
         resp = await self.query_ascent_api("get-medical-codes", payload=payload)
 
         if resp is None:
-            logger.error("Medical codes for a %s-char query, domain %s, cannot be retrieved", len(query), kwargs.get("domain_id"))
+            logger.error("Medical codes cannot be retrieved")
             return {query: []}
 
         return self.construct_response(resp)

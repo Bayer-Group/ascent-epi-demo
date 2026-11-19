@@ -251,12 +251,11 @@ class MedicalCodesCache:
                 conn.commit()
 
                 codes_dict = json.loads(row["codes_json"])
-                created_at = row["created_at"]
 
-                logger.debug(f"Cache HIT for query='{query}', domain='{domain_id}' (created: {created_at})")
+                logger.debug("Cache HIT")
                 return codes_dict
             else:
-                logger.debug(f"Cache MISS for query='{query}', domain='{domain_id}'")
+                logger.debug("Cache MISS")
                 return None
 
     def store_codes(
@@ -309,7 +308,7 @@ class MedicalCodesCache:
 
             conn.commit()
 
-        logger.info(f"Stored codes in cache for query='{query}', domain='{domain_id}'")
+        logger.info("Stored codes in cache")
 
     def clear_cache(self):
         """Clear all cached codes (for testing or reset)."""
