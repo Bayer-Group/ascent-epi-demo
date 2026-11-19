@@ -116,8 +116,6 @@ Then: DATA_SCALE=1k docker compose up
     errors = validate_catalog(cat)
     if errors:
         print(f"Error: catalog has {len(errors)} problems:")
-        for e in errors[:20]:
-            print(f"  - {e}")
         return 1
     print(f"  {len(cat.conditions)} conditions, {len(cat.drugs)} drugs, {len(cat.labs)} labs, {len(cat.procedures)} procedures")
 

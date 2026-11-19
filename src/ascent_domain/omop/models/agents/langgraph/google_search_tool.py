@@ -115,7 +115,8 @@ def generate_title_from_url(uri: str, original_title: str = "") -> str:
     if not uri:
         return _format_domain(original_title) if original_title else "Unknown Source"
 
-    if "vertexaisearch" in uri.lower() or "cloud.google.com" in uri.lower():
+    host = (urlparse(uri).hostname or "").lower()
+    if host == "cloud.google.com" or host.endswith(".cloud.google.com"):
         return _format_domain(original_title) if original_title else "Google Search Result"
 
     if original_title and len(original_title) > 3 and " " not in original_title[:20]:

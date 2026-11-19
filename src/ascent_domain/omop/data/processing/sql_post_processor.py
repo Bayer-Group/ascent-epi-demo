@@ -191,7 +191,7 @@ class MedicalSQLProcessor:
             Dictionary of medical codes
         """
         cache_state = "ENABLED" if self.codes_cache is not None else "DISABLED"
-        logger.info("[CODES] get_codes() query=%r cache=%s", medical_coder_params.get("query"), cache_state)
+        logger.info("[CODES] get_codes() cache=%s", cache_state)
 
         # If cache is enabled, try to get from cache first
         if self.codes_cache is not None:
@@ -219,10 +219,10 @@ class MedicalSQLProcessor:
             )
 
             if cached_codes is not None:
-                logger.info(f"[CACHE HIT] Using cached codes for query='{query}', domain='{domain_id}'")
+                logger.info("[CACHE HIT] Using cached codes")
                 return cached_codes
             else:
-                logger.info(f"[CACHE MISS] Calling medical coder API for query='{query}', domain='{domain_id}'")
+                logger.info("[CACHE MISS] Calling medical coder API")
 
         # Cache miss or cache disabled - call API
         codes = await self.recommender.get_medical_codes(**medical_coder_params)
@@ -244,7 +244,7 @@ class MedicalSQLProcessor:
             num_codes = len(codes.get(query, []))
 
             if num_codes > 0:
-                logger.info(f"[CACHE STORE] About to store codes in cache: query='{query}', domain='{domain_id}', num_codes={num_codes}")
+                logger.info("[CACHE STORE] About to store codes in cache")
 
                 self.codes_cache.store_codes(
                     query=query,
@@ -257,9 +257,9 @@ class MedicalSQLProcessor:
                     llm_filter=llm_filter,
                     cosine_similarity=cosine_similarity,
                 )
-                logger.info(f"[CACHE STORE] Stored codes in cache for query='{query}', domain='{domain_id}'")
+                logger.info("[CACHE STORE] Stored codes in cache")
             else:
-                logger.warning(f"[CACHE SKIP] NOT caching empty result for query='{query}', domain='{domain_id}' - future runs can retry")
+                logger.warning("[CACHE SKIP] NOT caching empty result - future runs can retry")
 
         return codes
 

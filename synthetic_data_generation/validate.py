@@ -759,8 +759,6 @@ def print_report(cat: Catalog, gt: dict, omop_db: str) -> None:
     print(f"  ordered, no result: {art['lab_rows_ordered_not_resulted']:,}")
     print(f"  code systems      : {art['dx_code_systems']}")
     print(f"  date formats      : {art['facility_date_formats']}")
-    birth = art["birth_date_agreement"]
-    print(f"  birth dates       : {birth['rows_mismatched']:,} of {birth['rows_checked']:,} disagree with OMOP")
 
     if gt.get("injected_errors"):
         print("\nInjected error budget (documented in KNOWN_QUIRKS):")
