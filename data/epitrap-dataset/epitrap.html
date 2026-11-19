@@ -218,7 +218,9 @@ const DATA = JSON.parse(document.getElementById('payload').textContent);
 const $ = id => document.getElementById(id);
 let cur = DATA.sets[0].key;
 
-const esc = s => { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; };
+// Escapes all five HTML metacharacters, so the result is safe in element text and in quoted attributes.
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                                          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 const setOf = k => DATA.sets.find(s => s.key === k);
 // PASS/FAIL is the normal vocabulary, but a two-scenario item can carry a
 // conditional verdict ("PASS (FIRES) / UNKNOWN (CLEAN)") — key off the prefix.
@@ -239,10 +241,10 @@ function cardHTML(q, key) {
   const blob = [q.id, q.category, q.trap_topic, q.prompt, q.what_it_tests, q.grading_logic,
                 ...q.approaches.map(a => a.name + ' ' + a.description)]
                .join(' ').toLowerCase();
-  return `<article class="card" id="c-${key}-${q.id}" data-cat="${esc(q.category)}"
+  return `<article class="card" id="c-${esc(key)}-${esc(q.id)}" data-cat="${esc(q.category)}"
     data-search="${esc(blob)}">
   <header class="chead">
-    <a class="qid" href="#${key}/${encodeURIComponent(q.id)}" title="Link to this question">${esc(q.id)}</a>
+    <a class="qid" href="#${esc(key)}/${esc(encodeURIComponent(q.id))}" title="Link to this question">${esc(q.id)}</a>
     <span class="badges">${badges.join('')}</span>
   </header>
   <div class="prompt">
