@@ -112,12 +112,12 @@ dependencies = [
     "requests",
     "scikit-learn",
     "scipy",
-    "sentence-transformers",
+    "sentence-transformers>=5.6.0",
     "tenacity",
     "tiktoken",
-    "torch",                     # eager in models/uncertainty/uncertainty_kernel_laplacian.py
+    "torch>=2.13.0",             # eager in models/uncertainty/uncertainty_kernel_laplacian.py
     "tqdm",
-    "transformers",
+    "transformers>=5.10.0",
     "typing-extensions",
 ]
 
@@ -172,7 +172,7 @@ select = ["E", "F", "I"]
 
 
 [build-system]
-requires = ["setuptools>=77"]
+requires = ["setuptools>=84.1.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
