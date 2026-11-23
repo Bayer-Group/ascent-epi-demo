@@ -1,0 +1,81 @@
+# Dependabot configuration.
+#
+# Two kinds of pull request come out of this file:
+#
+#   * Security updates -- opened as soon as an alert is raised (requires
+#     "Dependabot security updates" to be enabled in the repository settings).
+#     All of them land in the "security" group so the auto-merge workflow can
+#     recognise them and merge without waiting for CI.
+#   * Version updates -- a weekly sweep. Minor and patch bumps are grouped into
+#     one PR per directory and auto-merged once CI passes; major bumps get their
+#     own PR and are left for a human.
+#
+# The group names "security" and "minor-and-patch" are load-bearing: the
+# auto-merge workflow (.github/workflows/dependabot-auto-merge.yml) keys on them.
+
+version: 2
+
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "uv"
+    directory: "/services/medical-coder"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  # Base images. Both projects require Python >=3.12,<3.13, so the python image
+  # is held on 3.12: minor/major tag bumps (3.13-slim, ...) are ignored, while
+  # rebuilt 3.12 images still come through.
+  - package-ecosystem: "docker"
+    directories: ["/", "/services/medical-coder"]
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    ignore:
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
