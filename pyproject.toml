@@ -86,7 +86,7 @@ dependencies = [
     "psycopg2-binary>=2.9.10",
     "uvicorn>=0.34.2",
     "sqlparse>=0.6.0",
-    "fastmcp[tasks]>=4.2.2",
+    "fastmcp[tasks]>=4.2.3",
     "key-value[redis]>=0.1.2",
     "langchain-google-genai",
     "google-genai>=1.55.0",
