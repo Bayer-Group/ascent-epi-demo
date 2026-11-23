@@ -32,7 +32,7 @@ dependencies = [
     "cryptography>=50.0.0",
 
     # ---------- LLM / AI ----------
-    "openai==1.93.2",
+    "openai==3.57.0",
     "google-genai==1.56.0",
 
     # ---------- Web / API ----------

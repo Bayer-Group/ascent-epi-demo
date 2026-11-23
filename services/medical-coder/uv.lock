@@ -105,7 +105,7 @@ requires-dist = [
     { name = "google-genai", specifier = "==1.56.0" },
     { name = "gunicorn", specifier = "==22.0.0" },
     { name = "numpy", specifier = ">=2.2" },
-    { name = "openai", specifier = "==1.93.2" },
+    { name = "openai", specifier = "==3.57.0" },
     { name = "pandas", specifier = "==2.2.3" },
     { name = "pyarrow", specifier = ">=23.0.1" },
     { name = "pydantic", specifier = "==2.14.4" },
@@ -829,21 +829,19 @@ wheels = [
 
 [[package]]
 name = "openai"
-version = "1.93.2"
+version = "3.57.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
-    { name = "distro" },
-    { name = "httpx" },
+    { name = "httpx2" },
     { name = "jiter" },
     { name = "pydantic" },
     { name = "sniffio" },
-    { name = "tqdm" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/18/2b/0d93a981afe76b4e89c57b69bf421b5f15878983fccbad321f142ba6e89b/openai-1.93.2.tar.gz", hash = "sha256:4a7312b426b5e4c98b78dfa1148b5683371882de3ad3d5f7c8e0c74f3cc90778", size = 487225, upload-time = "2025-07-08T15:38:00.218Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/90/b2/97780581dab39384d1de4bc15f1f6cbaff26ce965a46c23a10bd948b71a8/openai-3.57.0.tar.gz", hash = "sha256:5a0a89d6a542efc85e2a8cec701ca9265b795d578c777828e10fafdf80e333b6", size = 2425150, upload-time = "2026-11-20T01:28:43.575Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/03/22/f7b90b519e8a5867dc96d411615eb7f987d2d5474c22e7d37c7170a132da/openai-1.93.2-py3-none-any.whl", hash = "sha256:5adbbebd48eae160e6d68efc4c0a4f7cb1318a44c62d9fc626cec229f418eab4", size = 755084, upload-time = "2025-07-08T15:37:58.045Z" },
+    { url = "https://files.pythonhosted.org/packages/e0/40/0475208a470f90a1d3e94b41382678b44f311c2ea2a317228531e2193567/openai-3.57.0-py3-none-any.whl", hash = "sha256:f97bc74024c06ced8428b56c4a3594066709d3082779bf9d0b4b6092fbf587a8", size = 2451809, upload-time = "2026-11-20T01:28:41.48Z" },
 ]
 
 [[package]]
