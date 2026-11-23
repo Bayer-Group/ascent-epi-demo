@@ -138,9 +138,18 @@ def _infer_sf_type(series: pd.Series) -> str:
     return "VARCHAR"
 
 
+# Dates outside the nanosecond-timestamp range (~1677-2262) are treated as invalid and stored as NULL.
+# pandas < 3 did this implicitly (to_datetime(errors="coerce") overflowed them to NaT); pandas 3 parses
+# at microsecond resolution and would keep e.g. year 3004, so the bound is applied explicitly.
+_DATE_MIN = pd.Timestamp("1677-09-22")
+_DATE_MAX = pd.Timestamp("2262-04-11")
+
+
 def _normalize_date_series(series: pd.Series) -> pd.Series:
     # Snowflake is picky about the input format, see `SHOW PARAMETERS LIKE 'DATE_INPUT_FORMAT'`.
-    return pd.to_datetime(series, errors="coerce").dt.strftime("%Y-%m-%d").replace({pd.NA: None, pd.NaT: None, np.nan: None})
+    dates = pd.to_datetime(series, errors="coerce")
+    dates = dates.where(dates.between(_DATE_MIN, _DATE_MAX))
+    return dates.dt.strftime("%Y-%m-%d").replace({pd.NA: None, pd.NaT: None, np.nan: None})
 
 
 async def _write_cohort_table(
