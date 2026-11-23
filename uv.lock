@@ -370,7 +370,7 @@ requires-dist = [
     { name = "sentence-transformers", specifier = ">=5.6.0" },
     { name = "snowflake-connector-python", specifier = ">=4.7.3" },
     { name = "sqlalchemy", specifier = ">=2.0.37" },
-    { name = "sqlglot", specifier = "==25.20.2" },
+    { name = "sqlglot", specifier = "==30.33.0" },
     { name = "sqlparse", specifier = ">=0.6.0" },
     { name = "streamlit", marker = "extra == 'research'" },
     { name = "tabulate" },
@@ -3748,11 +3748,11 @@ wheels = [
 
 [[package]]
 name = "sqlglot"
-version = "25.20.2"
+version = "30.33.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d2/2d/41cb9c42858a33166354791fef092edc5ce72f0c6f3abf7402c63567ec5e/sqlglot-25.20.2.tar.gz", hash = "sha256:169fe8308dd70d7bd40117b2221b62bdc7c4e2ea8eb07394b2a6146cdedf05ab", size = 19429583, upload-time = "2024-09-24T17:03:37.543Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f6/4d/ce64044d87620a6cfeb0de779359400f29730ad169d7f804c050f8de7c5e/sqlglot-30.33.0.tar.gz", hash = "sha256:9c007e0471c93e778d8613f25853543b959a3f793d9dadf1341b3d6bd53246a8", size = 6253207, upload-time = "2026-11-17T12:19:03.18Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f1/ae/d66e99b458fd0a453b5f2103f44cdcab67a9f1fbe47339be1c86b5e4e21e/sqlglot-25.20.2-py3-none-any.whl", hash = "sha256:cdbfd7ce3f2f39f32bd7b4c23fd9e0fd261636a6b14285b914e8def25fd0a567", size = 411245, upload-time = "2024-09-24T17:03:34.957Z" },
+    { url = "https://files.pythonhosted.org/packages/32/b2/564252e22f8e0a383adee6b38afc4a0e38fccbc4046b5c36a387a2308f23/sqlglot-30.33.0-py3-none-any.whl", hash = "sha256:a5b279fe7397a9fb6cdd0274a13a5fcee0fa83ac6ff617083f1f2832031e90bc", size = 829420, upload-time = "2026-11-17T12:19:01.389Z" },
 ]
 
 [[package]]
