@@ -36,7 +36,7 @@ async def test_ui_select_returns_ui_resource_with_options_and_back_channel():
     resource = _resource(result)
 
     assert str(resource.uri).startswith("ui://")
-    assert resource.mimeType == "text/html"
+    assert resource.mime_type == "text/html"
     assert "<select" in resource.text
     assert "SYNTHETIC_EHR_OMOP" in resource.text
     assert "CDM_OMOP" in resource.text

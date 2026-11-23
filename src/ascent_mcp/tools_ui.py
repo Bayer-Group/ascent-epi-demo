@@ -23,9 +23,8 @@ import html as _html
 import json
 from typing import Any
 
-from fastmcp.tools.tool import ToolResult
+from fastmcp.tools import ToolResult
 from mcp.types import EmbeddedResource, TextResourceContents
-from pydantic import AnyUrl
 
 from ascent_mcp.app_ui import mcp_ui
 
@@ -77,8 +76,8 @@ def _ui(html_body: str, script: str) -> ToolResult:
     resource = EmbeddedResource(
         type="resource",
         resource=TextResourceContents(
-            uri=AnyUrl("ui://ascent-ui-kit/component"),
-            mimeType="text/html",
+            uri="ui://ascent-ui-kit/component",
+            mime_type="text/html",
             text=doc,
         ),
     )
