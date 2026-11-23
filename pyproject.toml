@@ -42,7 +42,7 @@ dependencies = [
     # dependency removal should not also bump the SQL transpiler the warehouse
     # relies on -- moving them is a separate, testable decision.
     "duckdb==1.1.3",
-    "sqlglot==25.20.2",
+    "sqlglot==30.33.0",
     "pyjwt>=2.15.0",
     "langchain-core>=1.8.4",
     "aiocache>=0.12.3",
