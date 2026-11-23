@@ -1,0 +1,78 @@
+# Auto-merge Dependabot pull requests.
+#
+# Policy, in order of priority: an open security alert is a bigger risk to this
+# repository than a dependency bump that turns out to be incompatible -- the
+# latter is a normal bug someone can fix, the former can get the repo shut down.
+# So:
+#
+#   * Security updates (Dependabot group "security") are merged immediately,
+#     without waiting for CI.
+#   * Weekly minor/patch updates (group "minor-and-patch") are merged once the
+#     CI workflow has passed on the PR's exact head commit. If CI fails the PR
+#     stays open for a human.
+#   * Major version updates are never touched here; they need a human.
+#
+# The group names come from .github/dependabot.yml.
+#
+# Note: merges made with GITHUB_TOKEN do not trigger new workflow runs, so CI
+# does not re-run on main after an auto-merge. It already ran on the PR (except
+# for security updates, which are deliberately not gated on it).
+
+name: Dependabot auto-merge
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  security:
+    name: merge security update
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge
+        if: steps.meta.outputs.dependency-group == 'security'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge "$PR_URL" --squash --delete-branch
+
+  version-update:
+    name: merge minor/patch update after CI
+    if: >-
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]' &&
+      startsWith(github.event.workflow_run.head_branch, 'dependabot/') &&
+      contains(github.event.workflow_run.head_branch, 'minor-and-patch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          pr=$(gh pr list --repo "$REPO" --head "$BRANCH" --state open \
+                 --author 'app/dependabot' --json number --jq '.[0].number')
+          if [ -z "$pr" ]; then
+            echo "No open Dependabot PR for $BRANCH; nothing to do."
+            exit 0
+          fi
+          # --match-head-commit: only merge the commit CI actually tested.
+          gh pr merge "$pr" --repo "$REPO" --squash --delete-branch --match-head-commit "$SHA"
